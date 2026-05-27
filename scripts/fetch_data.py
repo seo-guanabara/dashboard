@@ -252,16 +252,16 @@ def fetch_youtube():
         r  = yt.reports().query(
             ids=f"channel=={YT_CHANNEL_ID}",
             startDate=p_start, endDate=p_end,
-            metrics="views,estimatedMinutesWatched,subscribersGained,subscribersLost,impressions,impressionClickThroughRate",
+            metrics="views,estimatedMinutesWatched,subscribersGained,subscribersLost",
         ).execute()
         rp = yt.reports().query(
             ids=f"channel=={YT_CHANNEL_ID}",
             startDate=c_start, endDate=c_end,
-            metrics="views,estimatedMinutesWatched,subscribersGained,subscribersLost,impressions,impressionClickThroughRate",
+            metrics="views,estimatedMinutesWatched,subscribersGained,subscribersLost",
         ).execute()
 
-        row  = r.get("rows",  [[0]*6])[0]
-        rowp = rp.get("rows", [[0]*6])[0]
+        row  = r.get("rows",  [[0]*4])[0]
+        rowp = rp.get("rows", [[0]*4])[0]
 
         output["youtube"] = {
             "views":          int(row[0]),
