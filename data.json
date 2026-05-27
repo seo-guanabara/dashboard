@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-27T19:04:18.053170Z",
+    "generated_at": "2026-05-27T19:11:53.864607Z",
     "period_current": {
       "start": "2026-04-27",
       "end": "2026-05-26"
@@ -15,363 +15,274 @@
     }
   },
   "ga4": {
-    "source": "csv",
-    "period_start": "2025-01-01",
-    "period_end": "2026-05-24",
-    "sessions": 5376729,
+    "source": "sheets",
+    "period_start": "2026-04-27",
+    "period_end": "2026-05-26",
+    "sessions": 553757,
     "sessions_delta": 0.0,
-    "new_users": 1159876,
+    "new_users": 0,
     "new_users_delta": 0.0,
-    "returning_users": 1579681,
+    "returning_users": 0,
     "returning_delta": 0.0,
-    "transactions": 363191,
+    "transactions": 38678,
     "transactions_delta": 0.0,
-    "revenue": 67286372.84,
+    "revenue": 204.75,
     "revenue_delta": 0.0,
-    "revenue_ytd": 67286372.84,
+    "revenue_ytd": 0.0,
+    "revenue_ytd_prev": 0.0,
     "daily_sessions": [],
     "channels": [
       {
-        "channel": "Paid Search",
-        "sessions": 15690083,
-        "new_users": 7103237,
-        "returning": 2752835,
-        "transactions": 1230227,
-        "revenue": 233070766.91
+        "channel": "Last Run On",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
       },
       {
-        "channel": "Direct",
-        "sessions": 4743192,
-        "new_users": 1875079,
-        "returning": 638661,
-        "transactions": 621813,
-        "revenue": 114597112.77
+        "channel": "Total Results Found",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
+      },
+      {
+        "channel": "Total Results Returned",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
+      },
+      {
+        "channel": "Tokens per quota",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
+      },
+      {
+        "channel": "Tokens per hour quota",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
+      },
+      {
+        "channel": "Totals For All Results",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
+      },
+      {
+        "channel": "",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
+      },
+      {
+        "channel": "",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
+      },
+      {
+        "channel": "Results Breakdown",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
+      },
+      {
+        "channel": "sessionDefaultChannelGroup",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
+      },
+      {
+        "channel": "Paid Search",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
       },
       {
         "channel": "Organic Search",
-        "sessions": 5394048,
-        "new_users": 1167709,
-        "returning": 1557232,
-        "transactions": 362197,
-        "revenue": 67586352.13
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
+      },
+      {
+        "channel": "Direct",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
       },
       {
         "channel": "Cross-network",
-        "sessions": 2954957,
-        "new_users": 1555421,
-        "returning": 525913,
-        "transactions": 99495,
-        "revenue": 20463343.97
-      },
-      {
-        "channel": "Organic Social",
-        "sessions": 459186,
-        "new_users": 197850,
-        "returning": 90951,
-        "transactions": 111444,
-        "revenue": 20023413.0
-      },
-      {
-        "channel": "Unassigned",
-        "sessions": 258114,
-        "new_users": 71996,
-        "returning": 95527,
-        "transactions": 28853,
-        "revenue": 6193866.11
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
       },
       {
         "channel": "Mobile Push Notifications",
-        "sessions": 1203017,
-        "new_users": 91642,
-        "returning": 230032,
-        "transactions": 24786,
-        "revenue": 5093419.88
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
       },
       {
-        "channel": "Paid",
-        "sessions": 346772,
-        "new_users": 155147,
-        "returning": 98041,
-        "transactions": 29166,
-        "revenue": 4565886.58
+        "channel": "Unassigned",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
+      },
+      {
+        "channel": "Organic Social",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
       },
       {
         "channel": "Referral",
-        "sessions": 141016,
-        "new_users": 45134,
-        "returning": 29449,
-        "transactions": 9977,
-        "revenue": 2295109.67
-      },
-      {
-        "channel": "Orgânico",
-        "sessions": 91015,
-        "new_users": 16471,
-        "returning": 38136,
-        "transactions": 6020,
-        "revenue": 942068.5
-      },
-      {
-        "channel": "Email",
-        "sessions": 42469,
-        "new_users": 18531,
-        "returning": 8065,
-        "transactions": 2740,
-        "revenue": 508089.55
-      },
-      {
-        "channel": "CRM",
-        "sessions": 33025,
-        "new_users": 6305,
-        "returning": 6743,
-        "transactions": 2106,
-        "revenue": 439639.18
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
       },
       {
         "channel": "Paid Social",
-        "sessions": 129566,
-        "new_users": 93995,
-        "returning": 12246,
-        "transactions": 1109,
-        "revenue": 209616.67
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
       },
       {
-        "channel": "Social Orgânico",
-        "sessions": 3769,
-        "new_users": 2513,
-        "returning": 680,
-        "transactions": 215,
-        "revenue": 39321.74
+        "channel": "Email",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
       },
       {
         "channel": "Organic Video",
-        "sessions": 11362,
-        "new_users": 2933,
-        "returning": 3303,
-        "transactions": 224,
-        "revenue": 29615.32
-      },
-      {
-        "channel": "Display",
-        "sessions": 6023,
-        "new_users": 1299,
-        "returning": 1444,
-        "transactions": 214,
-        "revenue": 25177.9
-      },
-      {
-        "channel": "Not set",
-        "sessions": 1326,
-        "new_users": 241,
-        "returning": 782,
-        "transactions": 117,
-        "revenue": 20564.23
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
       },
       {
         "channel": "Paid Video",
-        "sessions": 3572,
-        "new_users": 490,
-        "returning": 1505,
-        "transactions": 104,
-        "revenue": 14046.85
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
       },
       {
-        "channel": "Affiliates",
-        "sessions": 48,
-        "new_users": 24,
-        "returning": 8,
-        "transactions": 1,
-        "revenue": 932.57
+        "channel": "Display",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
       },
       {
         "channel": "Organic Shopping",
-        "sessions": 191,
-        "new_users": 88,
-        "returning": 41,
-        "transactions": 7,
-        "revenue": 609.82
-      },
-      {
-        "channel": "Paid Other",
-        "sessions": 1019,
-        "new_users": 532,
-        "returning": 109,
-        "transactions": 1,
-        "revenue": 163.95
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0
       }
     ],
     "total_all": {
-      "sessions": 31513770,
-      "transactions": 2530816,
-      "revenue": 476119117.3
+      "sessions": 0,
+      "transactions": 0,
+      "revenue": 0.0
     },
     "seo_total": {
-      "sessions": 5376729,
-      "new_users": 1159876,
-      "returning": 1579681,
-      "transactions": 363191,
-      "revenue": 67286372.83999999
+      "sessions": 553757,
+      "new_users": 0,
+      "returning": 0,
+      "transactions": 38678,
+      "revenue": 204.75
     },
     "seo_organic": {
-      "sessions": 5371684,
-      "new_users": 1157373,
-      "returning": 1578480,
-      "transactions": 362858,
-      "revenue": 67175445.58999999
+      "sessions": 553757,
+      "new_users": 0,
+      "returning": 0,
+      "transactions": 38678,
+      "revenue": 204.75
     },
     "seo_llm": {
-      "sessions": 5045,
-      "new_users": 2503,
-      "returning": 1201,
-      "transactions": 333,
-      "revenue": 110927.25
+      "sessions": 0,
+      "new_users": 0,
+      "returning": 0,
+      "transactions": 0,
+      "revenue": 0.0
     },
     "seo_by_source": [
       {
+        "source": "whatsapp / organic",
+        "sessions": 4,
+        "transactions": 3,
+        "revenue": 204.75,
+        "is_llm": false
+      },
+      {
+        "source": "",
+        "sessions": 277316,
+        "transactions": 19339,
+        "revenue": 0.0,
+        "is_llm": false
+      },
+      {
+        "source": "Results Breakdown",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0,
+        "is_llm": false
+      },
+      {
+        "source": "sessionSourceMedium",
+        "sessions": 0,
+        "transactions": 0,
+        "revenue": 0.0,
+        "is_llm": false
+      },
+      {
         "source": "google / organic",
-        "sessions": 5241616,
-        "new_users": 1110468,
-        "returning": 1548675,
-        "transactions": 347143,
-        "revenue": 63329442.44,
+        "sessions": 261229,
+        "transactions": 17199,
+        "revenue": 0.0,
         "is_llm": false
       },
       {
         "source": "bing / organic",
-        "sessions": 124079,
-        "new_users": 44547,
-        "returning": 28487,
-        "transactions": 15103,
-        "revenue": 3693726.98,
+        "sessions": 14645,
+        "transactions": 2060,
+        "revenue": 0.0,
         "is_llm": false
       },
       {
         "source": "duckduckgo / organic",
-        "sessions": 3173,
-        "new_users": 1229,
-        "returning": 699,
-        "transactions": 322,
-        "revenue": 77189.49,
+        "sessions": 357,
+        "transactions": 39,
+        "revenue": 0.0,
         "is_llm": false
-      },
-      {
-        "source": "chatgpt.com / referral",
-        "sessions": 2779,
-        "new_users": 1150,
-        "returning": 710,
-        "transactions": 199,
-        "revenue": 68815.71,
-        "is_llm": true
       },
       {
         "source": "ecosia.org / organic",
-        "sessions": 1915,
-        "new_users": 704,
-        "returning": 404,
-        "transactions": 203,
-        "revenue": 52019.89,
+        "sessions": 105,
+        "transactions": 20,
+        "revenue": 0.0,
         "is_llm": false
-      },
-      {
-        "source": "chatgpt.com / (not set)",
-        "sessions": 1541,
-        "new_users": 943,
-        "returning": 313,
-        "transactions": 94,
-        "revenue": 27361.44,
-        "is_llm": true
       },
       {
         "source": "yahoo / organic",
-        "sessions": 745,
-        "new_users": 359,
-        "returning": 176,
-        "transactions": 80,
-        "revenue": 21076.57,
+        "sessions": 91,
+        "transactions": 17,
+        "revenue": 0.0,
         "is_llm": false
-      },
-      {
-        "source": "gemini.google.com / referral",
-        "sessions": 573,
-        "new_users": 316,
-        "returning": 143,
-        "transactions": 38,
-        "revenue": 14340.89,
-        "is_llm": true
       },
       {
         "source": "yandex / organic",
-        "sessions": 156,
-        "new_users": 66,
-        "returning": 39,
-        "transactions": 7,
-        "revenue": 1990.22,
+        "sessions": 9,
+        "transactions": 1,
+        "revenue": 0.0,
         "is_llm": false
       },
       {
-        "source": "perplexity / (not set)",
-        "sessions": 56,
-        "new_users": 39,
-        "returning": 8,
-        "transactions": 1,
-        "revenue": 279.28,
-        "is_llm": true
-      },
-      {
-        "source": "copilot.microsoft.com / referral",
-        "sessions": 66,
-        "new_users": 38,
-        "returning": 19,
-        "transactions": 1,
-        "revenue": 129.93,
-        "is_llm": true
-      },
-      {
-        "source": "copilot.com / (not set)",
-        "sessions": 18,
-        "new_users": 8,
-        "returning": 7,
-        "transactions": 0,
-        "revenue": 0.0,
-        "is_llm": true
-      },
-      {
-        "source": "copilot.com / referral",
-        "sessions": 6,
-        "new_users": 6,
-        "returning": 0,
-        "transactions": 0,
-        "revenue": 0.0,
-        "is_llm": true
-      },
-      {
-        "source": "claude.ai / referral",
-        "sessions": 3,
-        "new_users": 2,
-        "returning": 1,
-        "transactions": 0,
-        "revenue": 0.0,
-        "is_llm": true
-      },
-      {
-        "source": "chatgpt.com / (none)",
-        "sessions": 2,
-        "new_users": 0,
-        "returning": 0,
-        "transactions": 0,
-        "revenue": 0.0,
-        "is_llm": true
-      },
-      {
-        "source": "l.meta.ai / referral",
+        "source": "qwant.com / organic",
         "sessions": 1,
-        "new_users": 1,
-        "returning": 0,
         "transactions": 0,
         "revenue": 0.0,
-        "is_llm": true
+        "is_llm": false
       }
     ],
+    "conv_rate": 6.98,
     "top_routes": [
       {
         "path": "Cidades atendidas para viagem de ônibus – Expresso Guanabara",
@@ -474,7 +385,6 @@
         "revenue": 278.97
       }
     ],
-    "conv_rate": 6.75,
     "top_carriers": [
       {
         "path": "Compre sua Passagem de ônibus online – Expresso Guanabara",
@@ -3815,7 +3725,7509 @@
       0,
       0
     ],
-    "backlinks_total": 7166
+    "backlinks_total": 7166,
+    "extra_properties": {
+      "gsc_grafico_novo": {
+        "name": "novo.viajeguanabara.com.br",
+        "all_daily": [
+          {
+            "date": "2026-04-05",
+            "clicks": 48,
+            "impressions": 670
+          },
+          {
+            "date": "2026-04-06",
+            "clicks": 37,
+            "impressions": 633
+          },
+          {
+            "date": "2026-04-07",
+            "clicks": 38,
+            "impressions": 568
+          },
+          {
+            "date": "2026-04-08",
+            "clicks": 28,
+            "impressions": 650
+          },
+          {
+            "date": "2026-04-09",
+            "clicks": 25,
+            "impressions": 748
+          },
+          {
+            "date": "2026-04-10",
+            "clicks": 34,
+            "impressions": 1239
+          },
+          {
+            "date": "2026-04-11",
+            "clicks": 21,
+            "impressions": 1208
+          },
+          {
+            "date": "2026-04-12",
+            "clicks": 23,
+            "impressions": 2195
+          },
+          {
+            "date": "2026-04-13",
+            "clicks": 30,
+            "impressions": 2677
+          },
+          {
+            "date": "2026-04-14",
+            "clicks": 24,
+            "impressions": 882
+          },
+          {
+            "date": "2026-04-15",
+            "clicks": 31,
+            "impressions": 837
+          },
+          {
+            "date": "2026-04-16",
+            "clicks": 40,
+            "impressions": 1360
+          },
+          {
+            "date": "2026-04-17",
+            "clicks": 67,
+            "impressions": 9457
+          },
+          {
+            "date": "2026-04-18",
+            "clicks": 132,
+            "impressions": 22008
+          },
+          {
+            "date": "2026-04-19",
+            "clicks": 142,
+            "impressions": 20963
+          },
+          {
+            "date": "2026-04-20",
+            "clicks": 98,
+            "impressions": 18124
+          },
+          {
+            "date": "2026-04-21",
+            "clicks": 85,
+            "impressions": 16174
+          },
+          {
+            "date": "2026-04-22",
+            "clicks": 89,
+            "impressions": 16825
+          },
+          {
+            "date": "2026-04-23",
+            "clicks": 79,
+            "impressions": 15678
+          },
+          {
+            "date": "2026-04-24",
+            "clicks": 80,
+            "impressions": 16872
+          },
+          {
+            "date": "2026-04-25",
+            "clicks": 85,
+            "impressions": 12281
+          },
+          {
+            "date": "2026-04-26",
+            "clicks": 75,
+            "impressions": 12947
+          },
+          {
+            "date": "2026-04-27",
+            "clicks": 104,
+            "impressions": 14512
+          },
+          {
+            "date": "2026-04-28",
+            "clicks": 93,
+            "impressions": 21539
+          },
+          {
+            "date": "2026-04-29",
+            "clicks": 133,
+            "impressions": 24306
+          },
+          {
+            "date": "2026-04-30",
+            "clicks": 98,
+            "impressions": 25295
+          },
+          {
+            "date": "2026-05-01",
+            "clicks": 113,
+            "impressions": 21195
+          },
+          {
+            "date": "2026-05-02",
+            "clicks": 81,
+            "impressions": 18203
+          },
+          {
+            "date": "2026-05-03",
+            "clicks": 107,
+            "impressions": 20246
+          },
+          {
+            "date": "2026-05-04",
+            "clicks": 120,
+            "impressions": 24744
+          },
+          {
+            "date": "2026-05-05",
+            "clicks": 112,
+            "impressions": 22412
+          },
+          {
+            "date": "2026-05-06",
+            "clicks": 116,
+            "impressions": 20834
+          },
+          {
+            "date": "2026-05-07",
+            "clicks": 117,
+            "impressions": 20986
+          },
+          {
+            "date": "2026-05-08",
+            "clicks": 118,
+            "impressions": 23812
+          },
+          {
+            "date": "2026-05-09",
+            "clicks": 101,
+            "impressions": 17140
+          },
+          {
+            "date": "2026-05-10",
+            "clicks": 118,
+            "impressions": 17177
+          },
+          {
+            "date": "2026-05-11",
+            "clicks": 133,
+            "impressions": 21743
+          },
+          {
+            "date": "2026-05-12",
+            "clicks": 110,
+            "impressions": 19664
+          },
+          {
+            "date": "2026-05-13",
+            "clicks": 253,
+            "impressions": 23784
+          },
+          {
+            "date": "2026-05-14",
+            "clicks": 217,
+            "impressions": 22397
+          },
+          {
+            "date": "2026-05-15",
+            "clicks": 241,
+            "impressions": 21464
+          },
+          {
+            "date": "2026-05-16",
+            "clicks": 259,
+            "impressions": 16614
+          },
+          {
+            "date": "2026-05-17",
+            "clicks": 241,
+            "impressions": 17841
+          },
+          {
+            "date": "2026-05-18",
+            "clicks": 340,
+            "impressions": 21372
+          },
+          {
+            "date": "2026-05-19",
+            "clicks": 77,
+            "impressions": 15513
+          },
+          {
+            "date": "2026-05-20",
+            "clicks": 48,
+            "impressions": 11583
+          },
+          {
+            "date": "2026-05-21",
+            "clicks": 59,
+            "impressions": 13326
+          },
+          {
+            "date": "2026-05-22",
+            "clicks": 73,
+            "impressions": 15002
+          },
+          {
+            "date": "2026-05-23",
+            "clicks": 59,
+            "impressions": 12459
+          },
+          {
+            "date": "2026-05-24",
+            "clicks": 67,
+            "impressions": 14813
+          },
+          {
+            "date": "2026-05-25",
+            "clicks": 49,
+            "impressions": 16844
+          },
+          {
+            "date": "2026-05-26",
+            "clicks": 57,
+            "impressions": 15842
+          },
+          {
+            "date": "2026-05-27",
+            "clicks": 7,
+            "impressions": 1656
+          }
+        ]
+      },
+      "gsc_grafico_www": {
+        "name": "www.viajeguanabara.com.br",
+        "all_daily": [
+          {
+            "date": "2025-01-27",
+            "clicks": 18,
+            "impressions": 1081
+          },
+          {
+            "date": "2025-01-28",
+            "clicks": 7,
+            "impressions": 1124
+          },
+          {
+            "date": "2025-01-29",
+            "clicks": 9,
+            "impressions": 866
+          },
+          {
+            "date": "2025-01-30",
+            "clicks": 7,
+            "impressions": 789
+          },
+          {
+            "date": "2025-01-31",
+            "clicks": 10,
+            "impressions": 920
+          },
+          {
+            "date": "2025-02-01",
+            "clicks": 8,
+            "impressions": 684
+          },
+          {
+            "date": "2025-02-02",
+            "clicks": 9,
+            "impressions": 564
+          },
+          {
+            "date": "2025-02-03",
+            "clicks": 6,
+            "impressions": 819
+          },
+          {
+            "date": "2025-02-04",
+            "clicks": 9,
+            "impressions": 804
+          },
+          {
+            "date": "2025-02-05",
+            "clicks": 12,
+            "impressions": 954
+          },
+          {
+            "date": "2025-02-06",
+            "clicks": 83,
+            "impressions": 2604
+          },
+          {
+            "date": "2025-02-07",
+            "clicks": 101,
+            "impressions": 3036
+          },
+          {
+            "date": "2025-02-08",
+            "clicks": 6,
+            "impressions": 700
+          },
+          {
+            "date": "2025-02-09",
+            "clicks": 7,
+            "impressions": 357
+          },
+          {
+            "date": "2025-02-10",
+            "clicks": 11,
+            "impressions": 593
+          },
+          {
+            "date": "2025-02-11",
+            "clicks": 12,
+            "impressions": 641
+          },
+          {
+            "date": "2025-02-12",
+            "clicks": 7,
+            "impressions": 648
+          },
+          {
+            "date": "2025-02-13",
+            "clicks": 5,
+            "impressions": 544
+          },
+          {
+            "date": "2025-02-14",
+            "clicks": 9,
+            "impressions": 408
+          },
+          {
+            "date": "2025-02-15",
+            "clicks": 1,
+            "impressions": 265
+          },
+          {
+            "date": "2025-02-16",
+            "clicks": 9,
+            "impressions": 235
+          },
+          {
+            "date": "2025-02-17",
+            "clicks": 4,
+            "impressions": 450
+          },
+          {
+            "date": "2025-02-18",
+            "clicks": 4,
+            "impressions": 311
+          },
+          {
+            "date": "2025-02-19",
+            "clicks": 32,
+            "impressions": 1148
+          },
+          {
+            "date": "2025-02-20",
+            "clicks": 4,
+            "impressions": 321
+          },
+          {
+            "date": "2025-02-21",
+            "clicks": 6,
+            "impressions": 422
+          },
+          {
+            "date": "2025-02-22",
+            "clicks": 1,
+            "impressions": 303
+          },
+          {
+            "date": "2025-02-23",
+            "clicks": 9,
+            "impressions": 377
+          },
+          {
+            "date": "2025-02-24",
+            "clicks": 5,
+            "impressions": 909
+          },
+          {
+            "date": "2025-02-25",
+            "clicks": 7,
+            "impressions": 930
+          },
+          {
+            "date": "2025-02-26",
+            "clicks": 9,
+            "impressions": 606
+          },
+          {
+            "date": "2025-02-27",
+            "clicks": 6,
+            "impressions": 524
+          },
+          {
+            "date": "2025-02-28",
+            "clicks": 6,
+            "impressions": 597
+          },
+          {
+            "date": "2025-03-01",
+            "clicks": 1,
+            "impressions": 333
+          },
+          {
+            "date": "2025-03-02",
+            "clicks": 0,
+            "impressions": 367
+          },
+          {
+            "date": "2025-03-03",
+            "clicks": 4,
+            "impressions": 301
+          },
+          {
+            "date": "2025-03-04",
+            "clicks": 2,
+            "impressions": 675
+          },
+          {
+            "date": "2025-03-05",
+            "clicks": 7,
+            "impressions": 984
+          },
+          {
+            "date": "2025-03-06",
+            "clicks": 4,
+            "impressions": 484
+          },
+          {
+            "date": "2025-03-07",
+            "clicks": 3,
+            "impressions": 385
+          },
+          {
+            "date": "2025-03-08",
+            "clicks": 0,
+            "impressions": 254
+          },
+          {
+            "date": "2025-03-09",
+            "clicks": 6,
+            "impressions": 260
+          },
+          {
+            "date": "2025-03-10",
+            "clicks": 7,
+            "impressions": 503
+          },
+          {
+            "date": "2025-03-11",
+            "clicks": 2,
+            "impressions": 508
+          },
+          {
+            "date": "2025-03-12",
+            "clicks": 9,
+            "impressions": 425
+          },
+          {
+            "date": "2025-03-13",
+            "clicks": 8,
+            "impressions": 485
+          },
+          {
+            "date": "2025-03-14",
+            "clicks": 3,
+            "impressions": 385
+          },
+          {
+            "date": "2025-03-15",
+            "clicks": 3,
+            "impressions": 267
+          },
+          {
+            "date": "2025-03-16",
+            "clicks": 0,
+            "impressions": 338
+          },
+          {
+            "date": "2025-03-17",
+            "clicks": 6,
+            "impressions": 538
+          },
+          {
+            "date": "2025-03-18",
+            "clicks": 6,
+            "impressions": 489
+          },
+          {
+            "date": "2025-03-19",
+            "clicks": 1,
+            "impressions": 405
+          },
+          {
+            "date": "2025-03-20",
+            "clicks": 6,
+            "impressions": 381
+          },
+          {
+            "date": "2025-03-21",
+            "clicks": 7,
+            "impressions": 367
+          },
+          {
+            "date": "2025-03-22",
+            "clicks": 3,
+            "impressions": 283
+          },
+          {
+            "date": "2025-03-23",
+            "clicks": 7,
+            "impressions": 305
+          },
+          {
+            "date": "2025-03-24",
+            "clicks": 6,
+            "impressions": 417
+          },
+          {
+            "date": "2025-03-25",
+            "clicks": 3,
+            "impressions": 316
+          },
+          {
+            "date": "2025-03-26",
+            "clicks": 2,
+            "impressions": 350
+          },
+          {
+            "date": "2025-03-27",
+            "clicks": 6,
+            "impressions": 402
+          },
+          {
+            "date": "2025-03-28",
+            "clicks": 4,
+            "impressions": 414
+          },
+          {
+            "date": "2025-03-29",
+            "clicks": 3,
+            "impressions": 317
+          },
+          {
+            "date": "2025-03-30",
+            "clicks": 1,
+            "impressions": 281
+          },
+          {
+            "date": "2025-03-31",
+            "clicks": 3,
+            "impressions": 463
+          },
+          {
+            "date": "2025-04-01",
+            "clicks": 6,
+            "impressions": 898
+          },
+          {
+            "date": "2025-04-02",
+            "clicks": 9,
+            "impressions": 1287
+          },
+          {
+            "date": "2025-04-03",
+            "clicks": 6,
+            "impressions": 951
+          },
+          {
+            "date": "2025-04-04",
+            "clicks": 3,
+            "impressions": 604
+          },
+          {
+            "date": "2025-04-05",
+            "clicks": 2,
+            "impressions": 446
+          },
+          {
+            "date": "2025-04-06",
+            "clicks": 10,
+            "impressions": 593
+          },
+          {
+            "date": "2025-04-07",
+            "clicks": 5,
+            "impressions": 742
+          },
+          {
+            "date": "2025-04-08",
+            "clicks": 2,
+            "impressions": 616
+          },
+          {
+            "date": "2025-04-09",
+            "clicks": 4,
+            "impressions": 417
+          },
+          {
+            "date": "2025-04-10",
+            "clicks": 5,
+            "impressions": 342
+          },
+          {
+            "date": "2025-04-11",
+            "clicks": 11,
+            "impressions": 782
+          },
+          {
+            "date": "2025-04-12",
+            "clicks": 5,
+            "impressions": 653
+          },
+          {
+            "date": "2025-04-13",
+            "clicks": 3,
+            "impressions": 1028
+          },
+          {
+            "date": "2025-04-14",
+            "clicks": 5,
+            "impressions": 1539
+          },
+          {
+            "date": "2025-04-15",
+            "clicks": 2,
+            "impressions": 873
+          },
+          {
+            "date": "2025-04-16",
+            "clicks": 5,
+            "impressions": 719
+          },
+          {
+            "date": "2025-04-17",
+            "clicks": 3,
+            "impressions": 712
+          },
+          {
+            "date": "2025-04-18",
+            "clicks": 3,
+            "impressions": 880
+          },
+          {
+            "date": "2025-04-19",
+            "clicks": 3,
+            "impressions": 629
+          },
+          {
+            "date": "2025-04-20",
+            "clicks": 12,
+            "impressions": 668
+          },
+          {
+            "date": "2025-04-21",
+            "clicks": 8,
+            "impressions": 791
+          },
+          {
+            "date": "2025-04-22",
+            "clicks": 2,
+            "impressions": 710
+          },
+          {
+            "date": "2025-04-23",
+            "clicks": 5,
+            "impressions": 629
+          },
+          {
+            "date": "2025-04-24",
+            "clicks": 7,
+            "impressions": 662
+          },
+          {
+            "date": "2025-04-25",
+            "clicks": 6,
+            "impressions": 682
+          },
+          {
+            "date": "2025-04-26",
+            "clicks": 5,
+            "impressions": 524
+          },
+          {
+            "date": "2025-04-27",
+            "clicks": 5,
+            "impressions": 650
+          },
+          {
+            "date": "2025-04-28",
+            "clicks": 8,
+            "impressions": 803
+          },
+          {
+            "date": "2025-04-29",
+            "clicks": 4,
+            "impressions": 661
+          },
+          {
+            "date": "2025-04-30",
+            "clicks": 9,
+            "impressions": 892
+          },
+          {
+            "date": "2025-05-01",
+            "clicks": 5,
+            "impressions": 872
+          },
+          {
+            "date": "2025-05-02",
+            "clicks": 4,
+            "impressions": 886
+          },
+          {
+            "date": "2025-05-03",
+            "clicks": 1,
+            "impressions": 751
+          },
+          {
+            "date": "2025-05-04",
+            "clicks": 5,
+            "impressions": 1003
+          },
+          {
+            "date": "2025-05-05",
+            "clicks": 14,
+            "impressions": 1104
+          },
+          {
+            "date": "2025-05-06",
+            "clicks": 4,
+            "impressions": 1176
+          },
+          {
+            "date": "2025-05-07",
+            "clicks": 4,
+            "impressions": 535
+          },
+          {
+            "date": "2025-05-08",
+            "clicks": 5,
+            "impressions": 637
+          },
+          {
+            "date": "2025-05-09",
+            "clicks": 8,
+            "impressions": 476
+          },
+          {
+            "date": "2025-05-10",
+            "clicks": 4,
+            "impressions": 659
+          },
+          {
+            "date": "2025-05-11",
+            "clicks": 2,
+            "impressions": 812
+          },
+          {
+            "date": "2025-05-12",
+            "clicks": 3,
+            "impressions": 691
+          },
+          {
+            "date": "2025-05-13",
+            "clicks": 5,
+            "impressions": 485
+          },
+          {
+            "date": "2025-05-14",
+            "clicks": 6,
+            "impressions": 813
+          },
+          {
+            "date": "2025-05-15",
+            "clicks": 4,
+            "impressions": 1277
+          },
+          {
+            "date": "2025-05-16",
+            "clicks": 4,
+            "impressions": 1237
+          },
+          {
+            "date": "2025-05-17",
+            "clicks": 7,
+            "impressions": 1038
+          },
+          {
+            "date": "2025-05-18",
+            "clicks": 6,
+            "impressions": 1200
+          },
+          {
+            "date": "2025-05-19",
+            "clicks": 4,
+            "impressions": 1387
+          },
+          {
+            "date": "2025-05-20",
+            "clicks": 7,
+            "impressions": 1369
+          },
+          {
+            "date": "2025-05-21",
+            "clicks": 3,
+            "impressions": 1363
+          },
+          {
+            "date": "2025-05-22",
+            "clicks": 4,
+            "impressions": 735
+          },
+          {
+            "date": "2025-05-23",
+            "clicks": 1,
+            "impressions": 362
+          },
+          {
+            "date": "2025-05-24",
+            "clicks": 1,
+            "impressions": 196
+          },
+          {
+            "date": "2025-05-25",
+            "clicks": 3,
+            "impressions": 229
+          },
+          {
+            "date": "2025-05-26",
+            "clicks": 1,
+            "impressions": 339
+          },
+          {
+            "date": "2025-05-27",
+            "clicks": 2,
+            "impressions": 259
+          },
+          {
+            "date": "2025-05-28",
+            "clicks": 4,
+            "impressions": 224
+          },
+          {
+            "date": "2025-05-29",
+            "clicks": 6,
+            "impressions": 244
+          },
+          {
+            "date": "2025-05-30",
+            "clicks": 6,
+            "impressions": 314
+          },
+          {
+            "date": "2025-05-31",
+            "clicks": 1,
+            "impressions": 201
+          },
+          {
+            "date": "2025-06-01",
+            "clicks": 2,
+            "impressions": 261
+          },
+          {
+            "date": "2025-06-02",
+            "clicks": 5,
+            "impressions": 418
+          },
+          {
+            "date": "2025-06-03",
+            "clicks": 2,
+            "impressions": 305
+          },
+          {
+            "date": "2025-06-04",
+            "clicks": 4,
+            "impressions": 304
+          },
+          {
+            "date": "2025-06-05",
+            "clicks": 4,
+            "impressions": 247
+          },
+          {
+            "date": "2025-06-06",
+            "clicks": 2,
+            "impressions": 251
+          },
+          {
+            "date": "2025-06-07",
+            "clicks": 4,
+            "impressions": 174
+          },
+          {
+            "date": "2025-06-08",
+            "clicks": 0,
+            "impressions": 200
+          },
+          {
+            "date": "2025-06-09",
+            "clicks": 4,
+            "impressions": 255
+          },
+          {
+            "date": "2025-06-10",
+            "clicks": 1,
+            "impressions": 285
+          },
+          {
+            "date": "2025-06-11",
+            "clicks": 5,
+            "impressions": 274
+          },
+          {
+            "date": "2025-06-12",
+            "clicks": 3,
+            "impressions": 263
+          },
+          {
+            "date": "2025-06-13",
+            "clicks": 4,
+            "impressions": 236
+          },
+          {
+            "date": "2025-06-14",
+            "clicks": 4,
+            "impressions": 313
+          },
+          {
+            "date": "2025-06-15",
+            "clicks": 1,
+            "impressions": 287
+          },
+          {
+            "date": "2025-06-16",
+            "clicks": 1,
+            "impressions": 328
+          },
+          {
+            "date": "2025-06-17",
+            "clicks": 3,
+            "impressions": 381
+          },
+          {
+            "date": "2025-06-18",
+            "clicks": 3,
+            "impressions": 483
+          },
+          {
+            "date": "2025-06-19",
+            "clicks": 3,
+            "impressions": 525
+          },
+          {
+            "date": "2025-06-20",
+            "clicks": 2,
+            "impressions": 382
+          },
+          {
+            "date": "2025-06-21",
+            "clicks": 5,
+            "impressions": 706
+          },
+          {
+            "date": "2025-06-22",
+            "clicks": 3,
+            "impressions": 822
+          },
+          {
+            "date": "2026-02-18",
+            "clicks": 1,
+            "impressions": 291
+          },
+          {
+            "date": "2026-02-19",
+            "clicks": 1,
+            "impressions": 295
+          },
+          {
+            "date": "2026-02-20",
+            "clicks": 1,
+            "impressions": 299
+          },
+          {
+            "date": "2026-02-21",
+            "clicks": 0,
+            "impressions": 396
+          },
+          {
+            "date": "2026-02-22",
+            "clicks": 0,
+            "impressions": 434
+          },
+          {
+            "date": "2026-02-23",
+            "clicks": 1,
+            "impressions": 373
+          },
+          {
+            "date": "2026-02-24",
+            "clicks": 1,
+            "impressions": 309
+          },
+          {
+            "date": "2026-02-25",
+            "clicks": 0,
+            "impressions": 215
+          },
+          {
+            "date": "2026-02-26",
+            "clicks": 1,
+            "impressions": 204
+          },
+          {
+            "date": "2026-02-27",
+            "clicks": 3,
+            "impressions": 242
+          },
+          {
+            "date": "2026-02-28",
+            "clicks": 1,
+            "impressions": 313
+          },
+          {
+            "date": "2026-03-01",
+            "clicks": 1,
+            "impressions": 336
+          },
+          {
+            "date": "2026-03-02",
+            "clicks": 0,
+            "impressions": 433
+          },
+          {
+            "date": "2026-03-03",
+            "clicks": 2,
+            "impressions": 392
+          },
+          {
+            "date": "2026-03-04",
+            "clicks": 3,
+            "impressions": 375
+          },
+          {
+            "date": "2026-03-05",
+            "clicks": 0,
+            "impressions": 404
+          },
+          {
+            "date": "2026-03-06",
+            "clicks": 2,
+            "impressions": 250
+          },
+          {
+            "date": "2026-03-07",
+            "clicks": 3,
+            "impressions": 238
+          },
+          {
+            "date": "2026-03-08",
+            "clicks": 0,
+            "impressions": 266
+          },
+          {
+            "date": "2026-03-09",
+            "clicks": 1,
+            "impressions": 287
+          },
+          {
+            "date": "2026-03-10",
+            "clicks": 0,
+            "impressions": 262
+          },
+          {
+            "date": "2026-03-11",
+            "clicks": 0,
+            "impressions": 254
+          },
+          {
+            "date": "2026-03-12",
+            "clicks": 0,
+            "impressions": 292
+          },
+          {
+            "date": "2026-03-13",
+            "clicks": 1,
+            "impressions": 253
+          },
+          {
+            "date": "2026-03-14",
+            "clicks": 0,
+            "impressions": 281
+          },
+          {
+            "date": "2026-03-15",
+            "clicks": 2,
+            "impressions": 553
+          },
+          {
+            "date": "2026-03-16",
+            "clicks": 2,
+            "impressions": 370
+          },
+          {
+            "date": "2026-03-17",
+            "clicks": 2,
+            "impressions": 332
+          },
+          {
+            "date": "2026-03-18",
+            "clicks": 1,
+            "impressions": 326
+          },
+          {
+            "date": "2026-03-19",
+            "clicks": 0,
+            "impressions": 430
+          },
+          {
+            "date": "2026-03-20",
+            "clicks": 0,
+            "impressions": 398
+          },
+          {
+            "date": "2026-03-21",
+            "clicks": 0,
+            "impressions": 419
+          },
+          {
+            "date": "2026-03-22",
+            "clicks": 1,
+            "impressions": 475
+          },
+          {
+            "date": "2026-03-23",
+            "clicks": 3,
+            "impressions": 397
+          },
+          {
+            "date": "2026-03-24",
+            "clicks": 2,
+            "impressions": 370
+          },
+          {
+            "date": "2026-03-25",
+            "clicks": 1,
+            "impressions": 371
+          },
+          {
+            "date": "2026-03-26",
+            "clicks": 2,
+            "impressions": 369
+          },
+          {
+            "date": "2026-03-27",
+            "clicks": 1,
+            "impressions": 320
+          },
+          {
+            "date": "2026-03-28",
+            "clicks": 0,
+            "impressions": 332
+          },
+          {
+            "date": "2026-03-29",
+            "clicks": 0,
+            "impressions": 334
+          },
+          {
+            "date": "2026-03-30",
+            "clicks": 0,
+            "impressions": 481
+          },
+          {
+            "date": "2026-03-31",
+            "clicks": 1,
+            "impressions": 517
+          },
+          {
+            "date": "2026-04-01",
+            "clicks": 2,
+            "impressions": 470
+          },
+          {
+            "date": "2026-04-02",
+            "clicks": 4,
+            "impressions": 617
+          },
+          {
+            "date": "2026-04-03",
+            "clicks": 3,
+            "impressions": 475
+          },
+          {
+            "date": "2026-04-04",
+            "clicks": 7,
+            "impressions": 491
+          },
+          {
+            "date": "2026-04-05",
+            "clicks": 3,
+            "impressions": 975
+          },
+          {
+            "date": "2026-04-06",
+            "clicks": 9,
+            "impressions": 1467
+          },
+          {
+            "date": "2026-04-07",
+            "clicks": 13,
+            "impressions": 1543
+          },
+          {
+            "date": "2026-04-08",
+            "clicks": 2,
+            "impressions": 1074
+          },
+          {
+            "date": "2026-04-09",
+            "clicks": 8,
+            "impressions": 2981
+          },
+          {
+            "date": "2026-04-10",
+            "clicks": 16,
+            "impressions": 3398
+          },
+          {
+            "date": "2026-04-11",
+            "clicks": 6,
+            "impressions": 624
+          },
+          {
+            "date": "2026-04-12",
+            "clicks": 10,
+            "impressions": 672
+          },
+          {
+            "date": "2026-04-13",
+            "clicks": 10,
+            "impressions": 529
+          },
+          {
+            "date": "2026-04-14",
+            "clicks": 14,
+            "impressions": 2805
+          },
+          {
+            "date": "2026-04-15",
+            "clicks": 18,
+            "impressions": 7934
+          },
+          {
+            "date": "2026-04-16",
+            "clicks": 6,
+            "impressions": 575
+          },
+          {
+            "date": "2026-04-17",
+            "clicks": 14,
+            "impressions": 611
+          },
+          {
+            "date": "2026-04-18",
+            "clicks": 4,
+            "impressions": 1158
+          },
+          {
+            "date": "2026-04-19",
+            "clicks": 6,
+            "impressions": 822
+          },
+          {
+            "date": "2026-04-20",
+            "clicks": 14,
+            "impressions": 766
+          },
+          {
+            "date": "2026-04-21",
+            "clicks": 15,
+            "impressions": 882
+          },
+          {
+            "date": "2026-04-22",
+            "clicks": 10,
+            "impressions": 855
+          },
+          {
+            "date": "2026-04-23",
+            "clicks": 14,
+            "impressions": 1000
+          },
+          {
+            "date": "2026-04-24",
+            "clicks": 14,
+            "impressions": 767
+          },
+          {
+            "date": "2026-04-25",
+            "clicks": 10,
+            "impressions": 674
+          },
+          {
+            "date": "2026-04-26",
+            "clicks": 8,
+            "impressions": 709
+          },
+          {
+            "date": "2026-04-27",
+            "clicks": 22,
+            "impressions": 713
+          },
+          {
+            "date": "2026-04-28",
+            "clicks": 9,
+            "impressions": 688
+          },
+          {
+            "date": "2026-04-29",
+            "clicks": 20,
+            "impressions": 757
+          },
+          {
+            "date": "2026-04-30",
+            "clicks": 11,
+            "impressions": 766
+          },
+          {
+            "date": "2026-05-01",
+            "clicks": 20,
+            "impressions": 632
+          },
+          {
+            "date": "2026-05-02",
+            "clicks": 15,
+            "impressions": 721
+          },
+          {
+            "date": "2026-05-03",
+            "clicks": 17,
+            "impressions": 909
+          },
+          {
+            "date": "2026-05-04",
+            "clicks": 20,
+            "impressions": 832
+          },
+          {
+            "date": "2026-05-05",
+            "clicks": 7,
+            "impressions": 731
+          },
+          {
+            "date": "2026-05-06",
+            "clicks": 17,
+            "impressions": 773
+          },
+          {
+            "date": "2026-05-07",
+            "clicks": 17,
+            "impressions": 1020
+          },
+          {
+            "date": "2026-05-08",
+            "clicks": 5,
+            "impressions": 451
+          },
+          {
+            "date": "2026-05-09",
+            "clicks": 2,
+            "impressions": 416
+          },
+          {
+            "date": "2026-05-10",
+            "clicks": 4,
+            "impressions": 454
+          },
+          {
+            "date": "2026-05-11",
+            "clicks": 2,
+            "impressions": 455
+          },
+          {
+            "date": "2026-05-12",
+            "clicks": 4,
+            "impressions": 1166
+          },
+          {
+            "date": "2026-05-13",
+            "clicks": 7,
+            "impressions": 929
+          },
+          {
+            "date": "2026-05-14",
+            "clicks": 3,
+            "impressions": 619
+          },
+          {
+            "date": "2026-05-15",
+            "clicks": 2,
+            "impressions": 572
+          },
+          {
+            "date": "2026-05-16",
+            "clicks": 3,
+            "impressions": 609
+          },
+          {
+            "date": "2026-05-17",
+            "clicks": 3,
+            "impressions": 818
+          },
+          {
+            "date": "2026-05-18",
+            "clicks": 4,
+            "impressions": 609
+          },
+          {
+            "date": "2026-05-19",
+            "clicks": 5,
+            "impressions": 632
+          },
+          {
+            "date": "2026-05-20",
+            "clicks": 2,
+            "impressions": 815
+          },
+          {
+            "date": "2026-05-21",
+            "clicks": 16,
+            "impressions": 951
+          },
+          {
+            "date": "2026-05-22",
+            "clicks": 9,
+            "impressions": 908
+          },
+          {
+            "date": "2026-05-23",
+            "clicks": 6,
+            "impressions": 832
+          },
+          {
+            "date": "2026-05-24",
+            "clicks": 7,
+            "impressions": 791
+          },
+          {
+            "date": "2026-05-25",
+            "clicks": 8,
+            "impressions": 820
+          },
+          {
+            "date": "2026-05-26",
+            "clicks": 6,
+            "impressions": 716
+          },
+          {
+            "date": "2026-05-27",
+            "clicks": 2,
+            "impressions": 75
+          }
+        ]
+      },
+      "gsc_grafico_mkt": {
+        "name": "mkt.viajeguanabara.com.br",
+        "all_daily": [
+          {
+            "date": "2025-01-27",
+            "clicks": 59,
+            "impressions": 12797
+          },
+          {
+            "date": "2025-01-28",
+            "clicks": 76,
+            "impressions": 11208
+          },
+          {
+            "date": "2025-01-29",
+            "clicks": 79,
+            "impressions": 10590
+          },
+          {
+            "date": "2025-01-30",
+            "clicks": 57,
+            "impressions": 10772
+          },
+          {
+            "date": "2025-01-31",
+            "clicks": 49,
+            "impressions": 11327
+          },
+          {
+            "date": "2025-02-01",
+            "clicks": 43,
+            "impressions": 7886
+          },
+          {
+            "date": "2025-02-02",
+            "clicks": 55,
+            "impressions": 8447
+          },
+          {
+            "date": "2025-02-03",
+            "clicks": 52,
+            "impressions": 9645
+          },
+          {
+            "date": "2025-02-04",
+            "clicks": 73,
+            "impressions": 9876
+          },
+          {
+            "date": "2025-02-05",
+            "clicks": 71,
+            "impressions": 10046
+          },
+          {
+            "date": "2025-02-06",
+            "clicks": 73,
+            "impressions": 10639
+          },
+          {
+            "date": "2025-02-07",
+            "clicks": 73,
+            "impressions": 10393
+          },
+          {
+            "date": "2025-02-08",
+            "clicks": 47,
+            "impressions": 9108
+          },
+          {
+            "date": "2025-02-09",
+            "clicks": 63,
+            "impressions": 9647
+          },
+          {
+            "date": "2025-02-10",
+            "clicks": 83,
+            "impressions": 12012
+          },
+          {
+            "date": "2025-02-11",
+            "clicks": 78,
+            "impressions": 10735
+          },
+          {
+            "date": "2025-02-12",
+            "clicks": 66,
+            "impressions": 10443
+          },
+          {
+            "date": "2025-02-13",
+            "clicks": 79,
+            "impressions": 10810
+          },
+          {
+            "date": "2025-02-14",
+            "clicks": 74,
+            "impressions": 10645
+          },
+          {
+            "date": "2025-02-15",
+            "clicks": 64,
+            "impressions": 8883
+          },
+          {
+            "date": "2025-02-16",
+            "clicks": 51,
+            "impressions": 8621
+          },
+          {
+            "date": "2025-02-17",
+            "clicks": 76,
+            "impressions": 8851
+          },
+          {
+            "date": "2025-02-18",
+            "clicks": 74,
+            "impressions": 9891
+          },
+          {
+            "date": "2025-02-19",
+            "clicks": 82,
+            "impressions": 9877
+          },
+          {
+            "date": "2025-02-20",
+            "clicks": 67,
+            "impressions": 9605
+          },
+          {
+            "date": "2025-02-21",
+            "clicks": 73,
+            "impressions": 10998
+          },
+          {
+            "date": "2025-02-22",
+            "clicks": 76,
+            "impressions": 9586
+          },
+          {
+            "date": "2025-02-23",
+            "clicks": 65,
+            "impressions": 9700
+          },
+          {
+            "date": "2025-02-24",
+            "clicks": 88,
+            "impressions": 13396
+          },
+          {
+            "date": "2025-02-25",
+            "clicks": 80,
+            "impressions": 14108
+          },
+          {
+            "date": "2025-02-26",
+            "clicks": 101,
+            "impressions": 12308
+          },
+          {
+            "date": "2025-02-27",
+            "clicks": 97,
+            "impressions": 11293
+          },
+          {
+            "date": "2025-02-28",
+            "clicks": 98,
+            "impressions": 11205
+          },
+          {
+            "date": "2025-03-01",
+            "clicks": 80,
+            "impressions": 5550
+          },
+          {
+            "date": "2025-03-02",
+            "clicks": 70,
+            "impressions": 4585
+          },
+          {
+            "date": "2025-03-03",
+            "clicks": 56,
+            "impressions": 5542
+          },
+          {
+            "date": "2025-03-04",
+            "clicks": 74,
+            "impressions": 10378
+          },
+          {
+            "date": "2025-03-05",
+            "clicks": 85,
+            "impressions": 12123
+          },
+          {
+            "date": "2025-03-06",
+            "clicks": 91,
+            "impressions": 12665
+          },
+          {
+            "date": "2025-03-07",
+            "clicks": 82,
+            "impressions": 13110
+          },
+          {
+            "date": "2025-03-08",
+            "clicks": 72,
+            "impressions": 10683
+          },
+          {
+            "date": "2025-03-09",
+            "clicks": 80,
+            "impressions": 11244
+          },
+          {
+            "date": "2025-03-10",
+            "clicks": 90,
+            "impressions": 10421
+          },
+          {
+            "date": "2025-03-11",
+            "clicks": 82,
+            "impressions": 11707
+          },
+          {
+            "date": "2025-03-12",
+            "clicks": 88,
+            "impressions": 11769
+          },
+          {
+            "date": "2025-03-13",
+            "clicks": 84,
+            "impressions": 9595
+          },
+          {
+            "date": "2025-03-14",
+            "clicks": 71,
+            "impressions": 11872
+          },
+          {
+            "date": "2025-03-15",
+            "clicks": 57,
+            "impressions": 10671
+          },
+          {
+            "date": "2025-03-16",
+            "clicks": 64,
+            "impressions": 11167
+          },
+          {
+            "date": "2025-03-17",
+            "clicks": 71,
+            "impressions": 11946
+          },
+          {
+            "date": "2025-03-18",
+            "clicks": 82,
+            "impressions": 12354
+          },
+          {
+            "date": "2025-03-19",
+            "clicks": 93,
+            "impressions": 10834
+          },
+          {
+            "date": "2025-03-20",
+            "clicks": 84,
+            "impressions": 13504
+          },
+          {
+            "date": "2025-03-21",
+            "clicks": 96,
+            "impressions": 13600
+          },
+          {
+            "date": "2025-03-22",
+            "clicks": 52,
+            "impressions": 9217
+          },
+          {
+            "date": "2025-03-23",
+            "clicks": 80,
+            "impressions": 12140
+          },
+          {
+            "date": "2025-03-24",
+            "clicks": 90,
+            "impressions": 15118
+          },
+          {
+            "date": "2025-03-25",
+            "clicks": 101,
+            "impressions": 13574
+          },
+          {
+            "date": "2025-03-26",
+            "clicks": 83,
+            "impressions": 13881
+          },
+          {
+            "date": "2025-03-27",
+            "clicks": 82,
+            "impressions": 13495
+          },
+          {
+            "date": "2025-03-28",
+            "clicks": 77,
+            "impressions": 13045
+          },
+          {
+            "date": "2025-03-29",
+            "clicks": 64,
+            "impressions": 11216
+          },
+          {
+            "date": "2025-03-30",
+            "clicks": 64,
+            "impressions": 11897
+          },
+          {
+            "date": "2025-03-31",
+            "clicks": 111,
+            "impressions": 12935
+          },
+          {
+            "date": "2025-04-01",
+            "clicks": 90,
+            "impressions": 14936
+          },
+          {
+            "date": "2025-04-02",
+            "clicks": 106,
+            "impressions": 16234
+          },
+          {
+            "date": "2025-04-03",
+            "clicks": 108,
+            "impressions": 17135
+          },
+          {
+            "date": "2025-04-04",
+            "clicks": 117,
+            "impressions": 17095
+          },
+          {
+            "date": "2025-04-05",
+            "clicks": 71,
+            "impressions": 13811
+          },
+          {
+            "date": "2025-04-06",
+            "clicks": 87,
+            "impressions": 15079
+          },
+          {
+            "date": "2025-04-07",
+            "clicks": 128,
+            "impressions": 18481
+          },
+          {
+            "date": "2025-04-08",
+            "clicks": 91,
+            "impressions": 17722
+          },
+          {
+            "date": "2025-04-09",
+            "clicks": 114,
+            "impressions": 18253
+          },
+          {
+            "date": "2025-04-10",
+            "clicks": 108,
+            "impressions": 18292
+          },
+          {
+            "date": "2025-04-11",
+            "clicks": 118,
+            "impressions": 18378
+          },
+          {
+            "date": "2025-04-12",
+            "clicks": 71,
+            "impressions": 15754
+          },
+          {
+            "date": "2025-04-13",
+            "clicks": 98,
+            "impressions": 16705
+          },
+          {
+            "date": "2025-04-14",
+            "clicks": 123,
+            "impressions": 23975
+          },
+          {
+            "date": "2025-04-15",
+            "clicks": 123,
+            "impressions": 22940
+          },
+          {
+            "date": "2025-04-16",
+            "clicks": 101,
+            "impressions": 23805
+          },
+          {
+            "date": "2025-04-17",
+            "clicks": 126,
+            "impressions": 21362
+          },
+          {
+            "date": "2025-04-18",
+            "clicks": 91,
+            "impressions": 14319
+          },
+          {
+            "date": "2025-04-19",
+            "clicks": 82,
+            "impressions": 13373
+          },
+          {
+            "date": "2025-04-20",
+            "clicks": 99,
+            "impressions": 16096
+          },
+          {
+            "date": "2025-04-21",
+            "clicks": 117,
+            "impressions": 18741
+          },
+          {
+            "date": "2025-04-22",
+            "clicks": 124,
+            "impressions": 16760
+          },
+          {
+            "date": "2025-04-23",
+            "clicks": 115,
+            "impressions": 14357
+          },
+          {
+            "date": "2025-04-24",
+            "clicks": 103,
+            "impressions": 13565
+          },
+          {
+            "date": "2025-04-25",
+            "clicks": 92,
+            "impressions": 13909
+          },
+          {
+            "date": "2025-04-26",
+            "clicks": 95,
+            "impressions": 11482
+          },
+          {
+            "date": "2025-04-27",
+            "clicks": 102,
+            "impressions": 11880
+          },
+          {
+            "date": "2025-04-28",
+            "clicks": 123,
+            "impressions": 15810
+          },
+          {
+            "date": "2025-04-29",
+            "clicks": 127,
+            "impressions": 16052
+          },
+          {
+            "date": "2025-04-30",
+            "clicks": 106,
+            "impressions": 16615
+          },
+          {
+            "date": "2025-05-01",
+            "clicks": 109,
+            "impressions": 13245
+          },
+          {
+            "date": "2025-05-02",
+            "clicks": 75,
+            "impressions": 13766
+          },
+          {
+            "date": "2025-05-03",
+            "clicks": 68,
+            "impressions": 12494
+          },
+          {
+            "date": "2025-05-04",
+            "clicks": 78,
+            "impressions": 15100
+          },
+          {
+            "date": "2025-05-05",
+            "clicks": 123,
+            "impressions": 16393
+          },
+          {
+            "date": "2025-05-06",
+            "clicks": 94,
+            "impressions": 15903
+          },
+          {
+            "date": "2025-05-07",
+            "clicks": 103,
+            "impressions": 15118
+          },
+          {
+            "date": "2025-05-08",
+            "clicks": 87,
+            "impressions": 15202
+          },
+          {
+            "date": "2025-05-09",
+            "clicks": 100,
+            "impressions": 15567
+          },
+          {
+            "date": "2025-05-10",
+            "clicks": 68,
+            "impressions": 11736
+          },
+          {
+            "date": "2025-05-11",
+            "clicks": 82,
+            "impressions": 11957
+          },
+          {
+            "date": "2025-05-12",
+            "clicks": 108,
+            "impressions": 13259
+          },
+          {
+            "date": "2025-05-13",
+            "clicks": 171,
+            "impressions": 11680
+          },
+          {
+            "date": "2025-05-14",
+            "clicks": 105,
+            "impressions": 13393
+          },
+          {
+            "date": "2025-05-15",
+            "clicks": 119,
+            "impressions": 13347
+          },
+          {
+            "date": "2025-05-16",
+            "clicks": 101,
+            "impressions": 13583
+          },
+          {
+            "date": "2025-05-17",
+            "clicks": 86,
+            "impressions": 10529
+          },
+          {
+            "date": "2025-05-18",
+            "clicks": 80,
+            "impressions": 11664
+          },
+          {
+            "date": "2025-05-19",
+            "clicks": 111,
+            "impressions": 13342
+          },
+          {
+            "date": "2025-05-20",
+            "clicks": 108,
+            "impressions": 13897
+          },
+          {
+            "date": "2025-05-21",
+            "clicks": 97,
+            "impressions": 13413
+          },
+          {
+            "date": "2025-05-22",
+            "clicks": 112,
+            "impressions": 13055
+          },
+          {
+            "date": "2025-05-23",
+            "clicks": 106,
+            "impressions": 13018
+          },
+          {
+            "date": "2025-05-24",
+            "clicks": 76,
+            "impressions": 10759
+          },
+          {
+            "date": "2025-05-25",
+            "clicks": 64,
+            "impressions": 11436
+          },
+          {
+            "date": "2025-05-26",
+            "clicks": 108,
+            "impressions": 14323
+          },
+          {
+            "date": "2025-05-27",
+            "clicks": 111,
+            "impressions": 6293
+          },
+          {
+            "date": "2025-05-28",
+            "clicks": 85,
+            "impressions": 4853
+          },
+          {
+            "date": "2025-05-29",
+            "clicks": 115,
+            "impressions": 5940
+          },
+          {
+            "date": "2025-05-30",
+            "clicks": 121,
+            "impressions": 13135
+          },
+          {
+            "date": "2025-05-31",
+            "clicks": 101,
+            "impressions": 11055
+          },
+          {
+            "date": "2025-06-01",
+            "clicks": 105,
+            "impressions": 12307
+          },
+          {
+            "date": "2025-06-02",
+            "clicks": 120,
+            "impressions": 15206
+          },
+          {
+            "date": "2025-06-03",
+            "clicks": 136,
+            "impressions": 15784
+          },
+          {
+            "date": "2025-06-04",
+            "clicks": 122,
+            "impressions": 16755
+          },
+          {
+            "date": "2025-06-05",
+            "clicks": 133,
+            "impressions": 15821
+          },
+          {
+            "date": "2025-06-06",
+            "clicks": 146,
+            "impressions": 17099
+          },
+          {
+            "date": "2025-06-07",
+            "clicks": 106,
+            "impressions": 13815
+          },
+          {
+            "date": "2025-06-08",
+            "clicks": 147,
+            "impressions": 14438
+          },
+          {
+            "date": "2025-06-09",
+            "clicks": 180,
+            "impressions": 18783
+          },
+          {
+            "date": "2025-06-10",
+            "clicks": 164,
+            "impressions": 14942
+          },
+          {
+            "date": "2025-06-11",
+            "clicks": 115,
+            "impressions": 13443
+          },
+          {
+            "date": "2025-06-12",
+            "clicks": 134,
+            "impressions": 14048
+          },
+          {
+            "date": "2025-06-13",
+            "clicks": 103,
+            "impressions": 14090
+          },
+          {
+            "date": "2025-06-14",
+            "clicks": 113,
+            "impressions": 11759
+          },
+          {
+            "date": "2025-06-15",
+            "clicks": 123,
+            "impressions": 13050
+          },
+          {
+            "date": "2025-06-16",
+            "clicks": 177,
+            "impressions": 17294
+          },
+          {
+            "date": "2025-06-17",
+            "clicks": 130,
+            "impressions": 15171
+          },
+          {
+            "date": "2025-06-18",
+            "clicks": 145,
+            "impressions": 14737
+          },
+          {
+            "date": "2025-06-19",
+            "clicks": 112,
+            "impressions": 12283
+          },
+          {
+            "date": "2025-06-20",
+            "clicks": 115,
+            "impressions": 12325
+          },
+          {
+            "date": "2025-06-21",
+            "clicks": 110,
+            "impressions": 13026
+          },
+          {
+            "date": "2025-06-22",
+            "clicks": 122,
+            "impressions": 15416
+          },
+          {
+            "date": "2025-06-23",
+            "clicks": 119,
+            "impressions": 15827
+          },
+          {
+            "date": "2025-06-24",
+            "clicks": 132,
+            "impressions": 16137
+          },
+          {
+            "date": "2025-06-25",
+            "clicks": 144,
+            "impressions": 14213
+          },
+          {
+            "date": "2025-06-26",
+            "clicks": 137,
+            "impressions": 13753
+          },
+          {
+            "date": "2025-06-27",
+            "clicks": 111,
+            "impressions": 13181
+          },
+          {
+            "date": "2025-06-28",
+            "clicks": 82,
+            "impressions": 10648
+          },
+          {
+            "date": "2025-06-29",
+            "clicks": 103,
+            "impressions": 11240
+          },
+          {
+            "date": "2025-06-30",
+            "clicks": 171,
+            "impressions": 15598
+          },
+          {
+            "date": "2025-07-01",
+            "clicks": 160,
+            "impressions": 13682
+          },
+          {
+            "date": "2025-07-02",
+            "clicks": 149,
+            "impressions": 18100
+          },
+          {
+            "date": "2025-07-03",
+            "clicks": 164,
+            "impressions": 18381
+          },
+          {
+            "date": "2025-07-04",
+            "clicks": 128,
+            "impressions": 16521
+          },
+          {
+            "date": "2025-07-05",
+            "clicks": 92,
+            "impressions": 13703
+          },
+          {
+            "date": "2025-07-06",
+            "clicks": 115,
+            "impressions": 15473
+          },
+          {
+            "date": "2025-07-07",
+            "clicks": 175,
+            "impressions": 21021
+          },
+          {
+            "date": "2025-07-08",
+            "clicks": 174,
+            "impressions": 20503
+          },
+          {
+            "date": "2025-07-09",
+            "clicks": 177,
+            "impressions": 20440
+          },
+          {
+            "date": "2025-07-10",
+            "clicks": 174,
+            "impressions": 13731
+          },
+          {
+            "date": "2025-07-11",
+            "clicks": 142,
+            "impressions": 12535
+          },
+          {
+            "date": "2025-07-12",
+            "clicks": 125,
+            "impressions": 12163
+          },
+          {
+            "date": "2025-07-13",
+            "clicks": 110,
+            "impressions": 14938
+          },
+          {
+            "date": "2025-07-14",
+            "clicks": 181,
+            "impressions": 21271
+          },
+          {
+            "date": "2025-07-15",
+            "clicks": 151,
+            "impressions": 14601
+          },
+          {
+            "date": "2025-07-16",
+            "clicks": 144,
+            "impressions": 15521
+          },
+          {
+            "date": "2025-07-17",
+            "clicks": 154,
+            "impressions": 12810
+          },
+          {
+            "date": "2025-07-18",
+            "clicks": 130,
+            "impressions": 14050
+          },
+          {
+            "date": "2025-07-19",
+            "clicks": 106,
+            "impressions": 13583
+          },
+          {
+            "date": "2025-07-20",
+            "clicks": 115,
+            "impressions": 13640
+          },
+          {
+            "date": "2025-07-21",
+            "clicks": 169,
+            "impressions": 17789
+          },
+          {
+            "date": "2025-07-22",
+            "clicks": 170,
+            "impressions": 14700
+          },
+          {
+            "date": "2025-07-23",
+            "clicks": 143,
+            "impressions": 13794
+          },
+          {
+            "date": "2025-07-24",
+            "clicks": 113,
+            "impressions": 12093
+          },
+          {
+            "date": "2025-07-25",
+            "clicks": 105,
+            "impressions": 12006
+          },
+          {
+            "date": "2025-07-26",
+            "clicks": 88,
+            "impressions": 10986
+          },
+          {
+            "date": "2025-07-27",
+            "clicks": 99,
+            "impressions": 11975
+          },
+          {
+            "date": "2025-07-28",
+            "clicks": 115,
+            "impressions": 18146
+          },
+          {
+            "date": "2025-07-29",
+            "clicks": 94,
+            "impressions": 16888
+          },
+          {
+            "date": "2025-07-30",
+            "clicks": 123,
+            "impressions": 17506
+          },
+          {
+            "date": "2025-07-31",
+            "clicks": 119,
+            "impressions": 17865
+          },
+          {
+            "date": "2025-08-01",
+            "clicks": 103,
+            "impressions": 18469
+          },
+          {
+            "date": "2025-08-02",
+            "clicks": 81,
+            "impressions": 11989
+          },
+          {
+            "date": "2025-08-03",
+            "clicks": 90,
+            "impressions": 13279
+          },
+          {
+            "date": "2025-08-04",
+            "clicks": 111,
+            "impressions": 17470
+          },
+          {
+            "date": "2025-08-05",
+            "clicks": 119,
+            "impressions": 18691
+          },
+          {
+            "date": "2025-08-06",
+            "clicks": 115,
+            "impressions": 18835
+          },
+          {
+            "date": "2025-08-07",
+            "clicks": 113,
+            "impressions": 18576
+          },
+          {
+            "date": "2025-08-08",
+            "clicks": 107,
+            "impressions": 16153
+          },
+          {
+            "date": "2025-08-09",
+            "clicks": 94,
+            "impressions": 13437
+          },
+          {
+            "date": "2025-08-10",
+            "clicks": 82,
+            "impressions": 14142
+          },
+          {
+            "date": "2025-08-11",
+            "clicks": 166,
+            "impressions": 18843
+          },
+          {
+            "date": "2025-08-12",
+            "clicks": 138,
+            "impressions": 18576
+          },
+          {
+            "date": "2025-08-13",
+            "clicks": 119,
+            "impressions": 16849
+          },
+          {
+            "date": "2025-08-14",
+            "clicks": 112,
+            "impressions": 15239
+          },
+          {
+            "date": "2025-08-15",
+            "clicks": 97,
+            "impressions": 14073
+          },
+          {
+            "date": "2025-08-16",
+            "clicks": 90,
+            "impressions": 10282
+          },
+          {
+            "date": "2025-08-17",
+            "clicks": 81,
+            "impressions": 11806
+          },
+          {
+            "date": "2025-08-18",
+            "clicks": 125,
+            "impressions": 13453
+          },
+          {
+            "date": "2025-08-19",
+            "clicks": 129,
+            "impressions": 12214
+          },
+          {
+            "date": "2025-08-20",
+            "clicks": 107,
+            "impressions": 13338
+          },
+          {
+            "date": "2025-08-21",
+            "clicks": 108,
+            "impressions": 15100
+          },
+          {
+            "date": "2025-08-22",
+            "clicks": 100,
+            "impressions": 16172
+          },
+          {
+            "date": "2025-08-23",
+            "clicks": 81,
+            "impressions": 13606
+          },
+          {
+            "date": "2025-08-24",
+            "clicks": 93,
+            "impressions": 14712
+          },
+          {
+            "date": "2025-08-25",
+            "clicks": 142,
+            "impressions": 16947
+          },
+          {
+            "date": "2025-08-26",
+            "clicks": 135,
+            "impressions": 15244
+          },
+          {
+            "date": "2025-08-27",
+            "clicks": 120,
+            "impressions": 16820
+          },
+          {
+            "date": "2025-08-28",
+            "clicks": 123,
+            "impressions": 17444
+          },
+          {
+            "date": "2025-08-29",
+            "clicks": 102,
+            "impressions": 16790
+          },
+          {
+            "date": "2025-08-30",
+            "clicks": 77,
+            "impressions": 14372
+          },
+          {
+            "date": "2025-08-31",
+            "clicks": 98,
+            "impressions": 15654
+          },
+          {
+            "date": "2025-09-01",
+            "clicks": 147,
+            "impressions": 19404
+          },
+          {
+            "date": "2025-09-02",
+            "clicks": 148,
+            "impressions": 18956
+          },
+          {
+            "date": "2025-09-03",
+            "clicks": 137,
+            "impressions": 17410
+          },
+          {
+            "date": "2025-09-04",
+            "clicks": 178,
+            "impressions": 19299
+          },
+          {
+            "date": "2025-09-05",
+            "clicks": 153,
+            "impressions": 21105
+          },
+          {
+            "date": "2025-09-06",
+            "clicks": 100,
+            "impressions": 16011
+          },
+          {
+            "date": "2025-09-07",
+            "clicks": 107,
+            "impressions": 16460
+          },
+          {
+            "date": "2025-09-08",
+            "clicks": 192,
+            "impressions": 20292
+          },
+          {
+            "date": "2025-09-09",
+            "clicks": 170,
+            "impressions": 17310
+          },
+          {
+            "date": "2025-09-10",
+            "clicks": 166,
+            "impressions": 18681
+          },
+          {
+            "date": "2025-09-11",
+            "clicks": 170,
+            "impressions": 19139
+          },
+          {
+            "date": "2025-09-12",
+            "clicks": 145,
+            "impressions": 18095
+          },
+          {
+            "date": "2025-09-13",
+            "clicks": 121,
+            "impressions": 14637
+          },
+          {
+            "date": "2025-09-14",
+            "clicks": 119,
+            "impressions": 15618
+          },
+          {
+            "date": "2025-09-15",
+            "clicks": 193,
+            "impressions": 19772
+          },
+          {
+            "date": "2025-09-16",
+            "clicks": 156,
+            "impressions": 25118
+          },
+          {
+            "date": "2025-09-17",
+            "clicks": 168,
+            "impressions": 26022
+          },
+          {
+            "date": "2025-09-18",
+            "clicks": 185,
+            "impressions": 28318
+          },
+          {
+            "date": "2025-09-19",
+            "clicks": 163,
+            "impressions": 27256
+          },
+          {
+            "date": "2025-09-20",
+            "clicks": 126,
+            "impressions": 20816
+          },
+          {
+            "date": "2025-09-21",
+            "clicks": 139,
+            "impressions": 22713
+          },
+          {
+            "date": "2025-09-22",
+            "clicks": 176,
+            "impressions": 28651
+          },
+          {
+            "date": "2025-09-23",
+            "clicks": 176,
+            "impressions": 26947
+          },
+          {
+            "date": "2025-09-24",
+            "clicks": 147,
+            "impressions": 26421
+          },
+          {
+            "date": "2025-09-25",
+            "clicks": 140,
+            "impressions": 24395
+          },
+          {
+            "date": "2025-09-26",
+            "clicks": 126,
+            "impressions": 22825
+          },
+          {
+            "date": "2025-09-27",
+            "clicks": 117,
+            "impressions": 18469
+          },
+          {
+            "date": "2025-09-28",
+            "clicks": 130,
+            "impressions": 20143
+          },
+          {
+            "date": "2025-09-29",
+            "clicks": 157,
+            "impressions": 24708
+          },
+          {
+            "date": "2025-09-30",
+            "clicks": 168,
+            "impressions": 25148
+          },
+          {
+            "date": "2025-10-01",
+            "clicks": 152,
+            "impressions": 25006
+          },
+          {
+            "date": "2025-10-02",
+            "clicks": 176,
+            "impressions": 28355
+          },
+          {
+            "date": "2025-10-03",
+            "clicks": 188,
+            "impressions": 28221
+          },
+          {
+            "date": "2025-10-04",
+            "clicks": 122,
+            "impressions": 21770
+          },
+          {
+            "date": "2025-10-05",
+            "clicks": 161,
+            "impressions": 24231
+          },
+          {
+            "date": "2025-10-06",
+            "clicks": 223,
+            "impressions": 31596
+          },
+          {
+            "date": "2025-10-07",
+            "clicks": 200,
+            "impressions": 28432
+          },
+          {
+            "date": "2025-10-08",
+            "clicks": 208,
+            "impressions": 25533
+          },
+          {
+            "date": "2025-10-09",
+            "clicks": 166,
+            "impressions": 27020
+          },
+          {
+            "date": "2025-10-10",
+            "clicks": 153,
+            "impressions": 25988
+          },
+          {
+            "date": "2025-10-11",
+            "clicks": 113,
+            "impressions": 21278
+          },
+          {
+            "date": "2025-10-12",
+            "clicks": 144,
+            "impressions": 21925
+          },
+          {
+            "date": "2025-10-13",
+            "clicks": 172,
+            "impressions": 28313
+          },
+          {
+            "date": "2025-10-14",
+            "clicks": 181,
+            "impressions": 26937
+          },
+          {
+            "date": "2025-10-15",
+            "clicks": 171,
+            "impressions": 25130
+          },
+          {
+            "date": "2025-10-16",
+            "clicks": 181,
+            "impressions": 26247
+          },
+          {
+            "date": "2025-10-17",
+            "clicks": 166,
+            "impressions": 26249
+          },
+          {
+            "date": "2025-10-18",
+            "clicks": 117,
+            "impressions": 20383
+          },
+          {
+            "date": "2025-10-19",
+            "clicks": 153,
+            "impressions": 21810
+          },
+          {
+            "date": "2025-10-20",
+            "clicks": 239,
+            "impressions": 28144
+          },
+          {
+            "date": "2025-10-21",
+            "clicks": 191,
+            "impressions": 24702
+          },
+          {
+            "date": "2025-10-22",
+            "clicks": 174,
+            "impressions": 23560
+          },
+          {
+            "date": "2025-10-23",
+            "clicks": 157,
+            "impressions": 26320
+          },
+          {
+            "date": "2025-10-24",
+            "clicks": 139,
+            "impressions": 25782
+          },
+          {
+            "date": "2025-10-25",
+            "clicks": 132,
+            "impressions": 20454
+          },
+          {
+            "date": "2025-10-26",
+            "clicks": 143,
+            "impressions": 21629
+          },
+          {
+            "date": "2025-10-27",
+            "clicks": 201,
+            "impressions": 27869
+          },
+          {
+            "date": "2025-10-28",
+            "clicks": 182,
+            "impressions": 24569
+          },
+          {
+            "date": "2025-10-29",
+            "clicks": 154,
+            "impressions": 23907
+          },
+          {
+            "date": "2025-10-30",
+            "clicks": 165,
+            "impressions": 23934
+          },
+          {
+            "date": "2025-10-31",
+            "clicks": 169,
+            "impressions": 23844
+          },
+          {
+            "date": "2025-11-01",
+            "clicks": 116,
+            "impressions": 19938
+          },
+          {
+            "date": "2025-11-02",
+            "clicks": 136,
+            "impressions": 21501
+          },
+          {
+            "date": "2025-11-03",
+            "clicks": 175,
+            "impressions": 27436
+          },
+          {
+            "date": "2025-11-04",
+            "clicks": 188,
+            "impressions": 25547
+          },
+          {
+            "date": "2025-11-05",
+            "clicks": 165,
+            "impressions": 25685
+          },
+          {
+            "date": "2025-11-06",
+            "clicks": 171,
+            "impressions": 27462
+          },
+          {
+            "date": "2025-11-07",
+            "clicks": 151,
+            "impressions": 27499
+          },
+          {
+            "date": "2025-11-08",
+            "clicks": 118,
+            "impressions": 20543
+          },
+          {
+            "date": "2025-11-09",
+            "clicks": 132,
+            "impressions": 21303
+          },
+          {
+            "date": "2025-11-10",
+            "clicks": 181,
+            "impressions": 31784
+          },
+          {
+            "date": "2025-11-11",
+            "clicks": 197,
+            "impressions": 27090
+          },
+          {
+            "date": "2025-11-12",
+            "clicks": 189,
+            "impressions": 27714
+          },
+          {
+            "date": "2025-11-13",
+            "clicks": 173,
+            "impressions": 30254
+          },
+          {
+            "date": "2025-11-14",
+            "clicks": 148,
+            "impressions": 29599
+          },
+          {
+            "date": "2025-11-15",
+            "clicks": 135,
+            "impressions": 20670
+          },
+          {
+            "date": "2025-11-16",
+            "clicks": 154,
+            "impressions": 23621
+          },
+          {
+            "date": "2025-11-17",
+            "clicks": 247,
+            "impressions": 31124
+          },
+          {
+            "date": "2025-11-18",
+            "clicks": 290,
+            "impressions": 41525
+          },
+          {
+            "date": "2025-11-19",
+            "clicks": 219,
+            "impressions": 35962
+          },
+          {
+            "date": "2025-11-20",
+            "clicks": 187,
+            "impressions": 31446
+          },
+          {
+            "date": "2025-11-21",
+            "clicks": 146,
+            "impressions": 29428
+          },
+          {
+            "date": "2025-11-22",
+            "clicks": 120,
+            "impressions": 25395
+          },
+          {
+            "date": "2025-11-23",
+            "clicks": 150,
+            "impressions": 27748
+          },
+          {
+            "date": "2025-11-24",
+            "clicks": 180,
+            "impressions": 32647
+          },
+          {
+            "date": "2025-11-25",
+            "clicks": 251,
+            "impressions": 30749
+          },
+          {
+            "date": "2025-11-26",
+            "clicks": 240,
+            "impressions": 31343
+          },
+          {
+            "date": "2025-11-27",
+            "clicks": 239,
+            "impressions": 33446
+          },
+          {
+            "date": "2025-11-28",
+            "clicks": 289,
+            "impressions": 29966
+          },
+          {
+            "date": "2025-11-29",
+            "clicks": 176,
+            "impressions": 20437
+          },
+          {
+            "date": "2025-11-30",
+            "clicks": 200,
+            "impressions": 27065
+          },
+          {
+            "date": "2025-12-01",
+            "clicks": 323,
+            "impressions": 31546
+          },
+          {
+            "date": "2025-12-02",
+            "clicks": 279,
+            "impressions": 25720
+          },
+          {
+            "date": "2025-12-03",
+            "clicks": 240,
+            "impressions": 27493
+          },
+          {
+            "date": "2025-12-04",
+            "clicks": 259,
+            "impressions": 34043
+          },
+          {
+            "date": "2025-12-05",
+            "clicks": 246,
+            "impressions": 31021
+          },
+          {
+            "date": "2025-12-06",
+            "clicks": 188,
+            "impressions": 23255
+          },
+          {
+            "date": "2025-12-07",
+            "clicks": 230,
+            "impressions": 24862
+          },
+          {
+            "date": "2025-12-08",
+            "clicks": 284,
+            "impressions": 36310
+          },
+          {
+            "date": "2025-12-09",
+            "clicks": 267,
+            "impressions": 35708
+          },
+          {
+            "date": "2025-12-10",
+            "clicks": 278,
+            "impressions": 32995
+          },
+          {
+            "date": "2025-12-11",
+            "clicks": 259,
+            "impressions": 35789
+          },
+          {
+            "date": "2025-12-12",
+            "clicks": 229,
+            "impressions": 33616
+          },
+          {
+            "date": "2025-12-13",
+            "clicks": 200,
+            "impressions": 27604
+          },
+          {
+            "date": "2025-12-14",
+            "clicks": 231,
+            "impressions": 29934
+          },
+          {
+            "date": "2025-12-15",
+            "clicks": 270,
+            "impressions": 39458
+          },
+          {
+            "date": "2025-12-16",
+            "clicks": 276,
+            "impressions": 36592
+          },
+          {
+            "date": "2025-12-17",
+            "clicks": 243,
+            "impressions": 31185
+          },
+          {
+            "date": "2025-12-18",
+            "clicks": 225,
+            "impressions": 32483
+          },
+          {
+            "date": "2025-12-19",
+            "clicks": 243,
+            "impressions": 34541
+          },
+          {
+            "date": "2025-12-20",
+            "clicks": 209,
+            "impressions": 28394
+          },
+          {
+            "date": "2025-12-21",
+            "clicks": 177,
+            "impressions": 28543
+          },
+          {
+            "date": "2025-12-22",
+            "clicks": 225,
+            "impressions": 36303
+          },
+          {
+            "date": "2025-12-23",
+            "clicks": 170,
+            "impressions": 32317
+          },
+          {
+            "date": "2025-12-24",
+            "clicks": 114,
+            "impressions": 21042
+          },
+          {
+            "date": "2025-12-25",
+            "clicks": 150,
+            "impressions": 28122
+          },
+          {
+            "date": "2025-12-26",
+            "clicks": 203,
+            "impressions": 35943
+          },
+          {
+            "date": "2025-12-27",
+            "clicks": 187,
+            "impressions": 30357
+          },
+          {
+            "date": "2025-12-28",
+            "clicks": 203,
+            "impressions": 30838
+          },
+          {
+            "date": "2025-12-29",
+            "clicks": 201,
+            "impressions": 37575
+          },
+          {
+            "date": "2025-12-30",
+            "clicks": 195,
+            "impressions": 33270
+          },
+          {
+            "date": "2025-12-31",
+            "clicks": 114,
+            "impressions": 21665
+          },
+          {
+            "date": "2026-01-01",
+            "clicks": 167,
+            "impressions": 31048
+          },
+          {
+            "date": "2026-01-02",
+            "clicks": 292,
+            "impressions": 43823
+          },
+          {
+            "date": "2026-01-03",
+            "clicks": 252,
+            "impressions": 37689
+          },
+          {
+            "date": "2026-01-04",
+            "clicks": 210,
+            "impressions": 37948
+          },
+          {
+            "date": "2026-01-05",
+            "clicks": 297,
+            "impressions": 41103
+          },
+          {
+            "date": "2026-01-06",
+            "clicks": 241,
+            "impressions": 37459
+          },
+          {
+            "date": "2026-01-07",
+            "clicks": 230,
+            "impressions": 36511
+          },
+          {
+            "date": "2026-01-08",
+            "clicks": 241,
+            "impressions": 35826
+          },
+          {
+            "date": "2026-01-09",
+            "clicks": 203,
+            "impressions": 33422
+          },
+          {
+            "date": "2026-01-10",
+            "clicks": 178,
+            "impressions": 28201
+          },
+          {
+            "date": "2026-01-11",
+            "clicks": 169,
+            "impressions": 29289
+          },
+          {
+            "date": "2026-01-12",
+            "clicks": 249,
+            "impressions": 38104
+          },
+          {
+            "date": "2026-01-13",
+            "clicks": 257,
+            "impressions": 36138
+          },
+          {
+            "date": "2026-01-14",
+            "clicks": 222,
+            "impressions": 36110
+          },
+          {
+            "date": "2026-01-15",
+            "clicks": 179,
+            "impressions": 34472
+          },
+          {
+            "date": "2026-01-16",
+            "clicks": 171,
+            "impressions": 32849
+          },
+          {
+            "date": "2026-01-17",
+            "clicks": 164,
+            "impressions": 24922
+          },
+          {
+            "date": "2026-01-18",
+            "clicks": 154,
+            "impressions": 26342
+          },
+          {
+            "date": "2026-01-19",
+            "clicks": 173,
+            "impressions": 32277
+          },
+          {
+            "date": "2026-01-20",
+            "clicks": 204,
+            "impressions": 29725
+          },
+          {
+            "date": "2026-01-21",
+            "clicks": 180,
+            "impressions": 23828
+          },
+          {
+            "date": "2026-01-22",
+            "clicks": 203,
+            "impressions": 27310
+          },
+          {
+            "date": "2026-01-23",
+            "clicks": 200,
+            "impressions": 28214
+          },
+          {
+            "date": "2026-01-24",
+            "clicks": 151,
+            "impressions": 23278
+          },
+          {
+            "date": "2026-01-25",
+            "clicks": 124,
+            "impressions": 23690
+          },
+          {
+            "date": "2026-01-26",
+            "clicks": 187,
+            "impressions": 29834
+          },
+          {
+            "date": "2026-01-27",
+            "clicks": 185,
+            "impressions": 26791
+          },
+          {
+            "date": "2026-01-28",
+            "clicks": 241,
+            "impressions": 26849
+          },
+          {
+            "date": "2026-01-29",
+            "clicks": 215,
+            "impressions": 26573
+          },
+          {
+            "date": "2026-01-30",
+            "clicks": 246,
+            "impressions": 26824
+          },
+          {
+            "date": "2026-01-31",
+            "clicks": 193,
+            "impressions": 21860
+          },
+          {
+            "date": "2026-02-01",
+            "clicks": 206,
+            "impressions": 22669
+          },
+          {
+            "date": "2026-02-02",
+            "clicks": 265,
+            "impressions": 27291
+          },
+          {
+            "date": "2026-02-03",
+            "clicks": 248,
+            "impressions": 23656
+          },
+          {
+            "date": "2026-02-04",
+            "clicks": 207,
+            "impressions": 24611
+          },
+          {
+            "date": "2026-02-05",
+            "clicks": 223,
+            "impressions": 25046
+          },
+          {
+            "date": "2026-02-06",
+            "clicks": 259,
+            "impressions": 28746
+          },
+          {
+            "date": "2026-02-07",
+            "clicks": 185,
+            "impressions": 24656
+          },
+          {
+            "date": "2026-02-08",
+            "clicks": 194,
+            "impressions": 26827
+          },
+          {
+            "date": "2026-02-09",
+            "clicks": 246,
+            "impressions": 34304
+          },
+          {
+            "date": "2026-02-10",
+            "clicks": 219,
+            "impressions": 31762
+          },
+          {
+            "date": "2026-02-11",
+            "clicks": 196,
+            "impressions": 32055
+          },
+          {
+            "date": "2026-02-12",
+            "clicks": 235,
+            "impressions": 34409
+          },
+          {
+            "date": "2026-02-13",
+            "clicks": 222,
+            "impressions": 35742
+          },
+          {
+            "date": "2026-02-14",
+            "clicks": 160,
+            "impressions": 27688
+          },
+          {
+            "date": "2026-02-15",
+            "clicks": 93,
+            "impressions": 21467
+          },
+          {
+            "date": "2026-02-16",
+            "clicks": 134,
+            "impressions": 25730
+          },
+          {
+            "date": "2026-02-17",
+            "clicks": 151,
+            "impressions": 29475
+          },
+          {
+            "date": "2026-02-18",
+            "clicks": 166,
+            "impressions": 30393
+          },
+          {
+            "date": "2026-02-19",
+            "clicks": 172,
+            "impressions": 28358
+          },
+          {
+            "date": "2026-02-20",
+            "clicks": 192,
+            "impressions": 29336
+          },
+          {
+            "date": "2026-02-21",
+            "clicks": 150,
+            "impressions": 24013
+          },
+          {
+            "date": "2026-02-22",
+            "clicks": 142,
+            "impressions": 22663
+          },
+          {
+            "date": "2026-02-23",
+            "clicks": 214,
+            "impressions": 29675
+          },
+          {
+            "date": "2026-02-24",
+            "clicks": 201,
+            "impressions": 26184
+          },
+          {
+            "date": "2026-02-25",
+            "clicks": 184,
+            "impressions": 27049
+          },
+          {
+            "date": "2026-02-26",
+            "clicks": 181,
+            "impressions": 26052
+          },
+          {
+            "date": "2026-02-27",
+            "clicks": 137,
+            "impressions": 24782
+          },
+          {
+            "date": "2026-02-28",
+            "clicks": 119,
+            "impressions": 17175
+          },
+          {
+            "date": "2026-03-01",
+            "clicks": 112,
+            "impressions": 20549
+          },
+          {
+            "date": "2026-03-02",
+            "clicks": 173,
+            "impressions": 24741
+          },
+          {
+            "date": "2026-03-03",
+            "clicks": 176,
+            "impressions": 24834
+          },
+          {
+            "date": "2026-03-04",
+            "clicks": 130,
+            "impressions": 18983
+          },
+          {
+            "date": "2026-03-05",
+            "clicks": 197,
+            "impressions": 27613
+          },
+          {
+            "date": "2026-03-06",
+            "clicks": 183,
+            "impressions": 26239
+          },
+          {
+            "date": "2026-03-07",
+            "clicks": 115,
+            "impressions": 17658
+          },
+          {
+            "date": "2026-03-08",
+            "clicks": 106,
+            "impressions": 22064
+          },
+          {
+            "date": "2026-03-09",
+            "clicks": 197,
+            "impressions": 27823
+          },
+          {
+            "date": "2026-03-10",
+            "clicks": 179,
+            "impressions": 27660
+          },
+          {
+            "date": "2026-03-11",
+            "clicks": 162,
+            "impressions": 23246
+          },
+          {
+            "date": "2026-03-12",
+            "clicks": 195,
+            "impressions": 25507
+          },
+          {
+            "date": "2026-03-13",
+            "clicks": 169,
+            "impressions": 26115
+          },
+          {
+            "date": "2026-03-14",
+            "clicks": 123,
+            "impressions": 21680
+          },
+          {
+            "date": "2026-03-15",
+            "clicks": 171,
+            "impressions": 19240
+          },
+          {
+            "date": "2026-03-16",
+            "clicks": 204,
+            "impressions": 28190
+          },
+          {
+            "date": "2026-03-17",
+            "clicks": 191,
+            "impressions": 27258
+          },
+          {
+            "date": "2026-03-18",
+            "clicks": 200,
+            "impressions": 28835
+          },
+          {
+            "date": "2026-03-19",
+            "clicks": 200,
+            "impressions": 26623
+          },
+          {
+            "date": "2026-03-20",
+            "clicks": 188,
+            "impressions": 27795
+          },
+          {
+            "date": "2026-03-21",
+            "clicks": 153,
+            "impressions": 23614
+          },
+          {
+            "date": "2026-03-22",
+            "clicks": 163,
+            "impressions": 22849
+          },
+          {
+            "date": "2026-03-23",
+            "clicks": 228,
+            "impressions": 29442
+          },
+          {
+            "date": "2026-03-24",
+            "clicks": 218,
+            "impressions": 27908
+          },
+          {
+            "date": "2026-03-25",
+            "clicks": 225,
+            "impressions": 26904
+          },
+          {
+            "date": "2026-03-26",
+            "clicks": 199,
+            "impressions": 26633
+          },
+          {
+            "date": "2026-03-27",
+            "clicks": 177,
+            "impressions": 27294
+          },
+          {
+            "date": "2026-03-28",
+            "clicks": 182,
+            "impressions": 24143
+          },
+          {
+            "date": "2026-03-29",
+            "clicks": 178,
+            "impressions": 25879
+          },
+          {
+            "date": "2026-03-30",
+            "clicks": 267,
+            "impressions": 37451
+          },
+          {
+            "date": "2026-03-31",
+            "clicks": 220,
+            "impressions": 34380
+          },
+          {
+            "date": "2026-04-01",
+            "clicks": 277,
+            "impressions": 33684
+          },
+          {
+            "date": "2026-04-02",
+            "clicks": 231,
+            "impressions": 31579
+          },
+          {
+            "date": "2026-04-03",
+            "clicks": 179,
+            "impressions": 24864
+          },
+          {
+            "date": "2026-04-04",
+            "clicks": 189,
+            "impressions": 24321
+          },
+          {
+            "date": "2026-04-05",
+            "clicks": 224,
+            "impressions": 25800
+          },
+          {
+            "date": "2026-04-06",
+            "clicks": 298,
+            "impressions": 32909
+          },
+          {
+            "date": "2026-04-07",
+            "clicks": 249,
+            "impressions": 25820
+          },
+          {
+            "date": "2026-04-08",
+            "clicks": 222,
+            "impressions": 25377
+          },
+          {
+            "date": "2026-04-09",
+            "clicks": 229,
+            "impressions": 27196
+          },
+          {
+            "date": "2026-04-10",
+            "clicks": 207,
+            "impressions": 26238
+          },
+          {
+            "date": "2026-04-11",
+            "clicks": 164,
+            "impressions": 21723
+          },
+          {
+            "date": "2026-04-12",
+            "clicks": 163,
+            "impressions": 20780
+          },
+          {
+            "date": "2026-04-13",
+            "clicks": 227,
+            "impressions": 26994
+          },
+          {
+            "date": "2026-04-14",
+            "clicks": 220,
+            "impressions": 25678
+          },
+          {
+            "date": "2026-04-15",
+            "clicks": 252,
+            "impressions": 25154
+          },
+          {
+            "date": "2026-04-16",
+            "clicks": 254,
+            "impressions": 27420
+          },
+          {
+            "date": "2026-04-17",
+            "clicks": 299,
+            "impressions": 30380
+          },
+          {
+            "date": "2026-04-18",
+            "clicks": 239,
+            "impressions": 21221
+          },
+          {
+            "date": "2026-04-19",
+            "clicks": 199,
+            "impressions": 20821
+          },
+          {
+            "date": "2026-04-20",
+            "clicks": 190,
+            "impressions": 26488
+          },
+          {
+            "date": "2026-04-21",
+            "clicks": 204,
+            "impressions": 21728
+          },
+          {
+            "date": "2026-04-22",
+            "clicks": 220,
+            "impressions": 23427
+          },
+          {
+            "date": "2026-04-23",
+            "clicks": 218,
+            "impressions": 22387
+          },
+          {
+            "date": "2026-04-24",
+            "clicks": 200,
+            "impressions": 24138
+          },
+          {
+            "date": "2026-04-25",
+            "clicks": 134,
+            "impressions": 16729
+          },
+          {
+            "date": "2026-04-26",
+            "clicks": 173,
+            "impressions": 19515
+          },
+          {
+            "date": "2026-04-27",
+            "clicks": 210,
+            "impressions": 25802
+          },
+          {
+            "date": "2026-04-28",
+            "clicks": 223,
+            "impressions": 18534
+          },
+          {
+            "date": "2026-04-29",
+            "clicks": 190,
+            "impressions": 21630
+          },
+          {
+            "date": "2026-04-30",
+            "clicks": 180,
+            "impressions": 24550
+          },
+          {
+            "date": "2026-05-01",
+            "clicks": 175,
+            "impressions": 19528
+          },
+          {
+            "date": "2026-05-02",
+            "clicks": 127,
+            "impressions": 18367
+          },
+          {
+            "date": "2026-05-03",
+            "clicks": 189,
+            "impressions": 22014
+          },
+          {
+            "date": "2026-05-04",
+            "clicks": 223,
+            "impressions": 24705
+          },
+          {
+            "date": "2026-05-05",
+            "clicks": 212,
+            "impressions": 23313
+          },
+          {
+            "date": "2026-05-06",
+            "clicks": 213,
+            "impressions": 19108
+          },
+          {
+            "date": "2026-05-07",
+            "clicks": 186,
+            "impressions": 19235
+          },
+          {
+            "date": "2026-05-08",
+            "clicks": 167,
+            "impressions": 16314
+          },
+          {
+            "date": "2026-05-09",
+            "clicks": 135,
+            "impressions": 13823
+          },
+          {
+            "date": "2026-05-10",
+            "clicks": 123,
+            "impressions": 13833
+          },
+          {
+            "date": "2026-05-11",
+            "clicks": 176,
+            "impressions": 17710
+          },
+          {
+            "date": "2026-05-12",
+            "clicks": 155,
+            "impressions": 16828
+          },
+          {
+            "date": "2026-05-13",
+            "clicks": 177,
+            "impressions": 19566
+          },
+          {
+            "date": "2026-05-14",
+            "clicks": 150,
+            "impressions": 17569
+          },
+          {
+            "date": "2026-05-15",
+            "clicks": 162,
+            "impressions": 15508
+          },
+          {
+            "date": "2026-05-16",
+            "clicks": 141,
+            "impressions": 10741
+          },
+          {
+            "date": "2026-05-17",
+            "clicks": 146,
+            "impressions": 12846
+          },
+          {
+            "date": "2026-05-18",
+            "clicks": 171,
+            "impressions": 15074
+          },
+          {
+            "date": "2026-05-19",
+            "clicks": 162,
+            "impressions": 13849
+          },
+          {
+            "date": "2026-05-20",
+            "clicks": 141,
+            "impressions": 13314
+          },
+          {
+            "date": "2026-05-21",
+            "clicks": 136,
+            "impressions": 14377
+          },
+          {
+            "date": "2026-05-22",
+            "clicks": 110,
+            "impressions": 14013
+          },
+          {
+            "date": "2026-05-23",
+            "clicks": 108,
+            "impressions": 11450
+          },
+          {
+            "date": "2026-05-24",
+            "clicks": 117,
+            "impressions": 14251
+          },
+          {
+            "date": "2026-05-25",
+            "clicks": 158,
+            "impressions": 15898
+          },
+          {
+            "date": "2026-05-26",
+            "clicks": 182,
+            "impressions": 15433
+          },
+          {
+            "date": "2026-05-27",
+            "clicks": 15,
+            "impressions": 1482
+          }
+        ]
+      },
+      "gsc_grafico_destinos": {
+        "name": "destinos.viajeguanabara.com.br",
+        "all_daily": [
+          {
+            "date": "2025-10-16",
+            "clicks": 11,
+            "impressions": 12270
+          },
+          {
+            "date": "2025-10-17",
+            "clicks": 13,
+            "impressions": 10551
+          },
+          {
+            "date": "2025-10-18",
+            "clicks": 6,
+            "impressions": 7118
+          },
+          {
+            "date": "2025-10-19",
+            "clicks": 6,
+            "impressions": 7387
+          },
+          {
+            "date": "2025-10-20",
+            "clicks": 3,
+            "impressions": 8430
+          },
+          {
+            "date": "2025-10-21",
+            "clicks": 8,
+            "impressions": 7505
+          },
+          {
+            "date": "2025-10-22",
+            "clicks": 11,
+            "impressions": 7991
+          },
+          {
+            "date": "2025-10-23",
+            "clicks": 13,
+            "impressions": 11836
+          },
+          {
+            "date": "2025-10-24",
+            "clicks": 14,
+            "impressions": 12811
+          },
+          {
+            "date": "2025-10-25",
+            "clicks": 14,
+            "impressions": 11367
+          },
+          {
+            "date": "2025-10-26",
+            "clicks": 7,
+            "impressions": 12493
+          },
+          {
+            "date": "2025-10-27",
+            "clicks": 16,
+            "impressions": 14093
+          },
+          {
+            "date": "2025-10-28",
+            "clicks": 18,
+            "impressions": 10762
+          },
+          {
+            "date": "2025-10-29",
+            "clicks": 9,
+            "impressions": 8048
+          },
+          {
+            "date": "2025-10-30",
+            "clicks": 12,
+            "impressions": 7647
+          },
+          {
+            "date": "2025-10-31",
+            "clicks": 7,
+            "impressions": 7006
+          },
+          {
+            "date": "2025-11-01",
+            "clicks": 12,
+            "impressions": 5950
+          },
+          {
+            "date": "2025-11-02",
+            "clicks": 11,
+            "impressions": 7774
+          },
+          {
+            "date": "2025-11-03",
+            "clicks": 17,
+            "impressions": 11033
+          },
+          {
+            "date": "2025-11-04",
+            "clicks": 8,
+            "impressions": 9650
+          },
+          {
+            "date": "2025-11-05",
+            "clicks": 13,
+            "impressions": 7330
+          },
+          {
+            "date": "2025-11-06",
+            "clicks": 16,
+            "impressions": 6353
+          },
+          {
+            "date": "2025-11-07",
+            "clicks": 14,
+            "impressions": 8122
+          },
+          {
+            "date": "2025-11-08",
+            "clicks": 5,
+            "impressions": 6787
+          },
+          {
+            "date": "2025-11-09",
+            "clicks": 14,
+            "impressions": 6864
+          },
+          {
+            "date": "2025-11-10",
+            "clicks": 12,
+            "impressions": 12457
+          },
+          {
+            "date": "2025-11-11",
+            "clicks": 16,
+            "impressions": 9545
+          },
+          {
+            "date": "2025-11-12",
+            "clicks": 16,
+            "impressions": 9070
+          },
+          {
+            "date": "2025-11-13",
+            "clicks": 17,
+            "impressions": 8253
+          },
+          {
+            "date": "2025-11-14",
+            "clicks": 14,
+            "impressions": 13056
+          },
+          {
+            "date": "2025-11-15",
+            "clicks": 15,
+            "impressions": 8379
+          },
+          {
+            "date": "2025-11-16",
+            "clicks": 14,
+            "impressions": 9248
+          },
+          {
+            "date": "2025-11-17",
+            "clicks": 17,
+            "impressions": 9930
+          },
+          {
+            "date": "2025-11-18",
+            "clicks": 22,
+            "impressions": 8530
+          },
+          {
+            "date": "2025-11-19",
+            "clicks": 24,
+            "impressions": 7277
+          },
+          {
+            "date": "2025-11-20",
+            "clicks": 18,
+            "impressions": 6677
+          },
+          {
+            "date": "2025-11-21",
+            "clicks": 20,
+            "impressions": 6308
+          },
+          {
+            "date": "2025-11-22",
+            "clicks": 15,
+            "impressions": 5345
+          },
+          {
+            "date": "2025-11-23",
+            "clicks": 21,
+            "impressions": 5475
+          },
+          {
+            "date": "2025-11-24",
+            "clicks": 25,
+            "impressions": 6457
+          },
+          {
+            "date": "2025-11-25",
+            "clicks": 14,
+            "impressions": 6971
+          },
+          {
+            "date": "2025-11-26",
+            "clicks": 28,
+            "impressions": 9857
+          },
+          {
+            "date": "2025-11-27",
+            "clicks": 23,
+            "impressions": 9615
+          },
+          {
+            "date": "2025-11-28",
+            "clicks": 22,
+            "impressions": 6389
+          },
+          {
+            "date": "2025-11-29",
+            "clicks": 17,
+            "impressions": 4384
+          },
+          {
+            "date": "2025-11-30",
+            "clicks": 15,
+            "impressions": 5428
+          },
+          {
+            "date": "2025-12-01",
+            "clicks": 27,
+            "impressions": 6840
+          },
+          {
+            "date": "2025-12-02",
+            "clicks": 16,
+            "impressions": 4608
+          },
+          {
+            "date": "2025-12-03",
+            "clicks": 10,
+            "impressions": 4781
+          },
+          {
+            "date": "2025-12-04",
+            "clicks": 14,
+            "impressions": 5875
+          },
+          {
+            "date": "2025-12-05",
+            "clicks": 22,
+            "impressions": 6137
+          },
+          {
+            "date": "2025-12-06",
+            "clicks": 16,
+            "impressions": 5155
+          },
+          {
+            "date": "2025-12-07",
+            "clicks": 24,
+            "impressions": 7009
+          },
+          {
+            "date": "2025-12-08",
+            "clicks": 37,
+            "impressions": 12331
+          },
+          {
+            "date": "2025-12-09",
+            "clicks": 32,
+            "impressions": 11761
+          },
+          {
+            "date": "2025-12-10",
+            "clicks": 34,
+            "impressions": 10837
+          },
+          {
+            "date": "2025-12-11",
+            "clicks": 36,
+            "impressions": 12919
+          },
+          {
+            "date": "2025-12-12",
+            "clicks": 27,
+            "impressions": 11186
+          },
+          {
+            "date": "2025-12-13",
+            "clicks": 21,
+            "impressions": 13842
+          },
+          {
+            "date": "2025-12-14",
+            "clicks": 20,
+            "impressions": 15443
+          },
+          {
+            "date": "2025-12-15",
+            "clicks": 31,
+            "impressions": 18549
+          },
+          {
+            "date": "2025-12-16",
+            "clicks": 23,
+            "impressions": 16147
+          },
+          {
+            "date": "2025-12-17",
+            "clicks": 18,
+            "impressions": 11313
+          },
+          {
+            "date": "2025-12-18",
+            "clicks": 13,
+            "impressions": 9120
+          },
+          {
+            "date": "2025-12-19",
+            "clicks": 22,
+            "impressions": 11749
+          },
+          {
+            "date": "2025-12-20",
+            "clicks": 22,
+            "impressions": 9066
+          },
+          {
+            "date": "2025-12-21",
+            "clicks": 24,
+            "impressions": 8203
+          },
+          {
+            "date": "2025-12-22",
+            "clicks": 22,
+            "impressions": 13995
+          },
+          {
+            "date": "2025-12-23",
+            "clicks": 26,
+            "impressions": 12353
+          },
+          {
+            "date": "2025-12-24",
+            "clicks": 14,
+            "impressions": 12535
+          },
+          {
+            "date": "2025-12-25",
+            "clicks": 25,
+            "impressions": 16788
+          },
+          {
+            "date": "2025-12-26",
+            "clicks": 22,
+            "impressions": 15004
+          },
+          {
+            "date": "2025-12-27",
+            "clicks": 21,
+            "impressions": 17612
+          },
+          {
+            "date": "2025-12-28",
+            "clicks": 34,
+            "impressions": 15215
+          },
+          {
+            "date": "2025-12-29",
+            "clicks": 26,
+            "impressions": 13351
+          },
+          {
+            "date": "2025-12-30",
+            "clicks": 27,
+            "impressions": 10550
+          },
+          {
+            "date": "2025-12-31",
+            "clicks": 9,
+            "impressions": 8361
+          },
+          {
+            "date": "2026-01-01",
+            "clicks": 23,
+            "impressions": 14747
+          },
+          {
+            "date": "2026-01-02",
+            "clicks": 38,
+            "impressions": 18399
+          },
+          {
+            "date": "2026-01-03",
+            "clicks": 45,
+            "impressions": 21510
+          },
+          {
+            "date": "2026-01-04",
+            "clicks": 37,
+            "impressions": 22484
+          },
+          {
+            "date": "2026-01-05",
+            "clicks": 44,
+            "impressions": 28344
+          },
+          {
+            "date": "2026-01-06",
+            "clicks": 43,
+            "impressions": 20420
+          },
+          {
+            "date": "2026-01-07",
+            "clicks": 31,
+            "impressions": 11887
+          },
+          {
+            "date": "2026-01-08",
+            "clicks": 29,
+            "impressions": 9873
+          },
+          {
+            "date": "2026-01-09",
+            "clicks": 31,
+            "impressions": 7893
+          },
+          {
+            "date": "2026-01-10",
+            "clicks": 25,
+            "impressions": 6861
+          },
+          {
+            "date": "2026-01-11",
+            "clicks": 30,
+            "impressions": 6969
+          },
+          {
+            "date": "2026-01-12",
+            "clicks": 31,
+            "impressions": 14263
+          },
+          {
+            "date": "2026-01-13",
+            "clicks": 40,
+            "impressions": 13661
+          },
+          {
+            "date": "2026-01-14",
+            "clicks": 37,
+            "impressions": 18177
+          },
+          {
+            "date": "2026-01-15",
+            "clicks": 49,
+            "impressions": 16960
+          },
+          {
+            "date": "2026-01-16",
+            "clicks": 20,
+            "impressions": 13580
+          },
+          {
+            "date": "2026-01-17",
+            "clicks": 20,
+            "impressions": 10506
+          },
+          {
+            "date": "2026-01-18",
+            "clicks": 26,
+            "impressions": 14447
+          },
+          {
+            "date": "2026-01-19",
+            "clicks": 26,
+            "impressions": 13188
+          },
+          {
+            "date": "2026-01-20",
+            "clicks": 18,
+            "impressions": 9456
+          },
+          {
+            "date": "2026-01-21",
+            "clicks": 28,
+            "impressions": 6643
+          },
+          {
+            "date": "2026-01-22",
+            "clicks": 27,
+            "impressions": 6680
+          },
+          {
+            "date": "2026-01-23",
+            "clicks": 24,
+            "impressions": 14595
+          },
+          {
+            "date": "2026-01-24",
+            "clicks": 21,
+            "impressions": 14739
+          },
+          {
+            "date": "2026-01-25",
+            "clicks": 22,
+            "impressions": 15377
+          },
+          {
+            "date": "2026-01-26",
+            "clicks": 25,
+            "impressions": 19101
+          },
+          {
+            "date": "2026-01-27",
+            "clicks": 20,
+            "impressions": 15196
+          },
+          {
+            "date": "2026-01-28",
+            "clicks": 20,
+            "impressions": 12045
+          },
+          {
+            "date": "2026-01-29",
+            "clicks": 13,
+            "impressions": 10021
+          },
+          {
+            "date": "2026-01-30",
+            "clicks": 10,
+            "impressions": 7918
+          },
+          {
+            "date": "2026-01-31",
+            "clicks": 18,
+            "impressions": 7813
+          },
+          {
+            "date": "2026-02-01",
+            "clicks": 13,
+            "impressions": 7644
+          },
+          {
+            "date": "2026-02-02",
+            "clicks": 20,
+            "impressions": 10267
+          },
+          {
+            "date": "2026-02-03",
+            "clicks": 13,
+            "impressions": 8208
+          },
+          {
+            "date": "2026-02-04",
+            "clicks": 18,
+            "impressions": 6173
+          },
+          {
+            "date": "2026-02-05",
+            "clicks": 12,
+            "impressions": 5819
+          },
+          {
+            "date": "2026-02-06",
+            "clicks": 29,
+            "impressions": 8256
+          },
+          {
+            "date": "2026-02-07",
+            "clicks": 14,
+            "impressions": 9059
+          },
+          {
+            "date": "2026-02-08",
+            "clicks": 12,
+            "impressions": 8091
+          },
+          {
+            "date": "2026-02-09",
+            "clicks": 19,
+            "impressions": 10568
+          },
+          {
+            "date": "2026-02-10",
+            "clicks": 14,
+            "impressions": 6659
+          },
+          {
+            "date": "2026-02-11",
+            "clicks": 14,
+            "impressions": 7569
+          },
+          {
+            "date": "2026-02-12",
+            "clicks": 17,
+            "impressions": 7990
+          },
+          {
+            "date": "2026-02-13",
+            "clicks": 18,
+            "impressions": 7824
+          },
+          {
+            "date": "2026-02-14",
+            "clicks": 15,
+            "impressions": 7812
+          },
+          {
+            "date": "2026-02-15",
+            "clicks": 10,
+            "impressions": 3412
+          },
+          {
+            "date": "2026-02-16",
+            "clicks": 4,
+            "impressions": 814
+          },
+          {
+            "date": "2026-02-17",
+            "clicks": 12,
+            "impressions": 1261
+          },
+          {
+            "date": "2026-02-18",
+            "clicks": 3,
+            "impressions": 1526
+          },
+          {
+            "date": "2026-02-19",
+            "clicks": 4,
+            "impressions": 1324
+          },
+          {
+            "date": "2026-02-20",
+            "clicks": 6,
+            "impressions": 887
+          },
+          {
+            "date": "2026-02-21",
+            "clicks": 3,
+            "impressions": 669
+          },
+          {
+            "date": "2026-02-22",
+            "clicks": 4,
+            "impressions": 1261
+          },
+          {
+            "date": "2026-02-23",
+            "clicks": 4,
+            "impressions": 2408
+          },
+          {
+            "date": "2026-02-24",
+            "clicks": 4,
+            "impressions": 2118
+          },
+          {
+            "date": "2026-02-25",
+            "clicks": 15,
+            "impressions": 931
+          },
+          {
+            "date": "2026-02-26",
+            "clicks": 8,
+            "impressions": 1284
+          },
+          {
+            "date": "2026-02-27",
+            "clicks": 7,
+            "impressions": 892
+          },
+          {
+            "date": "2026-02-28",
+            "clicks": 10,
+            "impressions": 676
+          },
+          {
+            "date": "2026-03-01",
+            "clicks": 6,
+            "impressions": 1082
+          },
+          {
+            "date": "2026-03-02",
+            "clicks": 7,
+            "impressions": 956
+          },
+          {
+            "date": "2026-03-03",
+            "clicks": 7,
+            "impressions": 1162
+          },
+          {
+            "date": "2026-03-04",
+            "clicks": 12,
+            "impressions": 1621
+          },
+          {
+            "date": "2026-03-05",
+            "clicks": 7,
+            "impressions": 1304
+          },
+          {
+            "date": "2026-03-06",
+            "clicks": 12,
+            "impressions": 6606
+          },
+          {
+            "date": "2026-03-07",
+            "clicks": 15,
+            "impressions": 2577
+          },
+          {
+            "date": "2026-03-08",
+            "clicks": 7,
+            "impressions": 1001
+          },
+          {
+            "date": "2026-03-09",
+            "clicks": 2,
+            "impressions": 641
+          },
+          {
+            "date": "2026-03-10",
+            "clicks": 7,
+            "impressions": 3781
+          },
+          {
+            "date": "2026-03-11",
+            "clicks": 14,
+            "impressions": 8592
+          },
+          {
+            "date": "2026-03-12",
+            "clicks": 19,
+            "impressions": 9039
+          },
+          {
+            "date": "2026-03-13",
+            "clicks": 17,
+            "impressions": 9463
+          },
+          {
+            "date": "2026-03-14",
+            "clicks": 5,
+            "impressions": 7882
+          },
+          {
+            "date": "2026-03-15",
+            "clicks": 16,
+            "impressions": 7338
+          },
+          {
+            "date": "2026-03-16",
+            "clicks": 22,
+            "impressions": 14104
+          },
+          {
+            "date": "2026-03-17",
+            "clicks": 16,
+            "impressions": 5350
+          },
+          {
+            "date": "2026-03-18",
+            "clicks": 14,
+            "impressions": 12894
+          },
+          {
+            "date": "2026-03-19",
+            "clicks": 19,
+            "impressions": 5803
+          },
+          {
+            "date": "2026-03-20",
+            "clicks": 21,
+            "impressions": 5438
+          },
+          {
+            "date": "2026-03-21",
+            "clicks": 17,
+            "impressions": 5067
+          },
+          {
+            "date": "2026-03-22",
+            "clicks": 26,
+            "impressions": 4709
+          },
+          {
+            "date": "2026-03-23",
+            "clicks": 30,
+            "impressions": 5765
+          },
+          {
+            "date": "2026-03-24",
+            "clicks": 20,
+            "impressions": 5023
+          },
+          {
+            "date": "2026-03-25",
+            "clicks": 23,
+            "impressions": 5532
+          },
+          {
+            "date": "2026-03-26",
+            "clicks": 23,
+            "impressions": 5795
+          },
+          {
+            "date": "2026-03-27",
+            "clicks": 17,
+            "impressions": 4910
+          },
+          {
+            "date": "2026-03-28",
+            "clicks": 18,
+            "impressions": 4663
+          },
+          {
+            "date": "2026-03-29",
+            "clicks": 17,
+            "impressions": 4649
+          },
+          {
+            "date": "2026-03-30",
+            "clicks": 14,
+            "impressions": 7164
+          },
+          {
+            "date": "2026-03-31",
+            "clicks": 26,
+            "impressions": 7368
+          },
+          {
+            "date": "2026-04-01",
+            "clicks": 30,
+            "impressions": 7141
+          },
+          {
+            "date": "2026-04-02",
+            "clicks": 17,
+            "impressions": 10519
+          },
+          {
+            "date": "2026-04-03",
+            "clicks": 29,
+            "impressions": 6221
+          },
+          {
+            "date": "2026-04-04",
+            "clicks": 20,
+            "impressions": 9285
+          },
+          {
+            "date": "2026-04-05",
+            "clicks": 23,
+            "impressions": 7569
+          },
+          {
+            "date": "2026-04-06",
+            "clicks": 22,
+            "impressions": 10106
+          },
+          {
+            "date": "2026-04-07",
+            "clicks": 28,
+            "impressions": 7452
+          },
+          {
+            "date": "2026-04-08",
+            "clicks": 26,
+            "impressions": 5329
+          },
+          {
+            "date": "2026-04-09",
+            "clicks": 20,
+            "impressions": 5472
+          },
+          {
+            "date": "2026-04-10",
+            "clicks": 14,
+            "impressions": 7367
+          },
+          {
+            "date": "2026-04-11",
+            "clicks": 22,
+            "impressions": 7643
+          },
+          {
+            "date": "2026-04-12",
+            "clicks": 21,
+            "impressions": 6553
+          },
+          {
+            "date": "2026-04-13",
+            "clicks": 24,
+            "impressions": 7797
+          },
+          {
+            "date": "2026-04-14",
+            "clicks": 34,
+            "impressions": 8982
+          },
+          {
+            "date": "2026-04-15",
+            "clicks": 19,
+            "impressions": 8857
+          },
+          {
+            "date": "2026-04-16",
+            "clicks": 31,
+            "impressions": 11222
+          },
+          {
+            "date": "2026-04-17",
+            "clicks": 27,
+            "impressions": 10678
+          },
+          {
+            "date": "2026-04-18",
+            "clicks": 27,
+            "impressions": 5593
+          },
+          {
+            "date": "2026-04-19",
+            "clicks": 27,
+            "impressions": 5643
+          },
+          {
+            "date": "2026-04-20",
+            "clicks": 33,
+            "impressions": 6021
+          },
+          {
+            "date": "2026-04-21",
+            "clicks": 27,
+            "impressions": 4137
+          },
+          {
+            "date": "2026-04-22",
+            "clicks": 32,
+            "impressions": 4982
+          },
+          {
+            "date": "2026-04-23",
+            "clicks": 23,
+            "impressions": 4782
+          },
+          {
+            "date": "2026-04-24",
+            "clicks": 24,
+            "impressions": 7011
+          },
+          {
+            "date": "2026-04-25",
+            "clicks": 34,
+            "impressions": 5617
+          },
+          {
+            "date": "2026-04-26",
+            "clicks": 21,
+            "impressions": 5739
+          },
+          {
+            "date": "2026-04-27",
+            "clicks": 24,
+            "impressions": 5743
+          },
+          {
+            "date": "2026-04-28",
+            "clicks": 27,
+            "impressions": 5552
+          },
+          {
+            "date": "2026-04-29",
+            "clicks": 27,
+            "impressions": 6221
+          },
+          {
+            "date": "2026-04-30",
+            "clicks": 23,
+            "impressions": 8644
+          },
+          {
+            "date": "2026-05-01",
+            "clicks": 37,
+            "impressions": 6846
+          },
+          {
+            "date": "2026-05-02",
+            "clicks": 18,
+            "impressions": 6379
+          },
+          {
+            "date": "2026-05-03",
+            "clicks": 23,
+            "impressions": 5576
+          },
+          {
+            "date": "2026-05-04",
+            "clicks": 33,
+            "impressions": 6564
+          },
+          {
+            "date": "2026-05-05",
+            "clicks": 21,
+            "impressions": 6567
+          },
+          {
+            "date": "2026-05-06",
+            "clicks": 21,
+            "impressions": 5225
+          },
+          {
+            "date": "2026-05-07",
+            "clicks": 20,
+            "impressions": 5775
+          },
+          {
+            "date": "2026-05-08",
+            "clicks": 16,
+            "impressions": 1549
+          },
+          {
+            "date": "2026-05-09",
+            "clicks": 10,
+            "impressions": 1363
+          },
+          {
+            "date": "2026-05-10",
+            "clicks": 12,
+            "impressions": 1176
+          },
+          {
+            "date": "2026-05-11",
+            "clicks": 13,
+            "impressions": 1562
+          },
+          {
+            "date": "2026-05-12",
+            "clicks": 8,
+            "impressions": 1633
+          },
+          {
+            "date": "2026-05-13",
+            "clicks": 9,
+            "impressions": 1998
+          },
+          {
+            "date": "2026-05-14",
+            "clicks": 7,
+            "impressions": 1670
+          },
+          {
+            "date": "2026-05-15",
+            "clicks": 8,
+            "impressions": 1315
+          },
+          {
+            "date": "2026-05-16",
+            "clicks": 9,
+            "impressions": 1096
+          },
+          {
+            "date": "2026-05-17",
+            "clicks": 6,
+            "impressions": 1454
+          },
+          {
+            "date": "2026-05-18",
+            "clicks": 6,
+            "impressions": 1289
+          },
+          {
+            "date": "2026-05-19",
+            "clicks": 7,
+            "impressions": 1134
+          },
+          {
+            "date": "2026-05-20",
+            "clicks": 8,
+            "impressions": 1163
+          },
+          {
+            "date": "2026-05-21",
+            "clicks": 11,
+            "impressions": 1051
+          },
+          {
+            "date": "2026-05-22",
+            "clicks": 17,
+            "impressions": 2668
+          },
+          {
+            "date": "2026-05-23",
+            "clicks": 9,
+            "impressions": 2926
+          },
+          {
+            "date": "2026-05-24",
+            "clicks": 22,
+            "impressions": 3081
+          },
+          {
+            "date": "2026-05-25",
+            "clicks": 10,
+            "impressions": 3808
+          },
+          {
+            "date": "2026-05-26",
+            "clicks": 18,
+            "impressions": 3783
+          },
+          {
+            "date": "2026-05-27",
+            "clicks": 1,
+            "impressions": 332
+          }
+        ]
+      },
+      "gsc_grafico_blog": {
+        "name": "blog.viajeguanabara.com.br",
+        "all_daily": [
+          {
+            "date": "2025-01-27",
+            "clicks": 185,
+            "impressions": 8120
+          },
+          {
+            "date": "2025-01-28",
+            "clicks": 171,
+            "impressions": 6896
+          },
+          {
+            "date": "2025-01-29",
+            "clicks": 168,
+            "impressions": 6446
+          },
+          {
+            "date": "2025-01-30",
+            "clicks": 166,
+            "impressions": 6462
+          },
+          {
+            "date": "2025-01-31",
+            "clicks": 163,
+            "impressions": 6053
+          },
+          {
+            "date": "2025-02-01",
+            "clicks": 159,
+            "impressions": 5694
+          },
+          {
+            "date": "2025-02-02",
+            "clicks": 154,
+            "impressions": 6400
+          },
+          {
+            "date": "2025-02-03",
+            "clicks": 146,
+            "impressions": 6532
+          },
+          {
+            "date": "2025-02-04",
+            "clicks": 130,
+            "impressions": 6266
+          },
+          {
+            "date": "2025-02-05",
+            "clicks": 136,
+            "impressions": 6469
+          },
+          {
+            "date": "2025-02-06",
+            "clicks": 162,
+            "impressions": 6326
+          },
+          {
+            "date": "2025-02-07",
+            "clicks": 150,
+            "impressions": 6174
+          },
+          {
+            "date": "2025-02-08",
+            "clicks": 119,
+            "impressions": 5291
+          },
+          {
+            "date": "2025-02-09",
+            "clicks": 143,
+            "impressions": 5662
+          },
+          {
+            "date": "2025-02-10",
+            "clicks": 170,
+            "impressions": 5863
+          },
+          {
+            "date": "2025-02-11",
+            "clicks": 132,
+            "impressions": 5920
+          },
+          {
+            "date": "2025-02-12",
+            "clicks": 161,
+            "impressions": 6134
+          },
+          {
+            "date": "2025-02-13",
+            "clicks": 160,
+            "impressions": 6615
+          },
+          {
+            "date": "2025-02-14",
+            "clicks": 151,
+            "impressions": 6711
+          },
+          {
+            "date": "2025-02-15",
+            "clicks": 130,
+            "impressions": 5960
+          },
+          {
+            "date": "2025-02-16",
+            "clicks": 127,
+            "impressions": 6767
+          },
+          {
+            "date": "2025-02-17",
+            "clicks": 173,
+            "impressions": 6353
+          },
+          {
+            "date": "2025-02-18",
+            "clicks": 156,
+            "impressions": 6507
+          },
+          {
+            "date": "2025-02-19",
+            "clicks": 163,
+            "impressions": 6402
+          },
+          {
+            "date": "2025-02-20",
+            "clicks": 187,
+            "impressions": 6547
+          },
+          {
+            "date": "2025-02-21",
+            "clicks": 169,
+            "impressions": 6450
+          },
+          {
+            "date": "2025-02-22",
+            "clicks": 145,
+            "impressions": 5669
+          },
+          {
+            "date": "2025-02-23",
+            "clicks": 176,
+            "impressions": 6038
+          },
+          {
+            "date": "2025-02-24",
+            "clicks": 196,
+            "impressions": 6773
+          },
+          {
+            "date": "2025-02-25",
+            "clicks": 188,
+            "impressions": 6782
+          },
+          {
+            "date": "2025-02-26",
+            "clicks": 193,
+            "impressions": 6731
+          },
+          {
+            "date": "2025-02-27",
+            "clicks": 216,
+            "impressions": 7073
+          },
+          {
+            "date": "2025-02-28",
+            "clicks": 198,
+            "impressions": 7210
+          },
+          {
+            "date": "2025-03-01",
+            "clicks": 157,
+            "impressions": 5866
+          },
+          {
+            "date": "2025-03-02",
+            "clicks": 138,
+            "impressions": 7141
+          },
+          {
+            "date": "2025-03-03",
+            "clicks": 132,
+            "impressions": 6089
+          },
+          {
+            "date": "2025-03-04",
+            "clicks": 171,
+            "impressions": 6432
+          },
+          {
+            "date": "2025-03-05",
+            "clicks": 166,
+            "impressions": 6508
+          },
+          {
+            "date": "2025-03-06",
+            "clicks": 181,
+            "impressions": 6313
+          },
+          {
+            "date": "2025-03-07",
+            "clicks": 205,
+            "impressions": 6383
+          },
+          {
+            "date": "2025-03-08",
+            "clicks": 186,
+            "impressions": 5782
+          },
+          {
+            "date": "2025-03-09",
+            "clicks": 193,
+            "impressions": 6666
+          },
+          {
+            "date": "2025-03-10",
+            "clicks": 193,
+            "impressions": 6395
+          },
+          {
+            "date": "2025-03-11",
+            "clicks": 228,
+            "impressions": 6564
+          },
+          {
+            "date": "2025-03-12",
+            "clicks": 239,
+            "impressions": 6814
+          },
+          {
+            "date": "2025-03-13",
+            "clicks": 196,
+            "impressions": 6382
+          },
+          {
+            "date": "2025-03-14",
+            "clicks": 182,
+            "impressions": 5683
+          },
+          {
+            "date": "2025-03-15",
+            "clicks": 152,
+            "impressions": 5278
+          },
+          {
+            "date": "2025-03-16",
+            "clicks": 168,
+            "impressions": 5621
+          },
+          {
+            "date": "2025-03-17",
+            "clicks": 209,
+            "impressions": 5419
+          },
+          {
+            "date": "2025-03-18",
+            "clicks": 158,
+            "impressions": 7384
+          },
+          {
+            "date": "2025-03-19",
+            "clicks": 186,
+            "impressions": 5397
+          },
+          {
+            "date": "2025-03-20",
+            "clicks": 171,
+            "impressions": 5231
+          },
+          {
+            "date": "2025-03-21",
+            "clicks": 187,
+            "impressions": 5004
+          },
+          {
+            "date": "2025-03-22",
+            "clicks": 156,
+            "impressions": 4459
+          },
+          {
+            "date": "2025-03-23",
+            "clicks": 172,
+            "impressions": 4958
+          },
+          {
+            "date": "2025-03-24",
+            "clicks": 197,
+            "impressions": 5641
+          },
+          {
+            "date": "2025-03-25",
+            "clicks": 205,
+            "impressions": 5666
+          },
+          {
+            "date": "2025-03-26",
+            "clicks": 211,
+            "impressions": 5321
+          },
+          {
+            "date": "2025-03-27",
+            "clicks": 200,
+            "impressions": 5523
+          },
+          {
+            "date": "2025-03-28",
+            "clicks": 171,
+            "impressions": 5697
+          },
+          {
+            "date": "2025-03-29",
+            "clicks": 140,
+            "impressions": 5097
+          },
+          {
+            "date": "2025-03-30",
+            "clicks": 154,
+            "impressions": 5525
+          },
+          {
+            "date": "2025-03-31",
+            "clicks": 179,
+            "impressions": 5693
+          },
+          {
+            "date": "2025-04-01",
+            "clicks": 169,
+            "impressions": 5919
+          },
+          {
+            "date": "2025-04-02",
+            "clicks": 213,
+            "impressions": 8712
+          },
+          {
+            "date": "2025-04-03",
+            "clicks": 177,
+            "impressions": 6866
+          },
+          {
+            "date": "2025-04-04",
+            "clicks": 166,
+            "impressions": 7028
+          },
+          {
+            "date": "2025-04-05",
+            "clicks": 168,
+            "impressions": 5707
+          },
+          {
+            "date": "2025-04-06",
+            "clicks": 172,
+            "impressions": 6330
+          },
+          {
+            "date": "2025-04-07",
+            "clicks": 210,
+            "impressions": 6403
+          },
+          {
+            "date": "2025-04-08",
+            "clicks": 207,
+            "impressions": 7006
+          },
+          {
+            "date": "2025-04-09",
+            "clicks": 205,
+            "impressions": 8376
+          },
+          {
+            "date": "2025-04-10",
+            "clicks": 200,
+            "impressions": 8902
+          },
+          {
+            "date": "2025-04-11",
+            "clicks": 201,
+            "impressions": 7411
+          },
+          {
+            "date": "2025-04-12",
+            "clicks": 134,
+            "impressions": 6550
+          },
+          {
+            "date": "2025-04-13",
+            "clicks": 172,
+            "impressions": 8047
+          },
+          {
+            "date": "2025-04-14",
+            "clicks": 210,
+            "impressions": 8272
+          },
+          {
+            "date": "2025-04-15",
+            "clicks": 238,
+            "impressions": 8221
+          },
+          {
+            "date": "2025-04-16",
+            "clicks": 222,
+            "impressions": 11101
+          },
+          {
+            "date": "2025-04-17",
+            "clicks": 222,
+            "impressions": 10984
+          },
+          {
+            "date": "2025-04-18",
+            "clicks": 176,
+            "impressions": 9237
+          },
+          {
+            "date": "2025-04-19",
+            "clicks": 137,
+            "impressions": 8555
+          },
+          {
+            "date": "2025-04-20",
+            "clicks": 176,
+            "impressions": 9589
+          },
+          {
+            "date": "2025-04-21",
+            "clicks": 200,
+            "impressions": 11616
+          },
+          {
+            "date": "2025-04-22",
+            "clicks": 158,
+            "impressions": 10820
+          },
+          {
+            "date": "2025-04-23",
+            "clicks": 159,
+            "impressions": 10428
+          },
+          {
+            "date": "2025-04-24",
+            "clicks": 149,
+            "impressions": 10470
+          },
+          {
+            "date": "2025-04-25",
+            "clicks": 158,
+            "impressions": 9819
+          },
+          {
+            "date": "2025-04-26",
+            "clicks": 111,
+            "impressions": 8811
+          },
+          {
+            "date": "2025-04-27",
+            "clicks": 147,
+            "impressions": 9672
+          },
+          {
+            "date": "2025-04-28",
+            "clicks": 195,
+            "impressions": 10630
+          },
+          {
+            "date": "2025-04-29",
+            "clicks": 180,
+            "impressions": 10468
+          },
+          {
+            "date": "2025-04-30",
+            "clicks": 185,
+            "impressions": 9402
+          },
+          {
+            "date": "2025-05-01",
+            "clicks": 166,
+            "impressions": 9289
+          },
+          {
+            "date": "2025-05-02",
+            "clicks": 152,
+            "impressions": 10494
+          },
+          {
+            "date": "2025-05-03",
+            "clicks": 155,
+            "impressions": 9209
+          },
+          {
+            "date": "2025-05-04",
+            "clicks": 159,
+            "impressions": 9662
+          },
+          {
+            "date": "2025-05-05",
+            "clicks": 164,
+            "impressions": 10053
+          },
+          {
+            "date": "2025-05-06",
+            "clicks": 152,
+            "impressions": 9764
+          },
+          {
+            "date": "2025-05-07",
+            "clicks": 126,
+            "impressions": 8970
+          },
+          {
+            "date": "2025-05-08",
+            "clicks": 147,
+            "impressions": 8657
+          },
+          {
+            "date": "2025-05-09",
+            "clicks": 128,
+            "impressions": 10037
+          },
+          {
+            "date": "2025-05-10",
+            "clicks": 108,
+            "impressions": 7771
+          },
+          {
+            "date": "2025-05-11",
+            "clicks": 118,
+            "impressions": 8018
+          },
+          {
+            "date": "2025-05-12",
+            "clicks": 143,
+            "impressions": 9266
+          },
+          {
+            "date": "2025-05-13",
+            "clicks": 152,
+            "impressions": 8546
+          },
+          {
+            "date": "2025-05-14",
+            "clicks": 118,
+            "impressions": 8484
+          },
+          {
+            "date": "2025-05-15",
+            "clicks": 152,
+            "impressions": 9857
+          },
+          {
+            "date": "2025-05-16",
+            "clicks": 160,
+            "impressions": 9687
+          },
+          {
+            "date": "2025-05-17",
+            "clicks": 126,
+            "impressions": 8003
+          },
+          {
+            "date": "2025-05-18",
+            "clicks": 160,
+            "impressions": 8906
+          },
+          {
+            "date": "2025-05-19",
+            "clicks": 144,
+            "impressions": 9468
+          },
+          {
+            "date": "2025-05-20",
+            "clicks": 119,
+            "impressions": 10478
+          },
+          {
+            "date": "2025-05-21",
+            "clicks": 159,
+            "impressions": 12818
+          },
+          {
+            "date": "2025-05-22",
+            "clicks": 130,
+            "impressions": 11066
+          },
+          {
+            "date": "2025-05-23",
+            "clicks": 133,
+            "impressions": 7486
+          },
+          {
+            "date": "2025-05-24",
+            "clicks": 116,
+            "impressions": 7328
+          },
+          {
+            "date": "2025-05-25",
+            "clicks": 143,
+            "impressions": 16566
+          },
+          {
+            "date": "2025-05-26",
+            "clicks": 161,
+            "impressions": 9930
+          },
+          {
+            "date": "2025-05-27",
+            "clicks": 138,
+            "impressions": 9010
+          },
+          {
+            "date": "2025-05-28",
+            "clicks": 144,
+            "impressions": 7629
+          },
+          {
+            "date": "2025-05-29",
+            "clicks": 146,
+            "impressions": 8390
+          },
+          {
+            "date": "2025-05-30",
+            "clicks": 143,
+            "impressions": 9004
+          },
+          {
+            "date": "2025-05-31",
+            "clicks": 100,
+            "impressions": 9319
+          },
+          {
+            "date": "2025-06-01",
+            "clicks": 139,
+            "impressions": 10741
+          },
+          {
+            "date": "2025-06-02",
+            "clicks": 174,
+            "impressions": 12284
+          },
+          {
+            "date": "2025-06-03",
+            "clicks": 168,
+            "impressions": 11183
+          },
+          {
+            "date": "2025-06-04",
+            "clicks": 156,
+            "impressions": 8317
+          },
+          {
+            "date": "2025-06-05",
+            "clicks": 159,
+            "impressions": 8194
+          },
+          {
+            "date": "2025-06-06",
+            "clicks": 179,
+            "impressions": 8076
+          },
+          {
+            "date": "2025-06-07",
+            "clicks": 135,
+            "impressions": 6268
+          },
+          {
+            "date": "2025-06-08",
+            "clicks": 161,
+            "impressions": 6644
+          },
+          {
+            "date": "2025-06-09",
+            "clicks": 210,
+            "impressions": 7715
+          },
+          {
+            "date": "2025-06-10",
+            "clicks": 167,
+            "impressions": 7568
+          },
+          {
+            "date": "2025-06-11",
+            "clicks": 168,
+            "impressions": 8283
+          },
+          {
+            "date": "2025-06-12",
+            "clicks": 163,
+            "impressions": 10621
+          },
+          {
+            "date": "2025-06-13",
+            "clicks": 165,
+            "impressions": 9647
+          },
+          {
+            "date": "2025-06-14",
+            "clicks": 132,
+            "impressions": 9591
+          },
+          {
+            "date": "2025-06-15",
+            "clicks": 149,
+            "impressions": 9750
+          },
+          {
+            "date": "2025-06-16",
+            "clicks": 195,
+            "impressions": 12030
+          },
+          {
+            "date": "2025-06-17",
+            "clicks": 176,
+            "impressions": 10836
+          },
+          {
+            "date": "2025-06-18",
+            "clicks": 200,
+            "impressions": 10155
+          },
+          {
+            "date": "2025-06-19",
+            "clicks": 167,
+            "impressions": 10330
+          },
+          {
+            "date": "2025-06-20",
+            "clicks": 158,
+            "impressions": 9998
+          },
+          {
+            "date": "2025-06-21",
+            "clicks": 161,
+            "impressions": 9412
+          },
+          {
+            "date": "2025-06-22",
+            "clicks": 183,
+            "impressions": 9672
+          },
+          {
+            "date": "2025-06-23",
+            "clicks": 155,
+            "impressions": 10522
+          },
+          {
+            "date": "2025-06-24",
+            "clicks": 173,
+            "impressions": 9571
+          },
+          {
+            "date": "2025-06-25",
+            "clicks": 156,
+            "impressions": 9933
+          },
+          {
+            "date": "2025-06-26",
+            "clicks": 178,
+            "impressions": 9620
+          },
+          {
+            "date": "2025-06-27",
+            "clicks": 157,
+            "impressions": 8921
+          },
+          {
+            "date": "2025-06-28",
+            "clicks": 132,
+            "impressions": 8232
+          },
+          {
+            "date": "2025-06-29",
+            "clicks": 173,
+            "impressions": 8487
+          },
+          {
+            "date": "2025-06-30",
+            "clicks": 213,
+            "impressions": 9417
+          },
+          {
+            "date": "2025-07-01",
+            "clicks": 211,
+            "impressions": 8760
+          },
+          {
+            "date": "2025-07-02",
+            "clicks": 226,
+            "impressions": 8595
+          },
+          {
+            "date": "2025-07-03",
+            "clicks": 174,
+            "impressions": 8875
+          },
+          {
+            "date": "2025-07-04",
+            "clicks": 170,
+            "impressions": 7758
+          },
+          {
+            "date": "2025-07-05",
+            "clicks": 154,
+            "impressions": 6852
+          },
+          {
+            "date": "2025-07-06",
+            "clicks": 187,
+            "impressions": 8295
+          },
+          {
+            "date": "2025-07-07",
+            "clicks": 234,
+            "impressions": 8965
+          },
+          {
+            "date": "2025-07-08",
+            "clicks": 195,
+            "impressions": 8517
+          },
+          {
+            "date": "2025-07-09",
+            "clicks": 205,
+            "impressions": 9055
+          },
+          {
+            "date": "2025-07-10",
+            "clicks": 181,
+            "impressions": 8040
+          },
+          {
+            "date": "2025-07-11",
+            "clicks": 213,
+            "impressions": 7504
+          },
+          {
+            "date": "2025-07-12",
+            "clicks": 164,
+            "impressions": 6271
+          },
+          {
+            "date": "2025-07-13",
+            "clicks": 184,
+            "impressions": 6731
+          },
+          {
+            "date": "2025-07-14",
+            "clicks": 180,
+            "impressions": 7413
+          },
+          {
+            "date": "2025-07-15",
+            "clicks": 194,
+            "impressions": 7033
+          },
+          {
+            "date": "2025-07-16",
+            "clicks": 186,
+            "impressions": 7446
+          },
+          {
+            "date": "2025-07-17",
+            "clicks": 189,
+            "impressions": 7111
+          },
+          {
+            "date": "2025-07-18",
+            "clicks": 174,
+            "impressions": 6536
+          },
+          {
+            "date": "2025-07-19",
+            "clicks": 157,
+            "impressions": 6343
+          },
+          {
+            "date": "2025-07-20",
+            "clicks": 164,
+            "impressions": 6866
+          },
+          {
+            "date": "2025-07-21",
+            "clicks": 189,
+            "impressions": 7486
+          },
+          {
+            "date": "2025-07-22",
+            "clicks": 185,
+            "impressions": 7804
+          },
+          {
+            "date": "2025-07-23",
+            "clicks": 163,
+            "impressions": 7853
+          },
+          {
+            "date": "2025-07-24",
+            "clicks": 181,
+            "impressions": 8108
+          },
+          {
+            "date": "2025-07-25",
+            "clicks": 170,
+            "impressions": 8633
+          },
+          {
+            "date": "2025-07-26",
+            "clicks": 107,
+            "impressions": 6021
+          },
+          {
+            "date": "2025-07-27",
+            "clicks": 150,
+            "impressions": 7318
+          },
+          {
+            "date": "2025-07-28",
+            "clicks": 119,
+            "impressions": 7651
+          },
+          {
+            "date": "2025-07-29",
+            "clicks": 131,
+            "impressions": 7524
+          },
+          {
+            "date": "2025-07-30",
+            "clicks": 135,
+            "impressions": 7733
+          },
+          {
+            "date": "2025-07-31",
+            "clicks": 98,
+            "impressions": 7707
+          },
+          {
+            "date": "2025-08-01",
+            "clicks": 94,
+            "impressions": 6763
+          },
+          {
+            "date": "2025-08-02",
+            "clicks": 110,
+            "impressions": 5791
+          },
+          {
+            "date": "2025-08-03",
+            "clicks": 111,
+            "impressions": 6944
+          },
+          {
+            "date": "2025-08-04",
+            "clicks": 110,
+            "impressions": 6684
+          },
+          {
+            "date": "2025-08-05",
+            "clicks": 103,
+            "impressions": 6893
+          },
+          {
+            "date": "2025-08-06",
+            "clicks": 117,
+            "impressions": 6234
+          },
+          {
+            "date": "2025-08-07",
+            "clicks": 140,
+            "impressions": 5825
+          },
+          {
+            "date": "2025-08-08",
+            "clicks": 132,
+            "impressions": 5743
+          },
+          {
+            "date": "2025-08-09",
+            "clicks": 123,
+            "impressions": 5299
+          },
+          {
+            "date": "2025-08-10",
+            "clicks": 113,
+            "impressions": 5352
+          },
+          {
+            "date": "2025-08-11",
+            "clicks": 137,
+            "impressions": 6643
+          },
+          {
+            "date": "2025-08-12",
+            "clicks": 149,
+            "impressions": 6463
+          },
+          {
+            "date": "2025-08-13",
+            "clicks": 133,
+            "impressions": 7197
+          },
+          {
+            "date": "2025-08-14",
+            "clicks": 145,
+            "impressions": 7085
+          },
+          {
+            "date": "2025-08-15",
+            "clicks": 141,
+            "impressions": 6422
+          },
+          {
+            "date": "2025-08-16",
+            "clicks": 95,
+            "impressions": 5645
+          },
+          {
+            "date": "2025-08-17",
+            "clicks": 132,
+            "impressions": 6909
+          },
+          {
+            "date": "2025-08-18",
+            "clicks": 148,
+            "impressions": 6837
+          },
+          {
+            "date": "2025-08-19",
+            "clicks": 154,
+            "impressions": 7305
+          },
+          {
+            "date": "2025-08-20",
+            "clicks": 138,
+            "impressions": 6311
+          },
+          {
+            "date": "2025-08-21",
+            "clicks": 108,
+            "impressions": 7087
+          },
+          {
+            "date": "2025-08-22",
+            "clicks": 131,
+            "impressions": 7594
+          },
+          {
+            "date": "2025-08-23",
+            "clicks": 101,
+            "impressions": 7111
+          },
+          {
+            "date": "2025-08-24",
+            "clicks": 109,
+            "impressions": 9843
+          },
+          {
+            "date": "2025-08-25",
+            "clicks": 123,
+            "impressions": 8131
+          },
+          {
+            "date": "2025-08-26",
+            "clicks": 130,
+            "impressions": 8713
+          },
+          {
+            "date": "2025-08-27",
+            "clicks": 125,
+            "impressions": 8073
+          },
+          {
+            "date": "2025-08-28",
+            "clicks": 109,
+            "impressions": 8193
+          },
+          {
+            "date": "2025-08-29",
+            "clicks": 137,
+            "impressions": 7759
+          },
+          {
+            "date": "2025-08-30",
+            "clicks": 100,
+            "impressions": 7504
+          },
+          {
+            "date": "2025-08-31",
+            "clicks": 121,
+            "impressions": 8863
+          },
+          {
+            "date": "2025-09-01",
+            "clicks": 147,
+            "impressions": 9286
+          },
+          {
+            "date": "2025-09-02",
+            "clicks": 114,
+            "impressions": 8439
+          },
+          {
+            "date": "2025-09-03",
+            "clicks": 103,
+            "impressions": 8806
+          },
+          {
+            "date": "2025-09-04",
+            "clicks": 101,
+            "impressions": 8427
+          },
+          {
+            "date": "2025-09-05",
+            "clicks": 152,
+            "impressions": 8022
+          },
+          {
+            "date": "2025-09-06",
+            "clicks": 101,
+            "impressions": 7129
+          },
+          {
+            "date": "2025-09-07",
+            "clicks": 130,
+            "impressions": 11375
+          },
+          {
+            "date": "2025-09-08",
+            "clicks": 122,
+            "impressions": 9161
+          },
+          {
+            "date": "2025-09-09",
+            "clicks": 146,
+            "impressions": 8524
+          },
+          {
+            "date": "2025-09-10",
+            "clicks": 130,
+            "impressions": 8533
+          },
+          {
+            "date": "2025-09-11",
+            "clicks": 130,
+            "impressions": 8837
+          },
+          {
+            "date": "2025-09-12",
+            "clicks": 143,
+            "impressions": 8160
+          },
+          {
+            "date": "2025-09-13",
+            "clicks": 141,
+            "impressions": 7154
+          },
+          {
+            "date": "2025-09-14",
+            "clicks": 157,
+            "impressions": 8641
+          },
+          {
+            "date": "2025-09-15",
+            "clicks": 172,
+            "impressions": 9159
+          },
+          {
+            "date": "2025-09-16",
+            "clicks": 147,
+            "impressions": 10106
+          },
+          {
+            "date": "2025-09-17",
+            "clicks": 153,
+            "impressions": 10433
+          },
+          {
+            "date": "2025-09-18",
+            "clicks": 161,
+            "impressions": 11011
+          },
+          {
+            "date": "2025-09-19",
+            "clicks": 153,
+            "impressions": 10799
+          },
+          {
+            "date": "2025-09-20",
+            "clicks": 148,
+            "impressions": 8937
+          },
+          {
+            "date": "2025-09-21",
+            "clicks": 166,
+            "impressions": 9943
+          },
+          {
+            "date": "2025-09-22",
+            "clicks": 204,
+            "impressions": 11500
+          },
+          {
+            "date": "2025-09-23",
+            "clicks": 164,
+            "impressions": 11170
+          },
+          {
+            "date": "2025-09-24",
+            "clicks": 132,
+            "impressions": 10763
+          },
+          {
+            "date": "2025-09-25",
+            "clicks": 142,
+            "impressions": 10726
+          },
+          {
+            "date": "2025-09-26",
+            "clicks": 148,
+            "impressions": 10070
+          },
+          {
+            "date": "2025-09-27",
+            "clicks": 111,
+            "impressions": 8040
+          },
+          {
+            "date": "2025-09-28",
+            "clicks": 130,
+            "impressions": 9470
+          },
+          {
+            "date": "2025-09-29",
+            "clicks": 144,
+            "impressions": 11249
+          },
+          {
+            "date": "2025-09-30",
+            "clicks": 148,
+            "impressions": 10551
+          },
+          {
+            "date": "2025-10-01",
+            "clicks": 157,
+            "impressions": 10493
+          },
+          {
+            "date": "2025-10-02",
+            "clicks": 157,
+            "impressions": 11660
+          },
+          {
+            "date": "2025-10-03",
+            "clicks": 183,
+            "impressions": 10933
+          },
+          {
+            "date": "2025-10-04",
+            "clicks": 139,
+            "impressions": 9685
+          },
+          {
+            "date": "2025-10-05",
+            "clicks": 148,
+            "impressions": 12139
+          },
+          {
+            "date": "2025-10-06",
+            "clicks": 158,
+            "impressions": 12541
+          },
+          {
+            "date": "2025-10-07",
+            "clicks": 165,
+            "impressions": 11282
+          },
+          {
+            "date": "2025-10-08",
+            "clicks": 163,
+            "impressions": 10694
+          },
+          {
+            "date": "2025-10-09",
+            "clicks": 164,
+            "impressions": 11173
+          },
+          {
+            "date": "2025-10-10",
+            "clicks": 155,
+            "impressions": 10489
+          },
+          {
+            "date": "2025-10-11",
+            "clicks": 104,
+            "impressions": 8881
+          },
+          {
+            "date": "2025-10-12",
+            "clicks": 138,
+            "impressions": 9193
+          },
+          {
+            "date": "2025-10-13",
+            "clicks": 175,
+            "impressions": 11600
+          },
+          {
+            "date": "2025-10-14",
+            "clicks": 149,
+            "impressions": 11162
+          },
+          {
+            "date": "2025-10-15",
+            "clicks": 154,
+            "impressions": 10272
+          },
+          {
+            "date": "2025-10-16",
+            "clicks": 168,
+            "impressions": 10817
+          },
+          {
+            "date": "2025-10-17",
+            "clicks": 148,
+            "impressions": 10625
+          },
+          {
+            "date": "2025-10-18",
+            "clicks": 120,
+            "impressions": 9272
+          },
+          {
+            "date": "2025-10-19",
+            "clicks": 127,
+            "impressions": 9983
+          },
+          {
+            "date": "2025-10-20",
+            "clicks": 186,
+            "impressions": 11761
+          },
+          {
+            "date": "2025-10-21",
+            "clicks": 150,
+            "impressions": 11673
+          },
+          {
+            "date": "2025-10-22",
+            "clicks": 112,
+            "impressions": 11941
+          },
+          {
+            "date": "2025-10-23",
+            "clicks": 148,
+            "impressions": 11784
+          },
+          {
+            "date": "2025-10-24",
+            "clicks": 155,
+            "impressions": 11424
+          },
+          {
+            "date": "2025-10-25",
+            "clicks": 112,
+            "impressions": 10445
+          },
+          {
+            "date": "2025-10-26",
+            "clicks": 136,
+            "impressions": 11027
+          },
+          {
+            "date": "2025-10-27",
+            "clicks": 155,
+            "impressions": 11999
+          },
+          {
+            "date": "2025-10-28",
+            "clicks": 153,
+            "impressions": 11756
+          },
+          {
+            "date": "2025-10-29",
+            "clicks": 122,
+            "impressions": 10700
+          },
+          {
+            "date": "2025-10-30",
+            "clicks": 130,
+            "impressions": 11644
+          },
+          {
+            "date": "2025-10-31",
+            "clicks": 105,
+            "impressions": 11214
+          },
+          {
+            "date": "2025-11-01",
+            "clicks": 97,
+            "impressions": 10459
+          },
+          {
+            "date": "2025-11-02",
+            "clicks": 132,
+            "impressions": 11846
+          },
+          {
+            "date": "2025-11-03",
+            "clicks": 141,
+            "impressions": 12970
+          },
+          {
+            "date": "2025-11-04",
+            "clicks": 141,
+            "impressions": 12867
+          },
+          {
+            "date": "2025-11-05",
+            "clicks": 136,
+            "impressions": 13133
+          },
+          {
+            "date": "2025-11-06",
+            "clicks": 140,
+            "impressions": 11953
+          },
+          {
+            "date": "2025-11-07",
+            "clicks": 105,
+            "impressions": 11332
+          },
+          {
+            "date": "2025-11-08",
+            "clicks": 106,
+            "impressions": 10592
+          },
+          {
+            "date": "2025-11-09",
+            "clicks": 149,
+            "impressions": 11284
+          },
+          {
+            "date": "2025-11-10",
+            "clicks": 168,
+            "impressions": 15137
+          },
+          {
+            "date": "2025-11-11",
+            "clicks": 135,
+            "impressions": 11874
+          },
+          {
+            "date": "2025-11-12",
+            "clicks": 136,
+            "impressions": 13098
+          },
+          {
+            "date": "2025-11-13",
+            "clicks": 132,
+            "impressions": 12542
+          },
+          {
+            "date": "2025-11-14",
+            "clicks": 137,
+            "impressions": 12323
+          },
+          {
+            "date": "2025-11-15",
+            "clicks": 116,
+            "impressions": 10143
+          },
+          {
+            "date": "2025-11-16",
+            "clicks": 148,
+            "impressions": 13379
+          },
+          {
+            "date": "2025-11-17",
+            "clicks": 125,
+            "impressions": 16835
+          },
+          {
+            "date": "2025-11-18",
+            "clicks": 202,
+            "impressions": 20337
+          },
+          {
+            "date": "2025-11-19",
+            "clicks": 189,
+            "impressions": 16551
+          },
+          {
+            "date": "2025-11-20",
+            "clicks": 164,
+            "impressions": 14256
+          },
+          {
+            "date": "2025-11-21",
+            "clicks": 152,
+            "impressions": 12925
+          },
+          {
+            "date": "2025-11-22",
+            "clicks": 112,
+            "impressions": 11824
+          },
+          {
+            "date": "2025-11-23",
+            "clicks": 174,
+            "impressions": 18452
+          },
+          {
+            "date": "2025-11-24",
+            "clicks": 144,
+            "impressions": 22241
+          },
+          {
+            "date": "2025-11-25",
+            "clicks": 125,
+            "impressions": 13568
+          },
+          {
+            "date": "2025-11-26",
+            "clicks": 156,
+            "impressions": 15868
+          },
+          {
+            "date": "2025-11-27",
+            "clicks": 167,
+            "impressions": 16145
+          },
+          {
+            "date": "2025-11-28",
+            "clicks": 168,
+            "impressions": 15540
+          },
+          {
+            "date": "2025-11-29",
+            "clicks": 155,
+            "impressions": 12946
+          },
+          {
+            "date": "2025-11-30",
+            "clicks": 132,
+            "impressions": 15776
+          },
+          {
+            "date": "2025-12-01",
+            "clicks": 170,
+            "impressions": 17585
+          },
+          {
+            "date": "2025-12-02",
+            "clicks": 129,
+            "impressions": 15784
+          },
+          {
+            "date": "2025-12-03",
+            "clicks": 152,
+            "impressions": 14121
+          },
+          {
+            "date": "2025-12-04",
+            "clicks": 178,
+            "impressions": 17809
+          },
+          {
+            "date": "2025-12-05",
+            "clicks": 161,
+            "impressions": 16252
+          },
+          {
+            "date": "2025-12-06",
+            "clicks": 138,
+            "impressions": 14562
+          },
+          {
+            "date": "2025-12-07",
+            "clicks": 137,
+            "impressions": 17818
+          },
+          {
+            "date": "2025-12-08",
+            "clicks": 183,
+            "impressions": 20133
+          },
+          {
+            "date": "2025-12-09",
+            "clicks": 203,
+            "impressions": 18849
+          },
+          {
+            "date": "2025-12-10",
+            "clicks": 153,
+            "impressions": 17940
+          },
+          {
+            "date": "2025-12-11",
+            "clicks": 168,
+            "impressions": 17963
+          },
+          {
+            "date": "2025-12-12",
+            "clicks": 159,
+            "impressions": 16902
+          },
+          {
+            "date": "2025-12-13",
+            "clicks": 133,
+            "impressions": 13464
+          },
+          {
+            "date": "2025-12-14",
+            "clicks": 144,
+            "impressions": 16299
+          },
+          {
+            "date": "2025-12-15",
+            "clicks": 211,
+            "impressions": 18542
+          },
+          {
+            "date": "2025-12-16",
+            "clicks": 163,
+            "impressions": 19873
+          },
+          {
+            "date": "2025-12-17",
+            "clicks": 168,
+            "impressions": 17031
+          },
+          {
+            "date": "2025-12-18",
+            "clicks": 157,
+            "impressions": 19216
+          },
+          {
+            "date": "2025-12-19",
+            "clicks": 189,
+            "impressions": 16966
+          },
+          {
+            "date": "2025-12-20",
+            "clicks": 138,
+            "impressions": 15675
+          },
+          {
+            "date": "2025-12-21",
+            "clicks": 149,
+            "impressions": 17785
+          },
+          {
+            "date": "2025-12-22",
+            "clicks": 196,
+            "impressions": 17332
+          },
+          {
+            "date": "2025-12-23",
+            "clicks": 170,
+            "impressions": 12949
+          },
+          {
+            "date": "2025-12-24",
+            "clicks": 92,
+            "impressions": 8269
+          },
+          {
+            "date": "2025-12-25",
+            "clicks": 138,
+            "impressions": 12188
+          },
+          {
+            "date": "2025-12-26",
+            "clicks": 186,
+            "impressions": 15699
+          },
+          {
+            "date": "2025-12-27",
+            "clicks": 167,
+            "impressions": 14499
+          },
+          {
+            "date": "2025-12-28",
+            "clicks": 179,
+            "impressions": 15337
+          },
+          {
+            "date": "2025-12-29",
+            "clicks": 173,
+            "impressions": 15425
+          },
+          {
+            "date": "2025-12-30",
+            "clicks": 170,
+            "impressions": 12293
+          },
+          {
+            "date": "2025-12-31",
+            "clicks": 106,
+            "impressions": 8354
+          },
+          {
+            "date": "2026-01-01",
+            "clicks": 172,
+            "impressions": 15490
+          },
+          {
+            "date": "2026-01-02",
+            "clicks": 219,
+            "impressions": 20356
+          },
+          {
+            "date": "2026-01-03",
+            "clicks": 183,
+            "impressions": 18412
+          },
+          {
+            "date": "2026-01-04",
+            "clicks": 203,
+            "impressions": 18990
+          },
+          {
+            "date": "2026-01-05",
+            "clicks": 230,
+            "impressions": 19862
+          },
+          {
+            "date": "2026-01-06",
+            "clicks": 186,
+            "impressions": 19177
+          },
+          {
+            "date": "2026-01-07",
+            "clicks": 181,
+            "impressions": 19798
+          },
+          {
+            "date": "2026-01-08",
+            "clicks": 147,
+            "impressions": 18727
+          },
+          {
+            "date": "2026-01-09",
+            "clicks": 136,
+            "impressions": 17317
+          },
+          {
+            "date": "2026-01-10",
+            "clicks": 131,
+            "impressions": 13294
+          },
+          {
+            "date": "2026-01-11",
+            "clicks": 142,
+            "impressions": 14177
+          },
+          {
+            "date": "2026-01-12",
+            "clicks": 160,
+            "impressions": 17340
+          },
+          {
+            "date": "2026-01-13",
+            "clicks": 146,
+            "impressions": 14973
+          },
+          {
+            "date": "2026-01-14",
+            "clicks": 173,
+            "impressions": 14365
+          },
+          {
+            "date": "2026-01-15",
+            "clicks": 128,
+            "impressions": 13357
+          },
+          {
+            "date": "2026-01-16",
+            "clicks": 139,
+            "impressions": 13463
+          },
+          {
+            "date": "2026-01-17",
+            "clicks": 137,
+            "impressions": 15232
+          },
+          {
+            "date": "2026-01-18",
+            "clicks": 123,
+            "impressions": 16243
+          },
+          {
+            "date": "2026-01-19",
+            "clicks": 143,
+            "impressions": 15245
+          },
+          {
+            "date": "2026-01-20",
+            "clicks": 125,
+            "impressions": 14715
+          },
+          {
+            "date": "2026-01-21",
+            "clicks": 110,
+            "impressions": 14139
+          },
+          {
+            "date": "2026-01-22",
+            "clicks": 122,
+            "impressions": 14251
+          },
+          {
+            "date": "2026-01-23",
+            "clicks": 110,
+            "impressions": 15141
+          },
+          {
+            "date": "2026-01-24",
+            "clicks": 111,
+            "impressions": 15729
+          },
+          {
+            "date": "2026-01-25",
+            "clicks": 134,
+            "impressions": 17525
+          },
+          {
+            "date": "2026-01-26",
+            "clicks": 119,
+            "impressions": 19666
+          },
+          {
+            "date": "2026-01-27",
+            "clicks": 125,
+            "impressions": 17224
+          },
+          {
+            "date": "2026-01-28",
+            "clicks": 113,
+            "impressions": 16279
+          },
+          {
+            "date": "2026-01-29",
+            "clicks": 118,
+            "impressions": 17821
+          },
+          {
+            "date": "2026-01-30",
+            "clicks": 124,
+            "impressions": 16784
+          },
+          {
+            "date": "2026-01-31",
+            "clicks": 107,
+            "impressions": 16226
+          },
+          {
+            "date": "2026-02-01",
+            "clicks": 114,
+            "impressions": 17582
+          },
+          {
+            "date": "2026-02-02",
+            "clicks": 118,
+            "impressions": 17136
+          },
+          {
+            "date": "2026-02-03",
+            "clicks": 135,
+            "impressions": 15294
+          },
+          {
+            "date": "2026-02-04",
+            "clicks": 120,
+            "impressions": 14605
+          },
+          {
+            "date": "2026-02-05",
+            "clicks": 107,
+            "impressions": 14914
+          },
+          {
+            "date": "2026-02-06",
+            "clicks": 101,
+            "impressions": 16046
+          },
+          {
+            "date": "2026-02-07",
+            "clicks": 84,
+            "impressions": 14776
+          },
+          {
+            "date": "2026-02-08",
+            "clicks": 115,
+            "impressions": 16205
+          },
+          {
+            "date": "2026-02-09",
+            "clicks": 125,
+            "impressions": 17768
+          },
+          {
+            "date": "2026-02-10",
+            "clicks": 134,
+            "impressions": 16932
+          },
+          {
+            "date": "2026-02-11",
+            "clicks": 130,
+            "impressions": 16982
+          },
+          {
+            "date": "2026-02-12",
+            "clicks": 137,
+            "impressions": 17722
+          },
+          {
+            "date": "2026-02-13",
+            "clicks": 139,
+            "impressions": 18207
+          },
+          {
+            "date": "2026-02-14",
+            "clicks": 86,
+            "impressions": 11473
+          },
+          {
+            "date": "2026-02-15",
+            "clicks": 107,
+            "impressions": 17043
+          },
+          {
+            "date": "2026-02-16",
+            "clicks": 106,
+            "impressions": 18321
+          },
+          {
+            "date": "2026-02-17",
+            "clicks": 154,
+            "impressions": 19536
+          },
+          {
+            "date": "2026-02-18",
+            "clicks": 117,
+            "impressions": 20116
+          },
+          {
+            "date": "2026-02-19",
+            "clicks": 124,
+            "impressions": 19484
+          },
+          {
+            "date": "2026-02-20",
+            "clicks": 90,
+            "impressions": 15605
+          },
+          {
+            "date": "2026-02-21",
+            "clicks": 80,
+            "impressions": 17609
+          },
+          {
+            "date": "2026-02-22",
+            "clicks": 107,
+            "impressions": 17448
+          },
+          {
+            "date": "2026-02-23",
+            "clicks": 169,
+            "impressions": 17494
+          },
+          {
+            "date": "2026-02-24",
+            "clicks": 126,
+            "impressions": 17978
+          },
+          {
+            "date": "2026-02-25",
+            "clicks": 128,
+            "impressions": 15712
+          },
+          {
+            "date": "2026-02-26",
+            "clicks": 102,
+            "impressions": 15818
+          },
+          {
+            "date": "2026-02-27",
+            "clicks": 106,
+            "impressions": 18092
+          },
+          {
+            "date": "2026-02-28",
+            "clicks": 77,
+            "impressions": 11337
+          },
+          {
+            "date": "2026-03-01",
+            "clicks": 106,
+            "impressions": 16467
+          },
+          {
+            "date": "2026-03-02",
+            "clicks": 109,
+            "impressions": 14592
+          },
+          {
+            "date": "2026-03-03",
+            "clicks": 108,
+            "impressions": 15961
+          },
+          {
+            "date": "2026-03-04",
+            "clicks": 88,
+            "impressions": 13113
+          },
+          {
+            "date": "2026-03-05",
+            "clicks": 115,
+            "impressions": 14938
+          },
+          {
+            "date": "2026-03-06",
+            "clicks": 87,
+            "impressions": 11644
+          },
+          {
+            "date": "2026-03-07",
+            "clicks": 61,
+            "impressions": 14313
+          },
+          {
+            "date": "2026-03-08",
+            "clicks": 77,
+            "impressions": 14310
+          },
+          {
+            "date": "2026-03-09",
+            "clicks": 92,
+            "impressions": 17429
+          },
+          {
+            "date": "2026-03-10",
+            "clicks": 130,
+            "impressions": 19349
+          },
+          {
+            "date": "2026-03-11",
+            "clicks": 106,
+            "impressions": 17412
+          },
+          {
+            "date": "2026-03-12",
+            "clicks": 105,
+            "impressions": 15988
+          },
+          {
+            "date": "2026-03-13",
+            "clicks": 91,
+            "impressions": 9989
+          },
+          {
+            "date": "2026-03-14",
+            "clicks": 77,
+            "impressions": 9822
+          },
+          {
+            "date": "2026-03-15",
+            "clicks": 87,
+            "impressions": 13221
+          },
+          {
+            "date": "2026-03-16",
+            "clicks": 106,
+            "impressions": 14986
+          },
+          {
+            "date": "2026-03-17",
+            "clicks": 96,
+            "impressions": 11850
+          },
+          {
+            "date": "2026-03-18",
+            "clicks": 128,
+            "impressions": 12251
+          },
+          {
+            "date": "2026-03-19",
+            "clicks": 120,
+            "impressions": 12640
+          },
+          {
+            "date": "2026-03-20",
+            "clicks": 122,
+            "impressions": 13624
+          },
+          {
+            "date": "2026-03-21",
+            "clicks": 113,
+            "impressions": 11953
+          },
+          {
+            "date": "2026-03-22",
+            "clicks": 105,
+            "impressions": 13078
+          },
+          {
+            "date": "2026-03-23",
+            "clicks": 139,
+            "impressions": 14689
+          },
+          {
+            "date": "2026-03-24",
+            "clicks": 118,
+            "impressions": 14254
+          },
+          {
+            "date": "2026-03-25",
+            "clicks": 109,
+            "impressions": 13674
+          },
+          {
+            "date": "2026-03-26",
+            "clicks": 98,
+            "impressions": 15845
+          },
+          {
+            "date": "2026-03-27",
+            "clicks": 109,
+            "impressions": 17340
+          },
+          {
+            "date": "2026-03-28",
+            "clicks": 89,
+            "impressions": 17837
+          },
+          {
+            "date": "2026-03-29",
+            "clicks": 119,
+            "impressions": 17095
+          },
+          {
+            "date": "2026-03-30",
+            "clicks": 134,
+            "impressions": 25261
+          },
+          {
+            "date": "2026-03-31",
+            "clicks": 159,
+            "impressions": 24241
+          },
+          {
+            "date": "2026-04-01",
+            "clicks": 143,
+            "impressions": 21854
+          },
+          {
+            "date": "2026-04-02",
+            "clicks": 129,
+            "impressions": 21804
+          },
+          {
+            "date": "2026-04-03",
+            "clicks": 84,
+            "impressions": 15147
+          },
+          {
+            "date": "2026-04-04",
+            "clicks": 84,
+            "impressions": 16708
+          },
+          {
+            "date": "2026-04-05",
+            "clicks": 112,
+            "impressions": 20607
+          },
+          {
+            "date": "2026-04-06",
+            "clicks": 141,
+            "impressions": 16584
+          },
+          {
+            "date": "2026-04-07",
+            "clicks": 127,
+            "impressions": 14625
+          },
+          {
+            "date": "2026-04-08",
+            "clicks": 109,
+            "impressions": 13350
+          },
+          {
+            "date": "2026-04-09",
+            "clicks": 107,
+            "impressions": 16127
+          },
+          {
+            "date": "2026-04-10",
+            "clicks": 116,
+            "impressions": 16508
+          },
+          {
+            "date": "2026-04-11",
+            "clicks": 86,
+            "impressions": 13218
+          },
+          {
+            "date": "2026-04-12",
+            "clicks": 95,
+            "impressions": 14457
+          },
+          {
+            "date": "2026-04-13",
+            "clicks": 72,
+            "impressions": 17229
+          },
+          {
+            "date": "2026-04-14",
+            "clicks": 125,
+            "impressions": 15160
+          },
+          {
+            "date": "2026-04-15",
+            "clicks": 102,
+            "impressions": 15899
+          },
+          {
+            "date": "2026-04-16",
+            "clicks": 124,
+            "impressions": 17679
+          },
+          {
+            "date": "2026-04-17",
+            "clicks": 131,
+            "impressions": 16713
+          },
+          {
+            "date": "2026-04-18",
+            "clicks": 110,
+            "impressions": 10801
+          },
+          {
+            "date": "2026-04-19",
+            "clicks": 87,
+            "impressions": 10219
+          },
+          {
+            "date": "2026-04-20",
+            "clicks": 99,
+            "impressions": 11822
+          },
+          {
+            "date": "2026-04-21",
+            "clicks": 92,
+            "impressions": 10609
+          },
+          {
+            "date": "2026-04-22",
+            "clicks": 82,
+            "impressions": 9825
+          },
+          {
+            "date": "2026-04-23",
+            "clicks": 86,
+            "impressions": 8014
+          },
+          {
+            "date": "2026-04-24",
+            "clicks": 78,
+            "impressions": 6989
+          },
+          {
+            "date": "2026-04-25",
+            "clicks": 73,
+            "impressions": 7303
+          },
+          {
+            "date": "2026-04-26",
+            "clicks": 65,
+            "impressions": 6615
+          },
+          {
+            "date": "2026-04-27",
+            "clicks": 85,
+            "impressions": 6976
+          },
+          {
+            "date": "2026-04-28",
+            "clicks": 102,
+            "impressions": 10601
+          },
+          {
+            "date": "2026-04-29",
+            "clicks": 85,
+            "impressions": 12166
+          },
+          {
+            "date": "2026-04-30",
+            "clicks": 97,
+            "impressions": 18157
+          },
+          {
+            "date": "2026-05-01",
+            "clicks": 79,
+            "impressions": 15821
+          },
+          {
+            "date": "2026-05-02",
+            "clicks": 86,
+            "impressions": 11082
+          },
+          {
+            "date": "2026-05-03",
+            "clicks": 105,
+            "impressions": 13200
+          },
+          {
+            "date": "2026-05-04",
+            "clicks": 101,
+            "impressions": 15538
+          },
+          {
+            "date": "2026-05-05",
+            "clicks": 81,
+            "impressions": 13556
+          },
+          {
+            "date": "2026-05-06",
+            "clicks": 71,
+            "impressions": 11247
+          },
+          {
+            "date": "2026-05-07",
+            "clicks": 93,
+            "impressions": 13462
+          },
+          {
+            "date": "2026-05-08",
+            "clicks": 67,
+            "impressions": 10120
+          },
+          {
+            "date": "2026-05-09",
+            "clicks": 74,
+            "impressions": 10177
+          },
+          {
+            "date": "2026-05-10",
+            "clicks": 84,
+            "impressions": 9621
+          },
+          {
+            "date": "2026-05-11",
+            "clicks": 76,
+            "impressions": 10910
+          },
+          {
+            "date": "2026-05-12",
+            "clicks": 61,
+            "impressions": 11178
+          },
+          {
+            "date": "2026-05-13",
+            "clicks": 77,
+            "impressions": 14713
+          },
+          {
+            "date": "2026-05-14",
+            "clicks": 63,
+            "impressions": 14425
+          },
+          {
+            "date": "2026-05-15",
+            "clicks": 63,
+            "impressions": 13775
+          },
+          {
+            "date": "2026-05-16",
+            "clicks": 61,
+            "impressions": 13322
+          },
+          {
+            "date": "2026-05-17",
+            "clicks": 79,
+            "impressions": 15884
+          },
+          {
+            "date": "2026-05-18",
+            "clicks": 68,
+            "impressions": 11750
+          },
+          {
+            "date": "2026-05-19",
+            "clicks": 58,
+            "impressions": 11458
+          },
+          {
+            "date": "2026-05-20",
+            "clicks": 76,
+            "impressions": 13112
+          },
+          {
+            "date": "2026-05-21",
+            "clicks": 52,
+            "impressions": 11747
+          },
+          {
+            "date": "2026-05-22",
+            "clicks": 66,
+            "impressions": 10503
+          },
+          {
+            "date": "2026-05-23",
+            "clicks": 41,
+            "impressions": 11681
+          },
+          {
+            "date": "2026-05-24",
+            "clicks": 78,
+            "impressions": 11647
+          },
+          {
+            "date": "2026-05-25",
+            "clicks": 64,
+            "impressions": 13244
+          },
+          {
+            "date": "2026-05-26",
+            "clicks": 55,
+            "impressions": 11814
+          },
+          {
+            "date": "2026-05-27",
+            "clicks": 3,
+            "impressions": 1224
+          }
+        ]
+      }
+    }
   },
   "youtube": {
     "views": 0,
@@ -3833,9 +11245,8 @@
     "pages": []
   },
   "errors": [
-    "GA4 API: Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/google/api_core/grpc_helpers.py\", line 55, in error_remapped_callable\n    return callabl",
     "Semrush: HTTP 403 Client Error: Forbidden for url: https://api.semrush.com/?type=domain_organic&domain=viajeguanabara.com.br&database=br&display_limit=5000&export_columns=Ph%2CPo%2CNq%2CTr%2CFk&key=3195b0c7f9b",
-    "GSC Viva: Traceback (most recent call last):\n  File \"/home/runner/work/dashboard/dashboard/scripts/fetch_data.py\", line 727, in fetch_gsc_property\n    rc = query(p_start, p_end)\n         ^^^^^^^^^^^^^^^^^^^^^\n "
+    "GSC Viva: Traceback (most recent call last):\n  File \"/home/runner/work/dashboard/dashboard/scripts/fetch_data.py\", line 879, in fetch_gsc_property\n    rc = query(p_start, p_end)\n         ^^^^^^^^^^^^^^^^^^^^^\n "
   ],
   "blog": {
     "ga4": {
