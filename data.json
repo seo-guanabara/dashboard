@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-27T19:11:53.864607Z",
+    "generated_at": "2026-05-27T19:21:13.808650Z",
     "period_current": {
       "start": "2026-04-27",
       "end": "2026-05-26"
@@ -18,15 +18,15 @@
     "source": "sheets",
     "period_start": "2026-04-27",
     "period_end": "2026-05-26",
-    "sessions": 553757,
+    "sessions": 0,
     "sessions_delta": 0.0,
     "new_users": 0,
     "new_users_delta": 0.0,
     "returning_users": 0,
     "returning_delta": 0.0,
-    "transactions": 38678,
+    "transactions": 19339,
     "transactions_delta": 0.0,
-    "revenue": 204.75,
+    "revenue": 1.4390984968660006e+17,
     "revenue_delta": 0.0,
     "revenue_ytd": 0.0,
     "revenue_ytd_prev": 0.0,
@@ -64,18 +64,6 @@
       },
       {
         "channel": "Totals For All Results",
-        "sessions": 0,
-        "transactions": 0,
-        "revenue": 0.0
-      },
-      {
-        "channel": "",
-        "sessions": 0,
-        "transactions": 0,
-        "revenue": 0.0
-      },
-      {
-        "channel": "",
         "sessions": 0,
         "transactions": 0,
         "revenue": 0.0
@@ -178,23 +166,23 @@
       }
     ],
     "total_all": {
-      "sessions": 0,
-      "transactions": 0,
-      "revenue": 0.0
+      "sessions": 1663161,
+      "transactions": 162945,
+      "revenue": 2.57434657099699e+16
     },
     "seo_total": {
-      "sessions": 553757,
+      "sessions": 0,
       "new_users": 0,
       "returning": 0,
-      "transactions": 38678,
-      "revenue": 204.75
+      "transactions": 19339,
+      "revenue": 1.4390984968660006e+17
     },
     "seo_organic": {
-      "sessions": 553757,
+      "sessions": 0,
       "new_users": 0,
       "returning": 0,
-      "transactions": 38678,
-      "revenue": 204.75
+      "transactions": 19339,
+      "revenue": 1.4390984968660006e+17
     },
     "seo_llm": {
       "sessions": 0,
@@ -205,84 +193,63 @@
     },
     "seo_by_source": [
       {
+        "source": "duckduckgo / organic",
+        "sessions": 0,
+        "transactions": 39,
+        "revenue": 6.95429000399999e+16,
+        "is_llm": false
+      },
+      {
+        "source": "bing / organic",
+        "sessions": 0,
+        "transactions": 2060,
+        "revenue": 3.88139269946999e+16,
+        "is_llm": false
+      },
+      {
+        "source": "yahoo / organic",
+        "sessions": 0,
+        "transactions": 17,
+        "revenue": 3.555039992e+16,
+        "is_llm": false
+      },
+      {
+        "source": "google / organic",
+        "sessions": 0,
+        "transactions": 17199,
+        "revenue": 2615532370053.0,
+        "is_llm": false
+      },
+      {
+        "source": "ecosia.org / organic",
+        "sessions": 0,
+        "transactions": 20,
+        "revenue": 6580640002.0,
+        "is_llm": false
+      },
+      {
+        "source": "yandex / organic",
+        "sessions": 0,
+        "transactions": 1,
+        "revenue": 618890001.0,
+        "is_llm": false
+      },
+      {
         "source": "whatsapp / organic",
-        "sessions": 4,
+        "sessions": 0,
         "transactions": 3,
         "revenue": 204.75,
         "is_llm": false
       },
       {
-        "source": "",
-        "sessions": 277316,
-        "transactions": 19339,
-        "revenue": 0.0,
-        "is_llm": false
-      },
-      {
-        "source": "Results Breakdown",
-        "sessions": 0,
-        "transactions": 0,
-        "revenue": 0.0,
-        "is_llm": false
-      },
-      {
-        "source": "sessionSourceMedium",
-        "sessions": 0,
-        "transactions": 0,
-        "revenue": 0.0,
-        "is_llm": false
-      },
-      {
-        "source": "google / organic",
-        "sessions": 261229,
-        "transactions": 17199,
-        "revenue": 0.0,
-        "is_llm": false
-      },
-      {
-        "source": "bing / organic",
-        "sessions": 14645,
-        "transactions": 2060,
-        "revenue": 0.0,
-        "is_llm": false
-      },
-      {
-        "source": "duckduckgo / organic",
-        "sessions": 357,
-        "transactions": 39,
-        "revenue": 0.0,
-        "is_llm": false
-      },
-      {
-        "source": "ecosia.org / organic",
-        "sessions": 105,
-        "transactions": 20,
-        "revenue": 0.0,
-        "is_llm": false
-      },
-      {
-        "source": "yahoo / organic",
-        "sessions": 91,
-        "transactions": 17,
-        "revenue": 0.0,
-        "is_llm": false
-      },
-      {
-        "source": "yandex / organic",
-        "sessions": 9,
-        "transactions": 1,
-        "revenue": 0.0,
-        "is_llm": false
-      },
-      {
         "source": "qwant.com / organic",
-        "sessions": 1,
+        "sessions": 0,
         "transactions": 0,
         "revenue": 0.0,
         "is_llm": false
       }
     ],
-    "conv_rate": 6.98,
+    "conv_rate": 0,
     "top_routes": [
       {
         "path": "Cidades atendidas para viagem de ônibus – Expresso Guanabara",
@@ -11246,7 +11213,7 @@
   },
   "errors": [
     "Semrush: HTTP 403 Client Error: Forbidden for url: https://api.semrush.com/?type=domain_organic&domain=viajeguanabara.com.br&database=br&display_limit=5000&export_columns=Ph%2CPo%2CNq%2CTr%2CFk&key=3195b0c7f9b",
-    "GSC Viva: Traceback (most recent call last):\n  File \"/home/runner/work/dashboard/dashboard/scripts/fetch_data.py\", line 879, in fetch_gsc_property\n    rc = query(p_start, p_end)\n         ^^^^^^^^^^^^^^^^^^^^^\n "
+    "GSC Viva: Traceback (most recent call last):\n  File \"/home/runner/work/dashboard/dashboard/scripts/fetch_data.py\", line 948, in fetch_gsc_property\n    rc = query(p_start, p_end)\n         ^^^^^^^^^^^^^^^^^^^^^\n "
   ],
   "blog": {
     "ga4": {
