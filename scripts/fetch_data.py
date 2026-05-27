@@ -240,8 +240,165 @@ def fetch_ga4():
     except Exception as e:
         log_err("GA4", traceback.format_exc())
 
-# ─── GSC ──────────────────────────────────────────────────────────────────────
+# ─── GSC VIA CSV ──────────────────────────────────────────────────────────────
+def parse_gsc_csvs(folder="gsc"):
+    """
+    Lê CSVs exportados do GSC (Desempenho → Exportar CSV).
+    Arquivos esperados na pasta gsc/:
+      - Gráfico.csv   → dados diários (Data, Cliques, Impressões, CTR, Posição)
+      - Consultas.csv → top queries agregadas
+      - Páginas.csv   → top páginas agregadas
+    Detecta automaticamente o range de datas e calcula períodos de comparação.
+    """
+    import csv as csv_module
+
+    def num(v):
+        try: return float(str(v).replace("%","").replace(",",".").strip())
+        except: return 0.0
+
+    # ── Gráfico.csv — dados diários ──
+    with open(f"{folder}/Gráfico.csv", encoding="utf-8") as f:
+        daily_rows = list(csv_module.DictReader(f))
+    daily_rows.sort(key=lambda x: x["Data"])
+
+    last_date  = datetime.strptime(daily_rows[-1]["Data"], "%Y-%m-%d").date()
+    cur_end    = last_date
+    cur_start  = cur_end  - timedelta(days=29)
+    prev_end   = cur_start - timedelta(days=1)
+    prev_start = prev_end  - timedelta(days=29)
+
+    cur_rows  = [r for r in daily_rows if cur_start.isoformat()  <= r["Data"] <= cur_end.isoformat()]
+    prev_rows = [r for r in daily_rows if prev_start.isoformat() <= r["Data"] <= prev_end.isoformat()]
+
+    def period_stats(rows):
+        if not rows: return {"clicks":0,"impressions":0,"ctr":0.0,"position":0.0}
+        clicks      = sum(int(r["Cliques"]) for r in rows)
+        impressions = sum(int(r["Impressões"]) for r in rows)
+        ctr         = round(sum(num(r["CTR"]) for r in rows) / len(rows), 2)
+        position    = round(sum(num(r["Posição"]) for r in rows) / len(rows), 1)
+        return {"clicks": clicks, "impressions": impressions, "ctr": ctr, "position": position}
+
+    cs = period_stats(cur_rows)
+    ps = period_stats(prev_rows)
+
+    # ── Consultas.csv — top queries ──
+    with open(f"{folder}/Consultas.csv", encoding="utf-8") as f:
+        query_rows = list(csv_module.DictReader(f))
+
+    top_queries = []
+    for row in query_rows[:20]:
+        top_queries.append({
+            "query":       row["Top consultas"],
+            "clicks":      int(row["Cliques"]),
+            "impressions": int(row["Impressões"]),
+            "ctr":         round(num(row["CTR"]), 2),
+            "position":    round(num(row["Posição"]), 1),
+            "pos_delta":   0.0,
+        })
+
+    # ── Páginas.csv — páginas em queda (compara 1ª vs 2ª metade do período) ──
+    with open(f"{folder}/Páginas.csv", encoding="utf-8") as f:
+        page_rows = list(csv_module.DictReader(f))
+
+    # Usa dados diários para identificar páginas com queda
+    # Como o CSV de páginas é agregado, usamos ranking de cliques como proxy
+    declining = []
+    for row in page_rows:
+        path = row["Páginas principais"].replace(GSC_SITE_URL.rstrip("/"), "") or "/"
+        clicks = int(row["Cliques"])
+        if clicks < 500:  # foca em páginas com volume relevante
+            continue
+        declining.append({"page": path, "clicks": clicks, "delta": 0.0})
+    # Ordena por menor CTR como indicador de oportunidade
+    page_rows_sorted = sorted(page_rows, key=lambda x: num(x["CTR"]))
+    declining = []
+    for row in page_rows_sorted[:5]:
+        path = row["Páginas principais"].replace(GSC_SITE_URL.rstrip("/"), "") or "/"
+        declining.append({
+            "page":   path,
+            "clicks": int(row["Cliques"]),
+            "delta":  round(num(row["CTR"]) - (cs["ctr"] or 1), 2),
+        })
+
+    # ── Coverage (indexação) ──
+    indexed_pages     = 0
+    indexed_daily     = []
+    coverage_urls     = []
+    if os.path.exists(f"{folder}/coverage/Gráfico.csv"):
+        with open(f"{folder}/coverage/Gráfico.csv", encoding="utf-8") as f:
+            cov_rows = list(csv_module.DictReader(f))
+        if cov_rows:
+            indexed_pages = int(num(cov_rows[-1].get("Páginas afetadas", 0)))
+            indexed_daily = [int(num(r.get("Páginas afetadas", 0))) for r in cov_rows[-30:]]
+    if os.path.exists(f"{folder}/coverage/Tabela.csv"):
+        with open(f"{folder}/coverage/Tabela.csv", encoding="utf-8") as f:
+            cov_table = list(csv_module.DictReader(f))
+        coverage_urls = [{"url": r.get("URL",""), "last_crawl": r.get("Último rastreamento","")}
+                         for r in cov_table[:20]]
+
+    # ── Core Web Vitals ──
+    cwv_issues    = []
+    cwv_daily_bad = []
+    cwv_daily_ok  = []
+    if os.path.exists(f"{folder}/cwv/Tabela.csv"):
+        with open(f"{folder}/cwv/Tabela.csv", encoding="utf-8") as f:
+            cwv_rows = list(csv_module.DictReader(f))
+        for row in cwv_rows:
+            cwv_issues.append({
+                "severity": row.get("Gravidade",""),
+                "issue":    row.get("Problema",""),
+                "urls":     int(num(row.get("URLs", 0))),
+            })
+    if os.path.exists(f"{folder}/cwv/Gráfico.csv"):
+        with open(f"{folder}/cwv/Gráfico.csv", encoding="utf-8") as f:
+            cwv_chart = list(csv_module.DictReader(f))
+        cwv_daily_bad = [int(num(r.get("Ruins",0)))              for r in cwv_chart[-30:]]
+        cwv_daily_ok  = [int(num(r.get("Bom",0)))                for r in cwv_chart[-30:]]
+
+    # ── Backlinks ──
+    backlinks_total = 0
+    if os.path.exists(f"{folder}/Latest_links.csv"):
+        with open(f"{folder}/Latest_links.csv", encoding="utf-8") as f:
+            bl_rows = list(csv_module.DictReader(f))
+        backlinks_total = len(bl_rows)
+
+    return {
+        "source":            "csv",
+        "period_start":      cur_start.isoformat(),
+        "period_end":        cur_end.isoformat(),
+        "clicks":            cs["clicks"],
+        "clicks_delta":      pct_delta(cs["clicks"],      ps["clicks"]),
+        "impressions":       cs["impressions"],
+        "impressions_delta": pct_delta(cs["impressions"], ps["impressions"]),
+        "ctr":               cs["ctr"],
+        "ctr_delta":         round(cs["ctr"] - ps["ctr"], 2),
+        "position":          cs["position"],
+        "position_delta":    round(ps["position"] - cs["position"], 1),
+        "top_queries":       top_queries[:10],
+        "declining_pages":   declining,
+        "daily_clicks":      [int(r["Cliques"])     for r in cur_rows],
+        "daily_clicks_prev": [int(r["Cliques"])     for r in prev_rows],
+        "daily_impressions": [int(r["Impressões"])  for r in cur_rows],
+        "indexed_pages":     indexed_pages,
+        "indexed_daily":     indexed_daily,
+        "coverage_urls":     coverage_urls,
+        "cwv_issues":        cwv_issues,
+        "cwv_daily_bad":     cwv_daily_bad,
+        "cwv_daily_ok":      cwv_daily_ok,
+        "backlinks_total":   backlinks_total,
+    }
+
 def fetch_gsc():
+    # Tenta pasta gsc/ com CSVs exportados, depois API
+    if os.path.exists("gsc/Gráfico.csv"):
+        try:
+            output["gsc"] = parse_gsc_csvs("gsc")
+            log_ok("GSC (CSV)")
+            return
+        except Exception as e:
+            log_err("GSC CSV parse", str(e))
+
+    # Fallback API (requer permissão na propriedade)
     try:
         svc = build("searchconsole", "v1", credentials=creds)
         sc  = svc.searchanalytics()
@@ -251,76 +408,46 @@ def fetch_gsc():
                     "dimensions": dims or [], "rowLimit": limit}
             return sc.query(siteUrl=GSC_SITE_URL, body=body).execute()
 
-        # Overview
         rc = query(p_start, p_end)
         rp = query(c_start, c_end)
 
         def kpi(r, k):
             return r.get("rows", [{}])[0].get(k, 0) if r.get("rows") else 0
 
-        clicks_c      = int(kpi(rc, "clicks"))
-        impr_c        = int(kpi(rc, "impressions"))
-        ctr_c         = round(kpi(rc, "ctr") * 100, 2)
-        pos_c         = round(kpi(rc, "position"), 1)
-        clicks_p      = int(kpi(rp, "clicks"))
-        impr_p        = int(kpi(rp, "impressions"))
-        ctr_p         = round(kpi(rp, "ctr") * 100, 2)
-        pos_p         = round(kpi(rp, "position"), 1)
+        clicks_c  = int(kpi(rc, "clicks"));  clicks_p  = int(kpi(rp, "clicks"))
+        impr_c    = int(kpi(rc, "impressions")); impr_p = int(kpi(rp, "impressions"))
+        ctr_c     = round(kpi(rc, "ctr") * 100, 2); ctr_p = round(kpi(rp, "ctr") * 100, 2)
+        pos_c     = round(kpi(rc, "position"), 1); pos_p = round(kpi(rp, "position"), 1)
 
-        # Top queries com delta
         tq_c = query(p_start, p_end, ["query"], 20)
         tq_p = query(c_start, c_end, ["query"], 20)
         prev_q = {r["keys"][0]: r for r in tq_p.get("rows", [])}
         top_queries = []
         for row in tq_c.get("rows", []):
-            q = row["keys"][0]
+            q  = row["keys"][0]
             pv = prev_q.get(q, {})
-            top_queries.append({
-                "query":       q,
-                "clicks":      row.get("clicks", 0),
-                "impressions": row.get("impressions", 0),
-                "ctr":         round(row.get("ctr", 0) * 100, 2),
-                "position":    round(row.get("position", 99), 1),
-                "pos_delta":   round(pv.get("position", row["position"]) - row["position"], 1),
-            })
+            top_queries.append({"query": q, "clicks": row.get("clicks",0),
+                "impressions": row.get("impressions",0),
+                "ctr": round(row.get("ctr",0)*100,2),
+                "position": round(row.get("position",99),1),
+                "pos_delta": round(pv.get("position", row["position"]) - row["position"], 1)})
 
-        # Páginas em queda
-        tp_c = query(p_start, p_end, ["page"], 25)
-        tp_p = query(c_start, c_end, ["page"], 25)
-        prev_pg = {r["keys"][0]: r for r in tp_p.get("rows", [])}
-        declining = []
-        for row in tp_c.get("rows", []):
-            pg = row["keys"][0]
-            pv = prev_pg.get(pg)
-            if pv:
-                d = pct_delta(row["clicks"], pv["clicks"])
-                if d < -10:
-                    path = pg.replace(GSC_SITE_URL.rstrip("/"), "") or "/"
-                    declining.append({"page": path, "clicks": row["clicks"], "delta": d})
-        declining.sort(key=lambda x: x["delta"])
-
-        # Daily
         dq_c = query(p_start, p_end, ["date"], 31)
         dq_p = query(c_start, c_end, ["date"], 31)
-        dc = sorted(dq_c.get("rows", []), key=lambda x: x["keys"][0])
-        dp = sorted(dq_p.get("rows", []), key=lambda x: x["keys"][0])
+        dc   = sorted(dq_c.get("rows",[]), key=lambda x: x["keys"][0])
+        dp   = sorted(dq_p.get("rows",[]), key=lambda x: x["keys"][0])
 
         output["gsc"] = {
-            "clicks":            clicks_c,
-            "clicks_delta":      pct_delta(clicks_c, clicks_p),
-            "impressions":       impr_c,
-            "impressions_delta": pct_delta(impr_c, impr_p),
-            "ctr":               ctr_c,
-            "ctr_delta":         round(ctr_c - ctr_p, 2),
-            "position":          pos_c,
-            "position_delta":    round(pos_p - pos_c, 1),
-            "top_queries":       top_queries[:10],
-            "declining_pages":   declining[:5],
-            "daily_clicks":      [r["clicks"] for r in dc],
+            "clicks": clicks_c, "clicks_delta": pct_delta(clicks_c, clicks_p),
+            "impressions": impr_c, "impressions_delta": pct_delta(impr_c, impr_p),
+            "ctr": ctr_c, "ctr_delta": round(ctr_c - ctr_p, 2),
+            "position": pos_c, "position_delta": round(pos_p - pos_c, 1),
+            "top_queries": top_queries[:10], "declining_pages": [],
+            "daily_clicks": [r["clicks"] for r in dc],
             "daily_clicks_prev": [r["clicks"] for r in dp],
             "daily_impressions": [r["impressions"] for r in dc],
         }
-        log_ok("GSC")
+        log_ok("GSC (API)")
     except Exception as e:
         log_err("GSC", traceback.format_exc())
 
