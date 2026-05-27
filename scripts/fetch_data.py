@@ -326,47 +326,17 @@ def fetch_gsc():
 
 # ─── YOUTUBE ANALYTICS ────────────────────────────────────────────────────────
 def fetch_youtube():
-    try:
-        yt = build("youtubeAnalytics", "v2", credentials=creds)
-        r  = yt.reports().query(
-            ids=f"channel=={YT_CHANNEL_ID}",
-            startDate=p_start, endDate=p_end,
-            metrics="views,estimatedMinutesWatched,subscribersGained,subscribersLost",
-        ).execute()
-        rp = yt.reports().query(
-            ids=f"channel=={YT_CHANNEL_ID}",
-            startDate=c_start, endDate=c_end,
-            metrics="views,estimatedMinutesWatched,subscribersGained,subscribersLost",
-        ).execute()
-
-        row  = r.get("rows",  [[0]*4])[0]
-        rowp = rp.get("rows", [[0]*4])[0]
-
-        output["youtube"] = {
-            "views":          int(row[0]),
-            "views_delta":    pct_delta(int(row[0]), int(rowp[0])),
-            "watch_time":     int(row[1]),
-            "subs_gained":    int(row[2]),
-            "subs_lost":      int(row[3]),
-            "impressions":    0,
-            "ctr":            0.0,
-        }
-        log_ok("YouTube")
-    except Exception as e:
-        log_err("YouTube", traceback.format_exc())
+    # Requer canal linkado ao GA4 — habilitado quando vinculação estiver feita
+    output["youtube"] = {"views": 0, "views_delta": 0, "watch_time": 0,
+                         "subs_gained": 0, "subs_lost": 0, "impressions": 0, "ctr": 0.0,
+                         "status": "pending_channel_link"}
+    log_ok("YouTube (pendente vinculação do canal)")
 
 # ─── GOOGLE PLAY ──────────────────────────────────────────────────────────────
 def fetch_play():
-    try:
-        svc = build("androidpublisher", "v3", credentials=creds)
-        rev = svc.reviews().list(packageName=PLAY_PACKAGE, maxResults=1).execute()
-        output["play"] = {
-            "total_reviews": rev.get("tokenPagination", {}).get("nextPageToken", "n/a"),
-            "note": "installs via Google Play Developer Reporting API (separate quota)",
-        }
-        log_ok("Play Console (reviews)")
-    except Exception as e:
-        log_err("Play Console", traceback.format_exc())
+    # Stand by — aguardando permissão no Play Console
+    output["play"] = {"status": "pending_permission"}
+    log_ok("Play Console (stand by)")
 
 # ─── SEMRUSH ──────────────────────────────────────────────────────────────────
 def fetch_semrush():
@@ -522,4 +492,6 @@ print(f"   data.json salvo · erros: {len(output['errors'])}")
 for err in output["errors"]:
     print(f"   • {err[:120]}")
 
-sys.exit(1 if output["errors"] else 0)
+# Só falha se GA4 e GSC tiverem erros simultaneamente (ambos são críticos)
+critical_errors = [e for e in output["errors"] if e.startswith(("GA4", "GSC"))]
+sys.exit(1 if critical_errors else 0)
