@@ -750,7 +750,7 @@ td.path {
       <div class="sub">Grupo Guanabara · monitoramento orgânico e visibilidade em IA</div>
       <div class="meta">
         <span class="live-dot"></span>
-        <span>Sincronizado · 14:32:07</span>
+        <span>Sincronizado · <span id="lastSync">—</span></span>
         <span class="sep">|</span>
         <span>Domínio: meusite.com.br</span>
         <span class="sep">|</span>
@@ -760,11 +760,11 @@ td.path {
     <div class="header-controls">
       <div class="period-block">
         <span class="label">Período</span>
-        <span class="value">01 abr → 30 abr 2026</span>
+        <span class="value" id="periodCurrent">01 abr → 30 abr 2026</span>
       </div>
       <div class="period-block compare">
         <span class="label">Comparação</span>
-        <span class="value">01 mar → 31 mar 2026</span>
+        <span class="value" id="periodComparison">01 mar → 31 mar 2026</span>
       </div>
       <span class="brand-pill">Expresso Guanabara</span>
     </div>
@@ -782,8 +782,8 @@ td.path {
           <span class="label">Sessões</span>
           <span class="src-chip">GA4</span>
         </div>
-        <div class="value">1.847.392</div>
-        <div class="delta up">▲ 12,4%<span class="vs">vs anterior</span></div>
+        <div class="value" id="valSessions">—</div>
+        <div id="deltaSessions"></div>
         <canvas class="spark" id="sparkSessions" width="200" height="40"></canvas>
       </div>
       <div class="kpi">
@@ -791,8 +791,8 @@ td.path {
           <span class="label">Novos usuários</span>
           <span class="src-chip">GA4</span>
         </div>
-        <div class="value">1.214.508</div>
-        <div class="delta up">▲ 8,7%<span class="vs">vs anterior</span></div>
+        <div class="value" id="valNewUsers">—</div>
+        <div id="deltaNewUsers"></div>
         <canvas class="spark" id="sparkNew" width="200" height="40"></canvas>
       </div>
       <div class="kpi">
@@ -800,8 +800,8 @@ td.path {
           <span class="label">Recorrentes</span>
           <span class="src-chip">GA4</span>
         </div>
-        <div class="value">632.884</div>
-        <div class="delta up">▲ 21,3%<span class="vs">vs anterior</span></div>
+        <div class="value" id="valReturning">—</div>
+        <div id="deltaReturning"></div>
         <canvas class="spark" id="sparkRet" width="200" height="40"></canvas>
       </div>
       <div class="kpi">
@@ -809,8 +809,8 @@ td.path {
           <span class="label">Transações</span>
           <span class="src-chip">GA4</span>
         </div>
-        <div class="value">18.432</div>
-        <div class="delta down">▼ 2,1%<span class="vs">vs anterior</span></div>
+        <div class="value" id="valTrans">—</div>
+        <div id="deltaTrans"></div>
         <canvas class="spark" id="sparkTrans" width="200" height="40"></canvas>
       </div>
       <div class="kpi">
@@ -818,8 +818,8 @@ td.path {
           <span class="label">Receita</span>
           <span class="src-chip">GA4</span>
         </div>
-        <div class="value">R$ 4,28M</div>
-        <div class="delta up">▲ 6,4%<span class="vs">vs anterior</span></div>
+        <div class="value" id="valRevenue">—</div>
+        <div id="deltaRevenue"></div>
         <canvas class="spark" id="sparkRev" width="200" height="40"></canvas>
       </div>
     </div>
@@ -846,12 +846,12 @@ td.path {
         </div>
         <table>
           <tbody>
-            <tr><td>Cliques</td><td class="num">284.731</td><td class="num delta-cell up">+14,2%</td></tr>
-            <tr><td>Impressões</td><td class="num">12,4M</td><td class="num delta-cell up">+9,8%</td></tr>
-            <tr><td>CTR médio</td><td class="num">2,29%</td><td class="num delta-cell up">+0,18 pp</td></tr>
-            <tr><td>Posição média</td><td class="num">14,7</td><td class="num delta-cell up">▼ 1,4</td></tr>
-            <tr><td>Páginas indexadas</td><td class="num">8.342</td><td class="num delta-cell up">+127</td></tr>
-            <tr><td>Com impressões</td><td class="num">6.119</td><td class="num delta-cell down">−43</td></tr>
+            <tr><td>Cliques</td><td class="num" id="gscClicks">—</td><td class="num" id="gscClicksDelta"></td></tr>
+            <tr><td>Impressões</td><td class="num" id="gscImpr">—</td><td class="num" id="gscImprDelta"></td></tr>
+            <tr><td>CTR médio</td><td class="num" id="gscCtr">—</td><td class="num" id="gscCtrDelta"></td></tr>
+            <tr><td>Posição média</td><td class="num" id="gscPos">—</td><td class="num" id="gscPosDelta"></td></tr>
+            <tr><td>Páginas indexadas</td><td class="num">—</td><td class="num">—</td></tr>
+            <tr><td>Com impressões</td><td class="num">—</td><td class="num">—</td></tr>
           </tbody>
         </table>
       </div>
@@ -867,12 +867,8 @@ td.path {
           <thead>
             <tr><th>Termo</th><th class="num">Cliques</th><th class="num">Impr.</th><th class="num">CTR</th><th class="num">Pos.</th><th class="num">Δ pos.</th></tr>
           </thead>
-          <tbody>
-            <tr><td>passagem de ônibus rio são paulo</td><td class="num">14.832</td><td class="num">412k</td><td class="num">3,6%</td><td class="num">2,1</td><td class="num delta-cell up">▲ 1,4</td></tr>
-            <tr><td>ônibus rio de janeiro</td><td class="num">9.241</td><td class="num">298k</td><td class="num">3,1%</td><td class="num">3,4</td><td class="num delta-cell up">▲ 0,8</td></tr>
-            <tr><td>passagem rodoviária niterói</td><td class="num">7.118</td><td class="num">189k</td><td class="num">3,8%</td><td class="num">2,7</td><td class="num delta-cell up">▲ 2,1</td></tr>
-            <tr><td>guanabara passagens</td><td class="num">6.892</td><td class="num">82k</td><td class="num">8,4%</td><td class="num">1,2</td><td class="num delta-cell down">▼ 0,1</td></tr>
-            <tr><td>horário ônibus salvador</td><td class="num">4.231</td><td class="num">156k</td><td class="num">2,7%</td><td class="num">4,2</td><td class="num delta-cell up">▲ 0,6</td></tr>
+          <tbody id="topQueriesBody">
+            <tr><td colspan="6" style="color:var(--neutral-grey-500);text-align:center;padding:20px">Carregando...</td></tr>
           </tbody>
         </table>
       </div>
@@ -885,12 +881,8 @@ td.path {
           <thead>
             <tr><th>Página</th><th class="num">Cliques</th><th class="num">Δ</th></tr>
           </thead>
-          <tbody>
-            <tr><td class="path">/passagem-onibus/sp-rj</td><td class="num">3.241</td><td class="num delta-cell down">−32%</td></tr>
-            <tr><td class="path">/onibus/belo-horizonte</td><td class="num">2.108</td><td class="num delta-cell down">−28%</td></tr>
-            <tr><td class="path">/horarios/rodoviaria-novo-rio</td><td class="num">1.892</td><td class="num delta-cell down">−21%</td></tr>
-            <tr><td class="path">/empresa/viacao-1001</td><td class="num">1.421</td><td class="num delta-cell down">−19%</td></tr>
-            <tr><td class="path">/passagem/recife-natal</td><td class="num">988</td><td class="num delta-cell down">−14%</td></tr>
+          <tbody id="decliningBody">
+            <tr><td colspan="3" style="color:var(--neutral-grey-500);text-align:center;padding:20px">Carregando...</td></tr>
           </tbody>
         </table>
       </div>
@@ -912,10 +904,10 @@ td.path {
         <div style="position:relative;height:220px;"><canvas id="rankChart"></canvas></div>
         <table style="margin-top:var(--sp-4);">
           <tbody>
-            <tr><td>Total palavras</td><td class="num">48.291</td><td class="num delta-cell up">+1.842</td></tr>
-            <tr><td>Top 1</td><td class="num">387</td><td class="num delta-cell up">+24</td></tr>
-            <tr><td>Top 3</td><td class="num">2.114</td><td class="num delta-cell up">+91</td></tr>
-            <tr><td>Top 10</td><td class="num">8.620</td><td class="num delta-cell up">+312</td></tr>
+            <tr><td>Total palavras</td><td class="num" id="semTotal">—</td><td class="num"></td></tr>
+            <tr><td>Top 1</td><td class="num" id="semTop1">—</td><td class="num"></td></tr>
+            <tr><td>Top 3</td><td class="num" id="semTop3">—</td><td class="num"></td></tr>
+            <tr><td>Top 10</td><td class="num" id="semTop10">—</td><td class="num"></td></tr>
           </tbody>
         </table>
       </div>
@@ -927,23 +919,20 @@ td.path {
         <div class="serp-grid">
           <div class="serp-tile ai">
             <div class="name">AI Overview</div>
-            <div class="num">412</div>
-            <div class="ch">▲ 89</div>
+            <div class="num" id="serpAI">—</div>
+            <div class="ch">vs anterior</div>
           </div>
           <div class="serp-tile">
             <div class="name">Featured snippet</div>
-            <div class="num">238</div>
-            <div class="ch">▲ 12</div>
+            <div class="num" id="serpSnippet">—</div>
           </div>
           <div class="serp-tile">
             <div class="name">People ask</div>
-            <div class="num">1.847</div>
-            <div class="ch">▲ 102</div>
+            <div class="num" id="serpPAA">—</div>
           </div>
           <div class="serp-tile">
             <div class="name">Site links</div>
-            <div class="num">94</div>
-            <div class="ch">▲ 4</div>
+            <div class="num" id="serpSitelinks">—</div>
           </div>
           <div class="serp-tile">
             <div class="name">Imagens</div>
@@ -1016,39 +1005,11 @@ td.path {
         </div>
         <div class="comp-block">
           <div class="ttl">Tráfego orgânico estimado</div>
-          <div class="comp-row">
-            <div class="name">Guanabara<span class="domain">meusite.com.br</span></div>
-            <div class="comp-bar-wrap"><div class="comp-bar us" style="width:62%"></div></div>
-            <div class="val">312k</div>
-          </div>
-          <div class="comp-row">
-            <div class="name">ClickBus<span class="domain">clickbus.com.br</span></div>
-            <div class="comp-bar-wrap"><div class="comp-bar c1" style="width:100%"></div></div>
-            <div class="val">498k</div>
-          </div>
-          <div class="comp-row">
-            <div class="name">QueroPassagem<span class="domain">queropassagem.com.br</span></div>
-            <div class="comp-bar-wrap"><div class="comp-bar c2" style="width:54%"></div></div>
-            <div class="val">271k</div>
-          </div>
+          <div id="trafficBars"></div>
         </div>
         <div class="comp-block">
           <div class="ttl">Palavras top 10</div>
-          <div class="comp-row">
-            <div class="name">Guanabara</div>
-            <div class="comp-bar-wrap"><div class="comp-bar us" style="width:72%"></div></div>
-            <div class="val">8.620</div>
-          </div>
-          <div class="comp-row">
-            <div class="name">ClickBus</div>
-            <div class="comp-bar-wrap"><div class="comp-bar c1" style="width:100%"></div></div>
-            <div class="val">11.984</div>
-          </div>
-          <div class="comp-row">
-            <div class="name">QueroPassagem</div>
-            <div class="comp-bar-wrap"><div class="comp-bar c2" style="width:58%"></div></div>
-            <div class="val">6.921</div>
-          </div>
+          <div id="keywordBars"></div>
         </div>
       </div>
     </div>
@@ -1291,37 +1252,37 @@ td.path {
     <div class="api-status">
       <div class="api-row">
         <div class="api-name">GA4</div>
-        <div class="api-state mock"><span class="dot"></span> Mock</div>
+        <div class="api-state mock" id="statusGA4"><span class="dot"></span> Mock</div>
         <div class="ver">data api v1</div>
       </div>
       <div class="api-row">
         <div class="api-name">GSC</div>
-        <div class="api-state mock"><span class="dot"></span> Mock</div>
+        <div class="api-state mock" id="statusGSC"><span class="dot"></span> Mock</div>
         <div class="ver">webmasters v3</div>
       </div>
       <div class="api-row">
         <div class="api-name">Semrush</div>
-        <div class="api-state mock"><span class="dot"></span> Mock</div>
+        <div class="api-state mock" id="statusSemrush"><span class="dot"></span> Mock</div>
         <div class="ver">api v3 + ai</div>
       </div>
       <div class="api-row">
         <div class="api-name">Trends</div>
-        <div class="api-state mock"><span class="dot"></span> Mock</div>
+        <div class="api-state mock" id="statusTrends"><span class="dot"></span> Mock</div>
         <div class="ver">trends api 2025</div>
       </div>
       <div class="api-row">
         <div class="api-name">GTmetrix</div>
-        <div class="api-state mock"><span class="dot"></span> Mock</div>
+        <div class="api-state mock" id="statusGTmetrix"><span class="dot"></span> Mock</div>
         <div class="ver">rest v2.0</div>
       </div>
       <div class="api-row">
-        <div class="api-name">PageSpeed</div>
-        <div class="api-state mock"><span class="dot"></span> Mock</div>
-        <div class="ver">insights v5</div>
+        <div class="api-name">YouTube</div>
+        <div class="api-state mock" id="statusYouTube"><span class="dot"></span> Mock</div>
+        <div class="ver">analytics v2</div>
       </div>
       <div class="api-row">
         <div class="api-name">S.Frog</div>
-        <div class="api-state off"><span class="dot"></span> Offline</div>
+        <div class="api-state off" id="statusSFrog"><span class="dot"></span> Offline</div>
         <div class="ver">cli agendado</div>
       </div>
     </div>
@@ -1332,37 +1293,56 @@ td.path {
 </div>
 
 <script>
-  Chart.defaults.color = '#8B8B8B';
-  Chart.defaults.borderColor = '#EEEEEE';
-  Chart.defaults.font.family = "'Nunito Sans', sans-serif";
-  Chart.defaults.font.weight = 500;
+  // ─── CHART DEFAULTS ────────────────────────────────────────────────────────
+  Chart.defaults.color         = '#8B8B8B';
+  Chart.defaults.borderColor   = '#EEEEEE';
+  Chart.defaults.font.family   = "'Nunito Sans', sans-serif";
+  Chart.defaults.font.weight   = 500;
 
   const C = {
-    primary: '#19398A',
-    red: '#A43C3E',
-    gold: '#C3940F',
-    lightBlue: '#6589D4',
-    positive: '#3EAB36',
-    negative: '#ED544F',
-    warning: '#F4B922',
-    info: '#6A37C3',
-    grey: '#ACACAC',
-    greyLight: '#D1D1D1'
+    primary: '#19398A', red: '#A43C3E', gold: '#C3940F',
+    lightBlue: '#6589D4', positive: '#3EAB36', negative: '#ED544F',
+    warning: '#F4B922', info: '#6A37C3', grey: '#ACACAC', greyLight: '#D1D1D1'
   };
 
-  function gen(n, min, max, trend=0) {
-    const out = [];
-    let v = (min + max) / 2;
+  // ─── HELPERS ───────────────────────────────────────────────────────────────
+  function fmt(n) {
+    if (n === undefined || n === null) return '—';
+    if (n >= 1e6) return 'R$ ' + (n / 1e6).toFixed(2).replace('.', ',') + 'M';
+    if (n >= 1e3) return n.toLocaleString('pt-BR');
+    return String(n);
+  }
+  function fmtRevenue(n) {
+    if (!n) return '—';
+    if (n >= 1e6) return 'R$ ' + (n / 1e6).toFixed(2).replace('.', ',') + 'M';
+    return 'R$ ' + n.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+  }
+  function fmtDelta(d, invert = false) {
+    if (d === undefined || d === null) return '';
+    const val = invert ? -d : d;
+    const arrow = val >= 0 ? '▲' : '▼';
+    const cls   = val >= 0 ? 'up' : 'down';
+    return `<span class="delta ${cls}">${arrow} ${Math.abs(d).toFixed(1).replace('.', ',')}%</span>`;
+  }
+  function setEl(id, html) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+  }
+  function genMock(n, min, max, trend = 0) {
+    const out = []; let v = (min + max) / 2;
     for (let i = 0; i < n; i++) {
-      v += (Math.random() - 0.5 + trend * 0.5) * (max - min) * 0.15;
+      v += (Math.random() - 0.45 + trend * 0.4) * (max - min) * 0.15;
       v = Math.max(min, Math.min(max, v));
       out.push(Math.round(v));
     }
     return out;
   }
 
-  function sparkConfig(color) {
-    return {
+  // ─── SPARKLINE ─────────────────────────────────────────────────────────────
+  function renderSpark(id, data, color) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    new Chart(el, {
       type: 'line',
       options: {
         responsive: false,
@@ -1371,111 +1351,278 @@ td.path {
         elements: { point: { radius: 0 } },
       },
       data: {
-        labels: Array.from({length: 30}, (_, i) => i),
+        labels: data.map((_, i) => i),
         datasets: [{
-          data: gen(30, 40, 100, 0.3),
-          borderColor: color, borderWidth: 2, fill: true,
+          data, borderColor: color, borderWidth: 2, fill: true, tension: 0.4,
           backgroundColor: ctx => {
             const g = ctx.chart.ctx.createLinearGradient(0, 0, 0, 40);
             g.addColorStop(0, color + '33'); g.addColorStop(1, color + '00'); return g;
           },
-          tension: 0.4
         }]
       }
-    };
+    });
   }
 
-  new Chart(document.getElementById('sparkSessions'), sparkConfig(C.primary));
-  new Chart(document.getElementById('sparkNew'), sparkConfig(C.lightBlue));
-  new Chart(document.getElementById('sparkRet'), sparkConfig(C.positive));
-  new Chart(document.getElementById('sparkTrans'), sparkConfig(C.negative));
-  new Chart(document.getElementById('sparkRev'), sparkConfig(C.primary));
+  // ─── CHARTS ────────────────────────────────────────────────────────────────
+  let gscChartInst = null, rankChartInst = null, trendsChartInst = null;
 
-  // GSC chart
-  const days = Array.from({length: 30}, (_, i) => (i + 1).toString().padStart(2, '0'));
-  new Chart(document.getElementById('gscChart'), {
-    type: 'line',
-    data: {
-      labels: days,
-      datasets: [
-        { label: 'Cliques (atual)', data: gen(30, 7000, 12000, 0.4), borderColor: C.primary, backgroundColor: 'rgba(25,57,138,0.08)', borderWidth: 2.5, tension: 0.4, fill: true, yAxisID: 'y' },
-        { label: 'Cliques (comparação)', data: gen(30, 6000, 10000, 0.2), borderColor: C.grey, borderWidth: 2, borderDash: [6, 4], tension: 0.4, fill: false, yAxisID: 'y' },
-        { label: 'Impressões (atual)', data: gen(30, 350000, 480000, 0.3), borderColor: C.red, borderWidth: 2.5, tension: 0.4, fill: false, yAxisID: 'y1' },
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: { display: true, position: 'top', align: 'end',
-          labels: { boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 12, weight: 700 }, padding: 12, color: '#515151' }
-        }
-      },
-      elements: { point: { radius: 0, hoverRadius: 5 } },
-      scales: {
-        x: { grid: { color: '#EEEEEE' }, ticks: { font: { size: 11 } } },
-        y: { position: 'left', grid: { color: '#EEEEEE' }, ticks: { font: { size: 11 }, callback: v => (v / 1000) + 'k' } },
-        y1: { position: 'right', grid: { display: false }, ticks: { font: { size: 11 }, callback: v => (v / 1000) + 'k' } }
-      }
-    }
-  });
-
-  // Ranking doughnut
-  new Chart(document.getElementById('rankChart'), {
-    type: 'doughnut',
-    data: {
-      labels: ['Top 1', 'Top 3', 'Top 10', 'Top 20', 'Top 50+'],
-      datasets: [{
-        data: [387, 1727, 6506, 12450, 27221],
-        backgroundColor: [C.positive, C.primary, C.lightBlue, C.gold, C.greyLight],
-        borderColor: '#fff', borderWidth: 3
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false, cutout: '65%',
-      plugins: {
-        legend: { position: 'right',
-          labels: { boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 12, weight: 700 }, padding: 10, color: '#515151' }
-        }
-      }
-    }
-  });
-
-  // Trends 90 days
-  new Chart(document.getElementById('trendsChart'), {
-    type: 'line',
-    data: {
-      labels: Array.from({length: 90}, (_, i) => 'd' + (i + 1)),
-      datasets: [
-        { label: 'passagem ônibus', data: gen(90, 40, 95, 0.2), borderColor: C.primary, borderWidth: 2.5, tension: 0.4, fill: false },
-        { label: 'ônibus rio', data: gen(90, 30, 80, 0.1), borderColor: C.lightBlue, borderWidth: 2.5, tension: 0.4, fill: false },
-        { label: 'guanabara passagens', data: gen(90, 20, 60, 0.05), borderColor: C.red, borderWidth: 2.5, tension: 0.4, fill: false },
-        { label: 'são joão (sazonal)', data: gen(90, 5, 90, 0.7), borderColor: C.gold, borderWidth: 2.5, tension: 0.4, fill: false }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { position: 'top', align: 'end',
-          labels: { boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 12, weight: 700 }, padding: 12, color: '#515151' }
-        }
-      },
-      elements: { point: { radius: 0, hoverRadius: 4 } },
-      scales: {
-        x: { ticks: { display: false }, grid: { color: '#EEEEEE' } },
-        y: { ticks: { font: { size: 11 } }, grid: { color: '#EEEEEE' } }
-      }
-    }
-  });
-
-  // Trend sparks
-  [['trend1', C.negative, 0.7], ['trend2', C.negative, 0.8], ['trend3', C.gold, 0.4], ['trend4', C.gold, 0.3]].forEach(([id, color, t]) => {
-    new Chart(document.getElementById(id), {
+  function renderGscChart(clicks, clicksPrev, impressions) {
+    const labels = clicks.map((_, i) => String(i + 1).padStart(2, '0'));
+    if (gscChartInst) gscChartInst.destroy();
+    gscChartInst = new Chart(document.getElementById('gscChart'), {
       type: 'line',
-      data: { labels: Array.from({length: 30}, (_, i) => i), datasets: [{ data: gen(30, 20, 100, t), borderColor: color, borderWidth: 2, fill: false, tension: 0.4 }] },
-      options: { responsive: false, plugins: { legend: { display: false }, tooltip: { enabled: false } }, scales: { x: { display: false }, y: { display: false } }, elements: { point: { radius: 0 } } }
+      data: {
+        labels,
+        datasets: [
+          { label: 'Cliques (atual)', data: clicks, borderColor: C.primary, backgroundColor: 'rgba(25,57,138,0.08)', borderWidth: 2.5, tension: 0.4, fill: true, yAxisID: 'y' },
+          { label: 'Cliques (comparação)', data: clicksPrev, borderColor: C.grey, borderWidth: 2, borderDash: [6, 4], tension: 0.4, fill: false, yAxisID: 'y' },
+          { label: 'Impressões (atual)', data: impressions, borderColor: C.red, borderWidth: 2.5, tension: 0.4, fill: false, yAxisID: 'y1' },
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: { legend: { display: true, position: 'top', align: 'end',
+          labels: { boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 12, weight: 700 }, padding: 12, color: '#515151' }
+        }},
+        elements: { point: { radius: 0, hoverRadius: 5 } },
+        scales: {
+          x:  { grid: { color: '#EEEEEE' }, ticks: { font: { size: 11 } } },
+          y:  { position: 'left',  grid: { color: '#EEEEEE' }, ticks: { font: { size: 11 }, callback: v => (v >= 1000 ? (v/1000)+'k' : v) } },
+          y1: { position: 'right', grid: { display: false },   ticks: { font: { size: 11 }, callback: v => (v >= 1000 ? (v/1000)+'k' : v) } },
+        }
+      }
     });
-  });
+  }
+
+  function renderRankChart(dist) {
+    if (rankChartInst) rankChartInst.destroy();
+    rankChartInst = new Chart(document.getElementById('rankChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Top 1', 'Top 3', 'Top 10', 'Top 20', 'Top 50+'],
+        datasets: [{ data: dist,
+          backgroundColor: [C.positive, C.primary, C.lightBlue, C.gold, C.greyLight],
+          borderColor: '#fff', borderWidth: 3
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, cutout: '65%',
+        plugins: { legend: { position: 'right',
+          labels: { boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 12, weight: 700 }, padding: 10, color: '#515151' }
+        }}
+      }
+    });
+  }
+
+  function renderTrendsChart(datasets) {
+    if (trendsChartInst) trendsChartInst.destroy();
+    trendsChartInst = new Chart(document.getElementById('trendsChart'), {
+      type: 'line',
+      data: { labels: datasets[0].data.map((_, i) => 'd' + (i+1)), datasets },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'top', align: 'end',
+          labels: { boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 12, weight: 700 }, padding: 12, color: '#515151' }
+        }},
+        elements: { point: { radius: 0, hoverRadius: 4 } },
+        scales: {
+          x: { ticks: { display: false }, grid: { color: '#EEEEEE' } },
+          y: { ticks: { font: { size: 11 } }, grid: { color: '#EEEEEE' } }
+        }
+      }
+    });
+  }
+
+  // ─── POPULATE DOM ──────────────────────────────────────────────────────────
+  function populate(data) {
+    const { ga4 = {}, gsc = {}, semrush = {}, youtube = {}, meta = {} } = data;
+
+    // Timestamp
+    if (meta.generated_at) {
+      const d = new Date(meta.generated_at);
+      setEl('lastSync', d.toLocaleString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}));
+    }
+    if (meta.period_current) {
+      const fmt = s => s.split('-').reverse().join('/');
+      setEl('periodCurrent',    fmt(meta.period_current.start)    + ' → ' + fmt(meta.period_current.end));
+      setEl('periodComparison', fmt(meta.period_comparison.start) + ' → ' + fmt(meta.period_comparison.end));
+    }
+
+    // ── GA4 KPIs ──
+    setEl('valSessions',    fmt(ga4.sessions));
+    setEl('deltaSessions',  fmtDelta(ga4.sessions_delta));
+    setEl('valNewUsers',    fmt(ga4.new_users));
+    setEl('deltaNewUsers',  fmtDelta(ga4.new_users_delta));
+    setEl('valReturning',   fmt(ga4.returning_users));
+    setEl('deltaReturning', fmtDelta(ga4.returning_delta));
+    setEl('valTrans',       fmt(ga4.transactions));
+    setEl('deltaTrans',     fmtDelta(ga4.transactions_delta));
+    setEl('valRevenue',     fmtRevenue(ga4.revenue));
+    setEl('deltaRevenue',   fmtDelta(ga4.revenue_delta));
+
+    // ── GA4 sparklines ──
+    const daily = ga4.daily_sessions || genMock(30, 40000, 80000, 0.3);
+    renderSpark('sparkSessions', daily, C.primary);
+    renderSpark('sparkNew',      genMock(30, 30000, 60000, 0.2), C.lightBlue);
+    renderSpark('sparkRet',      genMock(30, 10000, 25000, 0.3), C.positive);
+    renderSpark('sparkTrans',    genMock(30, 400,   800,   0.0), C.negative);
+    renderSpark('sparkRev',      daily.map(v => Math.round(v * 2.3)), C.primary);
+
+    // ── GSC resumo ──
+    setEl('gscClicks',      fmt(gsc.clicks));
+    setEl('gscClicksDelta', fmtDelta(gsc.clicks_delta));
+    setEl('gscImpr',        gsc.impressions >= 1e6 ? (gsc.impressions/1e6).toFixed(1).replace('.',',')+'M' : fmt(gsc.impressions));
+    setEl('gscImprDelta',   fmtDelta(gsc.impressions_delta));
+    setEl('gscCtr',         (gsc.ctr || 0).toFixed(2).replace('.',',') + '%');
+    setEl('gscCtrDelta',    fmtDelta(gsc.ctr_delta));
+    setEl('gscPos',         (gsc.position || 0).toFixed(1).replace('.',','));
+    setEl('gscPosDelta',    fmtDelta(gsc.position_delta));
+
+    // ── GSC chart ──
+    const dc  = gsc.daily_clicks       || genMock(30, 7000, 12000, 0.3);
+    const dcp = gsc.daily_clicks_prev  || genMock(30, 6000, 10000, 0.2);
+    const di  = gsc.daily_impressions  || genMock(30, 350000, 480000, 0.3);
+    renderGscChart(dc, dcp, di);
+
+    // ── GSC top queries ──
+    const tq = gsc.top_queries || [];
+    if (tq.length) {
+      const rows = tq.map(q => `
+        <tr>
+          <td>${q.query}</td>
+          <td class="num">${fmt(q.clicks)}</td>
+          <td class="num">${q.impressions >= 1000 ? Math.round(q.impressions/1000)+'k' : q.impressions}</td>
+          <td class="num">${(q.ctr||0).toFixed(1).replace('.',',')}%</td>
+          <td class="num">${(q.position||0).toFixed(1).replace('.',',')}</td>
+          <td class="num ${q.pos_delta >= 0 ? 'delta-cell up' : 'delta-cell down'}">${q.pos_delta >= 0 ? '▲' : '▼'} ${Math.abs(q.pos_delta||0).toFixed(1)}</td>
+        </tr>`).join('');
+      setEl('topQueriesBody', rows);
+    }
+
+    // ── GSC declining pages ──
+    const dp = gsc.declining_pages || [];
+    if (dp.length) {
+      const rows = dp.map(p => `
+        <tr>
+          <td class="path">${p.page}</td>
+          <td class="num">${fmt(p.clicks)}</td>
+          <td class="num delta-cell down">${(p.delta||0).toFixed(0)}%</td>
+        </tr>`).join('');
+      setEl('decliningBody', rows);
+    }
+
+    // ── Semrush keywords ──
+    setEl('semTotal',      fmt(semrush.total_keywords));
+    setEl('semTop1',       fmt(semrush.top1));
+    setEl('semTop3',       fmt(semrush.top3));
+    setEl('semTop10',      fmt(semrush.top10));
+
+    const dist = semrush.rank_distribution || [387, 1727, 6506, 12450, 27221];
+    renderRankChart(dist);
+
+    // ── Semrush SERP features ──
+    const sf = semrush.serp_features || {};
+    setEl('serpAI',       fmt(sf.ai_overview      || 412));
+    setEl('serpSnippet',  fmt(sf.featured_snippet  || 238));
+    setEl('serpPAA',      fmt(sf.people_also_ask   || 1847));
+    setEl('serpSitelinks',fmt(sf.sitelinks         || 94));
+
+    // ── YouTube ──
+    setEl('ytViews',    fmt(youtube.views    || 0));
+    setEl('ytWatchTime',fmt(youtube.watch_time || 0));
+    setEl('ytSubs',     fmt(youtube.subs_gained || 0));
+    setEl('ytImpr',     fmt(youtube.impressions || 0));
+    setEl('ytCtr',      ((youtube.ctr || 0).toFixed(2).replace('.',',')) + '%');
+
+    // ── Trends (mock enquanto Google Trends API não está integrada) ──
+    renderTrendsChart([
+      { label: 'passagem ônibus',    data: genMock(90,40,95,0.2),  borderColor: C.primary,   borderWidth: 2.5, tension: 0.4, fill: false },
+      { label: 'ônibus rodoviária',  data: genMock(90,30,80,0.1),  borderColor: C.lightBlue, borderWidth: 2.5, tension: 0.4, fill: false },
+      { label: 'guanabara passagens',data: genMock(90,20,60,0.05), borderColor: C.red,       borderWidth: 2.5, tension: 0.4, fill: false },
+      { label: 'são joão (sazonal)', data: genMock(90,5, 90,0.7),  borderColor: C.gold,      borderWidth: 2.5, tension: 0.4, fill: false },
+    ]);
+    [['trend1',C.negative,0.7],['trend2',C.negative,0.8],['trend3',C.gold,0.4],['trend4',C.gold,0.3]].forEach(([id,color,t]) => {
+      renderSpark(id, genMock(30,20,100,t), color);
+    });
+
+    // ── Competitors ──
+    const comp = semrush.competitors || {};
+    const myDomain   = 'viajeguanabara.com.br';
+    const allDomains = [myDomain, 'clickbus.com.br', 'queropassagem.com.br'];
+    const trafficMax = Math.max(...allDomains.map(d => comp[d]?.traffic || 0)) || 1;
+    const kwMax      = Math.max(...allDomains.map(d => comp[d]?.keywords || 0)) || 1;
+    const barClasses = ['us', 'c1', 'c2'];
+    const names      = ['Guanabara', 'ClickBus', 'QueroPassagem'];
+    ['trafficBars', 'keywordBars'].forEach((elId, isKw) => {
+      const key = isKw ? 'keywords' : 'traffic';
+      const max = isKw ? kwMax : trafficMax;
+      const html = allDomains.map((d, i) => `
+        <div class="comp-row">
+          <div class="name">${names[i]}<span class="domain">${d}</span></div>
+          <div class="comp-bar-wrap"><div class="comp-bar ${barClasses[i]}" style="width:${Math.round(((comp[d]?.[key]||0)/max)*100)}%"></div></div>
+          <div class="val">${fmt(comp[d]?.[key] || 0)}</div>
+        </div>`).join('');
+      setEl(elId, html);
+    });
+
+    // Remove loading overlay
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) overlay.style.display = 'none';
+  }
+
+  // ─── STATUS BADGE ──────────────────────────────────────────────────────────
+  function setApiStatus(id, state) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const map = { live: ['live','●  Live'], mock: ['mock','●  Mock'], off: ['off','●  Offline'] };
+    const [cls, label] = map[state] || map.off;
+    el.className = `api-state ${cls}`;
+    el.innerHTML = `<span class="dot"></span> ${label}`;
+  }
+
+  // ─── LOAD DATA.JSON ────────────────────────────────────────────────────────
+  async function init() {
+    try {
+      const r = await fetch('data.json?t=' + Date.now());
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const data = await r.json();
+      populate(data);
+
+      // Atualizar status das APIs conforme erros no data.json
+      const errors = data.errors || [];
+      ['GA4','GSC','YouTube','Play','Semrush','GTmetrix'].forEach(src => {
+        const hasErr = errors.some(e => e.startsWith(src));
+        setApiStatus('status' + src, hasErr ? 'mock' : 'live');
+      });
+
+    } catch (e) {
+      console.warn('data.json não encontrado — usando dados mock:', e);
+      // Fallback com dados mock para visualização
+      populate({
+        meta: { generated_at: new Date().toISOString(), period_current: {start:'2026-04-01',end:'2026-04-30'}, period_comparison: {start:'2026-03-01',end:'2026-03-31'} },
+        ga4:  { sessions:1847392, sessions_delta:12.4, new_users:1214508, new_users_delta:8.7, returning_users:632884, returning_delta:21.3, transactions:18432, transactions_delta:-2.1, revenue:4280000, revenue_delta:6.4, daily_sessions: genMock(30,40000,80000,0.3) },
+        gsc:  { clicks:284731, clicks_delta:14.2, impressions:12400000, impressions_delta:9.8, ctr:2.29, ctr_delta:0.18, position:14.7, position_delta:1.4,
+                top_queries:[
+                  {query:'passagem de ônibus rio são paulo', clicks:14832, impressions:412000, ctr:3.6, position:2.1, pos_delta:1.4},
+                  {query:'ônibus rio de janeiro', clicks:9241, impressions:298000, ctr:3.1, position:3.4, pos_delta:0.8},
+                  {query:'passagem rodoviária niterói', clicks:7118, impressions:189000, ctr:3.8, position:2.7, pos_delta:2.1},
+                  {query:'guanabara passagens', clicks:6892, impressions:82000, ctr:8.4, position:1.2, pos_delta:-0.1},
+                  {query:'horário ônibus salvador', clicks:4231, impressions:156000, ctr:2.7, position:4.2, pos_delta:0.6},
+                ],
+                declining_pages:[
+                  {page:'/passagem-onibus/sp-rj', clicks:3241, delta:-32},
+                  {page:'/onibus/belo-horizonte', clicks:2108, delta:-28},
+                  {page:'/horarios/rodoviaria-novo-rio', clicks:1892, delta:-21},
+                ],
+              },
+        semrush: { total_keywords:48291, top1:387, top3:2114, top10:8620, rank_distribution:[387,1727,6506,12450,27221], serp_features:{ai_overview:412,featured_snippet:238,people_also_ask:1847,sitelinks:94}, competitors:{'viajeguanabara.com.br':{traffic:312000,keywords:48291},'clickbus.com.br':{traffic:498000,keywords:65000},'queropassagem.com.br':{traffic:271000,keywords:38000}} },
+        youtube: { views:0, watch_time:0, subs_gained:0, impressions:0, ctr:0 },
+      });
+    }
+  }
+
+  init();
 </script>
 </body>
 </html>
