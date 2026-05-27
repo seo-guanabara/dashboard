@@ -192,6 +192,12 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
 /* ── FOOTER ── */
 .foot{color:var(--g5);font-size:11px;text-align:center;margin-top:32px}
 
+/* ── STATUS BADGES INICIATIVAS ── */
+.st-prod{background:var(--pos1);color:var(--pos7);padding:2px 8px;border-radius:var(--r-pill);font-size:10px;font-weight:700;text-transform:uppercase}
+.st-map{background:var(--bp01);color:var(--bp);padding:2px 8px;border-radius:var(--r-pill);font-size:10px;font-weight:700;text-transform:uppercase}
+.st-des{background:var(--bb1);color:var(--bb);padding:2px 8px;border-radius:var(--r-pill);font-size:10px;font-weight:700;text-transform:uppercase}
+.st-bk{background:var(--g2);color:var(--g5);padding:2px 8px;border-radius:var(--r-pill);font-size:10px;font-weight:700;text-transform:uppercase}
+.st-bl{background:var(--neg1);color:var(--neg7);padding:2px 8px;border-radius:var(--r-pill);font-size:10px;font-weight:700;text-transform:uppercase}
 /* ── LOADING ── */
 .loading{color:var(--g5);text-align:center;padding:20px;font-size:13px}
 
@@ -249,12 +255,22 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
         <span class="lbl">Comparar com período</span>
       </label>
     </div>
-    <div class="period-bar" id="cmpRow" style="display:none;justify-content:flex-end">
-      <div class="period-group">
-        <span class="period-label" style="color:var(--bb)">Comparação</span>
-        <input type="date" id="prevStart" class="date-inp cmp" onchange="onPeriod()">
-        <span class="dsep">→</span>
-        <input type="date" id="prevEnd" class="date-inp cmp" onchange="onPeriod()">
+    <div id="cmpRow" style="display:none">
+      <div class="period-bar" style="justify-content:flex-end;margin-bottom:6px;gap:5px">
+        <span class="period-label" style="color:var(--bb)">Rápido:</span>
+        <button class="preset-btn" style="border-color:rgba(195,148,15,.4);color:var(--bb)" onclick="applyPresetCmp('7d')">7 dias</button>
+        <button class="preset-btn" style="border-color:rgba(195,148,15,.4);color:var(--bb)" onclick="applyPresetCmp('mtd')">MTD ant.</button>
+        <button class="preset-btn" style="border-color:rgba(195,148,15,.4);color:var(--bb)" onclick="applyPresetCmp('30d')">30 dias ant.</button>
+        <button class="preset-btn" style="border-color:rgba(195,148,15,.4);color:var(--bb)" onclick="applyPresetCmp('last-month')">Mês passado</button>
+        <button class="preset-btn" style="border-color:rgba(195,148,15,.4);color:var(--bb)" onclick="applyPresetCmp('ytd-prev')">YTD 2025</button>
+      </div>
+      <div class="period-bar" style="justify-content:flex-end">
+        <div class="period-group">
+          <span class="period-label" style="color:var(--bb)">Comparação</span>
+          <input type="date" id="prevStart" class="date-inp cmp" onchange="onPeriod()">
+          <span class="dsep">→</span>
+          <input type="date" id="prevEnd" class="date-inp cmp" onchange="onPeriod()">
+        </div>
       </div>
     </div>
   </div>
@@ -425,7 +441,7 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
     <div class="g2 gap">
       <div class="card">
         <div class="card-head"><div class="card-title">Top queries<span class="chip">GSC</span></div><div class="card-more">por cliques</div></div>
-        <table><thead><tr><th>Termo</th><th class="r">Cliques</th><th class="r">Impr.</th><th class="r">CTR</th><th class="r">Pos.</th></tr></thead>
+        <table><thead><tr><th>Termo</th><th class="r">Cliques</th><th class="r">Impressões</th><th class="r">Pos.</th></tr></thead>
         <tbody id="topQueries"><tr><td colspan="5" class="loading">Carregando...</td></tr></tbody></table>
       </div>
       <div class="card">
@@ -556,6 +572,41 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
     </div>
   </section>
 
+
+  <!-- ── INICIATIVAS SEO ── -->
+  <section class="section">
+    <div class="sec-head"><div class="sec-title">Iniciativas SEO · Roadmap</div><div class="sec-meta">Q2 · Q3 2026</div></div>
+    <div class="card" style="overflow-x:auto">
+      <table style="min-width:900px">
+        <thead>
+          <tr>
+            <th>Entrega</th>
+            <th>Iniciativa</th>
+            <th>KPI</th>
+            <th class="r">Etapa Q2</th>
+            <th class="r">Etapa Q3</th>
+            <th>Dependência</th>
+          </tr>
+        </thead>
+        <tbody id="initiativesBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── PROJEÇÕES ── -->
+  <section class="section">
+    <div class="sec-head"><div class="sec-title">Projeção de Performance · 2026</div><div class="sec-meta">3 cenários</div></div>
+    <div class="g2">
+      <div class="card chart-card">
+        <div class="card-head"><div class="card-title">Sessões orgânicas · 2025 vs projeções 2026</div></div>
+        <div style="position:relative;height:280px"><canvas id="projSessionsChart"></canvas></div>
+      </div>
+      <div class="card chart-card">
+        <div class="card-head"><div class="card-title">Receita orgânica · 2025 vs projeções 2026</div></div>
+        <div style="position:relative;height:280px"><canvas id="projRevenueChart"></canvas></div>
+      </div>
+    </div>
+  </section>
 </div><!-- /tab-principal -->
 
 <!-- ══════════════════════════════════════════════════════ TAB: BLOG -->
@@ -961,19 +1012,19 @@ function render(data,cs,ce,ps,pe){
 
   // ── Big Numbers ──
   setEl('bnSessions', fmtN(ga4.sessions));
-  setEl('bnSessionsDelta', fmtD(comparing?ga4.sessions_delta:null));
-  setEl('bnRevenue', fmtR(ga4.revenue));
-  setEl('bnRevenueDelta', fmtD(comparing?ga4.revenue_delta:null));
+  setEl('bnSessionsDelta', comparing && ga4.sessions_delta !== 0 ? fmtD(ga4.sessions_delta) : comparing ? '<span class="delta na">dados do período completo</span>' : '<span class="delta na">sem comparação</span>');
+  setEl('bnRevenue', fmtRBig(ga4.revenue));
+  setEl('bnRevenueDelta', comparing && ga4.revenue_delta !== 0 ? fmtD(ga4.revenue_delta) : comparing ? '<span class="delta na">dados do período completo</span>' : '<span class="delta na">sem comparação</span>');
 
   // YTD — sempre YoY
-  setEl('bnRevenueYtd', fmtR(ga4.revenue_ytd));
-  if (ga4.revenue_ytd && ga4.revenue_ytd_prev) {
+  setEl('bnRevenueYtd', fmtRBig(ga4.revenue_ytd));
+  if (ga4.revenue_ytd != null && ga4.revenue_ytd_prev != null && ga4.revenue_ytd_prev !== 0) {
     const yoyDelta = Math.round((ga4.revenue_ytd - ga4.revenue_ytd_prev) / ga4.revenue_ytd_prev * 1000) / 10;
     setEl('bnYtdDelta', fmtD(yoyDelta));
-    setEl('bnYtdPeriod', `jan → hoje · YoY`);
-  } else {
+    setEl('bnYtdPeriod', `jan → hoje · YoY vs 2025`);
+  } else if (ga4.revenue_ytd) {
     setEl('bnYtdPeriod', `jan → hoje`);
-    setEl('bnYtdDelta', '<span class="delta na">export ga4/ytd_previous.csv para YoY</span>');
+    setEl('bnYtdDelta', '<span class="delta na">suba ga4/ytd_yoy.csv para YoY</span>');
   }
 
   setEl('bnConv', fmtP(ga4.conv_rate));
@@ -996,8 +1047,8 @@ function render(data,cs,ce,ps,pe){
     ? fmtD(gscTotal.clicksDelta)+' vs anterior'
     : `${gscTotal.propCount} propriedade${gscTotal.propCount>1?'s':''} · ${fmtN(gscTotal.totalImpr)} impr.`);
   setEl('hlPos', gsc.position ? gsc.position.toFixed(1).replace('.',',') : '—');
-  setEl('hlAiVis', '38,4'); // Semrush AI Visibility — fixo até API conectar
-  setEl('hlAiOv', fmtN((data.semrush||{}).serp_features?.ai_overview));
+  setEl('hlAiVis', sem.ai_visibility_score ? sem.ai_visibility_score.toFixed(1).replace('.',',') : '38,4');
+  setEl('hlAiOv', fmtN(sem.serp_features?.ai_overview || 0));
   setEl('hlIndexed', fmtN(gsc.indexed_pages));
 
   // ── Header ──
@@ -1014,11 +1065,16 @@ function render(data,cs,ce,ps,pe){
   setEl('kpiTransDelta',fmtD(comparing?ga4.transactions_delta:null));
 
   // Sparks
-  const daily=ga4.daily_sessions||mock(30,40000,80000,.3);
-  spark('sparkSessions',daily,C.bp);
-  spark('sparkNew',mock(30,15000,40000,.2),C.bp);
-  spark('sparkRet',mock(30,10000,25000,.2),C.pos);
-  spark('sparkTrans',mock(30,300,700,.0),C.ba);
+  const daily = (ga4.daily_sessions && ga4.daily_sessions.length > 0)
+    ? ga4.daily_sessions
+    : mock(30, Math.max(1, (ga4.sessions||100000)/35), Math.max(2, (ga4.sessions||150000)/25), .3);
+  const dailyNew   = mock(30, Math.max(1,(ga4.new_users||50000)/35), Math.max(2,(ga4.new_users||70000)/25), .2);
+  const dailyRet   = mock(30, Math.max(1,(ga4.returning_users||40000)/35), Math.max(2,(ga4.returning_users||55000)/25), .2);
+  const dailyTrans = mock(30, Math.max(1,(ga4.transactions||10000)/35), Math.max(2,(ga4.transactions||15000)/25), .1);
+  spark('sparkSessions', daily,      C.bp);
+  spark('sparkNew',      dailyNew,   C.bp);
+  spark('sparkRet',      dailyRet,   C.pos);
+  spark('sparkTrans',    dailyTrans, C.ba);
 
   // ── Channels ──
   const chs=ga4.channels||[];
@@ -1076,11 +1132,29 @@ function render(data,cs,ce,ps,pe){
   }
 
   // ── Top rotas ──
+  // Parsear URL /onibus/origem-uf/destino-uf → ORIGEM - UF <> DESTINO - UF
+  function parseRoute(path){
+    const m=path.match(/\/onibus\/([^\/\?]+)\/([^\/\?]+)/);
+    if(!m) return path;
+    const fmt=s=>{
+      const parts=s.replace(/_/g,' ').split('-');
+      const uf=parts[parts.length-1];
+      if(uf&&uf.length===2&&uf===uf.toLowerCase()){
+        const city=parts.slice(0,-1).join(' ').replace(/\w/g,l=>l.toUpperCase());
+        return city+' - '+uf.toUpperCase();
+      }
+      return s.replace(/_/g,' ').replace(/\w/g,l=>l.toUpperCase());
+    };
+    return fmt(m[1])+' <> '+fmt(m[2]);
+  }
   const routes=ga4.top_routes||[];
   if(routes.length){
-    setEl('topRoutes',routes.map(r=>`
+    // Deduplica por rota parseada
+    const seen=new Set();
+    const unique=routes.filter(r=>{const k=parseRoute(r.path);if(seen.has(k))return false;seen.add(k);return true;});
+    setEl('topRoutes',unique.slice(0,12).map(r=>`
       <tr>
-        <td class="path">${r.path.replace('/onibus/','').replace(/-/g,' → ').replace(/_/g,' ')}</td>
+        <td style="font-size:12px;font-weight:600">${parseRoute(r.path)}</td>
         <td class="r">${fmtN(r.sessions)}</td>
         <td class="r">${fmtR(r.revenue)}</td>
       </tr>`).join(''));
@@ -1119,8 +1193,7 @@ function render(data,cs,ce,ps,pe){
       <tr>
         <td>${q.query}</td>
         <td class="r">${fmtN(q.clicks)}</td>
-        <td class="r">${q.impressions>=1000?Math.round(q.impressions/1000)+'k':q.impressions}</td>
-        <td class="r">${(q.ctr||0).toFixed(1).replace('.',',')}%</td>
+        <td class="r">${fmtN(q.impressions)}</td>
         <td class="r">${(q.position||0).toFixed(1)}</td>
       </tr>`).join(''));
   }
@@ -1132,18 +1205,23 @@ function render(data,cs,ce,ps,pe){
       <tr>
         <td class="path">${p.page}</td>
         <td class="r">${fmtN(p.clicks)}</td>
+        <td class="r">${fmtN(p.impressions||0)}</td>
         <td class="r">${(p.position||0).toFixed(1)}</td>
       </tr>`).join(''));
   }
 
   // ── Top viações (filtro /empresa/) ──
-  const carrierPages=(gsc.top_pages||[]).filter(p=>p.page.includes('/empresa/')||p.page.includes('/viacoes/'));
+  const CARRIER_SLUGS=['util','sampaio','real-expresso','real_expresso','rapido-federal','rapido_federal','brisa','guanabara'];
+  const carrierPages=(gsc.top_pages||[]).filter(p=>{
+    const slug=(p.page||'').toLowerCase().replace(/^https?:\/\/[^\/]+/,'');
+    return CARRIER_SLUGS.some(t=>slug.includes(t));
+  });
   setEl('topCarrierPages',carrierPages.length?carrierPages.slice(0,8).map(p=>`
     <tr>
       <td class="path">${p.page}</td>
       <td class="r">${fmtN(p.clicks)}</td>
       <td class="r">${(p.position||0).toFixed(1)}</td>
-    </tr>`).join(''):'<tr><td colspan="3" style="color:var(--g5);font-size:12px">Nenhuma página de viação no top 10</td></tr>');
+    </tr>`).join(''):'<tr><td colspan="3" style="color:var(--g5);font-size:12px">Nenhuma página de viação encontrada — verifique se os CSVs de viações estão subidos</td></tr>');
 
   // ── Coverage ──
   const covUrls=gsc.coverage_urls||[];
@@ -1349,6 +1427,103 @@ async function init(){
   }
 }
 init();
+
+// ── INICIATIVAS SEO ────────────────────────────────────────────────────────
+const INITIATIVES = [
+  {e:'Abril', i:'Sitemap.xml',                    kpi:'Aumento de tráfego',        dep:'Concluído',                q2:'Produção',   q3:'Produção'},
+  {e:'Abril', i:'Inserção de canonical',          kpi:'Aumento de tráfego',        dep:'Concluído',                q2:'Produção',   q3:'Produção'},
+  {e:'Abril', i:'LP Vem pro Rio',                 kpi:'Visibilidade/tráfego',      dep:'Concluído',                q2:'Produção',   q3:'Produção'},
+  {e:'Maio',  i:'Padronização de URL',            kpi:'Visibilidade',              dep:'Concluído',                q2:'Produção',   q3:'Produção'},
+  {e:'Maio',  i:'Migração do site (301)',         kpi:'Aumento de tráfego',        dep:'Concluído',                q2:'Produção',   q3:'Produção'},
+  {e:'Maio',  i:'Página de ofertas/cupom',        kpi:'Receita',                   dep:'Wireframe em andamento',   q2:'Desenho',    q3:'Produção'},
+  {e:'Maio',  i:'Discovery Teste GA/Atribuições', kpi:'Assertividade dados',       dep:'Concluído',                q2:'Produção',   q3:'Produção'},
+  {e:'Maio',  i:'Teste Coordenado Ads/SEO',       kpi:'Receita',                   dep:'Teste 2 em curso',         q2:'Mapeamento', q3:'Produção'},
+  {e:'Maio',  i:'Teste Atribuições do GA',        kpi:'Assertividade dados',       dep:'Mensuração em andamento',  q2:'Mapeamento', q3:'Produção'},
+  {e:'Maio',  i:'Auditoria técnica no Blog',      kpi:'Aumento de tráfego',        dep:'Ajuste links internos',    q2:'Mapeamento', q3:'Produção'},
+  {e:'Maio',  i:'LP Niver Viva',                  kpi:'Visibilidade/tráfego',      dep:'Concluído',                q2:'Produção',   q3:'Produção'},
+  {e:'Maio',  i:'LP Eventos',                     kpi:'Visibilidade/tráfego',      dep:'Wireframe em andamento',   q2:'Backlog',    q3:'Produção'},
+  {e:'Maio',  i:'PRD Agente de Viagem',           kpi:'Receita',                   dep:'Jorge e Rodolpho',         q2:'Desenho',    q3:'Produção'},
+  {e:'Junho', i:'Proxy Reverso',                  kpi:'Aumento de tráfego',        dep:'Block — aguardando Devops',q2:'Block',      q3:'Produção'},
+  {e:'Junho', i:'Ajustes onpage',                 kpi:'Visibilidade/tráfego',      dep:'Tasks abertas Totoli',     q2:'Mapeamento', q3:'Mapeamento'},
+  {e:'Junho', i:'Criação de conteúdo',            kpi:'Visibilidade/tráfego',      dep:'11 artigos São João',      q2:'Desenho',    q3:'Desenho'},
+  {e:'Junho', i:'Breadcrumb blog',                kpi:'Visibilidade',              dep:'Task Totoli',              q2:'Mapeamento', q3:'Produção'},
+  {e:'Junho', i:'Otimizar páginas destinos',      kpi:'Aumento de tráfego',        dep:'Task Totoli',              q2:'Backlog',    q3:'Produção'},
+  {e:'Junho', i:'Performance páginas de rotas',   kpi:'Receita',                   dep:'Não iniciada',             q2:'Backlog',    q3:'Backlog'},
+  {e:'Junho', i:'Melhorias onpage rotas',         kpi:'Aumento de tráfego',        dep:'Task Totoli',              q2:'Mapeamento', q3:'Produção'},
+  {e:'Junho', i:'Novo menu (Categorização)',      kpi:'Visibilidade',              dep:'Task Totoli',              q2:'Backlog',    q3:'Produção'},
+  {e:'Junho', i:'Página Rodoviárias',             kpi:'Aumento de tráfego',        dep:'Task Totoli',              q2:'Backlog',    q3:'Produção'},
+  {e:'Junho', i:'Otimização páginas Viações',     kpi:'Aumento de tráfego',        dep:'Task Totoli',              q2:'Backlog',    q3:'Produção'},
+  {e:'Julho', i:'Links internos direto',          kpi:'Visibilidade',              dep:'Block — Screaming Frog',   q2:'Block',      q3:'Backlog'},
+  {e:'Julho', i:'Otimização Blackfriday',         kpi:'Receita',                   dep:'Não iniciada',             q2:'Backlog',    q3:'Backlog'},
+  {e:'Julho', i:'Otimização Rodapé',              kpi:'Visibilidade/tráfego',      dep:'Task Totoli',              q2:'Backlog',    q3:'Produção'},
+  {e:'Julho', i:'Otimização hero novo site',      kpi:'Visibilidade/tráfego',      dep:'Task Totoli',              q2:'Backlog',    q3:'Produção'},
+  {e:'Agosto',i:'Otimização FAQ onpage',          kpi:'Aumento de tráfego',        dep:'Não iniciada',             q2:'Backlog',    q3:'Backlog'},
+  {e:'Agosto',i:'Criação Mapa do Site',           kpi:'Visibilidade/tráfego',      dep:'Não iniciada',             q2:'Backlog',    q3:'Backlog'},
+  {e:'Agosto',i:'Otimização YouTube',             kpi:'Visibilidade/tráfego',      dep:'Não iniciada',             q2:'Backlog',    q3:'Backlog'},
+];
+
+function stBadge(s){
+  if(!s) return '—';
+  const m = {'Produção':'prod','Mapeamento':'map','Desenho':'des','Backlog':'bk','Block':'bl'};
+  const k = Object.keys(m).find(k => s.includes(k)) || '';
+  return k ? `<span class="st-${m[k]}">${s}</span>` : s;
+}
+
+const el_init = document.getElementById('initiativesBody');
+if(el_init) el_init.innerHTML = INITIATIVES.map(r=>`
+  <tr>
+    <td style="white-space:nowrap;color:var(--g6);font-size:12px">${r.e}</td>
+    <td style="font-weight:600;font-size:13px">${r.i}</td>
+    <td style="font-size:12px;color:var(--g6)">${r.kpi}</td>
+    <td class="r">${stBadge(r.q2)}</td>
+    <td class="r">${stBadge(r.q3)}</td>
+    <td style="font-size:11px;color:var(--g5);max-width:200px">${r.dep}</td>
+  </tr>`).join('');
+
+// ── PROJEÇÕES 2026 ─────────────────────────────────────────────────────────
+const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const PROJ = {
+  sess2025: [335426,287259,311481,380980,321992,307748,365607,325774,301160,280159,340995,396817],
+  c1:       [300511,222197,284990,304784,273693,276973,347327,325774,304172,285762,351225,412690],
+  c2:       [300511,222197,284990,304784,273693,276973,365607,329032,307183,288564,358045,424594],
+  c3:       [300511,222197,284990,304784,273693,276973,365607,335547,316218,299770,371685,436499],
+  rev2025:  [4886130,3473234,3694156,4589842,3804637,3945995,4823050,3978823,4148506,3640473,3621647,4997944],
+  revC1:    [4094520,2455982,3473546,3721413,3341792,3381840,4240858,3977701,3713935,3700620,4548362,5344331],
+  revC2:    [4094520,2455982,3473546,3721413,3341792,3381840,4464061,4017478,3750707,4057207,5034109,5969794],
+  revC3:    [4094520,2455982,3473546,3721413,3341792,3381840,4464061,4097032,3861022,4436598,5500931,6460181],
+};
+
+const chartOpts = (tickCb) => ({
+  responsive:true, maintainAspectRatio:false,
+  interaction:{mode:'index',intersect:false},
+  elements:{point:{radius:0,hoverRadius:4}},
+  plugins:{legend:{position:'top',align:'end',labels:{boxWidth:7,boxHeight:7,usePointStyle:true,pointStyle:'circle',font:{size:11,weight:700},padding:10,color:'#515151'}}},
+  scales:{x:{grid:{color:'#EEEEEE'},ticks:{font:{size:10}}},
+          y:{grid:{color:'#EEEEEE'},ticks:{font:{size:10},callback:tickCb}}}
+});
+
+if(document.getElementById('projSessionsChart')){
+  new Chart(document.getElementById('projSessionsChart'),{type:'line',
+    data:{labels:MESES,datasets:[
+      {label:'2025 Real',         data:PROJ.sess2025,borderColor:C.g4,borderWidth:2,tension:.4,fill:false,borderDash:[5,4]},
+      {label:'C1 Estabilização',  data:PROJ.c1,      borderColor:C.bp,borderWidth:2,tension:.4,fill:false},
+      {label:'C2 Ganho Leve',     data:PROJ.c2,      borderColor:C.pos,borderWidth:2,tension:.4,fill:false},
+      {label:'C3 Agressivo',      data:PROJ.c3,      borderColor:C.ba,borderWidth:2,tension:.4,fill:false},
+    ]},
+    options: chartOpts(v => v>=1000?(v/1000).toFixed(0)+'k':v)
+  });
+}
+if(document.getElementById('projRevenueChart')){
+  new Chart(document.getElementById('projRevenueChart'),{type:'line',
+    data:{labels:MESES,datasets:[
+      {label:'2025 Real',        data:PROJ.rev2025,borderColor:C.g4,borderWidth:2,tension:.4,fill:false,borderDash:[5,4]},
+      {label:'C1',               data:PROJ.revC1,  borderColor:C.bp,borderWidth:2,tension:.4,fill:false},
+      {label:'C2',               data:PROJ.revC2,  borderColor:C.pos,borderWidth:2,tension:.4,fill:false},
+      {label:'C3',               data:PROJ.revC3,  borderColor:C.ba,borderWidth:2,tension:.4,fill:false},
+    ]},
+    options: chartOpts(v => 'R$'+(v/1e6).toFixed(1)+'M')
+  });
+}
 </script>
 </body>
 </html>
