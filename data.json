@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "generated_at": "2026-05-27T00:00:00Z",
+    "period_current":    { "start": "2026-04-27", "end": "2026-05-26" },
+    "period_comparison": { "start": "2026-03-27", "end": "2026-04-26" }
+  },
+  "ga4":     {},
+  "gsc":     {},
+  "youtube": {},
+  "play":    {},
+  "semrush": {},
+  "gtmetrix":{},
+  "errors":  []
+}
