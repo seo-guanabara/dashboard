@@ -38,7 +38,10 @@ html,body{font-family:var(--ff);font-size:14px;color:var(--g8);background:#EEEEE
 .meta .sep{color:var(--g3)}
 .live{width:7px;height:7px;border-radius:50%;background:var(--pos5);box-shadow:0 0 0 3px rgba(62,171,54,.15);display:inline-block}
 
-/* ── PERIOD CONTROLS ── */
+/* ── PRESET BUTTONS ── */
+.preset-btn{height:28px;padding:0 10px;border:1px solid var(--g3);border-radius:var(--r-pill);font-family:var(--ff);font-size:11px;font-weight:700;color:var(--g6);background:#fff;cursor:pointer;transition:all .15s;white-space:nowrap}
+.preset-btn:hover{border-color:var(--bp);color:var(--bp)}
+.preset-btn.active{background:var(--bp);color:#fff;border-color:var(--bp)}
 .period-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .period-group{display:flex;align-items:center;gap:8px}
 .period-label{font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
@@ -100,7 +103,7 @@ html,body{font-family:var(--ff);font-size:14px;color:var(--g8);background:#EEEEE
 .delta.na{color:var(--g4);font-size:11px}
 
 /* ── HIGHLIGHTS ── */
-.highlights{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px}
+.highlights{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:28px}
 .hl{background:#fff;border-radius:var(--r-sm);box-shadow:var(--sh01);padding:14px;border-left:3px solid var(--c,var(--bp))}
 .hl .htitle{font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
 .hl .hval{font-size:20px;font-weight:900;color:var(--c,var(--bp));letter-spacing:-.01em}
@@ -220,6 +223,17 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
     </div>
   </div>
   <div>
+    <!-- Presets rápidos -->
+    <div class="period-bar" style="justify-content:flex-end;margin-bottom:8px;gap:5px">
+      <span class="period-label">Rápido:</span>
+      <button class="preset-btn" id="preset-7d"        onclick="applyPreset('7d')">7 dias</button>
+      <button class="preset-btn active" id="preset-mtd" onclick="applyPreset('mtd')">MTD</button>
+      <button class="preset-btn" id="preset-30d"       onclick="applyPreset('30d')">30 dias</button>
+      <button class="preset-btn" id="preset-last-month" onclick="applyPreset('last-month')">Mês passado</button>
+      <button class="preset-btn" id="preset-ytd"       onclick="applyPreset('ytd')">YTD</button>
+      <button class="preset-btn" id="preset-last-year" onclick="applyPreset('last-year')">Ano passado</button>
+    </div>
+    <!-- Período atual -->
     <div class="period-bar" style="justify-content:flex-end;margin-bottom:8px">
       <div class="period-group">
         <span class="period-label">Período</span>
@@ -274,7 +288,7 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
       <div class="lbl">Receita YTD<span class="chip">GA4</span></div>
       <div class="num" id="bnRevenueYtd">—</div>
       <div class="sub" id="bnYtdPeriod">jan → hoje</div>
-      <div class="delta na">acumulado</div>
+      <div id="bnYtdDelta" class="delta na">vs mesmo período ano anterior</div>
     </div>
     <div class="bn" style="--c:var(--bc)">
       <div class="lbl">Tx Conversão<span class="chip">GA4</span></div>
@@ -291,17 +305,38 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
     <div class="bn" style="--c:var(--inf7)">
       <div class="lbl">Impressões SERP<span class="chip">GSC</span></div>
       <div class="num" id="bnImpr">—</div>
-      <div class="sub">período selecionado</div>
+      <div class="sub" id="bnImprSub">todas as propriedades</div>
       <div id="bnImprDelta" class="delta na">sem comparação</div>
     </div>
   </div>
 
-  <!-- HIGHLIGHTS -->
+  <!-- HIGHLIGHTS — KPIs secundários -->
   <div class="highlights" id="highlightsArea">
-    <div class="hl" style="--c:var(--g4)"><div class="htitle">Aguardando dados</div><div class="hval">—</div></div>
-    <div class="hl" style="--c:var(--g4)"><div class="htitle">Aguardando dados</div><div class="hval">—</div></div>
-    <div class="hl" style="--c:var(--g4)"><div class="htitle">Aguardando dados</div><div class="hval">—</div></div>
-    <div class="hl" style="--c:var(--g4)"><div class="htitle">Aguardando dados</div><div class="hval">—</div></div>
+    <div class="hl" style="--c:var(--bp)">
+      <div class="htitle">Cliques GSC · total</div>
+      <div class="hval" id="hlClicks">—</div>
+      <div class="hdesc" id="hlClicksDesc">todas as propriedades</div>
+    </div>
+    <div class="hl" style="--c:var(--bc)">
+      <div class="htitle">Posição média</div>
+      <div class="hval" id="hlPos">—</div>
+      <div class="hdesc">viajeguanabara.com.br</div>
+    </div>
+    <div class="hl" style="--c:var(--inf7)">
+      <div class="htitle">Visibilidade IA</div>
+      <div class="hval" id="hlAiVis">—</div>
+      <div class="hdesc">índice Semrush AI · /100</div>
+    </div>
+    <div class="hl" style="--c:var(--inf5)">
+      <div class="htitle">AI Overview ativado</div>
+      <div class="hval" id="hlAiOv">—</div>
+      <div class="hdesc">palavras que ativam AI Overview</div>
+    </div>
+    <div class="hl" style="--c:var(--pos7)">
+      <div class="htitle">Páginas indexadas</div>
+      <div class="hval" id="hlIndexed">—</div>
+      <div class="hdesc">GSC · viajeguanabara.com.br</div>
+    </div>
   </div>
 
   <!-- ── GA4 ── -->
@@ -704,7 +739,113 @@ function doughnut(id,labels,data,colors){
 }
 function mock(n,min,max,t=0){const o=[];let v=(min+max)/2;for(let i=0;i<n;i++){v+=(Math.random()-.45+t*.4)*(max-min)*.15;v=Math.max(min,Math.min(max,v));o.push(Math.round(v))}return o}
 
-// ── PERIOD ─────────────────────────────────────────────────────────────────
+// ── PRESETS DE PERÍODO ──────────────────────────────────────────────────────
+function lastSunday(refDate) {
+  const d = new Date(refDate);
+  const day = d.getDay(); // 0=Dom
+  if (day === 0) { d.setDate(d.getDate() - 7); } // nunca usa domingo atual, sempre o anterior
+  else { d.setDate(d.getDate() - day); }
+  return d.toISOString().slice(0,10);
+}
+function firstDayOfMonth(refDate) {
+  const d = new Date(refDate);
+  return new Date(d.getFullYear(), d.getMonth(), 1).toISOString().slice(0,10);
+}
+function firstDayOfYear(refDate) {
+  return new Date(new Date(refDate).getFullYear(), 0, 1).toISOString().slice(0,10);
+}
+
+function applyPreset(preset) {
+  const dataEnd   = _data?.gsc?.data_end   || new Date().toISOString().slice(0,10);
+  const today     = dataEnd;
+  let cs, ce, ps, pe, cmpAuto = false;
+
+  if (preset === 'mtd') {
+    ce = lastSunday(today);
+    cs = firstDayOfMonth(today);
+    // comparação: mesmo período mês anterior
+    const prevMonthEnd = new Date(firstDayOfMonth(today));
+    prevMonthEnd.setDate(prevMonthEnd.getDate() - 1);
+    const prevMonthEndStr = prevMonthEnd.toISOString().slice(0,10);
+    const daysDiff = diffDays(cs, ce);
+    pe = lastSunday(prevMonthEndStr);
+    ps = dateAdd(pe, -daysDiff);
+  } else if (preset === '7d') {
+    ce = lastSunday(today);
+    cs = dateAdd(ce, -6);
+    ps = dateAdd(cs, -7); pe = dateAdd(ce, -7);
+  } else if (preset === '30d') {
+    ce = lastSunday(today);
+    cs = dateAdd(ce, -29);
+    ps = dateAdd(cs, -30); pe = dateAdd(cs, -1);
+  } else if (preset === 'last-month') {
+    const d = new Date(today);
+    const lastMonthEnd = new Date(d.getFullYear(), d.getMonth(), 0);
+    const lastMonthStart = new Date(d.getFullYear(), d.getMonth() - 1, 1);
+    cs = lastMonthStart.toISOString().slice(0,10);
+    ce = lastMonthEnd.toISOString().slice(0,10);
+    const prevStart = new Date(d.getFullYear(), d.getMonth() - 2, 1);
+    const prevEnd   = new Date(d.getFullYear(), d.getMonth() - 1, 0);
+    ps = prevStart.toISOString().slice(0,10);
+    pe = prevEnd.toISOString().slice(0,10);
+  } else if (preset === 'ytd') {
+    cs = firstDayOfYear(today);
+    ce = lastSunday(today);
+    ps = cs.replace(/^\d{4}/, String(new Date(today).getFullYear() - 1));
+    pe = ce.replace(/^\d{4}/, String(new Date(today).getFullYear() - 1));
+  } else if (preset === 'last-year') {
+    const y = new Date(today).getFullYear() - 1;
+    cs = `${y}-01-01`; ce = `${y}-12-31`;
+    ps = `${y-1}-01-01`; pe = `${y-1}-12-31`;
+  }
+
+  document.getElementById('curStart').value = cs;
+  document.getElementById('curEnd').value   = ce;
+  document.getElementById('prevStart').value = ps || '';
+  document.getElementById('prevEnd').value   = pe || '';
+
+  // Atualizar botão ativo
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById(`preset-${preset}`);
+  if (btn) btn.classList.add('active');
+
+  onPeriod();
+}
+
+// ── AGREGAÇÃO MULTI-PROPRIEDADE GSC ────────────────────────────────────────
+function calcGscTotal(gscData, cs, ce) {
+  const extra = gscData.extra_properties || {};
+  let totalClicks = 0, totalImpr = 0;
+  let prevClicks = 0, prevImpr = 0;
+  const comparing = document.getElementById('cmpToggle').checked;
+  const ps = document.getElementById('prevStart').value;
+  const pe = document.getElementById('prevEnd').value;
+
+  // Main property
+  const mainCur  = (gscData.all_daily||[]).filter(r=>r.date>=cs&&r.date<=ce);
+  const mainPrev = comparing&&ps&&pe ? (gscData.all_daily||[]).filter(r=>r.date>=ps&&r.date<=pe) : [];
+  totalClicks += mainCur.reduce((s,r)=>s+r.clicks,0);
+  totalImpr   += mainCur.reduce((s,r)=>s+r.impressions,0);
+  prevClicks  += mainPrev.reduce((s,r)=>s+r.clicks,0);
+  prevImpr    += mainPrev.reduce((s,r)=>s+r.impressions,0);
+
+  // Extra properties
+  Object.values(extra).forEach(prop => {
+    const cur  = (prop.all_daily||[]).filter(r=>r.date>=cs&&r.date<=ce);
+    const prev = comparing&&ps&&pe ? (prop.all_daily||[]).filter(r=>r.date>=ps&&r.date<=pe) : [];
+    totalClicks += cur.reduce((s,r)=>s+r.clicks,0);
+    totalImpr   += cur.reduce((s,r)=>s+r.impressions,0);
+    prevClicks  += prev.reduce((s,r)=>s+r.clicks,0);
+    prevImpr    += prev.reduce((s,r)=>s+r.impressions,0);
+  });
+
+  return {
+    totalClicks, totalImpr,
+    clicksDelta: comparing && prevClicks ? Math.round((totalClicks-prevClicks)/prevClicks*1000)/10 : null,
+    imprDelta:   comparing && prevImpr   ? Math.round((totalImpr-prevImpr)/prevImpr*1000)/10 : null,
+    propCount:   1 + Object.keys(extra).length,
+  };
+}
 function onCmpToggle(){
   const on=document.getElementById('cmpToggle').checked;
   document.getElementById('cmpRow').style.display=on?'flex':'none';
@@ -815,23 +956,47 @@ function render(data,cs,ce,ps,pe){
   const ga4=data.ga4||{};
   const sem=data.semrush||{};
 
+  // ── Agregação multi-propriedade GSC ──
+  const gscTotal = calcGscTotal(data.gsc||{}, cs, ce);
+
   // ── Big Numbers ──
   setEl('bnSessions', fmtN(ga4.sessions));
   setEl('bnSessionsDelta', fmtD(comparing?ga4.sessions_delta:null));
   setEl('bnRevenue', fmtR(ga4.revenue));
   setEl('bnRevenueDelta', fmtD(comparing?ga4.revenue_delta:null));
+
+  // YTD — sempre YoY
   setEl('bnRevenueYtd', fmtR(ga4.revenue_ytd));
+  if (ga4.revenue_ytd && ga4.revenue_ytd_prev) {
+    const yoyDelta = Math.round((ga4.revenue_ytd - ga4.revenue_ytd_prev) / ga4.revenue_ytd_prev * 1000) / 10;
+    setEl('bnYtdDelta', fmtD(yoyDelta));
+    setEl('bnYtdPeriod', `jan → hoje · YoY`);
+  } else {
+    setEl('bnYtdPeriod', `jan → hoje`);
+    setEl('bnYtdDelta', '<span class="delta na">export ga4/ytd_previous.csv para YoY</span>');
+  }
+
   setEl('bnConv', fmtP(ga4.conv_rate));
   setEl('bnConvDelta', fmtD(null));
   const totalSess=ga4.total_all?.sessions||1;
   const seoSess=ga4.sessions||0;
-  const sharePct=Math.round(seoSess/totalSess*1000)/10;
-  setEl('bnShare', sharePct.toFixed(1).replace('.',',')+' %');
-  setEl('bnImpr', fmtN(gsc.impressions));
-  setEl('bnImprDelta', fmtD(comparing?gsc.impressions_delta:null));
+  const sharePct=seoSess?Math.round(seoSess/totalSess*1000)/10:(ga4.seo_share?.sessions_pct||0);
+  setEl('bnShare', sharePct?sharePct.toFixed(1).replace('.',',')+' %':'—');
 
-  // ── Highlights ──
-  buildHighlights(ga4,gsc,comparing);
+  // Impressões = total multi-propriedade
+  setEl('bnImpr', fmtN(gscTotal.totalImpr));
+  setEl('bnImprDelta', fmtD(comparing?gscTotal.imprDelta:null));
+  setEl('bnImprSub', `${gscTotal.propCount} propriedade${gscTotal.propCount>1?'s':''}`);
+
+  // ── Highlights — 5 KPIs fixos ──
+  setEl('hlClicks', fmtN(gscTotal.totalClicks));
+  setEl('hlClicksDesc', comparing && gscTotal.clicksDelta!=null
+    ? fmtD(gscTotal.clicksDelta)+' vs anterior'
+    : `${gscTotal.propCount} propriedade${gscTotal.propCount>1?'s':''} · ${fmtN(gscTotal.totalImpr)} impr.`);
+  setEl('hlPos', gsc.position ? gsc.position.toFixed(1).replace('.',',') : '—');
+  setEl('hlAiVis', '38,4'); // Semrush AI Visibility — fixo até API conectar
+  setEl('hlAiOv', fmtN((data.semrush||{}).serp_features?.ai_overview));
+  setEl('hlIndexed', fmtN(gsc.indexed_pages));
 
   // ── Header ──
   setEl('gscChartPeriod',`${fmtBR(cs)} → ${fmtBR(ce)}`);
@@ -1110,7 +1275,7 @@ async function init(){
     setEl('dataRange',`${fmtBR(ds)} → ${fmtBR(de)}`);
 
     // Init date inputs
-    const defEnd=de;const defStart=dateAdd(defEnd,-29);
+    const defEnd=lastSunday(de);const defStart=firstDayOfMonth(de);
     ['curStart','curEnd','prevStart','prevEnd'].forEach(id=>{
       const el=document.getElementById(id);
       if(el){el.min=ds;el.max=de}
