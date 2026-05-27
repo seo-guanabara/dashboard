@@ -895,10 +895,12 @@ if not blog_ga4:
 
 output["blog"] = {
     "ga4": blog_ga4,
-    "gsc": fetch_gsc_property(GSC_BLOG_URL, "gsc_blog", "Blog"),
+    "gsc": fetch_gsc_property(GSC_BLOG_URL,
+           "gsc_blog" if os.path.exists("gsc_blog/Gráfico.csv") else "blog/gsc",
+           "Blog"),
 }
 
-# ── Viva — estrutura viva/ga4_*.csv ──
+# ── Viva — GA4: viva/ga4_*.csv | GSC: viva/gsc/site + viva/gsc/blog ──
 viva_ga4 = {}
 if os.path.exists("viva/ga4_seo_traffic.csv"):
     try:
@@ -908,10 +910,22 @@ if os.path.exists("viva/ga4_seo_traffic.csv"):
 if not viva_ga4:
     viva_ga4 = fetch_ga4_property(GA4_VIVA_PROPERTY_ID, "Viva")
 
-output["viva"] = {
-    "ga4": viva_ga4,
-    "gsc": fetch_gsc_property(GSC_VIVA_URL, "gsc_viva", "Viva"),
-}
+# GSC Viva — site + blog agregados
+viva_gsc_site = fetch_gsc_property(GSC_VIVA_URL, "viva/gsc/site", "Viva site")
+viva_gsc_blog = fetch_gsc_property(GSC_VIVA_URL, "viva/gsc/blog", "Viva blog")
+
+if viva_gsc_site and viva_gsc_blog:
+    viva_gsc = dict(viva_gsc_site)
+    viva_gsc["clicks"]      = (viva_gsc_site.get("clicks",0) or 0) + (viva_gsc_blog.get("clicks",0) or 0)
+    viva_gsc["impressions"] = (viva_gsc_site.get("impressions",0) or 0) + (viva_gsc_blog.get("impressions",0) or 0)
+elif viva_gsc_site:
+    viva_gsc = viva_gsc_site
+elif viva_gsc_blog:
+    viva_gsc = viva_gsc_blog
+else:
+    viva_gsc = {}
+
+output["viva"] = {"ga4": viva_ga4, "gsc": viva_gsc}
 
 with open("data.json","w",encoding="utf-8") as f:
     json.dump(output,f,ensure_ascii=False,indent=2)
