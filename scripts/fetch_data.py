@@ -9,9 +9,13 @@ from datetime import datetime, timedelta, date
 import requests
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
-GA4_PROPERTY_ID = "152511726"
-GSC_SITE_URL    = "https://viajeguanabara.com.br/"
-YT_CHANNEL_ID   = "UCIIMGI6nclV5oKLruatE7QQ"
+GA4_PROPERTY_ID       = "152511726"
+GA4_BLOG_PROPERTY_ID  = "359547158"
+GA4_VIVA_PROPERTY_ID  = "202055102"
+GSC_SITE_URL          = "https://viajeguanabara.com.br/"
+GSC_BLOG_URL          = "https://blog.viajeguanabara.com.br/"
+GSC_VIVA_URL          = "https://www.vivafidelidade.com.br/"  # ajustar se necessário
+YT_CHANNEL_ID         = "UCIIMGI6nclV5oKLruatE7QQ"
 PLAY_PACKAGE    = "com.xvision.grupoguanabara"
 SEMRUSH_DOMAIN  = "viajeguanabara.com.br"
 COMPETITORS     = ["clickbus.com.br", "queropassagem.com.br"]
@@ -556,6 +560,191 @@ def fetch_gtmetrix():
     except Exception as e:
         log_err("GTmetrix", traceback.format_exc())
 
+# ─── GA4 CSV GENÉRICO (Blog / Viva) ──────────────────────────────────────────
+def fetch_ga4_csv_generic(folder, label, prefix=""):
+    """
+    Lê CSVs de uma propriedade secundária (Blog ou Viva).
+    Suporta prefixo nos nomes de arquivo (ex: ga4_seo_traffic.csv).
+    """
+    seo_file  = f"{folder}/{prefix}seo_traffic.csv"
+    all_file  = f"{folder}/{prefix}all_channels.csv"
+    page_file = f"{folder}/{prefix}top_pages.csv"
+
+    result = {"source":"csv","period_start":"","period_end":"",
+              "sessions":0,"new_users":0,"returning_users":0,
+              "transactions":0,"revenue":0.0,"revenue_ytd":0.0,
+              "conv_rate":0.0,"top_pages":[],"channels":[],
+              "total_all":{},"seo_total":{},"seo_llm":{},"seo_by_source":[]}
+
+    # SEO traffic
+    if os.path.exists(seo_file):
+        rows, p_s, p_e = read_ga4_csv(seo_file)
+        src_col = "Origem / mídia da sessão"
+        total = {"sessions":0,"new_users":0,"returning":0,"transactions":0,"revenue":0.0}
+        llm   = {"sessions":0,"new_users":0,"returning":0,"transactions":0,"revenue":0.0}
+        by_src = []
+        for row in rows:
+            src = row.get(src_col,"").strip()
+            s   = int(_n(row.get("Sessões",0)))
+            nu  = int(_n(row.get("Novos usuários",0)))
+            ret = int(_n(row.get("Usuários recorrentes",0)))
+            tx  = int(_n(row.get("Transações",0)))
+            rev = round(_n(row.get("Receita total",0)),2)
+            for k,v in [("sessions",s),("new_users",nu),("returning",ret),("transactions",tx)]:
+                total[k] += v
+            total["revenue"] += rev
+            is_llm = src in LLM_SOURCES
+            if is_llm:
+                for k,v in [("sessions",s),("new_users",nu),("returning",ret),("transactions",tx)]:
+                    llm[k] += v
+                llm["revenue"] += rev
+            by_src.append({"source":src,"sessions":s,"transactions":tx,"revenue":rev,"is_llm":is_llm})
+        by_src.sort(key=lambda x: x["revenue"], reverse=True)
+
+        # Detectar gap de dados (muitos zeros consecutivos = período sem tracking)
+        data_gap = total["sessions"] == 0
+        sess = total["sessions"]
+        trans = total["transactions"]
+        result.update({
+            "period_start": p_s, "period_end": p_e,
+            "sessions": sess, "new_users": total["new_users"],
+            "returning_users": total["returning"],
+            "transactions": trans, "revenue": round(total["revenue"],2),
+            "revenue_ytd": round(total["revenue"],2),
+            "conv_rate": round(trans/sess*100,2) if sess else 0,
+            "seo_total": total, "seo_llm": llm, "seo_by_source": by_src,
+            "data_gap": data_gap,
+        })
+        log_ok(f"GA4 {label} SEO (CSV){' — ATENÇÃO: zero sessões, verificar gap de tracking' if data_gap else ''}")
+
+    # All channels
+    if os.path.exists(all_file):
+        rows, _, _ = read_ga4_csv(all_file)
+        ch_col = "Grupo principal de canais da sessão (Grupo de Canais)"
+        channels = [{"channel":r.get(ch_col,"").strip(),
+                     "sessions":int(_n(r.get("Sessões",0))),
+                     "transactions":int(_n(r.get("Transações",0))),
+                     "revenue":round(_n(r.get("Receita total",0)),2)} for r in rows]
+        channels.sort(key=lambda x: x["revenue"], reverse=True)
+        result["channels"] = channels
+        result["total_all"] = {"sessions":sum(c["sessions"] for c in channels),
+                               "transactions":sum(c["transactions"] for c in channels),
+                               "revenue":sum(c["revenue"] for c in channels)}
+
+    # Top pages
+    if os.path.exists(page_file):
+        rows, _, _ = read_ga4_csv(page_file)
+        col = next((k for k in (rows[0] if rows else {}).keys()
+                    if "página" in k.lower() or "caminho" in k.lower()), "")
+        result["top_pages"] = sorted([{
+            "path":     r.get(col,""),
+            "sessions": int(_n(r.get("Sessões",0))),
+            "revenue":  round(_n(r.get("Receita total",0)),2),
+        } for r in rows], key=lambda x: x["sessions"], reverse=True)[:10]
+
+    return result
+
+# ─── GA4 BLOG ─────────────────────────────────────────────────────────────────
+def fetch_ga4_property(property_id, label):
+    """Busca KPIs básicos de uma propriedade GA4."""
+    try:
+        client = BetaAnalyticsDataClient(credentials=creds)
+        r = client.run_report(RunReportRequest(
+            property=f"properties/{property_id}",
+            metrics=[Metric(name=m) for m in ["sessions","newUsers","purchaseRevenue","transactions"]],
+            date_ranges=[
+                DateRange(start_date=p_start, end_date=p_end),
+                DateRange(start_date=c_start, end_date=c_end),
+            ],
+            limit=10,
+        ))
+        def gv(rows, dr, mi):
+            row = next((r for r in rows if r.dimension_values[0].value == dr), None)
+            return float(row.metric_values[mi].value) if row else 0.0
+
+        sessions  = int(gv(r.rows, "date_range_0", 0))
+        new_users = int(gv(r.rows, "date_range_0", 1))
+        revenue   = round(gv(r.rows, "date_range_0", 2), 2)
+        trans     = int(gv(r.rows, "date_range_0", 3))
+        p_sess    = int(gv(r.rows, "date_range_1", 0))
+        p_rev     = round(gv(r.rows, "date_range_1", 2), 2)
+
+        # YTD
+        r_ytd = client.run_report(RunReportRequest(
+            property=f"properties/{property_id}",
+            metrics=[Metric(name="purchaseRevenue")],
+            date_ranges=[DateRange(start_date=ytd_start, end_date=p_end)],
+            limit=1,
+        ))
+        revenue_ytd = round(float(r_ytd.rows[0].metric_values[0].value), 2) if r_ytd.rows else 0.0
+
+        # Top páginas
+        r2 = client.run_report(RunReportRequest(
+            property=f"properties/{property_id}",
+            metrics=[Metric(name="sessions"), Metric(name="purchaseRevenue")],
+            dimensions=[Dimension(name="pagePath")],
+            date_ranges=[DateRange(start_date=p_start, end_date=p_end)],
+            limit=10,
+        ))
+        top_pages = sorted([{
+            "path": row.dimension_values[0].value,
+            "sessions": int(row.metric_values[0].value),
+            "revenue": round(float(row.metric_values[1].value), 2),
+        } for row in r2.rows], key=lambda x: x["sessions"], reverse=True)
+
+        result = {
+            "source": "api", "period_start": p_start, "period_end": p_end,
+            "sessions": sessions, "sessions_delta": pct(sessions, p_sess),
+            "new_users": new_users, "transactions": trans,
+            "revenue": revenue, "revenue_delta": pct(revenue, p_rev),
+            "revenue_ytd": revenue_ytd,
+            "conv_rate": round(trans/sessions*100, 2) if sessions else 0,
+            "top_pages": top_pages,
+        }
+        log_ok(f"GA4 {label} (API)")
+        return result
+    except Exception as e:
+        log_err(f"GA4 {label}", traceback.format_exc())
+        return {}
+
+def fetch_gsc_property(site_url, csv_folder, label):
+    """Busca dados GSC de uma propriedade via CSV ou API."""
+    # Tenta CSV primeiro
+    if csv_folder and os.path.exists(f"{csv_folder}/Gráfico.csv"):
+        try:
+            result = parse_gsc_csvs(csv_folder)
+            log_ok(f"GSC {label} (CSV)")
+            return result
+        except Exception as e:
+            log_err(f"GSC {label} CSV", str(e))
+    # Tenta API
+    try:
+        svc = build("searchconsole", "v1", credentials=creds)
+        sc  = svc.searchanalytics()
+        def query(s, e, dims=None, limit=20):
+            return sc.query(siteUrl=site_url,
+                body={"startDate":s,"endDate":e,"dimensions":dims or [],"rowLimit":limit}).execute()
+        rc = query(p_start, p_end)
+        rp = query(c_start, c_end)
+        def kpi(r, k): return r.get("rows",[{}])[0].get(k,0) if r.get("rows") else 0
+        tq = query(p_start, p_end, ["query"], 20)
+        top_queries = [{"query":r["keys"][0],"clicks":r.get("clicks",0),
+                        "impressions":r.get("impressions",0),
+                        "ctr":round(r.get("ctr",0)*100,2),
+                        "position":round(r.get("position",99),1)} for r in tq.get("rows",[])]
+        result = {
+            "source": "api", "period_start": p_start, "period_end": p_end,
+            "clicks": int(kpi(rc,"clicks")), "clicks_delta": pct(int(kpi(rc,"clicks")), int(kpi(rp,"clicks"))),
+            "impressions": int(kpi(rc,"impressions")), "ctr": round(kpi(rc,"ctr")*100,2),
+            "position": round(kpi(rc,"position"),1),
+            "top_queries": top_queries[:10], "top_pages": [], "all_daily": [],
+        }
+        log_ok(f"GSC {label} (API)")
+        return result
+    except Exception as e:
+        log_err(f"GSC {label}", traceback.format_exc())
+        return {}
+
 # ─── RUN ──────────────────────────────────────────────────────────────────────
 print("\n── Buscando dados ──────────────────────────────")
 fetch_ga4()
@@ -564,6 +753,76 @@ fetch_youtube()
 fetch_play()
 fetch_semrush()
 fetch_gtmetrix()
+
+# ── Rotas ──
+if os.path.exists("ga4/routes.csv"):
+    try:
+        rows, _, _ = read_ga4_csv("ga4/routes.csv")
+        col = next((k for k in (rows[0] if rows else {}).keys()
+                    if "página" in k.lower() or "caminho" in k.lower() or "page" in k.lower()), "")
+        output["ga4"]["top_routes"] = sorted([{
+            "path":     r.get(col,""),
+            "sessions": int(_n(r.get("Sessões",0))),
+            "revenue":  round(_n(r.get("Receita total",0)),2),
+        } for r in rows if r.get(col,"")], key=lambda x: x["sessions"], reverse=True)[:20]
+        log_ok("GA4 routes (CSV)")
+    except Exception as e:
+        log_err("GA4 routes", str(e))
+
+# ── Viações — filtro por marca nas URLs ──
+CARRIER_TERMS = ["util","sampaio","real-expresso","real_expresso",
+                 "rapido-federal","rapido_federal","brisa",
+                 "guanabara","viacao"]
+if os.path.exists("ga4/carriers.csv"):
+    try:
+        rows, _, _ = read_ga4_csv("ga4/carriers.csv")
+        col = next((k for k in (rows[0] if rows else {}).keys()
+                    if "página" in k.lower() or "caminho" in k.lower() or "page" in k.lower() or "url" in k.lower()), "")
+        carriers = []
+        for r in rows:
+            url = r.get(col,"").lower()
+            if any(t in url for t in CARRIER_TERMS):
+                carriers.append({
+                    "path":     r.get(col,""),
+                    "sessions": int(_n(r.get("Sessões",0))),
+                    "users":    int(_n(r.get("Usuários ativos",r.get("Total de usuários",0)))),
+                    "revenue":  round(_n(r.get("Receita total",0)),2),
+                })
+        carriers.sort(key=lambda x: x["sessions"], reverse=True)
+        output["ga4"]["top_carriers"] = carriers[:20]
+        log_ok(f"GA4 carriers (CSV) — {len(carriers)} páginas de viação encontradas")
+    except Exception as e:
+        log_err("GA4 carriers", str(e))
+
+# ── Blog ──
+blog_ga4 = {}
+if os.path.exists("ga4_blog/seo_traffic.csv"):
+    try:
+        blog_ga4 = fetch_ga4_csv_generic("ga4_blog", "Blog")
+    except Exception as e:
+        log_err("GA4 Blog CSV", str(e))
+if not blog_ga4:
+    blog_ga4 = fetch_ga4_property(GA4_BLOG_PROPERTY_ID, "Blog")
+
+output["blog"] = {
+    "ga4": blog_ga4,
+    "gsc": fetch_gsc_property(GSC_BLOG_URL, "gsc_blog", "Blog"),
+}
+
+# ── Viva — estrutura viva/ga4_*.csv ──
+viva_ga4 = {}
+if os.path.exists("viva/ga4_seo_traffic.csv"):
+    try:
+        viva_ga4 = fetch_ga4_csv_generic("viva", "Viva", prefix="ga4_")
+    except Exception as e:
+        log_err("GA4 Viva CSV", str(e))
+if not viva_ga4:
+    viva_ga4 = fetch_ga4_property(GA4_VIVA_PROPERTY_ID, "Viva")
+
+output["viva"] = {
+    "ga4": viva_ga4,
+    "gsc": fetch_gsc_property(GSC_VIVA_URL, "gsc_viva", "Viva"),
+}
 
 with open("data.json","w",encoding="utf-8") as f:
     json.dump(output,f,ensure_ascii=False,indent=2)
