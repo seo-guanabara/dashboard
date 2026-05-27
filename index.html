@@ -749,7 +749,10 @@ function switchTab(id,el){
 
 // ── UTILS ──────────────────────────────────────────────────────────────────
 const fmtN = n=>{if(!n&&n!==0)return'—';if(n>=1e6)return(n/1e6).toFixed(2).replace('.',',')+'M';if(n>=1e3)return n.toLocaleString('pt-BR');return String(n)};
-const fmtR = n=>{if(!n&&n!==0)return'—';if(n>=1e6)return'R$ '+(n/1e6).toFixed(2).replace('.',',')+'M';return'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:0})};
+// fmtR: sempre valor completo — usado em tabelas, cards, seções
+const fmtR = n=>{if(!n&&n!==0)return'—';return'R$ '+Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})};
+// fmtRBig: abreviado (ex: R$ 67,29M) — usado SOMENTE nos 6 big numbers do topo
+const fmtRBig = n=>{if(!n&&n!==0)return'—';if(n>=1e6)return'R$ '+(n/1e6).toFixed(2).replace('.',',')+'M';if(n>=1e3)return'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:0});return'R$ '+Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2})};
 const fmtP = n=>n!=null?n.toFixed(2).replace('.',',')+'%':'—';
 const fmtD = (d,invert=false)=>{
   if(d===null||d===undefined)return'<span class="delta na">sem comparação</span>';
