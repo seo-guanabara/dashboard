@@ -514,8 +514,11 @@ def fetch_semrush():
         }
         log_ok("Semrush")
     except requests.exceptions.HTTPError as e:
-        body = e.response.text[:300] if hasattr(e,'response') and e.response else ''
-        log_err("Semrush", f"HTTP {e} | body: {body}")
+        body = e.response.text[:500] if hasattr(e,'response') and e.response else ''
+        status = e.response.status_code if hasattr(e,'response') and e.response else '?'
+        log_err("Semrush", f"HTTP {status} | {body}")
+        if status == 403:
+            print("    → Semrush 403: verifique a chave API e o plano (domain_organic requer plano Guru+)")
     except Exception as e:
         log_err("Semrush", traceback.format_exc())
 
