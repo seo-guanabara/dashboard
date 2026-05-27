@@ -978,10 +978,12 @@ function render(data,cs,ce,ps,pe){
 
   setEl('bnConv', fmtP(ga4.conv_rate));
   setEl('bnConvDelta', fmtD(null));
-  const totalSess=ga4.total_all?.sessions||1;
-  const seoSess=ga4.sessions||0;
-  const sharePct=seoSess?Math.round(seoSess/totalSess*1000)/10:(ga4.seo_share?.sessions_pct||0);
-  setEl('bnShare', sharePct?sharePct.toFixed(1).replace('.',',')+' %':'—');
+  const totalSess = ga4.total_all?.sessions || 0;
+  const seoSess   = ga4.sessions || 0;
+  const sharePct  = (totalSess > seoSess && totalSess > 0)
+    ? Math.round(seoSess/totalSess*1000)/10
+    : (ga4.seo_share?.sessions_pct || 0);
+  setEl('bnShare', (sharePct > 0 && sharePct <= 100) ? sharePct.toFixed(1).replace('.',',')+' %' : '—');
 
   // Impressões = total multi-propriedade
   setEl('bnImpr', fmtN(gscTotal.totalImpr));
