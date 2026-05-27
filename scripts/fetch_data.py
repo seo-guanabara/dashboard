@@ -16,8 +16,6 @@ GSC_SITE_URL          = "https://viajeguanabara.com.br/"
 GSC_BLOG_URL          = "https://blog.viajeguanabara.com.br/"
 GSC_VIVA_URL          = "https://www.vivafidelidade.com.br/"
 # Propriedades extras — todos em gsc/grafico_*.csv
-SHEET_ID = "1NPEmeVARiu_26ZUo5kKXkS42UYRCPrCVJW4v91G_rKs"
-
 GSC_EXTRA_FILES = {
     "gsc/grafico_novo.csv":     "novo.viajeguanabara.com.br",
     "gsc/grafico_www.csv":      "www.viajeguanabara.com.br",
@@ -55,7 +53,6 @@ SCOPES = [
     "https://www.googleapis.com/auth/yt-analytics.readonly",
     "https://www.googleapis.com/auth/youtube.readonly",
     "https://www.googleapis.com/auth/androidpublisher",
-    "https://www.googleapis.com/auth/spreadsheets.readonly",
 ]
 
 import google.auth
@@ -108,18 +105,7 @@ def read_ga4_csv(filepath):
     return rows, p_start_csv, p_end_csv
 
 def _n(v):
-    try:
-        s = str(v).strip().rstrip(".")
-        if not s: return 0.0
-        # Formato BR: 1.234.567,89 (ponto=milhar, vírgula=decimal)
-        if "," in s and "." in s:
-            s = s.replace(".", "").replace(",", ".")
-        elif s.count(".") > 1:
-            # Múltiplos pontos = separadores de milhar sem decimal
-            s = s.replace(".", "")
-        elif "," in s:
-            s = s.replace(",", ".")
-        return float(s)
+    try: return float(str(v).replace(",",".").strip())
     except: return 0.0
 
 # ─── GA4 API ──────────────────────────────────────────────────────────────────
@@ -332,138 +318,6 @@ def fetch_ga4_csv():
         "conv_rate":         round(trans/sessions*100,2) if sessions else 0,
     }
 
-def fetch_ga4_from_sheet():
-    """Lê dados GA4 direto da Google Sheet."""
-    # ── seo_traffic ──
-    rows = read_sheet("seo_traffic")
-    if not rows:
-        raise Exception("aba seo_traffic vazia ou não encontrada")
-
-    # Mapear colunas flexível (PT ou EN)
-    def col(row, *keys):
-        for k in keys:
-            for rk in row:
-                if k.lower() in rk.lower():
-                    return _n(row[rk])
-        return 0.0
-
-    src_col = next((k for k in rows[0] if any(x in k.lower() for x in ["origem","source","mídia","medium"])), "")
-
-    seo_total = {"sessions":0,"new_users":0,"returning":0,"transactions":0,"revenue":0.0}
-    seo_llm   = {"sessions":0,"new_users":0,"returning":0,"transactions":0,"revenue":0.0}
-    by_src    = []
-
-    for row in rows:
-        src = str(row.get(src_col,"")).strip()
-        s   = int(col(row,"sessõ","session"))
-        nu  = int(col(row,"novo","new user"))
-        ret = int(col(row,"recorr","return"))
-        tx  = int(col(row,"transaç","transaction"))
-        rev = round(col(row,"receita","revenue","purchase"),2)
-        for k,v in [("sessions",s),("new_users",nu),("returning",ret),("transactions",tx)]:
-            seo_total[k] += v
-        seo_total["revenue"] += rev
-        is_llm = src in LLM_SOURCES
-        if is_llm:
-            for k,v in [("sessions",s),("new_users",nu),("returning",ret),("transactions",tx)]:
-                seo_llm[k] += v
-            seo_llm["revenue"] += rev
-        by_src.append({"source":src,"sessions":s,"transactions":tx,"revenue":rev,"is_llm":is_llm})
-    by_src.sort(key=lambda x: x["revenue"], reverse=True)
-
-    # ── all_channels ──
-    channels = []
-    total_all = {"sessions":0,"transactions":0,"revenue":0.0}
-    if sheet_exists("all_channels"):
-        # Totais da seção "Totals For All Results"
-        totals = read_sheet_totals("all_channels")
-        if totals:
-            total_all["sessions"]     = int(col(totals,"session","sessõ"))
-            total_all["transactions"] = int(col(totals,"transact","transaç"))
-            total_all["revenue"]      = round(col(totals,"revenue","receita","purchase"),2)
-
-        ch_rows = read_sheet("all_channels")
-        dim_col = next((k for k in (ch_rows[0] if ch_rows else {})
-                        if any(x in k.lower() for x in ["sessiondefault","canal","channel","grupo","group"])), "")
-        for row in ch_rows:
-            ch  = str(row.get(dim_col,"")).strip()
-            if not ch: continue
-            s   = int(col(row,"session","sessõ"))
-            tx  = int(col(row,"transact","transaç"))
-            rev = round(col(row,"revenue","receita","purchase"),2)
-            channels.append({"channel":ch,"sessions":s,"transactions":tx,"revenue":rev})
-        channels.sort(key=lambda x: x["revenue"], reverse=True)
-        # Fallback: somar canais se totais não vieram
-        if not total_all["sessions"] and channels:
-            total_all["sessions"]     = sum(c["sessions"]     for c in channels)
-            total_all["transactions"] = sum(c["transactions"] for c in channels)
-            total_all["revenue"]      = sum(c["revenue"]      for c in channels)
-
-    # ── ytd — aba manual com colunas: ano | receita ──
-    ytd_cur = ytd_prv = 0.0
-    if sheet_exists("ytd"):
-        try:
-            ytd_rows = read_sheet("ytd")
-            cur_year = str(date.today().year)
-            prv_year = str(date.today().year - 1)
-            for row in ytd_rows:
-                ano_col = next((k for k in row if "ano" in k.lower() or "year" in k.lower()), "")
-                rev_col = next((k for k in row if any(x in k.lower() for x in ["receita","revenue","purchase"])), "")
-                if not ano_col or not rev_col: continue
-                ano = str(row.get(ano_col,"")).strip()
-                rev = round(_n(row.get(rev_col,0)),2)
-                if ano == cur_year: ytd_cur = rev
-                if ano == prv_year: ytd_prv = rev
-        except Exception as e:
-            log_err("Sheets YTD", str(e))
-
-    sess  = seo_total["sessions"]
-    trans = seo_total["transactions"]
-    output["ga4"] = {
-        "source": "sheets",
-        "period_start": p_start, "period_end": p_end,
-        "sessions":         sess,    "sessions_delta":    0.0,
-        "new_users":        seo_total["new_users"], "new_users_delta":   0.0,
-        "returning_users":  seo_total["returning"], "returning_delta":   0.0,
-        "transactions":     trans,   "transactions_delta":0.0,
-        "revenue":          round(seo_total["revenue"],2), "revenue_delta": 0.0,
-        "revenue_ytd":      ytd_cur, "revenue_ytd_prev": ytd_prv,
-        "daily_sessions":   [],
-        "channels":         channels,
-        "total_all":        total_all,
-        "seo_total":        seo_total,
-        "seo_organic":      {k: seo_total[k]-seo_llm[k] for k in seo_total},
-        "seo_llm":          seo_llm,
-        "seo_by_source":    by_src,
-        "conv_rate":        round(trans/sess*100,2) if sess else 0,
-        "top_routes":       [],
-        "top_carriers":     [],
-    }
-
-def fetch_ga4():
-    # Primário: Google Sheet
-    if sheet_exists("seo_traffic"):
-        try:
-            fetch_ga4_from_sheet()
-            log_ok("GA4 (Google Sheets ✓)")
-            return
-        except Exception as e:
-            log_err("GA4 Sheets", str(e))
-    # Fallback: API
-    try:
-        fetch_ga4_api()
-        log_ok("GA4 (API)")
-        return
-    except Exception as e:
-        log_err("GA4 API", traceback.format_exc())
-    # Fallback: CSVs
-    if os.path.exists("ga4/seo_traffic.csv"):
-        try:
-            fetch_ga4_csv()
-            log_ok("GA4 (CSV fallback)")
-            return
-        except Exception as e:
-            log_err("GA4 CSV", traceback.format_exc())
 
 # ─── GSC ──────────────────────────────────────────────────────────────────────
 def parse_gsc_csvs(folder="gsc"):
@@ -698,88 +552,22 @@ def fetch_gtmetrix():
     except Exception as e:
         log_err("GTmetrix", traceback.format_exc())
 
-# ─── GOOGLE SHEETS ────────────────────────────────────────────────────────────
-_sheets_svc = None
-
-def sheets():
-    global _sheets_svc
-    if not _sheets_svc:
-        _sheets_svc = build("sheets", "v4", credentials=creds)
-    return _sheets_svc
-
-def read_sheet(tab, sheet_id=SHEET_ID):
-    """
-    Lê aba gerada pelo GA4 Spreadsheet Add-on.
-    Pula os metadados (linhas 1-13) e encontra a seção 'Results Breakdown'
-    onde estão os headers reais com sessionSourceMedium / sessionDefaultChannelGroup.
-    """
+def fetch_ga4():
+    # Primário: API
     try:
-        res = sheets().spreadsheets().values().get(
-            spreadsheetId=sheet_id, range=f"'{tab}'!A:Z"
-        ).execute()
-        rows = res.get("values", [])
-        if len(rows) < 2:
-            return []
-
-        # Procurar header que contém a dimensão principal (sessionSourceMedium etc.)
-        breakdown_idx = None
-        for i, row in enumerate(rows):
-            first_cell = str(row[0]).strip().lower() if row else ""
-            if any(k in first_cell for k in [
-                "sessionsourcemedium", "sessiondefaultchannelgroup",
-                "source", "origem", "canal", "channel", "dimension"
-            ]):
-                breakdown_idx = i
-                break
-
-        # Fallback: última linha que começa com texto não-numérico antes dos dados
-        if breakdown_idx is None:
-            for i, row in enumerate(rows):
-                row_str = " ".join(str(c) for c in row).lower()
-                if "session" in row_str and "result" not in row_str:
-                    breakdown_idx = i
-                    break
-
-        if breakdown_idx is None:
-            return []
-
-        headers = [str(h).strip() for h in rows[breakdown_idx]]
-        data = []
-        for row in rows[breakdown_idx + 1:]:
-            if not any(str(c).strip() for c in row):
-                continue
-            padded = list(row) + [""] * max(0, len(headers) - len(row))
-            data.append(dict(zip(headers, padded)))
-        return data
+        fetch_ga4_api()
+        log_ok("GA4 (API)")
+        return
     except Exception as e:
-        raise Exception(f"Sheets read '{tab}': {e}")
-
-def read_sheet_totals(tab, sheet_id=SHEET_ID):
-    """Lê os totais da seção 'Totals For All Results'."""
-    try:
-        res = sheets().spreadsheets().values().get(
-            spreadsheetId=sheet_id, range=f"'{tab}'!A:Z"
-        ).execute()
-        rows = res.get("values", [])
-        for i, row in enumerate(rows):
-            if "totals" in " ".join(str(c) for c in row).lower():
-                if i + 2 < len(rows):
-                    headers = [str(h).strip() for h in rows[i + 1]]
-                    values  = list(rows[i + 2]) if i + 2 < len(rows) else []
-                    padded  = values + [""] * max(0, len(headers) - len(values))
-                    return dict(zip(headers, padded))
-        return {}
-    except:
-        return {}
-
-def sheet_exists(tab, sheet_id=SHEET_ID):
-    """Verifica se a aba existe na planilha."""
-    try:
-        meta = sheets().spreadsheets().get(spreadsheetId=sheet_id).execute()
-        names = [s["properties"]["title"] for s in meta.get("sheets", [])]
-        return tab in names
-    except:
-        return False
+        log_err("GA4 API", traceback.format_exc())
+    # Fallback: CSVs segmentados
+    if os.path.exists("ga4/seo_traffic.csv"):
+        try:
+            fetch_ga4_csv()
+            log_ok("GA4 (CSV)")
+            return
+        except Exception as e:
+            log_err("GA4 CSV", traceback.format_exc())
 
 # ─── GA4 CSV GENÉRICO (Blog / Viva) ──────────────────────────────────────────
 def fetch_ga4_csv_generic(folder, label, prefix=""):
