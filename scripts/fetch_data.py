@@ -467,8 +467,11 @@ def fetch_semrush():
         def sem(p):
             p["key"]=SEMRUSH_KEY
             r=requests.get(base,params=p,timeout=20); r.raise_for_status(); return r.text
+        # Testar key antes com chamada simples
+        test = sem({"type":"domain_rank","domain":SEMRUSH_DOMAIN,"database":"br","export_columns":"Or,Ot,Et"})
+        print(f"    Semrush test: {test[:80]}")
         kw_raw=sem({"type":"domain_organic","domain":SEMRUSH_DOMAIN,"database":"br",
-                    "display_limit":10000,"export_columns":"Ph,Po,Nq,Tr,Fk"})
+                    "display_limit":5000,"export_columns":"Ph,Po,Nq,Tr,Fk"})
         lines=[l.split(";") for l in kw_raw.strip().split("\n")[1:] if l]
         top1=top3=top10=top20=serp_ai=serp_fs=serp_paa=serp_sl=0
         for p in lines:
@@ -514,6 +517,9 @@ def fetch_semrush():
             "competitors":comp_data,
         }
         log_ok("Semrush")
+    except requests.exceptions.HTTPError as e:
+        body = e.response.text[:300] if hasattr(e,'response') and e.response else ''
+        log_err("Semrush", f"HTTP {e} | body: {body}")
     except Exception as e:
         log_err("Semrush", traceback.format_exc())
 
@@ -564,5 +570,10 @@ with open("data.json","w",encoding="utf-8") as f:
 
 print(f"\n── Concluído · erros: {len(output['errors'])} ──────────────────")
 for e in output["errors"]: print(f"   • {e[:120]}")
-critical=[e for e in output["errors"] if e.startswith(("GA4 API","GSC")) and "CSV" not in e]
-sys.exit(1 if critical else 0)
+# Só falha se não temos dados de GA4 nem de GSC de nenhuma fonte
+ga4_ok  = bool(output.get("ga4",{}).get("sessions") or output.get("ga4",{}).get("source"))
+gsc_ok  = bool(output.get("gsc",{}).get("clicks") is not None)
+if not ga4_ok or not gsc_ok:
+    print("   CRÍTICO: GA4 ou GSC sem dados")
+    sys.exit(1)
+sys.exit(0)
