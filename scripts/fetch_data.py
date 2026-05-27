@@ -768,10 +768,8 @@ def parse_ytd_yoy(filepath="ga4/ytd_yoy.csv"):
     current_lines = []
     current_date = None
 
-    for line in raw.replace("
-", "
-").split("
-"):
+    normalized = raw.replace("\r\n", "\n").replace("\r", "\n")
+    for line in normalized.split("\n"):
         if "Data de início:" in line:
             if current_lines and current_date:
                 sections.append((current_date, current_lines))
