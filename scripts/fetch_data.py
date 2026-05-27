@@ -754,6 +754,54 @@ def fetch_gsc_property(site_url, csv_folder, label):
         log_err(f"GSC {label}", traceback.format_exc())
         return {}
 
+# ─── GA4 YTD YoY ─────────────────────────────────────────────────────────────
+def parse_ytd_yoy(filepath="ga4/ytd_yoy.csv"):
+    """
+    Lê CSV do GA4 com dois períodos (YTD atual vs YTD anterior).
+    Estrutura: dois blocos separados por '# Data de início:'
+    Retorna (revenue_current, revenue_previous, sessions_cur, sessions_prv)
+    """
+    with open(filepath, encoding="utf-8-sig") as f:
+        raw = f.read()
+
+    sections = []
+    current_lines = []
+    current_date = None
+
+    for line in raw.replace("
+", "
+").split("
+"):
+        if "Data de início:" in line:
+            if current_lines and current_date:
+                sections.append((current_date, current_lines))
+            current_lines = []
+            d = line.split(":")[-1].strip()
+            current_date = f"{d[:4]}-{d[4:6]}-{d[6:]}" if len(d) == 8 else d
+        elif not line.startswith("#") and line.strip():
+            current_lines.append(line)
+
+    if current_lines and current_date:
+        sections.append((current_date, current_lines))
+
+    results = {}
+    for start_date, lines in sections:
+        year = start_date[:4]
+        reader = csv_module.DictReader(lines)
+        rows = list(reader)
+        rev  = sum(_n(r.get("Receita total", 0)) for r in rows)
+        sess = sum(int(_n(r.get("Sessões", 0))) for r in rows)
+        results[year] = {"revenue": round(rev, 2), "sessions": sess, "start": start_date}
+
+    cur_year = str(date.today().year)
+    prv_year = str(date.today().year - 1)
+    return (
+        results.get(cur_year, {}).get("revenue", 0),
+        results.get(prv_year, {}).get("revenue", 0),
+        results.get(cur_year, {}).get("sessions", 0),
+        results.get(prv_year, {}).get("sessions", 0),
+    )
+
 # ─── RUN ──────────────────────────────────────────────────────────────────────
 print("\n── Buscando dados ──────────────────────────────")
 fetch_ga4()
