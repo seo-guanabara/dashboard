@@ -72,8 +72,87 @@ def log_err(src, e):
     output["errors"].append(msg)
     print(f"  ✗ {msg}")
 
+# ─── GA4 VIA CSV ──────────────────────────────────────────────────────────────
+def parse_ga4_csv(filepath="ga4_export.csv"):
+    """
+    Lê CSV exportado do GA4 (Relatórios → Aquisição → Exportar CSV).
+    Retorna dict com métricas agregadas e por canal orgânico.
+    """
+    import csv as csv_module
+    with open(filepath, encoding="utf-8") as f:
+        raw = f.read()
+
+    # Remover linhas de header do GA4 (começam com # ou são vazias)
+    data_lines = [l for l in raw.split("\n") if l.strip() and not l.startswith("#")]
+    reader = csv_module.DictReader(data_lines)
+    rows = list(reader)
+
+    def num(v):
+        try: return float(str(v).replace(",", ".").strip())
+        except: return 0.0
+
+    # Extrair data de início e término do header
+    period_start_csv = period_end_csv = ""
+    for line in raw.split("\n"):
+        if "Data de início:" in line:
+            period_start_csv = line.split(":")[-1].strip()
+        if "Data de término:" in line:
+            period_end_csv = line.split(":")[-1].strip()
+
+    def fmt_date(d):
+        # Converte 20250101 -> 2025-01-01
+        if len(d) == 8:
+            return f"{d[:4]}-{d[4:6]}-{d[6:]}"
+        return d
+
+    # Totais (todos os canais)
+    total_sessions   = sum(num(r["Sessões"]) for r in rows)
+    total_new_users  = sum(num(r["Novos usuários"]) for r in rows)
+    total_returning  = sum(num(r["Usuários recorrentes"]) for r in rows)
+    total_revenue    = sum(num(r["Receita total"]) for r in rows)
+
+    # Canal Organic Search
+    ch_col = "Grupo principal de canais da sessão (Grupo de Canais)"
+    organic = next((r for r in rows if "Organic Search" in r.get(ch_col, "")), {})
+    org_sessions  = num(organic.get("Sessões", 0))
+    org_new_users = num(organic.get("Novos usuários", 0))
+    org_returning = num(organic.get("Usuários recorrentes", 0))
+    org_revenue   = num(organic.get("Receita total", 0))
+
+    return {
+        "source":           "csv",
+        "period_start":     fmt_date(period_start_csv),
+        "period_end":       fmt_date(period_end_csv),
+        "sessions":         int(total_sessions),
+        "sessions_delta":   0.0,
+        "new_users":        int(total_new_users),
+        "new_users_delta":  0.0,
+        "returning_users":  int(total_returning),
+        "returning_delta":  0.0,
+        "transactions":     0,
+        "transactions_delta": 0.0,
+        "revenue":          round(total_revenue, 2),
+        "revenue_delta":    0.0,
+        "organic": {
+            "sessions":      int(org_sessions),
+            "new_users":     int(org_new_users),
+            "returning":     int(org_returning),
+            "revenue":       round(org_revenue, 2),
+        },
+        "daily_sessions":   [],
+    }
+
 # ─── GA4 ──────────────────────────────────────────────────────────────────────
 def fetch_ga4():
+    # Tenta CSV primeiro, depois API
+    if os.path.exists("ga4_export.csv"):
+        try:
+            output["ga4"] = parse_ga4_csv("ga4_export.csv")
+            log_ok("GA4 (CSV)")
+            return
+        except Exception as e:
+            log_err("GA4 CSV parse", str(e))
+
     try:
         client = BetaAnalyticsDataClient(credentials=creds)
 
@@ -269,8 +348,8 @@ def fetch_youtube():
             "watch_time":     int(row[1]),
             "subs_gained":    int(row[2]),
             "subs_lost":      int(row[3]),
-            "impressions":    int(row[4]),
-            "ctr":            round(float(row[5]) * 100, 2),
+            "impressions":    0,
+            "ctr":            0.0,
         }
         log_ok("YouTube")
     except Exception as e:
