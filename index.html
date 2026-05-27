@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SEO Command Center · Grupo Guanabara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  /* Brand */
+  --brand-primary: #19398A;
+  --brand-primary-900: #173F8F;
+  --brand-primary-800: #205CAE;
+  --brand-primary-700: #256DC0;
+  --brand-primary-600: #2B7ED3;
+  --brand-primary-500: #308CE0;
+  --brand-primary-400: #499CE5;
+  --brand-primary-300: #66ADE9;
+  --brand-primary-200: #90C4F0;
+  --brand-primary-100: #BADAF6;
+  --brand-secondary-a: #A43C3E;
+  --brand-secondary-a-900: #953739;
+  --brand-secondary-a-800: #A43C3E;
+  --brand-secondary-a-500: #C95254;
+  --brand-secondary-a-200: #FFB6B7;
+  --brand-secondary-a-100: #FFD8D9;
+  --brand-secondary-b: #C3940F;
+  --brand-secondary-b-800: #C3940F;
+  --brand-secondary-b-500: #F6C742;
+  --brand-secondary-b-100: #FFEFC0;
+  --brand-secondary-c: #6589D4;
+  --brand-secondary-c-800: #6589D4;
+  --brand-secondary-c-500: #9ABBFF;
+  --brand-secondary-c-100: #E0EAFF;
+
+  /* Neutrals */
+  --neutral-grey-900: #0E0E0E;
+  --neutral-grey-800: #3E3E3E;
+  --neutral-grey-700: #515151;
+  --neutral-grey-600: #646464;
+  --neutral-grey-500: #8B8B8B;
+  --neutral-grey-400: #ACACAC;
+  --neutral-grey-300: #D1D1D1;
+  --neutral-grey-200: #E3E3E3;
+  --neutral-grey-100: #EEEEEE;
+
+  /* Support */
+  --support-positive-900: #005B00;
+  --support-positive-700: #278A22;
+  --support-positive-500: #3EAB36;
+  --support-positive-300: #7AC474;
+  --support-positive-100: #C6E5C3;
+  --support-warning-900: #FF6E01;
+  --support-warning-700: #F29A1B;
+  --support-warning-500: #F4B922;
+  --support-warning-100: #FCE9B4;
+  --support-negative-900: #CB0309;
+  --support-negative-700: #E1393E;
+  --support-negative-500: #ED544F;
+  --support-negative-100: #FAD1D7;
+  --support-informative-900: #2F17A0;
+  --support-informative-700: #532AB4;
+  --support-informative-500: #6A37C3;
+  --support-informative-300: #9874D6;
+  --support-informative-100: #D3C4ED;
+
+  /* Type */
+  --font-family-primary: 'Nunito Sans', sans-serif;
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+  --fw-black: 900;
+
+  /* Spacing */
+  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px;
+  --sp-12: 48px; --sp-16: 64px;
+
+  /* Radius */
+  --r-xs: 4px; --r-sm: 8px; --r-md: 16px; --r-pill: 9999px;
+
+  /* Elevation */
+  --shadow-01: 0 1px 8px 0 rgba(19,19,19,0.10), 0 6px 10px -4px rgba(19,19,19,0.08);
+  --shadow-02: 0 1px 12px 0 rgba(19,19,19,0.10);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  font-family: var(--font-family-primary);
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--neutral-grey-800);
+  background-color: var(--neutral-grey-100);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 1500px; margin: 0 auto; padding: var(--sp-8) var(--sp-10) var(--sp-16); }
+
+/* ─── HEADER ─── */
+header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding-bottom: var(--sp-6);
+  border-bottom: 1px solid var(--neutral-grey-200);
+  margin-bottom: var(--sp-8);
+}
+.brand h1 {
+  font-size: 42px; font-weight: var(--fw-black);
+  line-height: 44px; color: var(--brand-primary);
+  letter-spacing: -0.01em;
+}
+.brand h1 .accent { color: var(--brand-secondary-a-800); }
+.brand .sub {
+  margin-top: var(--sp-2);
+  font-size: 16px; color: var(--neutral-grey-600);
+}
+.brand .meta {
+  margin-top: var(--sp-4);
+  display: flex; gap: var(--sp-3); align-items: center;
+  font-size: 12px; color: var(--neutral-grey-500);
+  font-weight: var(--fw-medium);
+}
+.brand .meta .sep { color: var(--neutral-grey-300); }
+.live-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--support-positive-500);
+  display: inline-block;
+  box-shadow: 0 0 0 4px rgba(62,171,54,0.15);
+}
+
+.header-controls {
+  display: flex; flex-direction: column; gap: var(--sp-2); align-items: flex-end;
+}
+.period-block {
+  display: flex; gap: var(--sp-2); align-items: center;
+  background: #fff;
+  border: 1px solid var(--neutral-grey-200);
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--r-pill);
+  font-size: 14px;
+  box-shadow: var(--shadow-01);
+}
+.period-block .label {
+  color: var(--neutral-grey-500);
+  font-weight: var(--fw-medium);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.period-block .value {
+  color: var(--neutral-grey-800);
+  font-weight: var(--fw-bold);
+}
+.period-block.compare .label { color: var(--brand-secondary-b-800); }
+.brand-pill {
+  padding: var(--sp-1) var(--sp-3);
+  background: var(--brand-primary-100);
+  color: var(--brand-primary);
+  border-radius: var(--r-pill);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+}
+
+/* ─── SECTION HEAD ─── */
+.section { margin-bottom: var(--sp-12); }
+.section-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: var(--sp-5);
+}
+.section-title {
+  font-size: 24px;
+  font-weight: var(--fw-bold);
+  color: var(--brand-secondary-a-800);
+  line-height: 32px;
+}
+.section-meta {
+  color: var(--neutral-grey-500);
+  font-size: 12px;
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ─── CARD ─── */
+.card {
+  background: #fff;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-01);
+  padding: var(--sp-6);
+}
+.card .head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: var(--sp-5);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--neutral-grey-100);
+}
+.card .title {
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  color: var(--neutral-grey-700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.card .src-chip {
+  display: inline-block;
+  margin-left: var(--sp-2);
+  padding: 2px var(--sp-2);
+  background: var(--brand-primary-100);
+  color: var(--brand-primary);
+  border-radius: var(--r-xs);
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.05em;
+  vertical-align: middle;
+}
+.card .more {
+  font-size: 12px;
+  color: var(--neutral-grey-500);
+  font-weight: var(--fw-medium);
+}
+
+/* ─── KPI GRID ─── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--sp-4);
+}
+.kpi {
+  background: #fff;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-01);
+  padding: var(--sp-5);
+  position: relative;
+}
+.kpi .kpi-head {
+  display: flex; align-items: center; gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+}
+.kpi .label {
+  font-size: 14px;
+  color: var(--neutral-grey-600);
+  font-weight: var(--fw-medium);
+}
+.kpi .src-chip { margin-left: auto; }
+.kpi .value {
+  font-size: 32px;
+  font-weight: var(--fw-black);
+  color: var(--brand-primary);
+  line-height: 40px;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--sp-2);
+}
+.kpi .delta {
+  display: inline-flex; align-items: center; gap: var(--sp-1);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+}
+.delta.up { color: var(--support-positive-700); }
+.delta.down { color: var(--support-negative-700); }
+.delta .vs {
+  color: var(--neutral-grey-500);
+  margin-left: var(--sp-2);
+  font-size: 12px;
+  font-weight: var(--fw-regular);
+}
+.kpi .spark { margin-top: var(--sp-3); display: block; }
+
+/* ─── GRID HELPERS ─── */
+.grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: var(--sp-4); }
+.grid-2-eq { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--sp-4); }
+.gap-top { margin-top: var(--sp-4); }
+
+/* ─── TABLES ─── */
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+  text-align: left;
+  font-weight: var(--fw-bold);
+  color: var(--neutral-grey-500);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  padding: var(--sp-3) var(--sp-3) var(--sp-3) 0;
+  border-bottom: 1px solid var(--neutral-grey-200);
+}
+th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; }
+td {
+  padding: var(--sp-3) var(--sp-3) var(--sp-3) 0;
+  border-bottom: 1px solid var(--neutral-grey-100);
+  color: var(--neutral-grey-800);
+}
+tr:last-child td { border-bottom: none; }
+td.path {
+  font-family: 'Nunito Sans', monospace;
+  font-size: 13px;
+  color: var(--neutral-grey-700);
+  font-weight: var(--fw-medium);
+}
+.delta-cell { font-weight: var(--fw-bold); font-size: 13px; }
+.delta-cell.up { color: var(--support-positive-700); }
+.delta-cell.down { color: var(--support-negative-700); }
+
+/* ─── CHART CARD ─── */
+.chart-card canvas { max-height: 280px; }
+
+/* ─── BADGES ─── */
+.badge {
+  display: inline-flex; align-items: center; gap: var(--sp-1);
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--r-pill);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.badge-positive { background: var(--support-positive-100); color: var(--support-positive-700); }
+.badge-warning  { background: var(--brand-secondary-b-100); color: var(--brand-secondary-b-800); }
+.badge-negative { background: var(--support-negative-100); color: var(--support-negative-700); }
+.badge-info     { background: var(--brand-secondary-c-100); color: var(--brand-secondary-c-800); }
+.badge-brand    { background: var(--brand-secondary-a-100); color: var(--brand-secondary-a-800); }
+.badge-ai       { background: var(--support-informative-100); color: var(--support-informative-700); }
+
+/* ─── BUTTONS ─── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--r-pill);
+  font-family: var(--font-family-primary);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s;
+  text-decoration: none;
+  white-space: nowrap;
+  height: 32px;
+  padding: 0 var(--sp-4);
+  font-size: 12px;
+}
+.btn:hover { opacity: 0.88; }
+.btn-primary   { background: var(--brand-primary); color: #fff; }
+.btn-secondary { background: transparent; color: var(--brand-primary); border: 1px solid var(--brand-primary); }
+.btn-ghost     { background: transparent; color: var(--brand-primary); }
+.btn-negative  { background: var(--brand-secondary-a-800); color: #fff; }
+
+/* ─── SERP FEATURES ─── */
+.serp-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-2); }
+.serp-tile {
+  padding: var(--sp-4);
+  background: var(--neutral-grey-100);
+  border-radius: var(--r-sm);
+}
+.serp-tile.ai {
+  background: var(--support-informative-100);
+  border: 1px solid var(--support-informative-300);
+}
+.serp-tile .name {
+  font-size: 12px;
+  color: var(--neutral-grey-600);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--sp-2);
+}
+.serp-tile.ai .name { color: var(--support-informative-700); }
+.serp-tile .num {
+  font-size: 24px;
+  font-weight: var(--fw-black);
+  color: var(--brand-primary);
+  line-height: 32px;
+}
+.serp-tile.ai .num { color: var(--support-informative-700); }
+.serp-tile .ch {
+  font-size: 12px;
+  margin-top: var(--sp-1);
+  color: var(--neutral-grey-600);
+  font-weight: var(--fw-medium);
+}
+
+/* ─── AI SCORE ─── */
+.ai-score {
+  text-align: center;
+  padding: var(--sp-2) 0 var(--sp-4);
+}
+.ai-score .big {
+  font-size: 64px;
+  font-weight: var(--fw-black);
+  line-height: 1;
+  color: var(--support-informative-500);
+  letter-spacing: -0.02em;
+}
+.ai-score .big small {
+  color: var(--neutral-grey-400);
+  font-size: 24px;
+  font-weight: var(--fw-bold);
+}
+.ai-score .lbl {
+  margin-top: var(--sp-2);
+  color: var(--support-informative-700);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ─── COMPETITORS ─── */
+.comp-block { margin-bottom: var(--sp-5); }
+.comp-block:last-child { margin-bottom: 0; }
+.comp-block .ttl {
+  font-size: 12px;
+  color: var(--neutral-grey-500);
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--sp-3);
+}
+.comp-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 100px;
+  gap: var(--sp-4);
+  align-items: center;
+  margin-bottom: var(--sp-3);
+}
+.comp-row:last-child { margin-bottom: 0; }
+.comp-row .name {
+  font-size: 16px;
+  font-weight: var(--fw-bold);
+  color: var(--neutral-grey-800);
+}
+.comp-row .name .domain {
+  display: block;
+  font-size: 12px;
+  font-weight: var(--fw-regular);
+  color: var(--neutral-grey-500);
+  margin-top: 2px;
+}
+.comp-bar-wrap {
+  background: var(--neutral-grey-100);
+  height: 12px;
+  border-radius: var(--r-pill);
+  overflow: hidden;
+}
+.comp-bar { height: 100%; border-radius: var(--r-pill); }
+.comp-bar.us { background: var(--brand-primary); }
+.comp-bar.c1 { background: var(--brand-secondary-c-800); }
+.comp-bar.c2 { background: var(--brand-secondary-a-800); }
+.comp-row .val {
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--neutral-grey-700);
+}
+
+/* ─── HEALTH ─── */
+.health-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+.health-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--sp-3);
+  align-items: center;
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--neutral-grey-100);
+}
+.health-row:last-child { border-bottom: none; }
+.health-row .pname {
+  font-size: 14px;
+  color: var(--neutral-grey-700);
+  font-weight: var(--fw-medium);
+}
+.gauge {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+}
+.gauge .ring {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: conic-gradient(var(--c) var(--p), var(--neutral-grey-200) 0);
+  position: relative;
+}
+.gauge .ring::after {
+  content: ''; position: absolute; inset: 4px; border-radius: 50%; background: #fff;
+}
+
+.warn-note {
+  margin-top: var(--sp-5);
+  padding: var(--sp-4);
+  background: var(--brand-secondary-b-100);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  color: var(--brand-secondary-b-800);
+  line-height: 20px;
+  font-weight: var(--fw-medium);
+}
+.warn-note strong { font-weight: var(--fw-black); }
+
+/* ─── TRENDS ─── */
+.trend-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: var(--sp-3);
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--neutral-grey-100);
+  align-items: center;
+}
+.trend-item:last-child { border-bottom: none; }
+.trend-item .term {
+  font-size: 16px;
+  font-weight: var(--fw-bold);
+  color: var(--neutral-grey-800);
+}
+.trend-item .term small {
+  display: block;
+  font-size: 12px;
+  font-weight: var(--fw-regular);
+  color: var(--neutral-grey-500);
+  margin-top: 2px;
+}
+.trend-item .spark { width: 80px; height: 28px; display: block; flex-shrink: 0; }
+
+/* ─── CRAWL ITEMS ─── */
+.crawl-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--sp-3);
+  padding: var(--sp-3) 0;
+  border-bottom: 1px solid var(--neutral-grey-100);
+  align-items: center;
+}
+.crawl-item:last-child { border-bottom: none; }
+.crawl-item .icon {
+  width: 36px; height: 36px;
+  border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  font-weight: var(--fw-black);
+  letter-spacing: 0.03em;
+}
+.crawl-item .icon.err  { background: var(--support-negative-100); color: var(--support-negative-700); }
+.crawl-item .icon.warn { background: var(--brand-secondary-b-100); color: var(--brand-secondary-b-800); }
+.crawl-item .icon.ok   { background: var(--support-positive-100); color: var(--support-positive-700); }
+.crawl-item .label-c {
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  color: var(--neutral-grey-800);
+}
+.crawl-item .label-c small {
+  display: block;
+  font-size: 12px;
+  font-weight: var(--fw-regular);
+  color: var(--neutral-grey-500);
+  margin-top: 2px;
+}
+.crawl-item .count {
+  font-size: 16px;
+  font-weight: var(--fw-black);
+  color: var(--brand-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── AI INSIGHTS ─── */
+.ai-panel {
+  background: #fff;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-01);
+  padding: var(--sp-6);
+  border-left: 4px solid var(--support-informative-500);
+}
+.ai-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: var(--sp-5);
+}
+.ai-head .tag {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  font-size: 14px;
+  color: var(--support-informative-700);
+  font-weight: var(--fw-black);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.ai-head .models { display: flex; gap: var(--sp-2); }
+.model-chip {
+  padding: var(--sp-1) var(--sp-3);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  border: 1px solid var(--neutral-grey-300);
+  border-radius: var(--r-pill);
+  color: var(--neutral-grey-600);
+}
+.model-chip.active {
+  color: var(--support-informative-700);
+  background: var(--support-informative-100);
+  border-color: var(--support-informative-300);
+}
+
+.insights-list {
+  display: flex; flex-direction: column; gap: var(--sp-3);
+}
+.insight {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--sp-4);
+  align-items: flex-start;
+  padding: var(--sp-4);
+  background: var(--neutral-grey-100);
+  border-radius: var(--r-sm);
+}
+.insight .severity {
+  width: 40px; height: 40px;
+  border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: var(--fw-black);
+  font-size: 18px;
+}
+.insight.crit .severity { background: var(--support-negative-100); color: var(--support-negative-700); }
+.insight.opp  .severity { background: var(--support-positive-100); color: var(--support-positive-700); }
+.insight.warn .severity { background: var(--brand-secondary-b-100); color: var(--brand-secondary-b-800); }
+.insight.info .severity { background: var(--brand-secondary-c-100); color: var(--brand-secondary-c-800); }
+
+.insight .body h4 {
+  font-size: 16px;
+  font-weight: var(--fw-bold);
+  color: var(--neutral-grey-800);
+  margin-bottom: var(--sp-1);
+  line-height: 20px;
+}
+.insight .body p {
+  color: var(--neutral-grey-700);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: var(--fw-regular);
+}
+.insight .body code {
+  font-family: 'Nunito Sans', monospace;
+  background: #fff;
+  padding: 2px var(--sp-1);
+  border-radius: var(--r-xs);
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+  color: var(--brand-primary);
+}
+.insight .body .srcs {
+  margin-top: var(--sp-3);
+  display: flex; gap: var(--sp-1); flex-wrap: wrap;
+}
+.insight .body .srcs span {
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  padding: 2px var(--sp-2);
+  background: #fff;
+  border-radius: var(--r-xs);
+  color: var(--neutral-grey-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ─── API STATUS ─── */
+.api-status {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  background: #fff;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-01);
+  padding: var(--sp-5);
+}
+.api-row {
+  display: flex; flex-direction: column; gap: var(--sp-1);
+  padding: var(--sp-2) var(--sp-4);
+  border-right: 1px solid var(--neutral-grey-200);
+}
+.api-row:last-child { border-right: none; }
+.api-name {
+  font-size: 12px;
+  color: var(--neutral-grey-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: var(--fw-bold);
+}
+.api-state {
+  display: flex; align-items: center; gap: var(--sp-2);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+}
+.api-state.live { color: var(--support-positive-700); }
+.api-state.mock { color: var(--brand-secondary-b-800); }
+.api-state.off  { color: var(--neutral-grey-500); }
+.api-state .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.api-row .ver {
+  font-size: 12px;
+  color: var(--neutral-grey-500);
+  font-weight: var(--fw-regular);
+}
+
+/* ─── MATCH INDICATOR ─── */
+.match { display: inline-flex; align-items: center; gap: var(--sp-1); font-size: 13px; font-weight: var(--fw-bold); }
+.match .dot { width: 8px; height: 8px; border-radius: 50%; }
+.match.ok   { color: var(--support-positive-700); }
+.match.ok   .dot { background: var(--support-positive-500); }
+.match.warn { color: var(--brand-secondary-b-800); }
+.match.warn .dot { background: var(--brand-secondary-b-500); }
+.match.bad  { color: var(--support-negative-700); }
+.match.bad  .dot { background: var(--support-negative-500); }
+
+/* ─── LEGEND FOOTER ─── */
+.legend {
+  color: var(--neutral-grey-500);
+  font-size: 12px;
+  margin-top: var(--sp-8);
+  text-align: center;
+  font-weight: var(--fw-medium);
+}
+
+/* ─── PERFORMANCE PILL IN TABLE ─── */
+.perf-pill {
+  display: inline-block;
+  padding: 2px var(--sp-2);
+  border-radius: var(--r-pill);
+  font-weight: var(--fw-black);
+  font-size: 13px;
+  min-width: 36px;
+  text-align: center;
+}
+.perf-pill.good { background: var(--support-positive-100); color: var(--support-positive-700); }
+.perf-pill.warn { background: var(--brand-secondary-b-100); color: var(--brand-secondary-b-800); }
+.perf-pill.bad  { background: var(--support-negative-100); color: var(--support-negative-700); }
+
+@media (max-width: 1100px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .grid-2, .grid-3, .grid-2-eq { grid-template-columns: 1fr; }
+  .api-status { grid-template-columns: repeat(2, 1fr); }
+  .api-row { border-right: none; border-bottom: 1px solid var(--neutral-grey-200); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <h1>SEO <span class="accent">Command Center</span></h1>
+      <div class="sub">Grupo Guanabara · monitoramento orgânico e visibilidade em IA</div>
+      <div class="meta">
+        <span class="live-dot"></span>
+        <span>Sincronizado · 14:32:07</span>
+        <span class="sep">|</span>
+        <span>Domínio: meusite.com.br</span>
+        <span class="sep">|</span>
+        <span>v0.2 protótipo</span>
+      </div>
+    </div>
+    <div class="header-controls">
+      <div class="period-block">
+        <span class="label">Período</span>
+        <span class="value">01 abr → 30 abr 2026</span>
+      </div>
+      <div class="period-block compare">
+        <span class="label">Comparação</span>
+        <span class="value">01 mar → 31 mar 2026</span>
+      </div>
+      <span class="brand-pill">Expresso Guanabara</span>
+    </div>
+  </header>
+
+  <!-- KPI ROW -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title">Visão Geral</div>
+      <div class="section-meta">Fonte: GA4 · GSC</div>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-head">
+          <span class="label">Sessões</span>
+          <span class="src-chip">GA4</span>
+        </div>
+        <div class="value">1.847.392</div>
+        <div class="delta up">▲ 12,4%<span class="vs">vs anterior</span></div>
+        <canvas class="spark" id="sparkSessions" width="200" height="40"></canvas>
+      </div>
+      <div class="kpi">
+        <div class="kpi-head">
+          <span class="label">Novos usuários</span>
+          <span class="src-chip">GA4</span>
+        </div>
+        <div class="value">1.214.508</div>
+        <div class="delta up">▲ 8,7%<span class="vs">vs anterior</span></div>
+        <canvas class="spark" id="sparkNew" width="200" height="40"></canvas>
+      </div>
+      <div class="kpi">
+        <div class="kpi-head">
+          <span class="label">Recorrentes</span>
+          <span class="src-chip">GA4</span>
+        </div>
+        <div class="value">632.884</div>
+        <div class="delta up">▲ 21,3%<span class="vs">vs anterior</span></div>
+        <canvas class="spark" id="sparkRet" width="200" height="40"></canvas>
+      </div>
+      <div class="kpi">
+        <div class="kpi-head">
+          <span class="label">Transações</span>
+          <span class="src-chip">GA4</span>
+        </div>
+        <div class="value">18.432</div>
+        <div class="delta down">▼ 2,1%<span class="vs">vs anterior</span></div>
+        <canvas class="spark" id="sparkTrans" width="200" height="40"></canvas>
+      </div>
+      <div class="kpi">
+        <div class="kpi-head">
+          <span class="label">Receita</span>
+          <span class="src-chip">GA4</span>
+        </div>
+        <div class="value">R$ 4,28M</div>
+        <div class="delta up">▲ 6,4%<span class="vs">vs anterior</span></div>
+        <canvas class="spark" id="sparkRev" width="200" height="40"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- GSC -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title">Search Console</div>
+      <div class="section-meta">Fonte: GSC API · comparação de períodos</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card chart-card">
+        <div class="head">
+          <div class="title">Cliques &amp; impressões <span class="src-chip">GSC</span></div>
+          <div class="more">diário · atual vs comparação</div>
+        </div>
+        <div style="position:relative;height:260px;"><canvas id="gscChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="head">
+          <div class="title">Resumo GSC <span class="src-chip">GSC</span></div>
+        </div>
+        <table>
+          <tbody>
+            <tr><td>Cliques</td><td class="num">284.731</td><td class="num delta-cell up">+14,2%</td></tr>
+            <tr><td>Impressões</td><td class="num">12,4M</td><td class="num delta-cell up">+9,8%</td></tr>
+            <tr><td>CTR médio</td><td class="num">2,29%</td><td class="num delta-cell up">+0,18 pp</td></tr>
+            <tr><td>Posição média</td><td class="num">14,7</td><td class="num delta-cell up">▼ 1,4</td></tr>
+            <tr><td>Páginas indexadas</td><td class="num">8.342</td><td class="num delta-cell up">+127</td></tr>
+            <tr><td>Com impressões</td><td class="num">6.119</td><td class="num delta-cell down">−43</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2 gap-top">
+      <div class="card">
+        <div class="head">
+          <div class="title">Top termos · melhor performance <span class="src-chip">GSC</span></div>
+          <div class="more">vs período anterior</div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Termo</th><th class="num">Cliques</th><th class="num">Impr.</th><th class="num">CTR</th><th class="num">Pos.</th><th class="num">Δ pos.</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>passagem de ônibus rio são paulo</td><td class="num">14.832</td><td class="num">412k</td><td class="num">3,6%</td><td class="num">2,1</td><td class="num delta-cell up">▲ 1,4</td></tr>
+            <tr><td>ônibus rio de janeiro</td><td class="num">9.241</td><td class="num">298k</td><td class="num">3,1%</td><td class="num">3,4</td><td class="num delta-cell up">▲ 0,8</td></tr>
+            <tr><td>passagem rodoviária niterói</td><td class="num">7.118</td><td class="num">189k</td><td class="num">3,8%</td><td class="num">2,7</td><td class="num delta-cell up">▲ 2,1</td></tr>
+            <tr><td>guanabara passagens</td><td class="num">6.892</td><td class="num">82k</td><td class="num">8,4%</td><td class="num">1,2</td><td class="num delta-cell down">▼ 0,1</td></tr>
+            <tr><td>horário ônibus salvador</td><td class="num">4.231</td><td class="num">156k</td><td class="num">2,7%</td><td class="num">4,2</td><td class="num delta-cell up">▲ 0,6</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="head">
+          <div class="title">Páginas com queda <span class="src-chip">GSC</span></div>
+          <div class="more">prioridade de investigação</div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Página</th><th class="num">Cliques</th><th class="num">Δ</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="path">/passagem-onibus/sp-rj</td><td class="num">3.241</td><td class="num delta-cell down">−32%</td></tr>
+            <tr><td class="path">/onibus/belo-horizonte</td><td class="num">2.108</td><td class="num delta-cell down">−28%</td></tr>
+            <tr><td class="path">/horarios/rodoviaria-novo-rio</td><td class="num">1.892</td><td class="num delta-cell down">−21%</td></tr>
+            <tr><td class="path">/empresa/viacao-1001</td><td class="num">1.421</td><td class="num delta-cell down">−19%</td></tr>
+            <tr><td class="path">/passagem/recife-natal</td><td class="num">988</td><td class="num delta-cell down">−14%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEMRUSH -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title">Domínio &amp; Visibilidade</div>
+      <div class="section-meta">Fonte: Semrush API</div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="head">
+          <div class="title">Distribuição de ranking <span class="src-chip">SEMRUSH</span></div>
+        </div>
+        <div style="position:relative;height:220px;"><canvas id="rankChart"></canvas></div>
+        <table style="margin-top:var(--sp-4);">
+          <tbody>
+            <tr><td>Total palavras</td><td class="num">48.291</td><td class="num delta-cell up">+1.842</td></tr>
+            <tr><td>Top 1</td><td class="num">387</td><td class="num delta-cell up">+24</td></tr>
+            <tr><td>Top 3</td><td class="num">2.114</td><td class="num delta-cell up">+91</td></tr>
+            <tr><td>Top 10</td><td class="num">8.620</td><td class="num delta-cell up">+312</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="head">
+          <div class="title">SERP features ativados <span class="src-chip">SEMRUSH</span></div>
+        </div>
+        <div class="serp-grid">
+          <div class="serp-tile ai">
+            <div class="name">AI Overview</div>
+            <div class="num">412</div>
+            <div class="ch">▲ 89</div>
+          </div>
+          <div class="serp-tile">
+            <div class="name">Featured snippet</div>
+            <div class="num">238</div>
+            <div class="ch">▲ 12</div>
+          </div>
+          <div class="serp-tile">
+            <div class="name">People ask</div>
+            <div class="num">1.847</div>
+            <div class="ch">▲ 102</div>
+          </div>
+          <div class="serp-tile">
+            <div class="name">Site links</div>
+            <div class="num">94</div>
+            <div class="ch">▲ 4</div>
+          </div>
+          <div class="serp-tile">
+            <div class="name">Imagens</div>
+            <div class="num">621</div>
+            <div class="ch">▼ 18</div>
+          </div>
+          <div class="serp-tile">
+            <div class="name">Vídeo</div>
+            <div class="num">142</div>
+            <div class="ch">▲ 21</div>
+          </div>
+          <div class="serp-tile">
+            <div class="name">Local pack</div>
+            <div class="num">312</div>
+            <div class="ch">▲ 8</div>
+          </div>
+          <div class="serp-tile">
+            <div class="name">Reviews</div>
+            <div class="num">88</div>
+            <div class="ch">estável</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="head">
+          <div class="title">Visibilidade em IA <span class="src-chip">SEMRUSH AI</span></div>
+        </div>
+        <div class="ai-score">
+          <div class="big">38,4<small>/100</small></div>
+          <div class="lbl">Índice AI Visibility</div>
+        </div>
+        <table>
+          <tbody>
+            <tr><td>Menções totais</td><td class="num">1.284</td></tr>
+            <tr><td>· ChatGPT</td><td class="num">521</td></tr>
+            <tr><td>· Perplexity</td><td class="num">312</td></tr>
+            <tr><td>· Google AI Overview</td><td class="num">298</td></tr>
+            <tr><td>· Gemini</td><td class="num">153</td></tr>
+            <tr><td>Sentimento positivo</td><td class="num">72%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2-eq gap-top">
+      <div class="card">
+        <div class="head">
+          <div class="title">Páginas que mais recebem termos <span class="src-chip">SEMRUSH</span></div>
+          <div class="more">match temático</div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Página</th><th class="num">Termos</th><th class="num">Tráfego</th><th>Match</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="path">/passagem-onibus</td><td class="num">3.214</td><td class="num">128k</td><td><span class="match ok"><span class="dot"></span>OK</span></td></tr>
+            <tr><td class="path">/rodoviarias</td><td class="num">1.842</td><td class="num">62k</td><td><span class="match ok"><span class="dot"></span>OK</span></td></tr>
+            <tr><td class="path">/empresas-onibus</td><td class="num">982</td><td class="num">41k</td><td><span class="match ok"><span class="dot"></span>OK</span></td></tr>
+            <tr><td class="path">/blog/dicas-viagem</td><td class="num">421</td><td class="num">12k</td><td><span class="match warn"><span class="dot"></span>Revisar</span></td></tr>
+            <tr><td class="path">/blog/turismo-rj</td><td class="num">312</td><td class="num">8k</td><td><span class="match bad"><span class="dot"></span>Fora</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="head">
+          <div class="title">Concorrentes <span class="src-chip">SEMRUSH</span></div>
+          <div class="more">share of voice</div>
+        </div>
+        <div class="comp-block">
+          <div class="ttl">Tráfego orgânico estimado</div>
+          <div class="comp-row">
+            <div class="name">Guanabara<span class="domain">meusite.com.br</span></div>
+            <div class="comp-bar-wrap"><div class="comp-bar us" style="width:62%"></div></div>
+            <div class="val">312k</div>
+          </div>
+          <div class="comp-row">
+            <div class="name">ClickBus<span class="domain">clickbus.com.br</span></div>
+            <div class="comp-bar-wrap"><div class="comp-bar c1" style="width:100%"></div></div>
+            <div class="val">498k</div>
+          </div>
+          <div class="comp-row">
+            <div class="name">QueroPassagem<span class="domain">queropassagem.com.br</span></div>
+            <div class="comp-bar-wrap"><div class="comp-bar c2" style="width:54%"></div></div>
+            <div class="val">271k</div>
+          </div>
+        </div>
+        <div class="comp-block">
+          <div class="ttl">Palavras top 10</div>
+          <div class="comp-row">
+            <div class="name">Guanabara</div>
+            <div class="comp-bar-wrap"><div class="comp-bar us" style="width:72%"></div></div>
+            <div class="val">8.620</div>
+          </div>
+          <div class="comp-row">
+            <div class="name">ClickBus</div>
+            <div class="comp-bar-wrap"><div class="comp-bar c1" style="width:100%"></div></div>
+            <div class="val">11.984</div>
+          </div>
+          <div class="comp-row">
+            <div class="name">QueroPassagem</div>
+            <div class="comp-bar-wrap"><div class="comp-bar c2" style="width:58%"></div></div>
+            <div class="val">6.921</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card gap-top">
+      <div class="head">
+        <div class="title">Mudanças de posição relevantes <span class="src-chip">SEMRUSH</span></div>
+        <div class="more">termos com Δ ≥ 5 posições</div>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Termo</th><th class="num">Vol/mês</th><th class="num">Pos. ant.</th><th class="num">Pos. atual</th><th class="num">Δ</th><th>SERP</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>passagem rio fortaleza</td><td class="num">14.800</td><td class="num">12</td><td class="num">3</td><td class="num delta-cell up">▲ 9</td><td><span class="badge badge-ai">AI Overview</span></td></tr>
+          <tr><td>ônibus para porto seguro</td><td class="num">8.100</td><td class="num">18</td><td class="num">7</td><td class="num delta-cell up">▲ 11</td><td><span class="badge badge-info">PAA</span></td></tr>
+          <tr><td>passagens guanabara</td><td class="num">22.300</td><td class="num">2</td><td class="num">1</td><td class="num delta-cell up">▲ 1</td><td><span class="badge badge-info">Sitelinks</span></td></tr>
+          <tr><td>terminal rodoviário tietê</td><td class="num">9.900</td><td class="num">4</td><td class="num">11</td><td class="num delta-cell down">▼ 7</td><td><span class="badge badge-ai">AI Overview</span></td></tr>
+          <tr><td>passagem barata curitiba</td><td class="num">6.600</td><td class="num">8</td><td class="num">21</td><td class="num delta-cell down">▼ 13</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TRENDS -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title">Tendências &amp; Sazonalidade</div>
+      <div class="section-meta">Fonte: Google Trends API</div>
+    </div>
+    <div class="grid-2">
+      <div class="card chart-card">
+        <div class="head">
+          <div class="title">Interesse de busca · principais termos <span class="src-chip">TRENDS</span></div>
+          <div class="more">últimos 90 dias</div>
+        </div>
+        <div style="position:relative;height:260px;"><canvas id="trendsChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="head">
+          <div class="title">Alertas de sazonalidade <span class="src-chip">TRENDS</span></div>
+          <div class="more">picos detectados</div>
+        </div>
+        <div class="trend-item">
+          <div class="term">Férias julho<small>passagens · viagem rodoviária</small></div>
+          <span class="badge badge-negative">+184%</span>
+          <canvas class="spark" id="trend1" width="80" height="28"></canvas>
+        </div>
+        <div class="trend-item">
+          <div class="term">São João Nordeste<small>ônibus para Campina Grande</small></div>
+          <span class="badge badge-negative">+312%</span>
+          <canvas class="spark" id="trend2" width="80" height="28"></canvas>
+        </div>
+        <div class="trend-item">
+          <div class="term">Corpus Christi feriado<small>aumento previsto em 12 dias</small></div>
+          <span class="badge badge-warning">+47%</span>
+          <canvas class="spark" id="trend3" width="80" height="28"></canvas>
+        </div>
+        <div class="trend-item">
+          <div class="term">Ônibus Rio interior<small>aumento contínuo</small></div>
+          <span class="badge badge-warning">+28%</span>
+          <canvas class="spark" id="trend4" width="80" height="28"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE HEALTH -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title">Saúde de Páginas</div>
+      <div class="section-meta">Fonte: GTmetrix · PageSpeed Insights</div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="head">
+          <div class="title">Páginas críticas por tipo de layout <span class="src-chip">GTMETRIX</span></div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Página</th><th>Layout</th><th class="num">Perf.</th><th class="num">LCP</th><th class="num">CLS</th><th class="num">INP</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="path">/</td><td>home</td><td class="num"><span class="perf-pill good">92</span></td><td class="num">1,8s</td><td class="num">0,04</td><td class="num">142ms</td></tr>
+            <tr><td class="path">/passagem-onibus</td><td>listagem</td><td class="num"><span class="perf-pill warn">68</span></td><td class="num">3,2s</td><td class="num">0,11</td><td class="num">284ms</td></tr>
+            <tr><td class="path">/rota/[origem]/[destino]</td><td>SERP-like</td><td class="num"><span class="perf-pill bad">42</span></td><td class="num">4,8s</td><td class="num">0,24</td><td class="num">412ms</td></tr>
+            <tr><td class="path">/checkout</td><td>transacional</td><td class="num"><span class="perf-pill good">88</span></td><td class="num">2,1s</td><td class="num">0,06</td><td class="num">178ms</td></tr>
+            <tr><td class="path">/empresa/[viacao]</td><td>institucional</td><td class="num"><span class="perf-pill warn">71</span></td><td class="num">2,9s</td><td class="num">0,09</td><td class="num">221ms</td></tr>
+            <tr><td class="path">/blog/[post]</td><td>conteúdo</td><td class="num"><span class="perf-pill good">84</span></td><td class="num">2,4s</td><td class="num">0,05</td><td class="num">198ms</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="head">
+          <div class="title">Core Web Vitals · médias por layout <span class="src-chip">PSI</span></div>
+        </div>
+        <div class="health-grid">
+          <div>
+            <div class="health-row"><div class="pname">Home</div><div class="gauge"><span class="ring" style="--c: var(--support-positive-500); --p: 332deg"></span>92</div></div>
+            <div class="health-row"><div class="pname">Listagem</div><div class="gauge"><span class="ring" style="--c: var(--brand-secondary-b-500); --p: 244deg"></span>68</div></div>
+            <div class="health-row"><div class="pname">Rota SERP</div><div class="gauge"><span class="ring" style="--c: var(--support-negative-500); --p: 151deg"></span>42</div></div>
+          </div>
+          <div>
+            <div class="health-row"><div class="pname">Checkout</div><div class="gauge"><span class="ring" style="--c: var(--support-positive-500); --p: 317deg"></span>88</div></div>
+            <div class="health-row"><div class="pname">Institucional</div><div class="gauge"><span class="ring" style="--c: var(--brand-secondary-b-500); --p: 256deg"></span>71</div></div>
+            <div class="health-row"><div class="pname">Blog</div><div class="gauge"><span class="ring" style="--c: var(--support-positive-500); --p: 302deg"></span>84</div></div>
+          </div>
+        </div>
+        <div class="warn-note">
+          Atenção: o layout <strong>rota SERP-like</strong> está abaixo do limiar em 3 das 4 métricas. Impacto direto em 18% do tráfego orgânico — investigação prioritária.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRAWL -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title">Rastreabilidade &amp; Crawl</div>
+      <div class="section-meta">Fonte: Screaming Frog · URL Inspection API</div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="head">
+          <div class="title">Issues de crawl detectados <span class="src-chip">S.FROG</span></div>
+        </div>
+        <div class="crawl-item">
+          <div class="icon err">404</div>
+          <div class="label-c">URLs com erro 404<small>órfãs ou linkadas internamente</small></div>
+          <div class="count">128</div>
+        </div>
+        <div class="crawl-item">
+          <div class="icon warn">RD</div>
+          <div class="label-c">Cadeias de redirect &gt; 2 hops<small>perda de signal &amp; crawl budget</small></div>
+          <div class="count">47</div>
+        </div>
+        <div class="crawl-item">
+          <div class="icon warn">DUP</div>
+          <div class="label-c">Títulos duplicados<small>páginas de rota com mesmo H1</small></div>
+          <div class="count">312</div>
+        </div>
+        <div class="crawl-item">
+          <div class="icon warn">META</div>
+          <div class="label-c">Meta description faltando<small>impacto em CTR</small></div>
+          <div class="count">894</div>
+        </div>
+        <div class="crawl-item">
+          <div class="icon err">CAN</div>
+          <div class="label-c">Canonicals inconsistentes<small>self-ref ausente em /rota</small></div>
+          <div class="count">218</div>
+        </div>
+        <div class="crawl-item">
+          <div class="icon ok">OK</div>
+          <div class="label-c">Páginas saudáveis<small>indexáveis sem issues</small></div>
+          <div class="count">5.987</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="head">
+          <div class="title">Comparação vs concorrentes <span class="src-chip">S.FROG</span></div>
+          <div class="more">amostra de 5k URLs</div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Métrica</th><th class="num">Guanabara</th><th class="num">ClickBus</th><th class="num">QueroPass.</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>URLs indexáveis</td><td class="num">8.342</td><td class="num">12.482</td><td class="num">6.918</td></tr>
+            <tr><td>Profundidade média</td><td class="num">3,8</td><td class="num">3,2</td><td class="num">4,1</td></tr>
+            <tr><td>Internal links/page</td><td class="num">42</td><td class="num">68</td><td class="num">37</td></tr>
+            <tr><td>Schema markup</td><td class="num">62%</td><td class="num">94%</td><td class="num">71%</td></tr>
+            <tr><td>HTTPS</td><td class="num">100%</td><td class="num">100%</td><td class="num">100%</td></tr>
+            <tr><td>Img sem alt</td><td class="num">1.842</td><td class="num">412</td><td class="num">1.218</td></tr>
+            <tr><td>Hreflang</td><td class="num">não</td><td class="num">sim</td><td class="num">não</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI INSIGHTS -->
+  <section class="section">
+    <div class="ai-panel">
+      <div class="ai-head">
+        <div class="tag">◆ Insights gerados por IA · cruzamento multi-fonte</div>
+        <div class="models">
+          <span class="model-chip active">Claude</span>
+          <span class="model-chip">GPT-5</span>
+          <span class="model-chip">Gemini</span>
+          <span class="model-chip">Copilot</span>
+        </div>
+      </div>
+      <div class="insights-list">
+        <div class="insight crit">
+          <div class="severity">!</div>
+          <div class="body">
+            <h4>Layout de rota SERP-like é o gargalo crítico do mês</h4>
+            <p>O template <code>/rota/[origem]/[destino]</code> concentra 18% do tráfego orgânico mas apresenta performance score 42 (LCP 4,8s, INP 412ms). 3 das 5 quedas de posição relevantes vêm desse template. Investigação sugerida: lazy-load do mapa interativo e remoção do segundo carrossel above-the-fold.</p>
+            <div class="srcs"><span>PSI</span><span>GTmetrix</span><span>Semrush</span><span>GSC</span></div>
+          </div>
+          <button class="btn btn-negative">Priorizar</button>
+        </div>
+        <div class="insight opp">
+          <div class="severity">+</div>
+          <div class="body">
+            <h4>ClickBus perdeu 12 posições em "passagem rio fortaleza" — janela de oportunidade</h4>
+            <p>O termo (14,8k buscas/mês) hoje ativa AI Overview e seu domínio subiu para posição 3. Conteúdo da página atual cobre apenas 40% das perguntas mais frequentes do PAA. Expandir com seção FAQ específica pode capturar tanto ranking quanto citação no AI Overview do Google.</p>
+            <div class="srcs"><span>Semrush</span><span>GSC</span><span>Trends</span></div>
+          </div>
+          <button class="btn btn-primary">Expandir</button>
+        </div>
+        <div class="insight warn">
+          <div class="severity">∼</div>
+          <div class="body">
+            <h4>São João do Nordeste em alta · 12 dias para o pico</h4>
+            <p>Google Trends indica +312% em buscas relacionadas a "ônibus campina grande" e "ônibus caruaru". Histórico de 2024–2025 mostra que o pico costuma durar 18 dias. QueroPassagem já publicou 4 landing pages temáticas nas últimas 72h. Recomendação: publicar páginas dedicadas e brief para times de mídia em até 5 dias.</p>
+            <div class="srcs"><span>Trends</span><span>Semrush</span><span>Monitoramento concorrente</span></div>
+          </div>
+          <button class="btn btn-primary">Criar conteúdo</button>
+        </div>
+        <div class="insight info">
+          <div class="severity">i</div>
+          <div class="body">
+            <h4>Visibilidade em ChatGPT está concentrada em 3 tópicos</h4>
+            <p>521 menções no ChatGPT, mas 78% estão dentro de "passagens interestaduais", "horários" e "Guanabara empresa". Gaps detectados: "experiência a bordo", "comparação de preços" e "rotas alternativas". Hubs de conteúdo nessas áreas tendem a aumentar a probabilidade de citação por LLMs.</p>
+            <div class="srcs"><span>Semrush AI</span><span>Claude analysis</span></div>
+          </div>
+          <button class="btn btn-secondary">Planejar hub</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- API STATUS -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title">Status das Integrações</div>
+      <div class="section-meta">Conexões automatizadas</div>
+    </div>
+    <div class="api-status">
+      <div class="api-row">
+        <div class="api-name">GA4</div>
+        <div class="api-state mock"><span class="dot"></span> Mock</div>
+        <div class="ver">data api v1</div>
+      </div>
+      <div class="api-row">
+        <div class="api-name">GSC</div>
+        <div class="api-state mock"><span class="dot"></span> Mock</div>
+        <div class="ver">webmasters v3</div>
+      </div>
+      <div class="api-row">
+        <div class="api-name">Semrush</div>
+        <div class="api-state mock"><span class="dot"></span> Mock</div>
+        <div class="ver">api v3 + ai</div>
+      </div>
+      <div class="api-row">
+        <div class="api-name">Trends</div>
+        <div class="api-state mock"><span class="dot"></span> Mock</div>
+        <div class="ver">trends api 2025</div>
+      </div>
+      <div class="api-row">
+        <div class="api-name">GTmetrix</div>
+        <div class="api-state mock"><span class="dot"></span> Mock</div>
+        <div class="ver">rest v2.0</div>
+      </div>
+      <div class="api-row">
+        <div class="api-name">PageSpeed</div>
+        <div class="api-state mock"><span class="dot"></span> Mock</div>
+        <div class="ver">insights v5</div>
+      </div>
+      <div class="api-row">
+        <div class="api-name">S.Frog</div>
+        <div class="api-state off"><span class="dot"></span> Offline</div>
+        <div class="ver">cli agendado</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="legend">Protótipo v0.2 · Guanabara Design System v1.0 · dados ilustrativos</div>
+
+</div>
+
+<script>
+  Chart.defaults.color = '#8B8B8B';
+  Chart.defaults.borderColor = '#EEEEEE';
+  Chart.defaults.font.family = "'Nunito Sans', sans-serif";
+  Chart.defaults.font.weight = 500;
+
+  const C = {
+    primary: '#19398A',
+    red: '#A43C3E',
+    gold: '#C3940F',
+    lightBlue: '#6589D4',
+    positive: '#3EAB36',
+    negative: '#ED544F',
+    warning: '#F4B922',
+    info: '#6A37C3',
+    grey: '#ACACAC',
+    greyLight: '#D1D1D1'
+  };
+
+  function gen(n, min, max, trend=0) {
+    const out = [];
+    let v = (min + max) / 2;
+    for (let i = 0; i < n; i++) {
+      v += (Math.random() - 0.5 + trend * 0.5) * (max - min) * 0.15;
+      v = Math.max(min, Math.min(max, v));
+      out.push(Math.round(v));
+    }
+    return out;
+  }
+
+  function sparkConfig(color) {
+    return {
+      type: 'line',
+      options: {
+        responsive: false,
+        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+        scales: { x: { display: false }, y: { display: false } },
+        elements: { point: { radius: 0 } },
+      },
+      data: {
+        labels: Array.from({length: 30}, (_, i) => i),
+        datasets: [{
+          data: gen(30, 40, 100, 0.3),
+          borderColor: color, borderWidth: 2, fill: true,
+          backgroundColor: ctx => {
+            const g = ctx.chart.ctx.createLinearGradient(0, 0, 0, 40);
+            g.addColorStop(0, color + '33'); g.addColorStop(1, color + '00'); return g;
+          },
+          tension: 0.4
+        }]
+      }
+    };
+  }
+
+  new Chart(document.getElementById('sparkSessions'), sparkConfig(C.primary));
+  new Chart(document.getElementById('sparkNew'), sparkConfig(C.lightBlue));
+  new Chart(document.getElementById('sparkRet'), sparkConfig(C.positive));
+  new Chart(document.getElementById('sparkTrans'), sparkConfig(C.negative));
+  new Chart(document.getElementById('sparkRev'), sparkConfig(C.primary));
+
+  // GSC chart
+  const days = Array.from({length: 30}, (_, i) => (i + 1).toString().padStart(2, '0'));
+  new Chart(document.getElementById('gscChart'), {
+    type: 'line',
+    data: {
+      labels: days,
+      datasets: [
+        { label: 'Cliques (atual)', data: gen(30, 7000, 12000, 0.4), borderColor: C.primary, backgroundColor: 'rgba(25,57,138,0.08)', borderWidth: 2.5, tension: 0.4, fill: true, yAxisID: 'y' },
+        { label: 'Cliques (comparação)', data: gen(30, 6000, 10000, 0.2), borderColor: C.grey, borderWidth: 2, borderDash: [6, 4], tension: 0.4, fill: false, yAxisID: 'y' },
+        { label: 'Impressões (atual)', data: gen(30, 350000, 480000, 0.3), borderColor: C.red, borderWidth: 2.5, tension: 0.4, fill: false, yAxisID: 'y1' },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: true, position: 'top', align: 'end',
+          labels: { boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 12, weight: 700 }, padding: 12, color: '#515151' }
+        }
+      },
+      elements: { point: { radius: 0, hoverRadius: 5 } },
+      scales: {
+        x: { grid: { color: '#EEEEEE' }, ticks: { font: { size: 11 } } },
+        y: { position: 'left', grid: { color: '#EEEEEE' }, ticks: { font: { size: 11 }, callback: v => (v / 1000) + 'k' } },
+        y1: { position: 'right', grid: { display: false }, ticks: { font: { size: 11 }, callback: v => (v / 1000) + 'k' } }
+      }
+    }
+  });
+
+  // Ranking doughnut
+  new Chart(document.getElementById('rankChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Top 1', 'Top 3', 'Top 10', 'Top 20', 'Top 50+'],
+      datasets: [{
+        data: [387, 1727, 6506, 12450, 27221],
+        backgroundColor: [C.positive, C.primary, C.lightBlue, C.gold, C.greyLight],
+        borderColor: '#fff', borderWidth: 3
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '65%',
+      plugins: {
+        legend: { position: 'right',
+          labels: { boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 12, weight: 700 }, padding: 10, color: '#515151' }
+        }
+      }
+    }
+  });
+
+  // Trends 90 days
+  new Chart(document.getElementById('trendsChart'), {
+    type: 'line',
+    data: {
+      labels: Array.from({length: 90}, (_, i) => 'd' + (i + 1)),
+      datasets: [
+        { label: 'passagem ônibus', data: gen(90, 40, 95, 0.2), borderColor: C.primary, borderWidth: 2.5, tension: 0.4, fill: false },
+        { label: 'ônibus rio', data: gen(90, 30, 80, 0.1), borderColor: C.lightBlue, borderWidth: 2.5, tension: 0.4, fill: false },
+        { label: 'guanabara passagens', data: gen(90, 20, 60, 0.05), borderColor: C.red, borderWidth: 2.5, tension: 0.4, fill: false },
+        { label: 'são joão (sazonal)', data: gen(90, 5, 90, 0.7), borderColor: C.gold, borderWidth: 2.5, tension: 0.4, fill: false }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', align: 'end',
+          labels: { boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 12, weight: 700 }, padding: 12, color: '#515151' }
+        }
+      },
+      elements: { point: { radius: 0, hoverRadius: 4 } },
+      scales: {
+        x: { ticks: { display: false }, grid: { color: '#EEEEEE' } },
+        y: { ticks: { font: { size: 11 } }, grid: { color: '#EEEEEE' } }
+      }
+    }
+  });
+
+  // Trend sparks
+  [['trend1', C.negative, 0.7], ['trend2', C.negative, 0.8], ['trend3', C.gold, 0.4], ['trend4', C.gold, 0.3]].forEach(([id, color, t]) => {
+    new Chart(document.getElementById(id), {
+      type: 'line',
+      data: { labels: Array.from({length: 30}, (_, i) => i), datasets: [{ data: gen(30, 20, 100, t), borderColor: color, borderWidth: 2, fill: false, tension: 0.4 }] },
+      options: { responsive: false, plugins: { legend: { display: false }, tooltip: { enabled: false } }, scales: { x: { display: false }, y: { display: false } }, elements: { point: { radius: 0 } } }
+    });
+  });
+</script>
+</body>
+</html>
