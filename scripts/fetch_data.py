@@ -73,85 +73,195 @@ def log_err(src, e):
     print(f"  ✗ {msg}")
 
 # ─── GA4 VIA CSV ──────────────────────────────────────────────────────────────
-def parse_ga4_csv(filepath="ga4_export.csv"):
-    """
-    Lê CSV exportado do GA4 (Relatórios → Aquisição → Exportar CSV).
-    Retorna dict com métricas agregadas e por canal orgânico.
-    """
+
+# Fontes LLM reconhecidas
+LLM_SOURCES = {
+    "chatgpt.com / referral", "chatgpt.com / (not set)", "chatgpt.com / (none)",
+    "gemini.google.com / referral",
+    "copilot.microsoft.com / referral", "copilot.com / referral", "copilot.com / (not set)",
+    "perplexity / (not set)",
+    "claude.ai / referral",
+    "l.meta.ai / referral",
+}
+
+def _read_ga4_csv(filepath):
     import csv as csv_module
-    with open(filepath, encoding="utf-8") as f:
-        raw = f.read()
-
-    # Remover linhas de header do GA4 (começam com # ou são vazias)
-    data_lines = [l for l in raw.split("\n") if l.strip() and not l.startswith("#")]
-    reader = csv_module.DictReader(data_lines)
+    with open(filepath, encoding="utf-8-sig") as f:
+        raw = f.read().replace("\r\n", "\n").replace("\r", "\n")
+    lines = [l for l in raw.split("\n") if l.strip() and not l.startswith("#")]
+    reader = csv_module.DictReader(lines)
     rows = list(reader)
-
-    def num(v):
-        try: return float(str(v).replace(",", ".").strip())
-        except: return 0.0
-
-    # Extrair data de início e término do header
-    period_start_csv = period_end_csv = ""
+    period_start = period_end = ""
     for line in raw.split("\n"):
         if "Data de início:" in line:
-            period_start_csv = line.split(":")[-1].strip()
+            d = line.split(":")[-1].strip()
+            period_start = f"{d[:4]}-{d[4:6]}-{d[6:]}" if len(d) == 8 else d
         if "Data de término:" in line:
-            period_end_csv = line.split(":")[-1].strip()
+            d = line.split(":")[-1].strip()
+            period_end = f"{d[:4]}-{d[4:6]}-{d[6:]}" if len(d) == 8 else d
+    return rows, period_start, period_end
 
-    def fmt_date(d):
-        # Converte 20250101 -> 2025-01-01
-        if len(d) == 8:
-            return f"{d[:4]}-{d[4:6]}-{d[6:]}"
-        return d
+def _n(v):
+    try: return float(str(v).replace(",", ".").strip())
+    except: return 0.0
 
-    # Totais (todos os canais)
-    total_sessions   = sum(num(r["Sessões"]) for r in rows)
-    total_new_users  = sum(num(r["Novos usuários"]) for r in rows)
-    total_returning  = sum(num(r["Usuários recorrentes"]) for r in rows)
-    total_revenue    = sum(num(r["Receita total"]) for r in rows)
+def parse_ga4_csvs(folder="ga4"):
+    """
+    Lê 3 CSVs do GA4:
+      ga4/seo_traffic.csv    — tráfego filtrado por origens SEO (com transações)
+      ga4/all_channels.csv   — todos os canais com transações (share de canal)
+      ga4/transactions.csv   — transações por ID e origem/mídia
+    """
 
-    # Canal Organic Search
+    # ── 1. Tráfego SEO (origens SEO filtradas) ──
+    seo_rows, p_start, p_end = _read_ga4_csv(f"{folder}/seo_traffic.csv")
+
+    src_col = "Origem / mídia da sessão"
+    seo_total = {"sessions":0,"new_users":0,"returning":0,"transactions":0,"revenue":0.0}
+    seo_llm   = {"sessions":0,"new_users":0,"returning":0,"transactions":0,"revenue":0.0}
+    seo_by_source = []
+
+    for row in seo_rows:
+        src  = row.get(src_col, "").strip()
+        s    = int(_n(row.get("Sessões", 0)))
+        nu   = int(_n(row.get("Novos usuários", 0)))
+        ret  = int(_n(row.get("Usuários recorrentes", 0)))
+        tx   = int(_n(row.get("Transações", 0)))
+        rev  = round(_n(row.get("Receita total", 0)), 2)
+        eng  = round(_n(row.get("Taxa de engajamento", 0)) * 100, 1)
+
+        seo_total["sessions"]     += s
+        seo_total["new_users"]    += nu
+        seo_total["returning"]    += ret
+        seo_total["transactions"] += tx
+        seo_total["revenue"]      += rev
+
+        is_llm = src in LLM_SOURCES
+        if is_llm:
+            seo_llm["sessions"]     += s
+            seo_llm["new_users"]    += nu
+            seo_llm["returning"]    += ret
+            seo_llm["transactions"] += tx
+            seo_llm["revenue"]      += rev
+
+        seo_by_source.append({
+            "source": src, "sessions": s, "new_users": nu,
+            "returning": ret, "transactions": tx,
+            "revenue": rev, "engagement": eng,
+            "is_llm": is_llm,
+        })
+
+    # Ordenar por receita desc
+    seo_by_source.sort(key=lambda x: x["revenue"], reverse=True)
+
+    # Orgânico tradicional (SEO - LLM)
+    seo_organic = {
+        "sessions":     seo_total["sessions"]     - seo_llm["sessions"],
+        "new_users":    seo_total["new_users"]     - seo_llm["new_users"],
+        "returning":    seo_total["returning"]     - seo_llm["returning"],
+        "transactions": seo_total["transactions"]  - seo_llm["transactions"],
+        "revenue":      round(seo_total["revenue"] - seo_llm["revenue"], 2),
+    }
+
+    # ── 2. Todos os canais (share) ──
+    all_rows, _, _ = _read_ga4_csv(f"{folder}/all_channels.csv")
     ch_col = "Grupo principal de canais da sessão (Grupo de Canais)"
-    organic = next((r for r in rows if "Organic Search" in r.get(ch_col, "")), {})
-    org_sessions  = num(organic.get("Sessões", 0))
-    org_new_users = num(organic.get("Novos usuários", 0))
-    org_returning = num(organic.get("Usuários recorrentes", 0))
-    org_revenue   = num(organic.get("Receita total", 0))
+
+    total_all = {"sessions":0,"transactions":0,"revenue":0.0}
+    channels  = []
+    for row in all_rows:
+        s   = int(_n(row.get("Sessões", 0)))
+        tx  = int(_n(row.get("Transações", 0)))
+        rev = round(_n(row.get("Receita total", 0)), 2)
+        total_all["sessions"]     += s
+        total_all["transactions"] += tx
+        total_all["revenue"]      += rev
+        channels.append({
+            "channel":      row.get(ch_col, "").strip(),
+            "sessions":     s,
+            "new_users":    int(_n(row.get("Novos usuários", 0))),
+            "returning":    int(_n(row.get("Usuários recorrentes", 0))),
+            "transactions": tx,
+            "revenue":      rev,
+        })
+    channels.sort(key=lambda x: x["revenue"], reverse=True)
+
+    # Share do SEO total
+    def share(val, total):
+        return round(val / total * 100, 1) if total else 0.0
+
+    seo_share = {
+        "sessions_pct":     share(seo_total["sessions"],     total_all["sessions"]),
+        "transactions_pct": share(seo_total["transactions"], total_all["transactions"]),
+        "revenue_pct":      share(seo_total["revenue"],      total_all["revenue"]),
+    }
+    llm_share = {
+        "sessions_pct":     share(seo_llm["sessions"],     total_all["sessions"]),
+        "transactions_pct": share(seo_llm["transactions"], total_all["transactions"]),
+        "revenue_pct":      share(seo_llm["revenue"],      total_all["revenue"]),
+    }
+
+    # ── 3. Transações por origem ──
+    tx_rows, _, _ = _read_ga4_csv(f"{folder}/transactions.csv")
+    top_tx_sources = []
+    for row in tx_rows[:20]:
+        src = row.get("Origem / mídia da sessão", "").strip()
+        purchases = int(_n(row.get("Compras de e-commerce", 0)))
+        rev       = round(_n(row.get("Receita de compra", 0)), 2)
+        if purchases > 0:
+            top_tx_sources.append({
+                "source":    src,
+                "purchases": purchases,
+                "revenue":   rev,
+                "is_seo":    any(org in src for org in ["organic","chatgpt","gemini","copilot","perplexity","claude","meta.ai","duckduckgo","ecosia","yahoo","yandex"]),
+            })
 
     return {
-        "source":           "csv",
-        "period_start":     fmt_date(period_start_csv),
-        "period_end":       fmt_date(period_end_csv),
-        "sessions":         int(total_sessions),
-        "sessions_delta":   0.0,
-        "new_users":        int(total_new_users),
-        "new_users_delta":  0.0,
-        "returning_users":  int(total_returning),
-        "returning_delta":  0.0,
-        "transactions":     0,
+        "source":          "csv",
+        "period_start":    p_start,
+        "period_end":      p_end,
+        # KPIs SEO (principais)
+        "sessions":        seo_total["sessions"],
+        "sessions_delta":  0.0,
+        "new_users":       seo_total["new_users"],
+        "new_users_delta": 0.0,
+        "returning_users": seo_total["returning"],
+        "returning_delta": 0.0,
+        "transactions":    seo_total["transactions"],
         "transactions_delta": 0.0,
-        "revenue":          round(total_revenue, 2),
-        "revenue_delta":    0.0,
-        "organic": {
-            "sessions":      int(org_sessions),
-            "new_users":     int(org_new_users),
-            "returning":     int(org_returning),
-            "revenue":       round(org_revenue, 2),
-        },
-        "daily_sessions":   [],
+        "revenue":         round(seo_total["revenue"], 2),
+        "revenue_delta":   0.0,
+        "daily_sessions":  [],
+        # Detalhes
+        "seo_total":       seo_total,
+        "seo_organic":     seo_organic,
+        "seo_llm":         seo_llm,
+        "seo_by_source":   seo_by_source,
+        "seo_share":       seo_share,
+        "llm_share":       llm_share,
+        "channels":        channels,
+        "total_all":       total_all,
+        "top_tx_sources":  top_tx_sources,
     }
 
 # ─── GA4 ──────────────────────────────────────────────────────────────────────
 def fetch_ga4():
-    # Tenta CSV primeiro, depois API
-    if os.path.exists("ga4_export.csv"):
+    # Tenta pasta ga4/ com os 3 CSVs segmentados
+    if os.path.exists("ga4/seo_traffic.csv"):
         try:
-            output["ga4"] = parse_ga4_csv("ga4_export.csv")
-            log_ok("GA4 (CSV)")
+            output["ga4"] = parse_ga4_csvs("ga4")
+            log_ok("GA4 (CSV segmentado — SEO/LLM/canais)")
             return
         except Exception as e:
             log_err("GA4 CSV parse", str(e))
+    # Fallback: CSV único de aquisição geral
+    if os.path.exists("ga4_export.csv"):
+        try:
+            output["ga4"] = parse_ga4_csvs_legacy("ga4_export.csv")
+            log_ok("GA4 (CSV legado)")
+            return
+        except Exception as e:
+            log_err("GA4 CSV legado", str(e))
 
     try:
         client = BetaAnalyticsDataClient(credentials=creds)
@@ -379,6 +489,18 @@ def parse_gsc_csvs(folder="gsc"):
         "daily_clicks":      [int(r["Cliques"])     for r in cur_rows],
         "daily_clicks_prev": [int(r["Cliques"])     for r in prev_rows],
         "daily_impressions": [int(r["Impressões"])  for r in cur_rows],
+        "all_daily": [
+            {
+                "date":        r["Data"],
+                "clicks":      int(r["Cliques"]),
+                "impressions": int(r["Impressões"]),
+                "ctr":         round(num(r["CTR"]), 2),
+                "position":    round(num(r["Posição"]), 1),
+            }
+            for r in daily_rows
+        ],
+        "data_start": daily_rows[0]["Data"],
+        "data_end":   daily_rows[-1]["Data"],
         "indexed_pages":     indexed_pages,
         "indexed_daily":     indexed_daily,
         "coverage_urls":     coverage_urls,
