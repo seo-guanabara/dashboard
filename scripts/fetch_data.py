@@ -108,7 +108,18 @@ def read_ga4_csv(filepath):
     return rows, p_start_csv, p_end_csv
 
 def _n(v):
-    try: return float(str(v).replace(",",".").strip())
+    try:
+        s = str(v).strip().rstrip(".")
+        if not s: return 0.0
+        # Formato BR: 1.234.567,89 (ponto=milhar, vírgula=decimal)
+        if "," in s and "." in s:
+            s = s.replace(".", "").replace(",", ".")
+        elif s.count(".") > 1:
+            # Múltiplos pontos = separadores de milhar sem decimal
+            s = s.replace(".", "")
+        elif "," in s:
+            s = s.replace(",", ".")
+        return float(s)
     except: return 0.0
 
 # ─── GA4 API ──────────────────────────────────────────────────────────────────
@@ -364,18 +375,29 @@ def fetch_ga4_from_sheet():
     channels = []
     total_all = {"sessions":0,"transactions":0,"revenue":0.0}
     if sheet_exists("all_channels"):
+        # Totais da seção "Totals For All Results"
+        totals = read_sheet_totals("all_channels")
+        if totals:
+            total_all["sessions"]     = int(col(totals,"session","sessõ"))
+            total_all["transactions"] = int(col(totals,"transact","transaç"))
+            total_all["revenue"]      = round(col(totals,"revenue","receita","purchase"),2)
+
         ch_rows = read_sheet("all_channels")
-        ch_col  = next((k for k in (ch_rows[0] if ch_rows else {}) if any(x in k.lower() for x in ["canal","channel","grupo","group"])), "")
+        dim_col = next((k for k in (ch_rows[0] if ch_rows else {})
+                        if any(x in k.lower() for x in ["sessiondefault","canal","channel","grupo","group"])), "")
         for row in ch_rows:
-            ch  = str(row.get(ch_col,"")).strip()
-            s   = int(col(row,"sessõ","session"))
-            tx  = int(col(row,"transaç","transaction"))
-            rev = round(col(row,"receita","revenue","purchase"),2)
+            ch  = str(row.get(dim_col,"")).strip()
+            if not ch: continue
+            s   = int(col(row,"session","sessõ"))
+            tx  = int(col(row,"transact","transaç"))
+            rev = round(col(row,"revenue","receita","purchase"),2)
             channels.append({"channel":ch,"sessions":s,"transactions":tx,"revenue":rev})
-            total_all["sessions"]     += s
-            total_all["transactions"] += tx
-            total_all["revenue"]      += rev
         channels.sort(key=lambda x: x["revenue"], reverse=True)
+        # Fallback: somar canais se totais não vieram
+        if not total_all["sessions"] and channels:
+            total_all["sessions"]     = sum(c["sessions"]     for c in channels)
+            total_all["transactions"] = sum(c["transactions"] for c in channels)
+            total_all["revenue"]      = sum(c["revenue"]      for c in channels)
 
     # ── ytd — aba manual com colunas: ano | receita ──
     ytd_cur = ytd_prv = 0.0
@@ -686,22 +708,69 @@ def sheets():
     return _sheets_svc
 
 def read_sheet(tab, sheet_id=SHEET_ID):
-    """Lê uma aba da planilha e retorna lista de dicts."""
+    """
+    Lê aba gerada pelo GA4 Spreadsheet Add-on.
+    Pula os metadados (linhas 1-13) e encontra a seção 'Results Breakdown'
+    onde estão os headers reais com sessionSourceMedium / sessionDefaultChannelGroup.
+    """
     try:
         res = sheets().spreadsheets().values().get(
-            spreadsheetId=sheet_id,
-            range=f"'{tab}'!A:Z"
+            spreadsheetId=sheet_id, range=f"'{tab}'!A:Z"
         ).execute()
         rows = res.get("values", [])
         if len(rows) < 2:
             return []
-        # Encontrar linha de header (pula metadados do GA4 extension)
-        header_idx = next((i for i,r in enumerate(rows)
-                           if any(k in str(r).lower() for k in ["sessão","session","clique","origin","source","canal","channel"])), 0)
-        headers = [str(h).strip() for h in rows[header_idx]]
-        return [dict(zip(headers, row)) for row in rows[header_idx+1:] if any(row)]
+
+        # Procurar header que contém a dimensão principal (sessionSourceMedium etc.)
+        breakdown_idx = None
+        for i, row in enumerate(rows):
+            first_cell = str(row[0]).strip().lower() if row else ""
+            if any(k in first_cell for k in [
+                "sessionsourcemedium", "sessiondefaultchannelgroup",
+                "source", "origem", "canal", "channel", "dimension"
+            ]):
+                breakdown_idx = i
+                break
+
+        # Fallback: última linha que começa com texto não-numérico antes dos dados
+        if breakdown_idx is None:
+            for i, row in enumerate(rows):
+                row_str = " ".join(str(c) for c in row).lower()
+                if "session" in row_str and "result" not in row_str:
+                    breakdown_idx = i
+                    break
+
+        if breakdown_idx is None:
+            return []
+
+        headers = [str(h).strip() for h in rows[breakdown_idx]]
+        data = []
+        for row in rows[breakdown_idx + 1:]:
+            if not any(str(c).strip() for c in row):
+                continue
+            padded = list(row) + [""] * max(0, len(headers) - len(row))
+            data.append(dict(zip(headers, padded)))
+        return data
     except Exception as e:
         raise Exception(f"Sheets read '{tab}': {e}")
+
+def read_sheet_totals(tab, sheet_id=SHEET_ID):
+    """Lê os totais da seção 'Totals For All Results'."""
+    try:
+        res = sheets().spreadsheets().values().get(
+            spreadsheetId=sheet_id, range=f"'{tab}'!A:Z"
+        ).execute()
+        rows = res.get("values", [])
+        for i, row in enumerate(rows):
+            if "totals" in " ".join(str(c) for c in row).lower():
+                if i + 2 < len(rows):
+                    headers = [str(h).strip() for h in rows[i + 1]]
+                    values  = list(rows[i + 2]) if i + 2 < len(rows) else []
+                    padded  = values + [""] * max(0, len(headers) - len(values))
+                    return dict(zip(headers, padded))
+        return {}
+    except:
+        return {}
 
 def sheet_exists(tab, sheet_id=SHEET_ID):
     """Verifica se a aba existe na planilha."""
