@@ -1839,9 +1839,33 @@ td.path {
       const r = await fetch('data.json?t=' + Date.now());
       if (!r.ok) throw new Error('HTTP ' + r.status);
       const data = await r.json();
-      populate(data);
 
-      // Atualizar status das APIs conforme erros no data.json
+      // ── Guardar em memória (essencial para onPeriodChange funcionar) ──
+      _allData = data;
+
+      // ── Inicializar limites e valores padrão dos date inputs ──
+      const dataEnd   = (data.gsc && data.gsc.data_end)   || new Date().toISOString().slice(0,10);
+      const dataStart = (data.gsc && data.gsc.data_start) || dateAdd(dataEnd, -364);
+
+      // Padrão: últimos 30 dias disponíveis
+      const defEnd   = dataEnd;
+      const defStart = dateAdd(defEnd, -29);
+
+      ['curStart','curEnd','prevStart','prevEnd'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.min = dataStart; el.max = dataEnd; }
+      });
+      document.getElementById('curStart').value = defStart;
+      document.getElementById('curEnd').value   = defEnd;
+
+      // Período de comparação padrão (se ativado)
+      document.getElementById('prevEnd').value   = dateAdd(defStart, -1);
+      document.getElementById('prevStart').value = dateAdd(defStart, -30);
+
+      // ── Render inicial sem comparação ──
+      renderWithPeriod(data, defStart, defEnd, null, null);
+
+      // ── Status das APIs ──
       const errors = data.errors || [];
       ['GA4','GSC','YouTube','Play','Semrush','GTmetrix'].forEach(src => {
         const hasErr = errors.some(e => e.startsWith(src));
@@ -1850,27 +1874,55 @@ td.path {
 
     } catch (e) {
       console.warn('data.json não encontrado — usando dados mock:', e);
-      // Fallback com dados mock para visualização
+      _allData = null;
       populate({
-        meta: { generated_at: new Date().toISOString(), period_current: {start:'2026-04-01',end:'2026-04-30'}, period_comparison: {start:'2026-03-01',end:'2026-03-31'} },
-        ga4:  { sessions:1847392, sessions_delta:12.4, new_users:1214508, new_users_delta:8.7, returning_users:632884, returning_delta:21.3, transactions:18432, transactions_delta:-2.1, revenue:4280000, revenue_delta:6.4, daily_sessions: genMock(30,40000,80000,0.3) },
-        gsc:  { clicks:284731, clicks_delta:14.2, impressions:12400000, impressions_delta:9.8, ctr:2.29, ctr_delta:0.18, position:14.7, position_delta:1.4,
-                top_queries:[
-                  {query:'passagem de ônibus rio são paulo', clicks:14832, impressions:412000, ctr:3.6, position:2.1, pos_delta:1.4},
-                  {query:'ônibus rio de janeiro', clicks:9241, impressions:298000, ctr:3.1, position:3.4, pos_delta:0.8},
-                  {query:'passagem rodoviária niterói', clicks:7118, impressions:189000, ctr:3.8, position:2.7, pos_delta:2.1},
-                  {query:'guanabara passagens', clicks:6892, impressions:82000, ctr:8.4, position:1.2, pos_delta:-0.1},
-                  {query:'horário ônibus salvador', clicks:4231, impressions:156000, ctr:2.7, position:4.2, pos_delta:0.6},
+        meta: { generated_at: new Date().toISOString() },
+        ga4:  { sessions:1847392, sessions_delta:12.4, new_users:1214508, new_users_delta:8.7,
+                returning_users:632884, returning_delta:21.3, transactions:18432, transactions_delta:-2.1,
+                revenue:4280000, revenue_delta:6.4, daily_sessions: genMock(30,40000,80000,0.3),
+                channels:[
+                  {channel:'Paid Search',    sessions:15690083, transactions:1230227, revenue:233070767, new_users:7103237, returning:2752835},
+                  {channel:'Organic Search', sessions:5394048,  transactions:362197,  revenue:67586352,  new_users:1167709, returning:1557232},
+                  {channel:'Direct',         sessions:4743192,  transactions:621813,  revenue:114597113, new_users:1875079, returning:638661},
                 ],
-                declining_pages:[
-                  {page:'/passagem-onibus/sp-rj', clicks:3241, delta:-32},
-                  {page:'/onibus/belo-horizonte', clicks:2108, delta:-28},
-                  {page:'/horarios/rodoviaria-novo-rio', clicks:1892, delta:-21},
+                total_all: {sessions:31513770, transactions:3500000, revenue:476119117},
+                seo_total: {sessions:5376733, new_users:1158977, returning:1579951, transactions:363898, revenue:67286052},
+                seo_organic:{sessions:5371404, new_users:1157627, returning:1578920, transactions:363599, revenue:67222895},
+                seo_llm:    {sessions:5048,    new_users:2454,    returning:1101,    transactions:333,   revenue:110997},
+                seo_share:  {sessions_pct:17.1, transactions_pct:10.4, revenue_pct:14.1},
+                llm_share:  {sessions_pct:0.02, transactions_pct:0.01, revenue_pct:0.02},
+                seo_by_source:[
+                  {source:'google / organic',       sessions:5241616, transactions:347143, revenue:63329442, is_llm:false},
+                  {source:'bing / organic',          sessions:124079,  transactions:15103,  revenue:3693727,  is_llm:false},
+                  {source:'chatgpt.com / referral',  sessions:2779,    transactions:199,    revenue:68816,    is_llm:true},
+                  {source:'duckduckgo / organic',    sessions:3173,    transactions:322,    revenue:77189,    is_llm:false},
+                  {source:'ecosia.org / organic',    sessions:1915,    transactions:203,    revenue:52020,    is_llm:false},
                 ],
               },
-        semrush: { total_keywords:48291, top1:387, top3:2114, top10:8620, rank_distribution:[387,1727,6506,12450,27221], serp_features:{ai_overview:412,featured_snippet:238,people_also_ask:1847,sitelinks:94}, competitors:{'viajeguanabara.com.br':{traffic:312000,keywords:48291},'clickbus.com.br':{traffic:498000,keywords:65000},'queropassagem.com.br':{traffic:271000,keywords:38000}} },
+        gsc:  { clicks:284731, clicks_delta:14.2, impressions:12400000, impressions_delta:9.8,
+                ctr:2.29, ctr_delta:0.18, position:14.7, position_delta:1.4,
+                data_start:'2025-01-29', data_end:'2026-05-24',
+                all_daily: genMock(391,3000,5000,0.1).map((v,i)=>({
+                  date: dateAdd('2025-01-29', i), clicks:v, impressions:v*18,
+                  ctr:parseFloat((v/v/18*100).toFixed(2)), position:12.5
+                })),
+                top_queries:[
+                  {query:'passagem de ônibus rio são paulo', clicks:14832, impressions:412000, ctr:3.6, position:2.1, pos_delta:1.4},
+                  {query:'guanabara passagens', clicks:6892, impressions:82000, ctr:8.4, position:1.2, pos_delta:-0.1},
+                ],
+                declining_pages:[{page:'/passagem-onibus/sp-rj', clicks:3241, delta:-32}],
+              },
+        semrush: { total_keywords:48291, top1:387, top3:2114, top10:8620,
+                   rank_distribution:[387,1727,6506,12450,27221],
+                   serp_features:{ai_overview:412,featured_snippet:238,people_also_ask:1847,sitelinks:94},
+                   competitors:{'viajeguanabara.com.br':{traffic:312000,keywords:48291},'clickbus.com.br':{traffic:498000,keywords:65000},'queropassagem.com.br':{traffic:271000,keywords:38000}} },
         youtube: { views:0, watch_time:0, subs_gained:0, impressions:0, ctr:0 },
       });
+
+      // Inicializar datas com mock
+      const today = new Date().toISOString().slice(0,10);
+      document.getElementById('curEnd').value   = today;
+      document.getElementById('curStart').value = dateAdd(today, -29);
     }
   }
 
