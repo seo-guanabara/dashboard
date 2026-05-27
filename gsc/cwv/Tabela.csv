@@ -1,0 +1,6 @@
+Gravidade,Problema,Validação,URLs
+Melhorias necessárias,Problema de INP: mais de 200 ms (dispositivos móveis),Não foi iniciado,79456
+Melhorias necessárias,"Problema de CLS: mais de 0,1 (dispositivos móveis)",Não foi iniciado,79456
+Melhorias necessárias,"Problema de LCP: mais de 2,5s (dispositivos móveis)",Não foi iniciado,79456
+Ruins,"Problema de CLS: mais de 0,25 (dispositivos móveis)",N/D,0
+Ruins,Problema de LCP: mais de 4 s (dispositivos móveis),N/D,0
