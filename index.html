@@ -131,30 +131,44 @@ header {
   box-shadow: 0 0 0 4px rgba(62,171,54,0.15);
 }
 
-.header-controls {
-  display: flex; flex-direction: column; gap: var(--sp-2); align-items: flex-end;
+/* ─── PERIOD CONTROLS ─── */
+.header-controls { display: flex; flex-direction: column; gap: var(--sp-2); align-items: flex-end; }
+.period-row { display: flex; align-items: center; gap: var(--sp-3); }
+.period-label {
+  font-size: 12px; font-weight: var(--fw-bold); color: var(--neutral-grey-500);
+  text-transform: uppercase; letter-spacing: 0.05em; min-width: 80px; text-align: right;
 }
-.period-block {
-  display: flex; gap: var(--sp-2); align-items: center;
-  background: #fff;
-  border: 1px solid var(--neutral-grey-200);
-  padding: var(--sp-2) var(--sp-4);
-  border-radius: var(--r-pill);
-  font-size: 14px;
-  box-shadow: var(--shadow-01);
+.date-group { display: flex; align-items: center; gap: var(--sp-2); }
+.date-sep { color: var(--neutral-grey-400); font-size: 14px; }
+.date-input {
+  height: 36px; padding: 0 var(--sp-3);
+  border: 1px solid var(--neutral-grey-300); border-radius: var(--r-pill);
+  font-family: var(--font-family-primary); font-size: 13px; font-weight: var(--fw-bold);
+  color: var(--neutral-grey-800); background: #fff;
+  box-shadow: var(--shadow-01); outline: none; cursor: pointer;
+  transition: border-color 0.15s;
 }
-.period-block .label {
-  color: var(--neutral-grey-500);
-  font-weight: var(--fw-medium);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.date-input:focus { border-color: var(--brand-primary); }
+.date-input.compare:focus { border-color: var(--brand-secondary-b-800); }
+.date-input.compare { border-color: var(--brand-secondary-b-300); color: var(--brand-secondary-b-800); }
+
+/* Toggle */
+.compare-toggle-row { display: flex; justify-content: flex-end; }
+.toggle-wrap { display: flex; align-items: center; gap: var(--sp-2); cursor: pointer; user-select: none; }
+.toggle-wrap input { display: none; }
+.toggle-track {
+  width: 36px; height: 20px; border-radius: var(--r-pill);
+  background: var(--neutral-grey-300); position: relative;
+  transition: background 0.2s;
 }
-.period-block .value {
-  color: var(--neutral-grey-800);
-  font-weight: var(--fw-bold);
+.toggle-wrap input:checked + .toggle-track { background: var(--brand-primary); }
+.toggle-thumb {
+  position: absolute; top: 2px; left: 2px;
+  width: 16px; height: 16px; border-radius: 50%; background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2); transition: left 0.2s;
 }
-.period-block.compare .label { color: var(--brand-secondary-b-800); }
+.toggle-wrap input:checked + .toggle-track .toggle-thumb { left: 18px; }
+.toggle-label { font-size: 13px; font-weight: var(--fw-medium); color: var(--neutral-grey-600); }
 .brand-pill {
   padding: var(--sp-1) var(--sp-3);
   background: var(--brand-primary-100);
@@ -750,22 +764,42 @@ td.path {
       <div class="sub">Grupo Guanabara · monitoramento orgânico e visibilidade em IA</div>
       <div class="meta">
         <span class="live-dot"></span>
-        <span>Sincronizado · <span id="lastSync">—</span></span>
+        <span>Atualizado: <span id="lastSync">—</span></span>
         <span class="sep">|</span>
-        <span>Domínio: meusite.com.br</span>
-        <span class="sep">|</span>
-        <span>v0.2 protótipo</span>
+        <span id="dataRange">—</span>
       </div>
     </div>
     <div class="header-controls">
-      <div class="period-block">
-        <span class="label">Período</span>
-        <span class="value" id="periodCurrent">01 abr → 30 abr 2026</span>
+
+      <!-- Período atual -->
+      <div class="period-row">
+        <div class="period-label">Período</div>
+        <div class="date-group">
+          <input type="date" id="curStart" class="date-input" onchange="onPeriodChange()">
+          <span class="date-sep">→</span>
+          <input type="date" id="curEnd" class="date-input" onchange="onPeriodChange()">
+        </div>
       </div>
-      <div class="period-block compare">
-        <span class="label">Comparação</span>
-        <span class="value" id="periodComparison">01 mar → 31 mar 2026</span>
+
+      <!-- Toggle comparação -->
+      <div class="compare-toggle-row">
+        <label class="toggle-wrap">
+          <input type="checkbox" id="compareToggle" onchange="onCompareToggle()">
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          <span class="toggle-label">Comparar com período anterior</span>
+        </label>
       </div>
+
+      <!-- Período de comparação (visível só quando toggle ativo) -->
+      <div class="period-row" id="compareRow" style="display:none">
+        <div class="period-label" style="color:var(--brand-secondary-b-800)">Comparação</div>
+        <div class="date-group">
+          <input type="date" id="prevStart" class="date-input compare" onchange="onPeriodChange()">
+          <span class="date-sep">→</span>
+          <input type="date" id="prevEnd" class="date-input compare" onchange="onPeriodChange()">
+        </div>
+      </div>
+
       <span class="brand-pill">Expresso Guanabara</span>
     </div>
   </header>
@@ -773,55 +807,85 @@ td.path {
   <!-- KPI ROW -->
   <section class="section">
     <div class="section-head">
-      <div class="section-title">Visão Geral</div>
-      <div class="section-meta">Fonte: GA4 · GSC</div>
+      <div class="section-title">Tráfego SEO</div>
+      <div class="section-meta">Fonte: GA4 · origens orgânicas + LLMs</div>
     </div>
+
+    <!-- KPIs SEO Total -->
     <div class="kpi-grid">
       <div class="kpi">
-        <div class="kpi-head">
-          <span class="label">Sessões</span>
-          <span class="src-chip">GA4</span>
-        </div>
+        <div class="kpi-head"><span class="label">Sessões SEO</span><span class="src-chip">GA4</span></div>
         <div class="value" id="valSessions">—</div>
         <div id="deltaSessions"></div>
         <canvas class="spark" id="sparkSessions" width="200" height="40"></canvas>
       </div>
       <div class="kpi">
-        <div class="kpi-head">
-          <span class="label">Novos usuários</span>
-          <span class="src-chip">GA4</span>
-        </div>
+        <div class="kpi-head"><span class="label">Novos usuários</span><span class="src-chip">GA4</span></div>
         <div class="value" id="valNewUsers">—</div>
         <div id="deltaNewUsers"></div>
         <canvas class="spark" id="sparkNew" width="200" height="40"></canvas>
       </div>
       <div class="kpi">
-        <div class="kpi-head">
-          <span class="label">Recorrentes</span>
-          <span class="src-chip">GA4</span>
-        </div>
+        <div class="kpi-head"><span class="label">Recorrentes</span><span class="src-chip">GA4</span></div>
         <div class="value" id="valReturning">—</div>
         <div id="deltaReturning"></div>
         <canvas class="spark" id="sparkRet" width="200" height="40"></canvas>
       </div>
       <div class="kpi">
-        <div class="kpi-head">
-          <span class="label">Transações</span>
-          <span class="src-chip">GA4</span>
-        </div>
+        <div class="kpi-head"><span class="label">Transações SEO</span><span class="src-chip">GA4</span></div>
         <div class="value" id="valTrans">—</div>
         <div id="deltaTrans"></div>
         <canvas class="spark" id="sparkTrans" width="200" height="40"></canvas>
       </div>
       <div class="kpi">
-        <div class="kpi-head">
-          <span class="label">Receita</span>
-          <span class="src-chip">GA4</span>
-        </div>
+        <div class="kpi-head"><span class="label">Receita SEO</span><span class="src-chip">GA4</span></div>
         <div class="value" id="valRevenue">—</div>
         <div id="deltaRevenue"></div>
         <canvas class="spark" id="sparkRev" width="200" height="40"></canvas>
       </div>
+    </div>
+
+    <!-- Share vs canais + LLMs -->
+    <div class="grid-3" style="margin-top:var(--sp-4)">
+
+      <!-- Share de canal -->
+      <div class="card">
+        <div class="head">
+          <div class="title">Share por canal <span class="src-chip">GA4</span></div>
+          <div class="more">sessões · transações · receita</div>
+        </div>
+        <div id="channelShareBody">
+          <div style="color:var(--neutral-grey-500);text-align:center;padding:20px;font-size:14px">Carregando...</div>
+        </div>
+      </div>
+
+      <!-- Detalhes SEO vs LLM -->
+      <div class="card">
+        <div class="head">
+          <div class="title">Orgânico vs LLMs <span class="src-chip">GA4</span></div>
+          <div class="more">contribuição por tipo</div>
+        </div>
+        <div id="seoVsLlmBody">
+          <div style="color:var(--neutral-grey-500);text-align:center;padding:20px;font-size:14px">Carregando...</div>
+        </div>
+      </div>
+
+      <!-- Top origens SEO -->
+      <div class="card">
+        <div class="head">
+          <div class="title">Top origens SEO <span class="src-chip">GA4</span></div>
+          <div class="more">por receita</div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Origem</th><th class="num">Sessões</th><th class="num">Trans.</th><th class="num">Receita</th></tr>
+          </thead>
+          <tbody id="seoSourcesBody">
+            <tr><td colspan="4" style="color:var(--neutral-grey-500);text-align:center;padding:20px">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </section>
 
@@ -850,8 +914,8 @@ td.path {
             <tr><td>Impressões</td><td class="num" id="gscImpr">—</td><td class="num" id="gscImprDelta"></td></tr>
             <tr><td>CTR médio</td><td class="num" id="gscCtr">—</td><td class="num" id="gscCtrDelta"></td></tr>
             <tr><td>Posição média</td><td class="num" id="gscPos">—</td><td class="num" id="gscPosDelta"></td></tr>
-            <tr><td>Páginas indexadas</td><td class="num">—</td><td class="num">—</td></tr>
-            <tr><td>Com impressões</td><td class="num">—</td><td class="num">—</td></tr>
+            <tr><td>Páginas indexadas</td><td class="num" id="gscIndexed">—</td><td class="num"></td></tr>
+            <tr><td>Backlinks externos</td><td class="num" id="gscBacklinks">—</td><td class="num"></td></tr>
           </tbody>
         </table>
       </div>
@@ -1081,9 +1145,19 @@ td.path {
   <section class="section">
     <div class="section-head">
       <div class="section-title">Saúde de Páginas</div>
-      <div class="section-meta">Fonte: GTmetrix · PageSpeed Insights</div>
+      <div class="section-meta">Fonte: GSC Core Web Vitals · GTmetrix</div>
     </div>
     <div class="grid-2">
+      <div class="card">
+        <div class="head">
+          <div class="title">Core Web Vitals · problemas detectados <span class="src-chip">GSC</span></div>
+          <div class="more">mobile · dados reais</div>
+        </div>
+        <div id="cwvIssuesBody">
+          <div style="color:var(--neutral-grey-500);text-align:center;padding:20px;font-size:14px">Carregando...</div>
+        </div>
+        <div id="cwvNote"></div>
+      </div>
       <div class="card">
         <div class="head">
           <div class="title">Páginas críticas por tipo de layout <span class="src-chip">GTMETRIX</span></div>
@@ -1092,35 +1166,11 @@ td.path {
           <thead>
             <tr><th>Página</th><th>Layout</th><th class="num">Perf.</th><th class="num">LCP</th><th class="num">CLS</th><th class="num">INP</th></tr>
           </thead>
-          <tbody>
-            <tr><td class="path">/</td><td>home</td><td class="num"><span class="perf-pill good">92</span></td><td class="num">1,8s</td><td class="num">0,04</td><td class="num">142ms</td></tr>
-            <tr><td class="path">/passagem-onibus</td><td>listagem</td><td class="num"><span class="perf-pill warn">68</span></td><td class="num">3,2s</td><td class="num">0,11</td><td class="num">284ms</td></tr>
-            <tr><td class="path">/rota/[origem]/[destino]</td><td>SERP-like</td><td class="num"><span class="perf-pill bad">42</span></td><td class="num">4,8s</td><td class="num">0,24</td><td class="num">412ms</td></tr>
-            <tr><td class="path">/checkout</td><td>transacional</td><td class="num"><span class="perf-pill good">88</span></td><td class="num">2,1s</td><td class="num">0,06</td><td class="num">178ms</td></tr>
-            <tr><td class="path">/empresa/[viacao]</td><td>institucional</td><td class="num"><span class="perf-pill warn">71</span></td><td class="num">2,9s</td><td class="num">0,09</td><td class="num">221ms</td></tr>
-            <tr><td class="path">/blog/[post]</td><td>conteúdo</td><td class="num"><span class="perf-pill good">84</span></td><td class="num">2,4s</td><td class="num">0,05</td><td class="num">198ms</td></tr>
+          <tbody id="gtmetrixBody">
+            <tr><td class="path">/</td><td>home</td><td class="num"><span class="perf-pill good">92</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+            <tr><td class="path">/passagem-onibus</td><td>listagem</td><td class="num"><span class="perf-pill warn">68</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
           </tbody>
         </table>
-      </div>
-      <div class="card">
-        <div class="head">
-          <div class="title">Core Web Vitals · médias por layout <span class="src-chip">PSI</span></div>
-        </div>
-        <div class="health-grid">
-          <div>
-            <div class="health-row"><div class="pname">Home</div><div class="gauge"><span class="ring" style="--c: var(--support-positive-500); --p: 332deg"></span>92</div></div>
-            <div class="health-row"><div class="pname">Listagem</div><div class="gauge"><span class="ring" style="--c: var(--brand-secondary-b-500); --p: 244deg"></span>68</div></div>
-            <div class="health-row"><div class="pname">Rota SERP</div><div class="gauge"><span class="ring" style="--c: var(--support-negative-500); --p: 151deg"></span>42</div></div>
-          </div>
-          <div>
-            <div class="health-row"><div class="pname">Checkout</div><div class="gauge"><span class="ring" style="--c: var(--support-positive-500); --p: 317deg"></span>88</div></div>
-            <div class="health-row"><div class="pname">Institucional</div><div class="gauge"><span class="ring" style="--c: var(--brand-secondary-b-500); --p: 256deg"></span>71</div></div>
-            <div class="health-row"><div class="pname">Blog</div><div class="gauge"><span class="ring" style="--c: var(--support-positive-500); --p: 302deg"></span>84</div></div>
-          </div>
-        </div>
-        <div class="warn-note">
-          Atenção: o layout <strong>rota SERP-like</strong> está abaixo do limiar em 3 das 4 métricas. Impacto direto em 18% do tráfego orgânico — investigação prioritária.
-        </div>
       </div>
     </div>
   </section>
@@ -1128,43 +1178,17 @@ td.path {
   <!-- CRAWL -->
   <section class="section">
     <div class="section-head">
-      <div class="section-title">Rastreabilidade &amp; Crawl</div>
-      <div class="section-meta">Fonte: Screaming Frog · URL Inspection API</div>
+      <div class="section-title">Rastreabilidade &amp; Indexação</div>
+      <div class="section-meta">Fonte: GSC Coverage · Backlinks</div>
     </div>
     <div class="grid-2">
       <div class="card">
         <div class="head">
-          <div class="title">Issues de crawl detectados <span class="src-chip">S.FROG</span></div>
+          <div class="title">URLs válidas indexadas <span class="src-chip">GSC</span></div>
+          <div class="more">últimas rastreadas</div>
         </div>
-        <div class="crawl-item">
-          <div class="icon err">404</div>
-          <div class="label-c">URLs com erro 404<small>órfãs ou linkadas internamente</small></div>
-          <div class="count">128</div>
-        </div>
-        <div class="crawl-item">
-          <div class="icon warn">RD</div>
-          <div class="label-c">Cadeias de redirect &gt; 2 hops<small>perda de signal &amp; crawl budget</small></div>
-          <div class="count">47</div>
-        </div>
-        <div class="crawl-item">
-          <div class="icon warn">DUP</div>
-          <div class="label-c">Títulos duplicados<small>páginas de rota com mesmo H1</small></div>
-          <div class="count">312</div>
-        </div>
-        <div class="crawl-item">
-          <div class="icon warn">META</div>
-          <div class="label-c">Meta description faltando<small>impacto em CTR</small></div>
-          <div class="count">894</div>
-        </div>
-        <div class="crawl-item">
-          <div class="icon err">CAN</div>
-          <div class="label-c">Canonicals inconsistentes<small>self-ref ausente em /rota</small></div>
-          <div class="count">218</div>
-        </div>
-        <div class="crawl-item">
-          <div class="icon ok">OK</div>
-          <div class="label-c">Páginas saudáveis<small>indexáveis sem issues</small></div>
-          <div class="count">5.987</div>
+        <div id="coverageBody">
+          <div style="color:var(--neutral-grey-500);text-align:center;padding:20px;font-size:14px">Carregando...</div>
         </div>
       </div>
       <div class="card">
@@ -1434,8 +1458,104 @@ td.path {
     });
   }
 
-  // ─── POPULATE DOM ──────────────────────────────────────────────────────────
-  function populate(data) {
+  // ─── PERÍODO DINÂMICO ──────────────────────────────────────────────────────
+  let _allData = null; // data.json completo em memória
+
+  function dateAdd(dateStr, days) {
+    const d = new Date(dateStr); d.setDate(d.getDate() + days); return d.toISOString().slice(0,10);
+  }
+  function diffDays(a, b) {
+    return Math.round((new Date(b) - new Date(a)) / 86400000);
+  }
+  function fmtDateBR(s) {
+    if (!s) return '—';
+    const [y,m,d] = s.split('-'); return `${d}/${m}/${y}`;
+  }
+
+  function onCompareToggle() {
+    const on = document.getElementById('compareToggle').checked;
+    const row = document.getElementById('compareRow');
+    row.style.display = on ? 'flex' : 'none';
+    if (on) autoFillComparePeriod();
+    onPeriodChange();
+  }
+
+  function autoFillComparePeriod() {
+    const s = document.getElementById('curStart').value;
+    const e = document.getElementById('curEnd').value;
+    if (!s || !e) return;
+    const days = diffDays(s, e) + 1;
+    const prevEnd   = dateAdd(s, -1);
+    const prevStart = dateAdd(prevEnd, -(days - 1));
+    document.getElementById('prevEnd').value   = prevEnd;
+    document.getElementById('prevStart').value = prevStart;
+  }
+
+  function onPeriodChange() {
+    if (!_allData) return;
+    const cs = document.getElementById('curStart').value;
+    const ce = document.getElementById('curEnd').value;
+    if (!cs || !ce) return;
+    const comparing = document.getElementById('compareToggle').checked;
+    const ps = comparing ? document.getElementById('prevStart').value : null;
+    const pe = comparing ? document.getElementById('prevEnd').value   : null;
+    renderWithPeriod(_allData, cs, ce, ps, pe);
+  }
+
+  function filterDaily(allDaily, start, end) {
+    return (allDaily || []).filter(r => r.date >= start && r.date <= end);
+  }
+
+  function calcStats(rows) {
+    if (!rows.length) return { clicks:0, impressions:0, ctr:0, position:0 };
+    const clicks      = rows.reduce((s,r) => s + r.clicks, 0);
+    const impressions = rows.reduce((s,r) => s + r.impressions, 0);
+    const ctr         = rows.reduce((s,r) => s + r.ctr, 0) / rows.length;
+    const position    = rows.reduce((s,r) => s + r.position, 0) / rows.length;
+    return { clicks, impressions, ctr: round2(ctr), position: round2(position) };
+  }
+  function round2(n) { return Math.round(n * 100) / 100; }
+
+  function renderWithPeriod(data, cs, ce, ps, pe) {
+    const gsc      = data.gsc || {};
+    const allDaily = gsc.all_daily || [];
+    const comparing = !!(ps && pe);
+
+    const curRows  = filterDaily(allDaily, cs, ce);
+    const prevRows = comparing ? filterDaily(allDaily, ps, pe) : [];
+    const curStats  = calcStats(curRows);
+    const prevStats = comparing ? calcStats(prevRows) : null;
+
+    // Recalcular GSC com novo período
+    const gscDynamic = {
+      ...gsc,
+      clicks:            curStats.clicks,
+      clicks_delta:      prevStats ? pct_delta(curStats.clicks, prevStats.clicks) : null,
+      impressions:       curStats.impressions,
+      impressions_delta: prevStats ? pct_delta(curStats.impressions, prevStats.impressions) : null,
+      ctr:               curStats.ctr,
+      ctr_delta:         prevStats ? round2(curStats.ctr - prevStats.ctr) : null,
+      position:          curStats.position,
+      position_delta:    prevStats ? round2(prevStats.position - curStats.position) : null,
+      daily_clicks:      curRows.map(r => r.clicks),
+      daily_clicks_prev: prevRows.map(r => r.clicks),
+      daily_impressions: curRows.map(r => r.impressions),
+    };
+
+    populate({ ...data, gsc: gscDynamic }, { cs, ce, ps, pe, comparing });
+  }
+
+  function pct_delta(cur, prv) {
+    if (!prv) return 0;
+    return Math.round((cur - prv) / prv * 1000) / 10;
+  }
+
+  function fmtDeltaNullable(d) {
+    if (d === null || d === undefined) return '<span style="color:var(--neutral-grey-400);font-size:12px">sem comparação</span>';
+    return fmtDelta(d);
+  }
+  function populate(data, periodCtx) {
+    const ctx = periodCtx || {};
     const { ga4 = {}, gsc = {}, semrush = {}, youtube = {}, meta = {} } = data;
 
     // Timestamp
@@ -1443,10 +1563,10 @@ td.path {
       const d = new Date(meta.generated_at);
       setEl('lastSync', d.toLocaleString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}));
     }
-    if (meta.period_current) {
-      const fmt = s => s.split('-').reverse().join('/');
-      setEl('periodCurrent',    fmt(meta.period_current.start)    + ' → ' + fmt(meta.period_current.end));
-      setEl('periodComparison', fmt(meta.period_comparison.start) + ' → ' + fmt(meta.period_comparison.end));
+
+    // Range de dados disponíveis
+    if (gsc.data_start && gsc.data_end) {
+      setEl('dataRange', `dados: ${fmtDateBR(gsc.data_start)} → ${fmtDateBR(gsc.data_end)}`);
     }
 
     // ── GA4 KPIs ──
@@ -1469,15 +1589,147 @@ td.path {
     renderSpark('sparkTrans',    genMock(30, 400,   800,   0.0), C.negative);
     renderSpark('sparkRev',      daily.map(v => Math.round(v * 2.3)), C.primary);
 
-    // ── GSC resumo ──
-    setEl('gscClicks',      fmt(gsc.clicks));
-    setEl('gscClicksDelta', fmtDelta(gsc.clicks_delta));
+    // ── Share de canal ──
+    const channels  = ga4.channels || [];
+    const totalAll  = ga4.total_all || {};
+    if (channels.length) {
+      const totalRev = totalAll.revenue || 1;
+      const totalTx  = totalAll.transactions || 1;
+      const totalSes = totalAll.sessions || 1;
+      const html = channels.slice(0,8).map(c => {
+        const revPct = Math.round(c.revenue / totalRev * 100);
+        const isOrganic = c.channel === 'Organic Search';
+        return `
+        <div style="margin-bottom:var(--sp-3)">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
+            <span style="font-size:13px;font-weight:${isOrganic?700:500};color:${isOrganic?'var(--brand-primary)':'var(--neutral-grey-700)'}">${c.channel}</span>
+            <span style="font-size:13px;font-weight:700;font-variant-numeric:tabular-nums">${revPct}%</span>
+          </div>
+          <div style="height:8px;background:var(--neutral-grey-100);border-radius:var(--r-pill);overflow:hidden">
+            <div style="height:100%;width:${revPct}%;background:${isOrganic?'var(--brand-primary)':'var(--neutral-grey-300)'};border-radius:var(--r-pill)"></div>
+          </div>
+          <div style="display:flex;gap:16px;margin-top:4px;font-size:11px;color:var(--neutral-grey-500)">
+            <span>${c.sessions.toLocaleString('pt-BR')} sess.</span>
+            <span>${c.transactions.toLocaleString('pt-BR')} trans.</span>
+            <span>R$ ${(c.revenue/1e6).toFixed(1).replace('.',',')}M</span>
+          </div>
+        </div>`}).join('');
+      setEl('channelShareBody', html);
+    }
+
+    // ── SEO vs LLM ──
+    const seoT = ga4.seo_total  || {};
+    const seoO = ga4.seo_organic || {};
+    const seoL = ga4.seo_llm    || {};
+    const seoSh = ga4.seo_share  || {};
+    const llmSh = ga4.llm_share  || {};
+    if (seoT.sessions) {
+      const fmtR = v => v >= 1e6 ? 'R$ '+(v/1e6).toFixed(2).replace('.',',')+'M' : 'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:0});
+      const row = (label, color, d) => `
+        <div style="padding:var(--sp-3) 0;border-bottom:1px solid var(--neutral-grey-100)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:14px;font-weight:700;color:${color}">${label}</span>
+            <span class="badge" style="background:${color}18;color:${color};font-size:10px">${d.share_pct || 0}% da receita total</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:12px">
+            <div><div style="font-weight:700;font-size:16px;color:${color}">${d.sessions.toLocaleString('pt-BR')}</div><div style="color:var(--neutral-grey-500)">sessões</div></div>
+            <div><div style="font-weight:700;font-size:16px;color:${color}">${d.transactions.toLocaleString('pt-BR')}</div><div style="color:var(--neutral-grey-500)">transações</div></div>
+            <div><div style="font-weight:700;font-size:16px;color:${color}">${fmtR(d.revenue)}</div><div style="color:var(--neutral-grey-500)">receita</div></div>
+          </div>
+        </div>`;
+      const html =
+        row('SEO Total', 'var(--brand-primary)', {...seoT, share_pct: seoSh.revenue_pct}) +
+        row('Orgânico tradicional', 'var(--support-positive-700)', {...seoO, share_pct: Math.round((seoO.revenue||0)/(totalAll.revenue||1)*100*10)/10}) +
+        row('LLMs (IA)', 'var(--support-informative-700)', {...seoL, share_pct: llmSh.revenue_pct});
+      setEl('seoVsLlmBody', html);
+    }
+
+    // ── Top origens SEO ──
+    const sources = ga4.seo_by_source || [];
+    if (sources.length) {
+      const rows = sources.slice(0,10).map(s => `
+        <tr>
+          <td style="font-size:12px;font-weight:500">
+            ${s.is_llm ? '<span style="color:var(--support-informative-700);font-size:10px;font-weight:700;background:var(--support-informative-100);padding:1px 5px;border-radius:4px;margin-right:4px">LLM</span>' : ''}
+            ${s.source}
+          </td>
+          <td class="num">${s.sessions.toLocaleString('pt-BR')}</td>
+          <td class="num">${s.transactions.toLocaleString('pt-BR')}</td>
+          <td class="num">R$ ${(s.revenue/1e6).toFixed(2).replace('.',',')}M</td>
+        </tr>`).join('');
+      setEl('seoSourcesBody', rows);
+    }
+    setEl('gscIndexed',     fmt(gsc.indexed_pages || 0));
+    setEl('gscBacklinks',   fmt(gsc.backlinks_total || 0));
+
+    // ── CWV Issues ──
+    const cwv = gsc.cwv_issues || [];
+    if (cwv.length) {
+      const sevColor = s => s === 'Ruins' ? 'var(--support-negative-700)' : 'var(--brand-secondary-b-800)';
+      const sevBg    = s => s === 'Ruins' ? 'var(--support-negative-100)' : 'var(--brand-secondary-b-100)';
+      const html = cwv.filter(i => i.urls > 0).map(i => `
+        <div class="crawl-item">
+          <div class="icon ${i.severity === 'Ruins' ? 'err' : 'warn'}" style="font-size:10px">${i.severity === 'Ruins' ? 'RUIM' : 'ATEN'}</div>
+          <div class="label-c">${i.issue}<small>mobile · ${i.urls.toLocaleString('pt-BR')} URLs afetadas</small></div>
+          <div class="count" style="color:${sevColor(i.severity)}">${i.urls.toLocaleString('pt-BR')}</div>
+        </div>`).join('');
+      setEl('cwvIssuesBody', html || '<div style="padding:16px;color:var(--support-positive-700)">Nenhum problema crítico detectado</div>');
+
+      const totalAffected = cwv.reduce((a, b) => a + (b.urls || 0), 0);
+      if (totalAffected > 0) {
+        setEl('cwvNote', `<div class="warn-note"><strong>${totalAffected.toLocaleString('pt-BR')} URLs</strong> com problemas de Core Web Vitals no mobile — impacto direto em ranking e experiência.</div>`);
+      }
+    }
+
+    // ── GTmetrix (dados reais se disponíveis) ──
+    const gtm = (data.gtmetrix || {}).pages || [];
+    if (gtm.length) {
+      const scoreClass = s => s >= 85 ? 'good' : s >= 60 ? 'warn' : 'bad';
+      const rows = gtm.map(p => `
+        <tr>
+          <td class="path">${p.url.replace('https://viajeguanabara.com.br', '')|| '/'}</td>
+          <td>${p.layout}</td>
+          <td class="num"><span class="perf-pill ${scoreClass(p.performance || 0)}">${p.performance || '—'}</span></td>
+          <td class="num">${p.lcp ? Math.round(p.lcp/1000*10)/10+'s' : '—'}</td>
+          <td class="num">${p.cls || '—'}</td>
+          <td class="num">${p.inp ? p.inp+'ms' : '—'}</td>
+        </tr>`).join('');
+      setEl('gtmetrixBody', rows);
+    }
+
+    // ── Coverage ──
+    const covUrls = gsc.coverage_urls || [];
+    if (covUrls.length) {
+      const indexed = gsc.indexed_pages || covUrls.length;
+      const html = `
+        <div style="display:flex;gap:32px;padding:16px 0 20px;border-bottom:1px solid var(--neutral-grey-100)">
+          <div>
+            <div style="font-size:32px;font-weight:900;color:var(--brand-primary);letter-spacing:-0.02em">${fmt(indexed)}</div>
+            <div style="font-size:12px;color:var(--neutral-grey-500);margin-top:4px;text-transform:uppercase;letter-spacing:0.05em">Páginas indexadas válidas</div>
+          </div>
+          <div>
+            <div style="font-size:32px;font-weight:900;color:var(--support-positive-700);letter-spacing:-0.02em">${fmt(gsc.backlinks_total || 0)}</div>
+            <div style="font-size:12px;color:var(--neutral-grey-500);margin-top:4px;text-transform:uppercase;letter-spacing:0.05em">Backlinks externos</div>
+          </div>
+        </div>
+        <table style="margin-top:12px">
+          <thead><tr><th>URL indexada</th><th class="num">Último rastreamento</th></tr></thead>
+          <tbody>${covUrls.slice(0,8).map(u => `
+            <tr>
+              <td class="path" style="font-size:12px">${u.url.replace('https://viajeguanabara.com.br','')}</td>
+              <td class="num" style="font-size:12px">${u.last_crawl}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>`;
+      setEl('coverageBody', html);
+    }
+    setEl('gscClicksDelta', fmtDeltaNullable(gsc.clicks_delta));
     setEl('gscImpr',        gsc.impressions >= 1e6 ? (gsc.impressions/1e6).toFixed(1).replace('.',',')+'M' : fmt(gsc.impressions));
-    setEl('gscImprDelta',   fmtDelta(gsc.impressions_delta));
+    setEl('gscImprDelta',   fmtDeltaNullable(gsc.impressions_delta));
     setEl('gscCtr',         (gsc.ctr || 0).toFixed(2).replace('.',',') + '%');
-    setEl('gscCtrDelta',    fmtDelta(gsc.ctr_delta));
+    setEl('gscCtrDelta',    fmtDeltaNullable(gsc.ctr_delta));
     setEl('gscPos',         (gsc.position || 0).toFixed(1).replace('.',','));
-    setEl('gscPosDelta',    fmtDelta(gsc.position_delta));
+    setEl('gscPosDelta',    fmtDeltaNullable(gsc.position_delta));
 
     // ── GSC chart ──
     const dc  = gsc.daily_clicks       || genMock(30, 7000, 12000, 0.3);
