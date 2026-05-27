@@ -525,18 +525,120 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
 
 <!-- ══════════════════════════════════════════════════════ TAB: BLOG -->
 <div class="tab-content" id="tab-blog">
-  <div class="placeholder">
-    <h3>Blog · em breve</h3>
-    <p>Métricas de SEO do blog: artigos, tráfego orgânico por post, tempo de leitura, conversões vindas do blog e oportunidades de conteúdo.</p>
+
+  <div class="bignumbers" style="grid-template-columns:repeat(4,1fr)">
+    <div class="bn" style="--c:var(--bp)">
+      <div class="lbl">Sessões<span class="chip">GA4</span></div>
+      <div class="num" id="blogSessions">—</div>
+      <div id="blogSessionsDelta" class="delta na">sem comparação</div>
+    </div>
+    <div class="bn" style="--c:var(--pos7)">
+      <div class="lbl">Receita<span class="chip">GA4</span></div>
+      <div class="num" id="blogRevenue">—</div>
+      <div id="blogRevenueDelta" class="delta na">sem comparação</div>
+    </div>
+    <div class="bn" style="--c:var(--bc)">
+      <div class="lbl">Tx Conversão<span class="chip">GA4</span></div>
+      <div class="num" id="blogConv">—</div>
+      <div class="delta na">trans / sessões</div>
+    </div>
+    <div class="bn" style="--c:var(--inf7)">
+      <div class="lbl">Impressões SERP<span class="chip">GSC</span></div>
+      <div class="num" id="blogImpr">—</div>
+      <div id="blogImprDelta" class="delta na">sem comparação</div>
+    </div>
   </div>
+
+  <div class="g2l">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Desempenho GSC<span class="chip">blog.viajeguanabara.com.br</span></div></div>
+      <table><tbody>
+        <tr><td>Cliques</td><td class="r" id="blogClicks">—</td><td class="r" id="blogClicksDelta"></td></tr>
+        <tr><td>Impressões</td><td class="r" id="blogImprSum">—</td><td class="r" id="blogImprSumDelta"></td></tr>
+        <tr><td>CTR médio</td><td class="r" id="blogCtr">—</td><td class="r"></td></tr>
+        <tr><td>Posição média</td><td class="r" id="blogPos">—</td><td class="r"></td></tr>
+        <tr><td>Receita YTD</td><td class="r" id="blogYtd">—</td><td class="r"></td></tr>
+      </tbody></table>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Top queries<span class="chip">GSC</span></div></div>
+      <table><thead><tr><th>Termo</th><th class="r">Cliques</th><th class="r">Pos.</th></tr></thead>
+      <tbody id="blogQueries"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
+    </div>
+  </div>
+
+  <div class="g2 gap">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Top páginas · blog<span class="chip">GA4</span></div></div>
+      <table><thead><tr><th>Página</th><th class="r">Sessões</th><th class="r">Receita</th></tr></thead>
+      <tbody id="blogPages"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Top páginas · GSC<span class="chip">GSC</span></div></div>
+      <table><thead><tr><th>Página</th><th class="r">Cliques</th><th class="r">Pos.</th></tr></thead>
+      <tbody id="blogGscPages"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
+    </div>
+  </div>
+
 </div>
 
 <!-- ══════════════════════════════════════════════════════ TAB: VIVA FIDELIDADE -->
 <div class="tab-content" id="tab-viva">
-  <div class="placeholder">
-    <h3>Viva Fidelidade · em breve</h3>
-    <p>Métricas SEO da sub-marca Viva Fidelidade: visibilidade, tráfego orgânico, conversões do programa de pontos e performance de páginas dedicadas.</p>
+
+  <div class="bignumbers" style="grid-template-columns:repeat(4,1fr)">
+    <div class="bn" style="--c:var(--ba)">
+      <div class="lbl">Sessões<span class="chip red">GA4</span></div>
+      <div class="num" id="vivaSessions">—</div>
+      <div id="vivaSessionsDelta" class="delta na">sem comparação</div>
+    </div>
+    <div class="bn" style="--c:var(--pos7)">
+      <div class="lbl">Receita<span class="chip">GA4</span></div>
+      <div class="num" id="vivaRevenue">—</div>
+      <div id="vivaRevenueDelta" class="delta na">sem comparação</div>
+    </div>
+    <div class="bn" style="--c:var(--bc)">
+      <div class="lbl">Tx Conversão<span class="chip">GA4</span></div>
+      <div class="num" id="vivaConv">—</div>
+      <div class="delta na">trans / sessões</div>
+    </div>
+    <div class="bn" style="--c:var(--inf7)">
+      <div class="lbl">Impressões SERP<span class="chip">GSC</span></div>
+      <div class="num" id="vivaImpr">—</div>
+      <div id="vivaImprDelta" class="delta na">sem comparação</div>
+    </div>
   </div>
+
+  <div class="g2l">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Desempenho GSC<span class="chip">vivafidelidade.com.br</span></div></div>
+      <table><tbody>
+        <tr><td>Cliques</td><td class="r" id="vivaClicks">—</td><td class="r" id="vivaClicksDelta"></td></tr>
+        <tr><td>Impressões</td><td class="r" id="vivaImprSum">—</td><td class="r" id="vivaImprSumDelta"></td></tr>
+        <tr><td>CTR médio</td><td class="r" id="vivaCtr">—</td><td class="r"></td></tr>
+        <tr><td>Posição média</td><td class="r" id="vivaPos">—</td><td class="r"></td></tr>
+        <tr><td>Receita YTD</td><td class="r" id="vivaYtd">—</td><td class="r"></td></tr>
+      </tbody></table>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Top queries<span class="chip">GSC</span></div></div>
+      <table><thead><tr><th>Termo</th><th class="r">Cliques</th><th class="r">Pos.</th></tr></thead>
+      <tbody id="vivaQueries"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
+    </div>
+  </div>
+
+  <div class="g2 gap">
+    <div class="card">
+      <div class="card-head"><div class="card-title">Top páginas · Viva<span class="chip">GA4</span></div></div>
+      <table><thead><tr><th>Página</th><th class="r">Sessões</th><th class="r">Receita</th></tr></thead>
+      <tbody id="vivaPages"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">Top páginas · GSC<span class="chip">GSC</span></div></div>
+      <table><thead><tr><th>Página</th><th class="r">Cliques</th><th class="r">Pos.</th></tr></thead>
+      <tbody id="vivaGscPages"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
+    </div>
+  </div>
+
 </div>
 
 <div class="foot">SEO Command Center · Grupo Guanabara · Guanabara Design System v1.0</div>
@@ -654,31 +756,50 @@ function filterGsc(gsc,cs,ce,ps,pe){
 // ── HIGHLIGHTS ─────────────────────────────────────────────────────────────
 function buildHighlights(ga4,gsc,comparing){
   const items=[];
-  if(gsc.clicks_delta!=null&&comparing){
-    const up=gsc.clicks_delta>=0;
-    items.push({c:up?C.pos:C.neg,title:'Cliques orgânicos',
-      val:(up?'▲ ':' ▼ ')+Math.abs(gsc.clicks_delta).toFixed(1).replace('.',',')+'%',
-      desc:`${fmtN(gsc.clicks)} cliques no período`});
-  }
-  if(gsc.impressions_delta!=null&&comparing){
-    const up=gsc.impressions_delta>=0;
-    items.push({c:up?C.pos:C.neg,title:'Impressões SERP',
-      val:(up?'▲ ':'▼ ')+Math.abs(gsc.impressions_delta).toFixed(1).replace('.',',')+'%',
-      desc:`${fmtN(gsc.impressions)} impressões`});
-  }
-  if(ga4.conv_rate){
-    items.push({c:C.bc,title:'Taxa de conversão',val:fmtP(ga4.conv_rate),
-      desc:'transações / sessões · SEO'});
-  }
-  if(ga4.seo_share&&ga4.total_all){
-    const share=ga4.seo_share||{};
-    items.push({c:C.ba,title:'Share orgânico',
-      val:(share.sessions_pct||Math.round((ga4.sessions||0)/(ga4.total_all.sessions||1)*100)).toFixed(1).replace('.',',')+'%',
-      desc:'das sessões totais são orgânicas'});
-  }
-  // Pad to 4
-  while(items.length<4) items.push({c:C.g4,title:'—',val:'—',desc:''});
-  const html=items.slice(0,4).map(i=>`
+
+  // 1. Cliques GSC — sempre mostra, com delta se comparando
+  items.push({
+    c: C.bp,
+    title: 'Cliques orgânicos',
+    val: fmtN(gsc.clicks||0),
+    desc: comparing && gsc.clicks_delta!=null
+      ? (gsc.clicks_delta>=0?'▲ ':'▼ ')+Math.abs(gsc.clicks_delta).toFixed(1).replace('.',',')+'% vs período anterior'
+      : `${fmtN(gsc.impressions||0)} impressões`
+  });
+
+  // 2. Posição média GSC — sempre mostra
+  items.push({
+    c: C.bc,
+    title: 'Posição média GSC',
+    val: gsc.position ? gsc.position.toFixed(1).replace('.',',') : '—',
+    desc: comparing && gsc.position_delta!=null
+      ? (gsc.position_delta>=0?'▲ melhrou ':'▼ piorou ')+Math.abs(gsc.position_delta).toFixed(1)+' posições'
+      : `CTR médio: ${(gsc.ctr||0).toFixed(2).replace('.',',')}%`
+  });
+
+  // 3. Taxa de conversão — sempre mostra
+  const conv = ga4.conv_rate || (ga4.transactions && ga4.sessions ? ga4.transactions/ga4.sessions*100 : 0);
+  items.push({
+    c: C.pos,
+    title: 'Taxa de conversão SEO',
+    val: conv ? conv.toFixed(2).replace('.',',')+' %' : '—',
+    desc: `${fmtN(ga4.transactions||0)} trans · ${fmtN(ga4.sessions||0)} sessões`
+  });
+
+  // 4. Share orgânico — sempre mostra
+  const totalSess = ga4.total_all?.sessions || 1;
+  const seoSess   = ga4.sessions || 0;
+  const sharePct  = seoSess ? Math.round(seoSess/totalSess*1000)/10 : (ga4.seo_share?.sessions_pct||0);
+  items.push({
+    c: C.ba,
+    title: 'Share orgânico',
+    val: sharePct ? sharePct.toFixed(1).replace('.',',')+' %' : '—',
+    desc: comparing && ga4.revenue_delta!=null
+      ? 'receita SEO '+(ga4.revenue_delta>=0?'▲ ':'▼ ')+Math.abs(ga4.revenue_delta).toFixed(1)+'%'
+      : 'das sessões totais são orgânicas'
+  });
+
+  const html=items.map(i=>`
     <div class="hl" style="--c:${i.c}">
       <div class="htitle">${i.title}</div>
       <div class="hval">${i.val}</div>
@@ -923,6 +1044,42 @@ function render(data,cs,ce,ps,pe){
       <div class="bar-wrap"><div class="${colors[i]}" style="width:${Math.round((comp[d]?.traffic||0)/maxT*100)}%"></div></div>
       <div class="cv">${fmtN(comp[d]?.traffic||0)}</div>
     </div>`).join(''));
+
+  // ── Blog ──
+  const blog=data.blog||{};const bga4=blog.ga4||{};const bgsc=blog.gsc||{};
+  setEl('blogSessions',fmtN(bga4.sessions));
+  setEl('blogSessionsDelta',fmtD(comparing?bga4.sessions_delta:null));
+  setEl('blogRevenue',fmtR(bga4.revenue));
+  setEl('blogRevenueDelta',fmtD(comparing?bga4.revenue_delta:null));
+  setEl('blogConv',fmtP(bga4.conv_rate));
+  setEl('blogYtd',fmtR(bga4.revenue_ytd));
+  setEl('blogImpr',fmtN(bgsc.impressions));
+  setEl('blogClicks',fmtN(bgsc.clicks));
+  setEl('blogClicksDelta',fmtD(comparing?bgsc.clicks_delta:null));
+  setEl('blogImprSum',fmtN(bgsc.impressions));
+  setEl('blogCtr',fmtP(bgsc.ctr));
+  setEl('blogPos',bgsc.position?bgsc.position.toFixed(1):'—');
+  if((bgsc.top_queries||[]).length) setEl('blogQueries',bgsc.top_queries.slice(0,8).map(q=>`<tr><td>${q.query}</td><td class="r">${fmtN(q.clicks)}</td><td class="r">${(q.position||0).toFixed(1)}</td></tr>`).join(''));
+  if((bga4.top_pages||[]).length) setEl('blogPages',bga4.top_pages.slice(0,8).map(p=>`<tr><td class="path">${p.path}</td><td class="r">${fmtN(p.sessions)}</td><td class="r">${fmtR(p.revenue)}</td></tr>`).join(''));
+  if((bgsc.top_pages||[]).length) setEl('blogGscPages',bgsc.top_pages.slice(0,8).map(p=>`<tr><td class="path">${p.page||p.path||''}</td><td class="r">${fmtN(p.clicks)}</td><td class="r">${(p.position||0).toFixed(1)}</td></tr>`).join(''));
+
+  // ── Viva Fidelidade ──
+  const viva=data.viva||{};const vga4=viva.ga4||{};const vgsc=viva.gsc||{};
+  setEl('vivaSessions',fmtN(vga4.sessions));
+  setEl('vivaSessionsDelta',fmtD(comparing?vga4.sessions_delta:null));
+  setEl('vivaRevenue',fmtR(vga4.revenue));
+  setEl('vivaRevenueDelta',fmtD(comparing?vga4.revenue_delta:null));
+  setEl('vivaConv',fmtP(vga4.conv_rate));
+  setEl('vivaYtd',fmtR(vga4.revenue_ytd));
+  setEl('vivaImpr',fmtN(vgsc.impressions));
+  setEl('vivaClicks',fmtN(vgsc.clicks));
+  setEl('vivaClicksDelta',fmtD(comparing?vgsc.clicks_delta:null));
+  setEl('vivaImprSum',fmtN(vgsc.impressions));
+  setEl('vivaCtr',fmtP(vgsc.ctr));
+  setEl('vivaPos',vgsc.position?vgsc.position.toFixed(1):'—');
+  if((vgsc.top_queries||[]).length) setEl('vivaQueries',vgsc.top_queries.slice(0,8).map(q=>`<tr><td>${q.query}</td><td class="r">${fmtN(q.clicks)}</td><td class="r">${(q.position||0).toFixed(1)}</td></tr>`).join(''));
+  if((vga4.top_pages||[]).length) setEl('vivaPages',vga4.top_pages.slice(0,8).map(p=>`<tr><td class="path">${p.path}</td><td class="r">${fmtN(p.sessions)}</td><td class="r">${fmtR(p.revenue)}</td></tr>`).join(''));
+  if((vgsc.top_pages||[]).length) setEl('vivaGscPages',vgsc.top_pages.slice(0,8).map(p=>`<tr><td class="path">${p.page||p.path||''}</td><td class="r">${fmtN(p.clicks)}</td><td class="r">${(p.position||0).toFixed(1)}</td></tr>`).join(''));
 }
 
 // ── STATUS ──────────────────────────────────────────────────────────────────
