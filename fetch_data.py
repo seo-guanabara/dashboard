@@ -25,7 +25,7 @@ c_end       = (today - timedelta(days=PERIOD_DAYS + 1)).isoformat()
 c_start     = (today - timedelta(days=PERIOD_DAYS * 2)).isoformat()
 
 # ─── CREDENTIALS ──────────────────────────────────────────────────────────────
-SA_JSON      = json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"])
+# Workload Identity Federation — credenciais injetadas pelo GitHub Actions
 SEMRUSH_KEY  = os.environ.get("SEMRUSH_API_KEY", "")
 GTMETRIX_KEY = os.environ.get("GTMETRIX_API_KEY", "")
 
@@ -37,12 +37,15 @@ SCOPES = [
     "https://www.googleapis.com/auth/androidpublisher",
 ]
 
-from google.oauth2 import service_account
+import google.auth
+from google.auth.transport.requests import Request
 from google.analytics.data_v1beta import BetaAnalyticsDataClient
 from google.analytics.data_v1beta.types import RunReportRequest, DateRange, Metric, Dimension
 from googleapiclient.discovery import build
+import requests
 
-creds = service_account.Credentials.from_service_account_info(SA_JSON, scopes=SCOPES)
+creds, _ = google.auth.default(scopes=SCOPES)
+creds.refresh(Request())
 
 output = {
     "meta": {
