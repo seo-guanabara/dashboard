@@ -1,0 +1,18 @@
+# ----------------------------------------
+# Aquisição de tráfego: Grupo principal de canais da sessão (Agrupamento de canais padrão)
+# Conta: Viva Fidelidade
+# Propriedade: Viva Fidelidade 1.5
+# ----------------------------------------
+# 
+# Todos os usuários
+# Data de início: 20250101
+# Data de término: 20260524
+Origem / mídia da sessão,Sessões,Novos usuários,Usuários recorrentes,Taxa de engajamento,Tempo médio de engajamento por sessão,Receita total,Contagem de eventos,Eventos principais
+google / organic,344639,100237,60534,0.7958153314047453,135.0943886211369,0,4070517,466342
+bing / organic,8697,3710,1696,0.8225824997125446,229.68483385075314,0,116939,14687
+yahoo / organic,142,12,9,0.9366197183098591,232.07746478873239,0,2345,343
+chatgpt.com / (not set),104,79,12,0.7884615384615384,115.64423076923077,0,1067,110
+duckduckgo / organic,70,40,14,0.8285714285714286,194.9857142857143,0,903,99
+ecosia.org / organic,49,19,14,0.7755102040816326,231.81632653061226,0,701,113
+chatgpt.com / referral,33,25,6,0.7575757575757576,77.48484848484848,0,262,26
+gemini.google.com / referral,6,4,2,0.6666666666666666,66.5,0,41,3
