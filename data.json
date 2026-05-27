@@ -1,14 +1,480 @@
 {
   "meta": {
-    "generated_at": "2026-05-27T00:00:00Z",
-    "period_current":    { "start": "2026-04-27", "end": "2026-05-26" },
-    "period_comparison": { "start": "2026-03-27", "end": "2026-04-26" }
+    "generated_at": "2026-05-27T04:13:29.308068Z",
+    "period_current": {
+      "start": "2026-04-27",
+      "end": "2026-05-26"
+    },
+    "period_comparison": {
+      "start": "2026-03-28",
+      "end": "2026-04-26"
+    }
   },
-  "ga4":     {},
-  "gsc":     {},
-  "youtube": {},
-  "play":    {},
+  "ga4": {
+    "source": "csv",
+    "period_start": "2025-01-01",
+    "period_end": "2026-05-24",
+    "sessions": 31513770,
+    "sessions_delta": 0.0,
+    "new_users": 12406637,
+    "new_users_delta": 0.0,
+    "returning_users": 6091703,
+    "returning_delta": 0.0,
+    "transactions": 0,
+    "transactions_delta": 0.0,
+    "revenue": 476119117.3,
+    "revenue_delta": 0.0,
+    "organic": {
+      "sessions": 5394048,
+      "new_users": 1167709,
+      "returning": 1557232,
+      "revenue": 67586352.13
+    },
+    "daily_sessions": []
+  },
+  "gsc": {
+    "source": "csv",
+    "period_start": "2026-04-25",
+    "period_end": "2026-05-24",
+    "clicks": 68192,
+    "clicks_delta": -17.2,
+    "impressions": 1470745,
+    "impressions_delta": -2.3,
+    "ctr": 4.62,
+    "ctr_delta": -0.82,
+    "position": 4.0,
+    "position_delta": 0.0,
+    "top_queries": [
+      {
+        "query": "guanabara",
+        "clicks": 482725,
+        "impressions": 7023638,
+        "ctr": 6.87,
+        "position": 1.7,
+        "pos_delta": 0.0
+      },
+      {
+        "query": "expresso guanabara",
+        "clicks": 71700,
+        "impressions": 613842,
+        "ctr": 11.68,
+        "position": 1.1,
+        "pos_delta": 0.0
+      },
+      {
+        "query": "guanabara passagens",
+        "clicks": 54936,
+        "impressions": 673537,
+        "ctr": 8.16,
+        "position": 1.0,
+        "pos_delta": 0.0
+      },
+      {
+        "query": "guanabara passagem",
+        "clicks": 36990,
+        "impressions": 492658,
+        "ctr": 7.51,
+        "position": 1.1,
+        "pos_delta": 0.0
+      },
+      {
+        "query": "guanabara onibus",
+        "clicks": 33300,
+        "impressions": 362280,
+        "ctr": 9.19,
+        "position": 1.0,
+        "pos_delta": 0.0
+      },
+      {
+        "query": "passagem guanabara",
+        "clicks": 30961,
+        "impressions": 493296,
+        "ctr": 6.28,
+        "position": 1.4,
+        "pos_delta": 0.0
+      },
+      {
+        "query": "viação guanabara",
+        "clicks": 28927,
+        "impressions": 263452,
+        "ctr": 10.98,
+        "position": 1.0,
+        "pos_delta": 0.0
+      },
+      {
+        "query": "viaje guanabara",
+        "clicks": 24278,
+        "impressions": 253176,
+        "ctr": 9.59,
+        "position": 1.0,
+        "pos_delta": 0.0
+      },
+      {
+        "query": "guanabara util",
+        "clicks": 15929,
+        "impressions": 171216,
+        "ctr": 9.3,
+        "position": 1.0,
+        "pos_delta": 0.0
+      },
+      {
+        "query": "real expresso",
+        "clicks": 12995,
+        "impressions": 303462,
+        "ctr": 4.28,
+        "position": 4.4,
+        "pos_delta": 0.0
+      }
+    ],
+    "declining_pages": [
+      {
+        "page": "/onibus/brasilia-df-todos/silvanopolis-to",
+        "clicks": 1,
+        "delta": -4.59
+      },
+      {
+        "page": "/recuperar-senha",
+        "clicks": 4,
+        "delta": -4.57
+      },
+      {
+        "page": "/onibus/crateus-ce/brasilia-ta_taguatinga-df",
+        "clicks": 4,
+        "delta": -4.56
+      },
+      {
+        "page": "/onibus/governador_nunes_freire-ma/fortaleza-messejana-ce",
+        "clicks": 3,
+        "delta": -4.56
+      },
+      {
+        "page": "/onibus/lagoa_seca-pb/rio_de_janeiro-rj",
+        "clicks": 2,
+        "delta": -4.56
+      }
+    ],
+    "daily_clicks": [
+      2236,
+      2670,
+      3052,
+      3042,
+      2767,
+      2723,
+      2907,
+      2071,
+      2352,
+      2912,
+      2459,
+      2408,
+      2486,
+      2451,
+      1575,
+      1789,
+      2312,
+      2303,
+      2905,
+      1940,
+      1740,
+      1540,
+      1695,
+      2556,
+      1938,
+      1902,
+      1879,
+      1981,
+      1630,
+      1971
+    ],
+    "daily_clicks_prev": [
+      2243,
+      2237,
+      1931,
+      2040,
+      2900,
+      2699,
+      3957,
+      4853,
+      3701,
+      3750,
+      3904,
+      4844,
+      2947,
+      2453,
+      2167,
+      2116,
+      1394,
+      1446,
+      2025,
+      1969,
+      2039,
+      2289,
+      3210,
+      2319,
+      2279,
+      2566,
+      2889,
+      3036,
+      3123,
+      2986
+    ],
+    "daily_impressions": [
+      42676,
+      47708,
+      53687,
+      52530,
+      55450,
+      57028,
+      55079,
+      42005,
+      47485,
+      53199,
+      51056,
+      51102,
+      51186,
+      52851,
+      41175,
+      41271,
+      52252,
+      53001,
+      51098,
+      47655,
+      42729,
+      36660,
+      42193,
+      49460,
+      49786,
+      51295,
+      50662,
+      52702,
+      44955,
+      50809
+    ],
+    "indexed_pages": 6767,
+    "indexed_daily": [
+      2278,
+      2278,
+      1862,
+      1862,
+      1862,
+      1821,
+      1821,
+      1821,
+      1821,
+      1773,
+      1773,
+      1773,
+      2376,
+      2376,
+      2376,
+      2376,
+      2432,
+      2432,
+      2432,
+      2629,
+      2629,
+      2629,
+      2629,
+      3375,
+      3375,
+      3375,
+      6767,
+      6767,
+      6767,
+      6767
+    ],
+    "coverage_urls": [
+      {
+        "url": "https://viajeguanabara.com.br/onibus/rio_de_janeiro-rj/matias_barbosa-mg/",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/pedra_branca-ce/quixeramobim-ce/",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/parambu-ce/brasilia_(ta_taguatinga)-df/",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/boqueirao_do_cesario-ce/oros-ce/",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/bela_vista_de_goias-go/quixeramobim-ce/",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/patos-pb/sao_joao_do_rio_do_peixe-pb/",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/aurora_do_tocantins-to/primavera_do_leste-mt",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/aurora_do_tocantins-to/primavera_do_leste-mt/",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/barbacena-mg/restaurante_e_lanchonete_garrote-cristalina-go/",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/fazenda_senhor_do_bonfim-ba/salgueiro-pe/",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/anapolis-go/bacabal-ma",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/caratinga-mg/jequie_(ponto_de_apoio)-ba/",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/juiz_de_fora-mg-todos/quixeramobim-ce/",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/alvorada-to/catalao-go/?passengers=1:1",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/alvorada-to/catalao-go?passengers=1:1",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/sorriso-mt/",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/araguana-ma/santa_ines-ma",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/araguana-ma/santa_ines-ma/",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/uberlandia-mg/araci-ba",
+        "last_crawl": "2026-05-23"
+      },
+      {
+        "url": "https://viajeguanabara.com.br/onibus/uberlandia-mg/araci-ba/",
+        "last_crawl": "2026-05-23"
+      }
+    ],
+    "cwv_issues": [
+      {
+        "severity": "Melhorias necessárias",
+        "issue": "Problema de INP: mais de 200 ms (dispositivos móveis)",
+        "urls": 79456
+      },
+      {
+        "severity": "Melhorias necessárias",
+        "issue": "Problema de CLS: mais de 0,1 (dispositivos móveis)",
+        "urls": 79456
+      },
+      {
+        "severity": "Melhorias necessárias",
+        "issue": "Problema de LCP: mais de 2,5s (dispositivos móveis)",
+        "urls": 79456
+      },
+      {
+        "severity": "Ruins",
+        "issue": "Problema de CLS: mais de 0,25 (dispositivos móveis)",
+        "urls": 0
+      },
+      {
+        "severity": "Ruins",
+        "issue": "Problema de LCP: mais de 4 s (dispositivos móveis)",
+        "urls": 0
+      }
+    ],
+    "cwv_daily_bad": [
+      128,
+      122,
+      128,
+      123,
+      113,
+      85,
+      74,
+      59,
+      69,
+      79,
+      91,
+      82,
+      81,
+      303,
+      656,
+      910,
+      1064,
+      1074,
+      1061,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "cwv_daily_ok": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "backlinks_total": 7166
+  },
+  "youtube": {
+    "views": 0,
+    "views_delta": 0,
+    "watch_time": 0,
+    "subs_gained": 0,
+    "subs_lost": 0,
+    "impressions": 0,
+    "ctr": 0.0,
+    "status": "pending_channel_link"
+  },
+  "play": {
+    "status": "pending_permission"
+  },
   "semrush": {},
-  "gtmetrix":{},
-  "errors":  []
+  "gtmetrix": {
+    "pages": []
+  },
+  "errors": [
+    "Semrush: Traceback (most recent call last):\n  File \"/home/runner/work/dashboard/dashboard/scripts/fetch_data.py\", line 483, in fetch_semrush\n    kw_raw = sem({\n             ^^^^^\n  File \"/home/runner/work/dashboard/dashboard/scripts/fetch_data.py\", line 479, in sem\n    r.raise_for_status()\n  File \"/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/requests/models.py\", line 1167, in raise_for_status\n    raise HTTPError(http_error_msg, response=self)\nrequests.exceptions.HTTPError: 403 Client Error: Forbidden for url: https://api.semrush.com/?type=domain_organic&domain=viajeguanabara.com.br&database=br&display_limit=10000&export_columns=Ph%2CPo%2CNq%2CTr%2CFk&key=3195b0c7f9b3b660bff915714bc4cdb3\n"
+  ]
 }
