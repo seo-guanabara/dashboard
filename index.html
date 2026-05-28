@@ -330,7 +330,47 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
     </div>
   </div>
 
-  <!-- HIGHLIGHTS — KPIs secundários -->
+  <!-- BIG NUMBERS — LINHA 3: Blog VG + Viva -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+    <!-- Blog VG -->
+    <div style="background:#1A2235;border-radius:var(--r-md);box-shadow:var(--sh01);padding:14px 16px;border:1px solid var(--g3)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--g6);margin-bottom:10px;display:flex;justify-content:space-between">
+        <span>Blog VG <span class="chip">GA4</span></span>
+        <span style="color:var(--g5);font-weight:400">blog.viajeguanabara.com.br</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div>
+          <div style="font-size:22px;font-weight:900;color:var(--bp);letter-spacing:-.01em" id="blogBnSessions">—</div>
+          <div style="font-size:11px;color:var(--g6);margin-top:2px">Sessões orgânicas</div>
+          <div id="blogBnSessionsDelta" class="delta na" style="font-size:11px">sem comparação</div>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:900;color:var(--bp);letter-spacing:-.01em" id="blogBnUsers">—</div>
+          <div style="font-size:11px;color:var(--g6);margin-top:2px">Usuários orgânicos</div>
+          <div id="blogBnUsersDelta" class="delta na" style="font-size:11px">sem comparação</div>
+        </div>
+      </div>
+    </div>
+    <!-- Viva Fidelidade -->
+    <div style="background:#1A2235;border-radius:var(--r-md);box-shadow:var(--sh01);padding:14px 16px;border:1px solid var(--g3)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--g6);margin-bottom:10px;display:flex;justify-content:space-between">
+        <span>Viva Fidelidade <span class="chip red">GA4</span></span>
+        <span style="color:var(--g5);font-weight:400">vivafidelidade.com.br</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div>
+          <div style="font-size:22px;font-weight:900;color:var(--ba);letter-spacing:-.01em" id="vivaBnSessions">—</div>
+          <div style="font-size:11px;color:var(--g6);margin-top:2px">Sessões orgânicas</div>
+          <div id="vivaBnSessionsDelta" class="delta na" style="font-size:11px">sem comparação</div>
+        </div>
+        <div>
+          <div style="font-size:22px;font-weight:900;color:var(--ba);letter-spacing:-.01em" id="vivaBnUsers">—</div>
+          <div style="font-size:11px;color:var(--g6);margin-top:2px">Usuários orgânicos</div>
+          <div id="vivaBnUsersDelta" class="delta na" style="font-size:11px">sem comparação</div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="highlights" id="highlightsArea">
     <div class="hl" style="--c:var(--bp)">
       <div class="htitle">Cliques GSC · total</div>
@@ -459,13 +499,24 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
   <!-- ── GSC COVERAGE & BACKLINKS ── -->
   <section class="section">
     <div class="sec-head"><div class="sec-title">Search Console · Indexação &amp; Backlinks</div><div class="sec-meta">GSC · coverage</div></div>
-    <div class="g2">
+    <div class="g3">
       <div class="card">
-        <div class="card-head"><div class="card-title">URLs indexadas válidas<span class="chip">GSC</span></div><div class="card-more">últimas rastreadas</div></div>
+        <div class="card-head"><div class="card-title">URLs indexadas<span class="chip">GSC</span></div><div class="card-more">últimas rastreadas</div></div>
         <div id="coverageBody"><div class="loading">Carregando...</div></div>
       </div>
       <div class="card">
-        <div class="card-head"><div class="card-title">Viações top páginas<span class="chip">GSC</span></div><div class="card-more">páginas /empresa/ e /onibus/</div></div>
+        <div class="card-head"><div class="card-title">Links externos<span class="chip">GSC</span></div><div class="card-more">backlinks · Latest links</div></div>
+        <div id="backlinksBody">
+          <div style="padding:8px 0 16px;border-bottom:1px solid var(--g3);margin-bottom:12px">
+            <div style="font-size:36px;font-weight:900;color:var(--bp);letter-spacing:-.02em" id="bnBacklinks">—</div>
+            <div style="font-size:12px;color:var(--g6);margin-top:4px">backlinks externos indexados pelo Google</div>
+          </div>
+          <table><thead><tr><th>Origem</th><th class="r">Última visita</th></tr></thead>
+          <tbody id="latestLinksBody"><tr><td colspan="2" class="loading">Carregando...</td></tr></tbody></table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Viações top páginas<span class="chip">GSC</span></div><div class="card-more">por marca na URL</div></div>
         <table><thead><tr><th>Página</th><th class="r">Cliques</th><th class="r">Pos.</th></tr></thead>
         <tbody id="topCarrierPages"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
       </div>
@@ -1104,7 +1155,29 @@ function render(data,cs,ce,ps,pe){
   setEl('bnImprDelta', fmtD(comparing ? gscTotal.imprDelta : null));
   setEl('bnImprSub', `${gscTotal.propCount} propriedade${gscTotal.propCount>1?'s':''}`);
 
-  // ── Highlights — 5 KPIs fixos ──
+  // ── Linha 3: Blog VG + Viva ──
+  const bBlog = data.blog?.ga4 || {};
+  const bViva = data.viva?.ga4  || {};
+
+  const blogPeriod = sumGa4Period(bBlog, cs, ce);
+  const vivaPeriod = sumGa4Period(bViva, cs, ce);
+  const blogPrev   = (comparing && ps && pe) ? sumGa4Period(bBlog, ps, pe) : null;
+  const vivaPrev   = (comparing && ps && pe) ? sumGa4Period(bViva, ps, pe) : null;
+
+  const bSess  = blogPeriod ? blogPeriod.sessions  : (bBlog.sessions  || 0);
+  const bNew   = blogPeriod ? blogPeriod.new_users  : (bBlog.new_users  || 0);
+  const vSess  = vivaPeriod ? vivaPeriod.sessions  : (bViva.sessions  || 0);
+  const vNew   = vivaPeriod ? vivaPeriod.new_users  : (bViva.new_users  || 0);
+
+  setEl('blogBnSessions', fmtN(bSess));
+  setEl('blogBnUsers',    fmtN(bNew));
+  setEl('blogBnSessionsDelta', blogPrev ? fmtD(calcDelta(bSess, blogPrev.sessions))  : '<span class="delta na">sem comparação</span>');
+  setEl('blogBnUsersDelta',    blogPrev ? fmtD(calcDelta(bNew,  blogPrev.new_users)) : '<span class="delta na">sem comparação</span>');
+
+  setEl('vivaBnSessions', fmtN(vSess));
+  setEl('vivaBnUsers',    fmtN(vNew));
+  setEl('vivaBnSessionsDelta', vivaPrev ? fmtD(calcDelta(vSess, vivaPrev.sessions))  : '<span class="delta na">sem comparação</span>');
+  setEl('vivaBnUsersDelta',    vivaPrev ? fmtD(calcDelta(vNew,  vivaPrev.new_users)) : '<span class="delta na">sem comparação</span>');
   setEl('hlClicks', fmtN(gscTotal.totalClicks));
   setEl('hlClicksDesc', comparing && gscTotal.clicksDelta!=null
     ? fmtD(gscTotal.clicksDelta)+' vs anterior'
@@ -1286,16 +1359,27 @@ function render(data,cs,ce,ps,pe){
       <td class="r">${(p.position||0).toFixed(1)}</td>
     </tr>`).join(''):'<tr><td colspan="3" style="color:var(--g5);font-size:12px">Nenhuma página de viação encontrada — verifique se os CSVs de viações estão subidos</td></tr>');
 
+  // ── Backlinks card ──
+  setEl('bnBacklinks', fmtN(gsc.backlinks_total));
+  const covUrls = gsc.coverage_urls || [];
+  if (covUrls.length) {
+    setEl('latestLinksBody', covUrls.slice(0, 8).map(u => `
+      <tr>
+        <td class="path" style="font-size:11px">${u.url.replace('https://viajeguanabara.com.br','').replace('https://www.viajeguanabara.com.br','') || u.url}</td>
+        <td class="r" style="font-size:11px;white-space:nowrap">${u.last_crawl}</td>
+      </tr>`).join(''));
+  }
+
   // ── Coverage ──
   const covUrls=gsc.coverage_urls||[];
   if(covUrls.length){
     const html=`
-      <div style="display:flex;gap:24px;padding:0 0 14px;border-bottom:1px solid var(--g1);margin-bottom:12px">
-        <div><div style="font-size:26px;font-weight:900;color:var(--bp)">${fmtN(gsc.indexed_pages)}</div><div style="font-size:11px;color:var(--g5);margin-top:2px">páginas indexadas</div></div>
-        <div><div style="font-size:26px;font-weight:900;color:var(--pos7)">${fmtN(gsc.backlinks_total)}</div><div style="font-size:11px;color:var(--g5);margin-top:2px">backlinks externos</div></div>
+      <div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--g3)">
+        <div style="font-size:36px;font-weight:900;color:var(--pos7);letter-spacing:-.02em">${fmtN(gsc.indexed_pages)}</div>
+        <div style="font-size:12px;color:var(--g6);margin-top:4px">páginas indexadas válidas</div>
       </div>
-      <table><thead><tr><th>URL</th><th class="r">Rastreado</th></tr></thead><tbody>
-        ${covUrls.slice(0,7).map(u=>`<tr><td class="path">${u.url.replace('https://viajeguanabara.com.br','')}</td><td class="r" style="font-size:11px">${u.last_crawl}</td></tr>`).join('')}
+      <table><thead><tr><th>Última URL rastreada</th><th class="r">Data</th></tr></thead><tbody>
+        ${covUrls.slice(0,6).map(u=>`<tr><td class="path" style="font-size:11px">${u.url.replace('https://viajeguanabara.com.br','').replace('https://www.viajeguanabara.com.br','')||'/'}</td><td class="r" style="font-size:11px;white-space:nowrap">${u.last_crawl}</td></tr>`).join('')}
       </tbody></table>`;
     setEl('coverageBody',html);
   }
