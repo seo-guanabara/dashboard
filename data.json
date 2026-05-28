@@ -1,33 +1,33 @@
 {
   "meta": {
-    "generated_at": "2026-05-28T14:56:34.212448Z",
+    "generated_at": "2026-05-28T15:13:05.915295Z",
     "period_current": {
-      "start": "2026-04-28",
-      "end": "2026-05-27"
+      "start": "2026-04-25",
+      "end": "2026-05-24"
     },
     "period_comparison": {
-      "start": "2026-03-29",
-      "end": "2026-04-27"
+      "start": "2026-03-26",
+      "end": "2026-04-24"
     },
     "period_ytd": {
       "start": "2026-01-01",
-      "end": "2026-05-27"
+      "end": "2026-05-24"
     }
   },
   "ga4": {
     "source": "api",
-    "period_start": "2026-04-28",
-    "period_end": "2026-05-27",
-    "sessions": 1640043,
-    "sessions_delta": 9.2,
-    "new_users": 653920,
-    "new_users_delta": 9.5,
-    "returning_users": 831230,
-    "returning_delta": 3.1,
-    "transactions": 159872,
-    "transactions_delta": 4.7,
-    "revenue": 25265615.81,
-    "revenue_delta": 0.1,
+    "period_start": "2026-04-25",
+    "period_end": "2026-05-24",
+    "sessions": 1642148,
+    "sessions_delta": 10.9,
+    "new_users": 639878,
+    "new_users_delta": 7.6,
+    "returning_users": 814190,
+    "returning_delta": 1.6,
+    "transactions": 159272,
+    "transactions_delta": 5.2,
+    "revenue": 24903581.32,
+    "revenue_delta": -1.7,
     "revenue_ytd": 17627121.72,
     "daily_sessions": [
       40781,
@@ -115,10 +115,7 @@
       53882,
       54913,
       43568,
-      47801,
-      60056,
-      60470,
-      57315
+      47801
     ],
     "daily_dates": [
       "20260228",
@@ -206,10 +203,7 @@
       "20260521",
       "20260522",
       "20260523",
-      "20260524",
-      "20260525",
-      "20260526",
-      "20260527"
+      "20260524"
     ],
     "daily_new": [
       16705,
@@ -297,10 +291,7 @@
       22145,
       22468,
       17519,
-      19469,
-      25553,
-      25226,
-      23705
+      19469
     ],
     "daily_trans": [
       3935,
@@ -388,10 +379,7 @@
       5499,
       5251,
       4465,
-      4523,
-      5532,
-      5394,
-      5649
+      4523
     ],
     "daily_revenue": [
       608671.03,
@@ -479,102 +467,99 @@
       905937.9,
       850146.26,
       672661.47,
-      668740.43,
-      929123.79,
-      909628.6,
-      956256.28
+      668740.43
     ],
     "daily_start": "2026-02-28",
     "channels": [
       {
         "channel": "Paid Search",
-        "sessions": 816715,
-        "transactions": 79558,
-        "revenue": 12422505.51
+        "sessions": 810601,
+        "transactions": 79064,
+        "revenue": 12197697.66
       },
       {
         "channel": "Direct",
-        "sessions": 206334,
-        "transactions": 38846,
-        "revenue": 5848824.74
+        "sessions": 202547,
+        "transactions": 38384,
+        "revenue": 5730705.39
       },
       {
         "channel": "Organic Search",
-        "sessions": 274445,
-        "transactions": 19547,
-        "revenue": 3081036.54
+        "sessions": 279171,
+        "transactions": 19900,
+        "revenue": 3086008.23
       },
       {
         "channel": "Cross-network",
-        "sessions": 192739,
-        "transactions": 8056,
-        "revenue": 1480029.36
+        "sessions": 183490,
+        "transactions": 7957,
+        "revenue": 1466128.4
       },
       {
         "channel": "Unassigned",
-        "sessions": 23117,
-        "transactions": 5106,
-        "revenue": 1107631.11
+        "sessions": 23943,
+        "transactions": 5199,
+        "revenue": 1116636.95
       },
       {
         "channel": "Organic Social",
-        "sessions": 24416,
-        "transactions": 6750,
-        "revenue": 987136.87
+        "sessions": 24725,
+        "transactions": 6769,
+        "revenue": 967177.29
       },
       {
         "channel": "Mobile Push Notifications",
-        "sessions": 78151,
-        "transactions": 1377,
-        "revenue": 206341.88
+        "sessions": 79235,
+        "transactions": 1379,
+        "revenue": 206314.14
       },
       {
         "channel": "Referral",
-        "sessions": 6758,
-        "transactions": 487,
-        "revenue": 110485.23
+        "sessions": 6567,
+        "transactions": 474,
+        "revenue": 110884.0
       },
       {
         "channel": "Email",
-        "sessions": 1709,
-        "transactions": 76,
-        "revenue": 12487.29
+        "sessions": 1723,
+        "transactions": 80,
+        "revenue": 13207.95
       },
       {
         "channel": "Paid Social",
-        "sessions": 3067,
-        "transactions": 44,
-        "revenue": 5638.92
+        "sessions": 2569,
+        "transactions": 38,
+        "revenue": 4915.31
       },
       {
         "channel": "Organic Video",
-        "sessions": 255,
-        "transactions": 14,
-        "revenue": 1921.84
+        "sessions": 275,
+        "transactions": 17,
+        "revenue": 2214.64
       },
       {
         "channel": "Display",
-        "sessions": 23,
+        "sessions": 11,
         "transactions": 6,
         "revenue": 879.8
       },
       {
         "channel": "Paid Video",
-        "sessions": 97,
+        "sessions": 63,
         "transactions": 5,
-        "revenue": 696.72
+        "revenue": 811.56
       },
       {
         "channel": "Organic Shopping",
-        "sessions": 18,
+        "sessions": 16,
         "transactions": 0,
         "revenue": 0.0
       }
     ],
     "total_all": {
-      "sessions": 1627844,
-      "transactions": 159872,
-      "revenue": 25265615.81
+      "sessions": 1614936,
+      "transactions": 159272,
+      "revenue": 24903581.319999997
     },
     "top_routes": [
       {
@@ -678,7 +663,7 @@
         "revenue": 278.97
       }
     ],
-    "conv_rate": 9.75,
+    "conv_rate": 9.7,
     "revenue_ytd_prev": 19715353.05,
     "top_carriers": [
       {
