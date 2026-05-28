@@ -309,55 +309,70 @@ def fetch_ga4_api():
     daily_revenue  = [round(float(r.metric_values[3].value),2) for r in daily_rows]
     daily = daily_sessions  # compatibilidade
 
-    # ── Channels para share ──
-    r4 = rpt(["sessions","transactions","purchaseRevenue"],
-             dims=["sessionPrimaryChannelGroup"], limit=20)
-    channels = []
-    for row in r4.rows:
-        dr = row.dimension_values[1].value if len(row.dimension_values) > 1 else "date_range_0"
-        if dr != "date_range_0": continue
-        channels.append({
-            "channel":      row.dimension_values[0].value,
-            "sessions":     int(mv(row,0)),
-            "transactions": int(mv(row,1)),
-            "revenue":      round(mv(row,2),2),
-        })
-    channels.sort(key=lambda x: x["revenue"], reverse=True)
+    # ── Channels — dados diários para filtro dinâmico no frontend ──
+    r4_daily = client.run_report(RunReportRequest(
+        property=f"properties/{GA4_PROPERTY_ID}",
+        metrics=[Metric(name=m) for m in ["sessions","transactions","purchaseRevenue"]],
+        dimensions=[Dimension(name="sessionPrimaryChannelGroup"), Dimension(name="date")],
+        date_ranges=[DateRange(start_date=daily_start, end_date=p_end)],
+        limit=3000,  # 20 canais × 90 dias
+    ))
+    channels_daily = [
+        {"date": row.dimension_values[1].value,
+         "channel": row.dimension_values[0].value,
+         "sessions": int(mv(row,0)), "transactions": int(mv(row,1)), "revenue": round(mv(row,2),2)}
+        for row in r4_daily.rows
+    ]
+    # Agregado fixo (compatibilidade) para total_all e share
+    channels_agg = {}
+    for r in channels_daily:
+        ch = r["channel"]
+        if ch not in channels_agg:
+            channels_agg[ch] = {"channel":ch,"sessions":0,"transactions":0,"revenue":0.0}
+        channels_agg[ch]["sessions"]     += r["sessions"]
+        channels_agg[ch]["transactions"] += r["transactions"]
+        channels_agg[ch]["revenue"]      += r["revenue"]
+    channels = sorted(channels_agg.values(), key=lambda x: x["revenue"], reverse=True)
     total_all = {
         "sessions":     sum(c["sessions"]     for c in channels),
         "transactions": sum(c["transactions"] for c in channels),
         "revenue":      sum(c["revenue"]      for c in channels),
     }
 
-    # ── Breakdown por origem SEO (para card Orgânico vs LLMs) ──
-    r_src = client.run_report(RunReportRequest(
+    # ── SEO por origem — dados diários para filtro dinâmico ──
+    r_src_daily = client.run_report(RunReportRequest(
         property=f"properties/{GA4_PROPERTY_ID}",
         metrics=[Metric(name=m) for m in ["sessions","transactions","purchaseRevenue"]],
-        dimensions=[Dimension(name="sessionSourceMedium")],
-        date_ranges=[DateRange(start_date=p_start, end_date=p_end)],
+        dimensions=[Dimension(name="sessionSourceMedium"), Dimension(name="date")],
+        date_ranges=[DateRange(start_date=daily_start, end_date=p_end)],
         dimension_filter=seo_filter,
-        limit=50,
+        limit=5000,  # ~30 fontes × 90 dias
     ))
-    seo_by_source = []
-    seo_llm_total = {"sessions":0,"transactions":0,"revenue":0.0}
-    seo_total_all = {"sessions":0,"transactions":0,"revenue":0.0}
-    for row in r_src.rows:
-        src = row.dimension_values[0].value
-        s   = int(mv(row,0)); tx = int(mv(row,1)); rev = round(mv(row,2),2)
-        is_llm = src in LLM_SOURCES
-        seo_by_source.append({"source":src,"sessions":s,"transactions":tx,"revenue":rev,"is_llm":is_llm})
-        seo_total_all["sessions"] += s; seo_total_all["transactions"] += tx; seo_total_all["revenue"] += rev
-        if is_llm:
-            seo_llm_total["sessions"] += s; seo_llm_total["transactions"] += tx; seo_llm_total["revenue"] += rev
-    seo_by_source.sort(key=lambda x: x["revenue"], reverse=True)
+    sources_daily = [
+        {"date": row.dimension_values[1].value,
+         "source": row.dimension_values[0].value,
+         "sessions": int(mv(row,0)), "transactions": int(mv(row,1)), "revenue": round(mv(row,2),2),
+         "is_llm": row.dimension_values[0].value in LLM_SOURCES}
+        for row in r_src_daily.rows
+    ]
+    # Agregado fixo para totais SEO/LLM
+    seo_by_source = []; seo_llm_total={"sessions":0,"transactions":0,"revenue":0.0}; seo_total_all={"sessions":0,"transactions":0,"revenue":0.0}
+    src_agg = {}
+    for r in sources_daily:
+        k = r["source"]
+        if k not in src_agg: src_agg[k] = {"source":k,"sessions":0,"transactions":0,"revenue":0.0,"is_llm":r["is_llm"]}
+        src_agg[k]["sessions"]+=r["sessions"]; src_agg[k]["transactions"]+=r["transactions"]; src_agg[k]["revenue"]+=r["revenue"]
+        seo_total_all["sessions"]+=r["sessions"]; seo_total_all["transactions"]+=r["transactions"]; seo_total_all["revenue"]+=r["revenue"]
+        if r["is_llm"]: seo_llm_total["sessions"]+=r["sessions"]; seo_llm_total["transactions"]+=r["transactions"]; seo_llm_total["revenue"]+=r["revenue"]
+    seo_by_source = sorted(src_agg.values(), key=lambda x: x["revenue"], reverse=True)
     seo_organic_total = {k: seo_total_all[k]-seo_llm_total[k] for k in seo_total_all}
 
-    # ── Top páginas de rotas ──
-    r5 = client.run_report(RunReportRequest(
+    # ── Rotas /onibus/ — dados diários para filtro dinâmico ──
+    r5_daily = client.run_report(RunReportRequest(
         property=f"properties/{GA4_PROPERTY_ID}",
-        metrics=[Metric(name="sessions"),Metric(name="purchaseRevenue")],
-        dimensions=[Dimension(name="pagePath")],
-        date_ranges=[DateRange(start_date=p_start, end_date=p_end)],
+        metrics=[Metric(name="sessions"), Metric(name="purchaseRevenue")],
+        dimensions=[Dimension(name="pagePath"), Dimension(name="date")],
+        date_ranges=[DateRange(start_date=daily_start, end_date=p_end)],
         dimension_filter=FilterExpression(
             filter=Filter(
                 field_name="pagePath",
@@ -367,14 +382,21 @@ def fetch_ga4_api():
                 )
             )
         ),
-        limit=20,
-        order_bys=[],
+        limit=5000,  # top ~56 rotas × 90 dias
     ))
-    top_routes = sorted([{
-        "path":     row.dimension_values[0].value,
-        "sessions": int(mv(row,0)),
-        "revenue":  round(mv(row,1),2),
-    } for row in r5.rows], key=lambda x: x["sessions"], reverse=True)[:10]
+    routes_daily = [
+        {"date": row.dimension_values[1].value,
+         "path": row.dimension_values[0].value,
+         "sessions": int(mv(row,0)), "revenue": round(mv(row,1),2)}
+        for row in r5_daily.rows
+    ]
+    # Agregado fixo para compatibilidade
+    routes_agg = {}
+    for r in routes_daily:
+        k = r["path"]
+        if k not in routes_agg: routes_agg[k] = {"path":k,"sessions":0,"revenue":0.0}
+        routes_agg[k]["sessions"]+=r["sessions"]; routes_agg[k]["revenue"]+=r["revenue"]
+    top_routes = sorted(routes_agg.values(), key=lambda x: x["sessions"], reverse=True)[:10]
 
     output["ga4"] = {
         "source":            "api",
@@ -407,11 +429,14 @@ def fetch_ga4_api():
         "daily_revenue":     daily_revenue,
         "daily_start":       daily_start,
         "channels":          channels,
+        "channels_daily":    channels_daily,
         "total_all":         total_all,
         "seo_total":         seo_total_all,
         "seo_organic":       seo_organic_total,
         "seo_llm":           seo_llm_total,
         "seo_by_source":     seo_by_source,
+        "sources_daily":     sources_daily,
+        "routes_daily":      routes_daily,
         "seo_share":         {
             "sessions_pct": round(seo_total_all["sessions"]/max(total_all["sessions"],1)*100,1),
             "revenue_pct":  round(seo_total_all["revenue"]/max(total_all["revenue"],1)*100,1),
