@@ -237,25 +237,37 @@ def fetch_ga4_api():
     trans      = int(gv(cur,2));  p_trans      = int(gv(prv,2))
     revenue    = round(gv(cur,3),2); p_revenue = round(gv(prv,3),2)
 
-    # ── YTD receita SEO — filtrado por origens SEO, YoY automático ──
-    ytd_end_prev = date(last_sunday.year - 1, last_sunday.month, last_sunday.day).isoformat()
+    # ── YTD SEO — receita, sessões, transações, usuários — YoY automático ──
+    ytd_end_prev   = date(last_sunday.year - 1, last_sunday.month, last_sunday.day).isoformat()
     ytd_start_prev = date(today.year - 1, 1, 1).isoformat()
     r_ytd = client.run_report(RunReportRequest(
         property=f"properties/{GA4_PROPERTY_ID}",
-        metrics=[Metric(name="purchaseRevenue")],
+        metrics=[Metric(name=m) for m in [
+            "purchaseRevenue", "sessions", "newUsers", "transactions"
+        ]],
         date_ranges=[
             DateRange(start_date=ytd_start,      end_date=p_end),
             DateRange(start_date=ytd_start_prev, end_date=ytd_end_prev),
         ],
-        dimension_filter=seo_filter,  # só receita de tráfego SEO
+        dimension_filter=seo_filter,
         limit=2,
     ))
     revenue_ytd = revenue_ytd_prev = 0.0
+    sessions_ytd = sessions_ytd_prev = 0
+    users_ytd = users_ytd_prev = 0
+    trans_ytd = trans_ytd_prev = 0
     for row in r_ytd.rows:
-        dr  = row.dimension_values[0].value if row.dimension_values else "date_range_0"
-        val = round(float(row.metric_values[0].value), 2)
-        if dr == "date_range_0":   revenue_ytd      = val
-        elif dr == "date_range_1": revenue_ytd_prev = val
+        dr = row.dimension_values[0].value if row.dimension_values else "date_range_0"
+        rev  = round(float(row.metric_values[0].value), 2)
+        sess = int(row.metric_values[1].value)
+        usr  = int(row.metric_values[2].value)
+        tx   = int(row.metric_values[3].value)
+        if dr == "date_range_0":
+            revenue_ytd  = rev;  sessions_ytd  = sess
+            users_ytd    = usr;  trans_ytd     = tx
+        elif dr == "date_range_1":
+            revenue_ytd_prev = rev;  sessions_ytd_prev = sess
+            users_ytd_prev   = usr;  trans_ytd_prev    = tx
 
     # ── Returning users ──
     r2 = client.run_report(RunReportRequest(
@@ -378,8 +390,16 @@ def fetch_ga4_api():
         "transactions_delta":pct(trans, p_trans),
         "revenue":           revenue,
         "revenue_delta":     pct(revenue, p_revenue),
-        "revenue_ytd":       revenue_ytd,
-        "revenue_ytd_prev":  revenue_ytd_prev,
+        "revenue_ytd":         revenue_ytd,
+        "revenue_ytd_prev":    revenue_ytd_prev,
+        "sessions_ytd":        sessions_ytd,
+        "sessions_ytd_prev":   sessions_ytd_prev,
+        "users_ytd":           users_ytd,
+        "users_ytd_prev":      users_ytd_prev,
+        "transactions_ytd":    trans_ytd,
+        "transactions_ytd_prev": trans_ytd_prev,
+        "ytd_start":           ytd_start,
+        "ytd_end_prev":        ytd_end_prev,
         "daily_sessions":    daily,
         "daily_dates":       daily_dates,
         "daily_new":         daily_new,
