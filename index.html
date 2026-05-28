@@ -118,6 +118,7 @@ html,body{font-family:var(--ff);font-size:14px;color:var(--g8);background:#0F152
 /* ── TABLE ── */
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{text-align:left;font-weight:700;color:var(--g6);text-transform:uppercase;font-size:10px;letter-spacing:.06em;padding:8px 10px 8px 0;border-bottom:1px solid var(--g3)}
+th.sortable{cursor:pointer;user-select:none}th.sortable:hover{color:var(--bp)}
 th.r,td.r{text-align:right;font-variant-numeric:tabular-nums}
 td{padding:9px 10px 9px 0;border-bottom:1px solid var(--g2);color:var(--g8)}
 tr:last-child td{border-bottom:none}
@@ -434,46 +435,53 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
       <!-- Top origens -->
       <div class="card">
         <div class="card-head"><div class="card-title">Top origens SEO<span class="chip">GA4</span></div><div class="card-more">por receita</div></div>
-        <table><thead><tr><th>Origem</th><th class="r">Sessões</th><th class="r">Trans.</th><th class="r">Receita</th></tr></thead>
+        <table id="tblSeoSources"><thead><tr>
+          <th onclick="sortTbl('tblSeoSources',0)" class="sortable">Origem</th>
+          <th onclick="sortTbl('tblSeoSources',1)" class="sortable r">Sessões</th>
+          <th onclick="sortTbl('tblSeoSources',2)" class="sortable r">Trans.</th>
+          <th onclick="sortTbl('tblSeoSources',3)" class="sortable r">Receita</th>
+        </tr></thead>
         <tbody id="seoSources"><tr><td colspan="4" class="loading">Carregando...</td></tr></tbody></table>
       </div>
     </div>
 
     <div class="g2l gap">
-      <!-- KPIs GA4 detalhados -->
+      <!-- KPIs GA4 detalhados com gráficos grandes -->
       <div class="card">
-        <div class="card-head"><div class="card-title">Sessões · usuários · transações<span class="chip">GA4</span></div></div>
-        <div class="g4" style="gap:10px">
+        <div class="card-head"><div class="card-title">Sessões · usuários · transações<span class="chip">GA4</span></div><div id="ga4ChartPeriod" class="card-more">—</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;margin-bottom:16px">
           <div>
-            <div style="font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Sessões</div>
+            <div style="font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px">Sessões</div>
             <div style="font-size:22px;font-weight:900;color:var(--bp);letter-spacing:-.01em" id="kpiSess">—</div>
             <div id="kpiSessDelta" class="delta na" style="font-size:11px">—</div>
-            <canvas id="sparkSessions" width="120" height="32" class="spark"></canvas>
           </div>
           <div>
-            <div style="font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Novos</div>
+            <div style="font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px">Novos</div>
             <div style="font-size:22px;font-weight:900;color:var(--bp7);letter-spacing:-.01em" id="kpiNew">—</div>
             <div id="kpiNewDelta" class="delta na" style="font-size:11px">—</div>
-            <canvas id="sparkNew" width="120" height="32" class="spark"></canvas>
           </div>
           <div>
-            <div style="font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Recorrentes</div>
+            <div style="font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px">Recorrentes</div>
             <div style="font-size:22px;font-weight:900;color:var(--pos7);letter-spacing:-.01em" id="kpiRet">—</div>
             <div id="kpiRetDelta" class="delta na" style="font-size:11px">—</div>
-            <canvas id="sparkRet" width="120" height="32" class="spark"></canvas>
           </div>
           <div>
-            <div style="font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Transações</div>
+            <div style="font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px">Transações</div>
             <div style="font-size:22px;font-weight:900;color:var(--ba);letter-spacing:-.01em" id="kpiTrans">—</div>
             <div id="kpiTransDelta" class="delta na" style="font-size:11px">—</div>
-            <canvas id="sparkTrans" width="120" height="32" class="spark"></canvas>
           </div>
         </div>
+        <!-- Gráfico de séries temporais — 4 linhas empilhadas -->
+        <div style="position:relative;height:220px"><canvas id="ga4TimeChart"></canvas></div>
       </div>
       <!-- Top rotas -->
       <div class="card">
         <div class="card-head"><div class="card-title">Top rotas<span class="chip">GA4</span></div><div class="card-more">páginas /onibus/</div></div>
-        <table><thead><tr><th>Rota</th><th class="r">Sessões</th><th class="r">Receita</th></tr></thead>
+        <table id="tblRoutes"><thead><tr>
+          <th onclick="sortTbl('tblRoutes',0)" class="sortable">Rota</th>
+          <th onclick="sortTbl('tblRoutes',1)" class="sortable r">Sessões</th>
+          <th onclick="sortTbl('tblRoutes',2)" class="sortable r">Receita</th>
+        </tr></thead>
         <tbody id="topRoutes"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
       </div>
     </div>
@@ -941,6 +949,32 @@ function applyPreset(preset) {
 }
 
 // ── AGREGAÇÃO MULTI-PROPRIEDADE GSC ────────────────────────────────────────
+// ── SORT TABLE ──────────────────────────────────────────────────────────────
+const _sortState={};
+function sortTbl(tblId,col){
+  const tbl=document.getElementById(tblId);
+  if(!tbl)return;
+  const tbody=tbl.querySelector('tbody');
+  const rows=[...tbody.querySelectorAll('tr')];
+  const asc=!(_sortState[tblId+col]);
+  _sortState[tblId+col]=asc;
+
+  // Atualizar ícones nos headers
+  tbl.querySelectorAll('th.sortable').forEach((th,i)=>{
+    th.textContent=th.textContent.replace(/[▲▼]/g,'').trim();
+    if(i===col) th.textContent+=' '+(asc?'▲':'▼');
+  });
+
+  rows.sort((a,b)=>{
+    const av=a.querySelectorAll('td')[col]?.textContent.replace(/[^0-9,.\-]/g,'').replace(',','.')||'0';
+    const bv=b.querySelectorAll('td')[col]?.textContent.replace(/[^0-9,.\-]/g,'').replace(',','.')||'0';
+    const an=parseFloat(av)||0, bn=parseFloat(bv)||0;
+    if(an!==0||bn!==0) return asc?an-bn:bn-an;
+    return asc?(av>bv?1:-1):(av<bv?1:-1);
+  });
+  rows.forEach(r=>tbody.appendChild(r));
+}
+
 function calcGscTotal(gscData, cs, ce) {
   const extra = gscData.extra_properties || {};
   let totalClicks = 0, totalImpr = 0;
@@ -1292,55 +1326,118 @@ function render(data,cs,ce,ps,pe){
   setEl('kpiTransDelta',fmtD(comparing?ga4.transactions_delta:null));
 
   // Sparks
-  const daily = (ga4.daily_sessions && ga4.daily_sessions.length > 0)
-    ? ga4.daily_sessions
-    : mock(30, Math.max(1, (ga4.sessions||100000)/35), Math.max(2, (ga4.sessions||150000)/25), .3);
-  const dailyNew   = mock(30, Math.max(1,(ga4.new_users||50000)/35), Math.max(2,(ga4.new_users||70000)/25), .2);
-  const dailyRet   = mock(30, Math.max(1,(ga4.returning_users||40000)/35), Math.max(2,(ga4.returning_users||55000)/25), .2);
-  const dailyTrans = mock(30, Math.max(1,(ga4.transactions||10000)/35), Math.max(2,(ga4.transactions||15000)/25), .1);
-  spark('sparkSessions', daily,      C.bp);
-  spark('sparkNew',      dailyNew,   C.bp);
-  spark('sparkRet',      dailyRet,   C.pos);
-  spark('sparkTrans',    dailyTrans, C.ba);
+  const daily = ga4.daily_dates?.length
+    ? ga4.daily_sessions : mock(30,Math.max(1,(ga4.sessions||100000)/35),Math.max(2,(ga4.sessions||150000)/25),.3);
+  const dailyNew   = ga4.daily_new?.length   ? ga4.daily_new   : mock(30,1000,3000,.2);
+  const dailyTrans = ga4.daily_trans?.length ? ga4.daily_trans : mock(30,100,500,.1);
+  const dailyDates = ga4.daily_dates || daily.map((_,i)=>i);
 
-  // ── Channels ──
+  // Labels de data formatadas para o gráfico
+  const chartLabels = dailyDates.map(d=>{
+    if(typeof d==='string'&&d.length===8) return `${d.slice(6)}/${d.slice(4,6)}`;
+    if(typeof d==='string'&&d.length===10) return `${d.slice(8)}/${d.slice(5,7)}`;
+    return d;
+  });
+
+  // Filtrar pelo período selecionado
+  const filtDaily=(arr)=>{
+    if(!ga4.daily_dates?.length) return arr;
+    return ga4.daily_dates.map((d,i)=>{
+      const ds=d.length===8?`${d.slice(0,4)}-${d.slice(4,6)}-${d.slice(6,8)}`:d;
+      return(ds>=cs&&ds<=ce)?arr[i]:null;
+    }).filter(v=>v!==null);
+  };
+  const filtLabels=()=>{
+    if(!ga4.daily_dates?.length) return chartLabels;
+    return ga4.daily_dates.filter(d=>{const ds=d.length===8?`${d.slice(0,4)}-${d.slice(4,6)}-${d.slice(6,8)}`:d;return ds>=cs&&ds<=ce;})
+      .map(d=>d.length===8?`${d.slice(6)}/${d.slice(4,6)}`:`${d.slice(8)}/${d.slice(5,7)}`);
+  };
+
+  const pDates=filtLabels(), pSess=filtDaily(ga4.daily_sessions||daily);
+  const pNew=filtDaily(ga4.daily_new||dailyNew), pTrans=filtDaily(ga4.daily_trans||dailyTrans);
+
+  setEl('ga4ChartPeriod',`${fmtBR(cs)} → ${fmtBR(ce)}`);
+  lineChart('ga4TimeChart',[
+    {label:'Sessões',   data:pSess,  borderColor:C.bp,  backgroundColor:C.bp+'22',  fill:false, tension:.3, pointRadius:0, borderWidth:2},
+    {label:'Novos',     data:pNew,   borderColor:C.bp7, backgroundColor:C.bp7+'22', fill:false, tension:.3, pointRadius:0, borderWidth:2},
+    {label:'Transações',data:pTrans, borderColor:C.ba,  backgroundColor:C.ba+'22',  fill:false, tension:.3, pointRadius:0, borderWidth:1.5},
+  ],{labels:pDates, y1:false, legend:true});
+
+  // ── Channels — grupos customizados do GA4 ──
   const chs=ga4.channels||[];
   const totRev=ga4.total_all?.revenue||1;
+  // Mapeamento de cor por grupo customizado
+  const chColor=c=>{
+    const n=(c.channel||'').toLowerCase();
+    if(n.includes('orgân')||n.includes('organic')) return C.bp;
+    if(n.includes('paid')||n.includes('pago'))     return C.ba;
+    if(n.includes('crm'))                           return C.bb;
+    if(n.includes('direct')||n.includes('direto'))  return C.inf;
+    return 'var(--g6)';
+  };
   if(chs.length){
-    const isOrg=c=>c.channel==='Organic Search';
     const chHtml=chs.slice(0,7).map(c=>{
-      const pct=Math.round(c.revenue/totRev*100);
+      const pct=totRev?Math.round(c.revenue/totRev*100):0;
+      const col=chColor(c);
       return`<div style="margin-bottom:10px">
         <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px">
-          <span style="font-weight:${isOrg(c)?700:500};color:${isOrg(c)?C.bp:'var(--g7)'}">${c.channel}</span>
-          <span style="font-weight:700">${pct}%</span>
+          <span style="font-weight:600;color:${col}">${c.channel}</span>
+          <span style="font-weight:700;color:var(--g8)">${pct}%</span>
         </div>
-        <div class="bar-wrap"><div class="bar ${isOrg(c)?'':'grey'}" style="width:${pct}%"></div></div>
+        <div class="bar-wrap"><div class="bar" style="width:${pct}%;background:${col}"></div></div>
         <div style="font-size:10px;color:var(--g5);margin-top:2px">${fmtN(c.sessions)} sess · ${fmtN(c.transactions)} trans · ${fmtR(c.revenue)}</div>
       </div>`}).join('');
     setEl('channelBars',chHtml);
   }
 
-  // ── SEO vs LLMs ──
-  const st=ga4.seo_total;const so=ga4.seo_organic;const sl=ga4.seo_llm;
+  // ── SEO vs LLMs com deltas de comparação ──
+  const st=ga4.seo_total; const so=ga4.seo_organic; const sl=ga4.seo_llm;
   if(st&&st.sessions){
-    const row=(lbl,col,d,note)=>`
-      <div style="padding:10px 0;border-bottom:1px solid var(--g1)">
+    // Usar ga4Period para total SEO do período selecionado
+    const curSess = ga4Period?.sessions || st.sessions;
+    const curRev  = ga4Period?.revenue  || st.revenue;
+    const curTrans= ga4Period?.transactions || st.transactions;
+    const prevSess= ga4PeriodPrev?.sessions;
+    const prevRev = ga4PeriodPrev?.revenue;
+    const prevTrans=ga4PeriodPrev?.transactions;
+
+    // Proporções organic/llm do período fixo (melhor estimativa disponível)
+    const totSt = st.sessions||1;
+    const orgRatio = (so?.sessions||0)/totSt;
+    const llmRatio = (sl?.sessions||0)/totSt;
+
+    const delta=(cur,prv)=>prv&&prv>0?Math.round((cur-prv)/prv*1000)/10:null;
+    const dEl=(d,sfx='')=>d!=null?`<span class="delta ${d>=0?'up':'dn'}" style="font-size:10px">${d>=0?'▲':'▼'}${Math.abs(d).toFixed(1).replace('.',',')}%${sfx}</span>`:'';
+
+    const row=(lbl,col,sess,trans,rev,dSess,dTrans,dRev,note)=>`
+      <div style="padding:10px 0;border-bottom:1px solid var(--g3)">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
           <span style="font-size:13px;font-weight:700;color:${col}">${lbl}</span>
           <span style="font-size:10px;color:var(--g5)">${note}</span>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;font-size:11px">
-          <div><div style="font-weight:900;font-size:15px;color:${col}">${fmtN(d.sessions)}</div><div style="color:var(--g5)">sessões</div></div>
-          <div><div style="font-weight:900;font-size:15px;color:${col}">${fmtN(d.transactions)}</div><div style="color:var(--g5)">trans.</div></div>
-          <div><div style="font-weight:900;font-size:15px;color:${col}">${fmtR(d.revenue)}</div><div style="color:var(--g5)">receita</div></div>
+          <div><div style="font-weight:900;font-size:15px;color:${col}">${fmtN(sess)}</div>
+               <div style="color:var(--g5)">sessões ${dEl(dSess)}</div></div>
+          <div><div style="font-weight:900;font-size:15px;color:${col}">${fmtN(trans)}</div>
+               <div style="color:var(--g5)">trans. ${dEl(dTrans)}</div></div>
+          <div><div style="font-weight:900;font-size:15px;color:${col}">${fmtR(rev)}</div>
+               <div style="color:var(--g5)">receita ${dEl(dRev)}</div></div>
         </div>
       </div>`;
+
     const sh=ga4.seo_share||{};
     setEl('seoVsLlm',
-      row('SEO Total',C.bp,st,`${sh.revenue_pct||0}% da receita total`)+
-      row('Orgânico tradicional',C.pos,so||{sessions:0,transactions:0,revenue:0},'Google, Bing, DDG...')+
-      row('LLMs',C.inf,sl||{sessions:0,transactions:0,revenue:0},'ChatGPT, Gemini, Perplexity...')
+      row('SEO Total',C.bp,curSess,curTrans,curRev,
+          delta(curSess,prevSess),delta(curTrans,prevTrans),delta(curRev,prevRev),
+          `${sh.revenue_pct||0}% da receita total`)+
+      row('Orgânico tradicional',C.pos,
+          Math.round(curSess*orgRatio),Math.round(curTrans*orgRatio),round2(curRev*orgRatio),
+          delta(Math.round(curSess*orgRatio),prevSess?Math.round(prevSess*orgRatio):null),null,null,
+          'Google, Bing, DDG...')+
+      row('LLMs',C.inf,
+          Math.round(curSess*llmRatio),Math.round(curTrans*llmRatio),round2(curRev*llmRatio),
+          delta(Math.round(curSess*llmRatio),prevSess?Math.round(prevSess*llmRatio):null),null,null,
+          'ChatGPT, Gemini, Perplexity...')
     );
   }
 
