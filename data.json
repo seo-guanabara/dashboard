@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-28T12:49:52.601211Z",
+    "generated_at": "2026-05-28T13:51:21.672506Z",
     "period_current": {
       "start": "2026-04-28",
       "end": "2026-05-27"
@@ -11335,7 +11335,7 @@
     "pages": []
   },
   "errors": [
-    "GA4 API: Traceback (most recent call last):\n  File \"/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/google/api_core/grpc_helpers.py\", line 55, in error_remapped_callable\n    return callabl",
+    "GA4 API: Traceback (most recent call last):\n  File \"/home/runner/work/dashboard/dashboard/scripts/fetch_data.py\", line 601, in fetch_ga4\n    fetch_ga4_api()\n  File \"/home/runner/work/dashboard/dashboard/script",
     "Semrush: HTTP ? | "
   ],
   "blog": {
