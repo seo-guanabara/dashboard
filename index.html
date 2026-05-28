@@ -109,7 +109,7 @@ html,body{font-family:var(--ff);font-size:14px;color:var(--g8);background:#0F152
 .delta.na{color:var(--g4);font-size:11px}
 
 /* ── HIGHLIGHTS ── */
-.highlights{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:28px}
+.highlights{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:28px}
 .hl{background:#1A2235;border-radius:var(--r-sm);box-shadow:var(--sh01);padding:14px;border-left:3px solid var(--c,var(--bp));border-top:1px solid var(--g3);border-right:1px solid var(--g3);border-bottom:1px solid var(--g3)}
 .hl .htitle{font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
 .hl .hval{font-size:20px;font-weight:900;color:var(--c,var(--bp));letter-spacing:-.01em}
@@ -415,6 +415,11 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
       <div class="hval" id="hlIndexed">—</div>
       <div class="hdesc">GSC · viajeguanabara.com.br</div>
     </div>
+    <div class="hl" style="--c:var(--ba)">
+      <div class="htitle">Transações SEO</div>
+      <div class="hval" id="hlTrans">—</div>
+      <div class="hdesc" id="hlTransDesc">sem comparação</div>
+    </div>
   </div>
 
   <!-- ── GA4 ── -->
@@ -476,10 +481,10 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
       </div>
       <!-- Top rotas ecommerce -->
       <div class="card">
-        <div class="card-head"><div class="card-title">Top rotas<span class="chip">GA4</span></div><div class="card-more">bilhetes · receita · ecommerce</div></div>
+        <div class="card-head"><div class="card-title">Top rotas<span class="chip">GA4</span></div><div class="card-more">transações · receita · ecommerce</div></div>
         <table id="tblRoutes"><thead><tr>
           <th onclick="sortTbl('tblRoutes',0)" class="sortable">Rota</th>
-          <th onclick="sortTbl('tblRoutes',1)" class="sortable r">Bilhetes</th>
+          <th onclick="sortTbl('tblRoutes',1)" class="sortable r">Transações</th>
           <th onclick="sortTbl('tblRoutes',2)" class="sortable r">Receita</th>
         </tr></thead>
         <tbody id="topRoutes"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
@@ -509,14 +514,24 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
     </div>
     <div class="g2 gap">
       <div class="card">
-        <div class="card-head"><div class="card-title">Top queries<span class="chip">GSC</span></div><div class="card-more">por cliques</div></div>
-        <table><thead><tr><th>Termo</th><th class="r">Cliques</th><th class="r">Impressões</th><th class="r">Pos.</th></tr></thead>
-        <tbody id="topQueries"><tr><td colspan="5" class="loading">Carregando...</td></tr></tbody></table>
+        <div class="card-head"><div class="card-title">Top Termos<span class="chip">GSC</span></div><div class="card-more">por cliques</div></div>
+        <table id="tblQueries"><thead><tr>
+          <th onclick="sortTbl('tblQueries',0)" class="sortable">Termo</th>
+          <th onclick="sortTbl('tblQueries',1)" class="sortable r">Cliques</th>
+          <th onclick="sortTbl('tblQueries',2)" class="sortable r">Impr.</th>
+          <th onclick="sortTbl('tblQueries',3)" class="sortable r">Pos.</th>
+        </tr></thead>
+        <tbody id="topQueries"><tr><td colspan="4" class="loading">Carregando...</td></tr></tbody></table>
       </div>
       <div class="card">
         <div class="card-head"><div class="card-title">Top páginas<span class="chip">GSC</span></div><div class="card-more">por cliques</div></div>
-        <table><thead><tr><th>Página</th><th class="r">Cliques</th><th class="r">Pos.</th></tr></thead>
-        <tbody id="topPages"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
+        <table id="tblPages"><thead><tr>
+          <th onclick="sortTbl('tblPages',0)" class="sortable">Página</th>
+          <th onclick="sortTbl('tblPages',1)" class="sortable r">Cliques</th>
+          <th onclick="sortTbl('tblPages',2)" class="sortable r">Impressões</th>
+          <th onclick="sortTbl('tblPages',3)" class="sortable r">Pos.</th>
+        </tr></thead>
+        <tbody id="topPages"><tr><td colspan="4" class="loading">Carregando...</td></tr></tbody></table>
       </div>
     </div>
   </section>
@@ -1363,6 +1378,10 @@ function render(data,cs,ce,ps,pe){
   setEl('hlAiVis', sem.ai_visibility_score ? sem.ai_visibility_score.toFixed(1).replace('.',',') : '38,4');
   setEl('hlAiOv', fmtN(sem.serp_features?.ai_overview || 0));
   setEl('hlIndexed', fmtN(gsc.indexed_pages));
+  setEl('hlTrans',   fmtN(kTrans));
+  setEl('hlTransDesc', dTrans !== null && comparing
+    ? fmtD(dTrans)
+    : `<span class="delta na">sem comparação</span>`);
 
   // ── Header ──
   setEl('gscChartPeriod',`${fmtBR(cs)} → ${fmtBR(ce)}`);
@@ -1576,7 +1595,7 @@ function render(data,cs,ce,ps,pe){
       </tr>`).join(''));
   }
 
-  // ── Top rotas ecommerce — bilhetes + receita por item ──
+  // ── Top rotas ecommerce — transações + receita por item ──
   const routesCur = ga4.routes_daily?.length
     ? aggByPeriod(ga4.routes_daily, 'path', cs, ce, ['sessions','revenue'])
     : (ga4.top_routes||[]);
@@ -1616,8 +1635,7 @@ function render(data,cs,ce,ps,pe){
   const di=gsc.daily_impressions||[];
   const labels=dc.map((_,i)=>i+1+'');
   const datasets=[
-    {label:'Cliques (atual)',data:dc,borderColor:C.bp,backgroundColor:'rgba(25,57,138,.08)',borderWidth:2.5,tension:.4,fill:true,yAxisID:'y'},
-    ...(comparing&&dcp.length?[{label:'Cliques (anterior)',data:dcp,borderColor:C.g4,borderWidth:1.5,borderDash:[5,4],tension:.4,fill:false,yAxisID:'y'}]:[]),
+    {label:'Cliques',data:dc,borderColor:C.bp,backgroundColor:'rgba(25,57,138,.08)',borderWidth:2.5,tension:.4,fill:true,yAxisID:'y'},
     {label:'Impressões',data:di,borderColor:C.ba,borderWidth:2,tension:.4,fill:false,yAxisID:'y1'},
   ];
   lineChart('gscChart',datasets,{labels,y1:true});
@@ -1635,23 +1653,26 @@ function render(data,cs,ce,ps,pe){
   setEl('gscBacklinks',fmtN(gsc.backlinks_total));
 
   // ── Top queries ──
+  // ── Top Termos GSC — com comparativos por posição ──
   const tq=gsc.top_queries||[];
   if(tq.length){
-    setEl('topQueries',tq.map(q=>`
-      <tr>
-        <td>${q.query}</td>
+    setEl('topQueries',tq.map(q=>{
+      const dPos = q.pos_delta != null && q.pos_delta !== 0
+        ? `<span class="delta ${q.pos_delta>0?'up':'dn'}" style="font-size:9px">${q.pos_delta>0?'▲':'▼'}${Math.abs(q.pos_delta).toFixed(1)}</span>` : '';
+      return `<tr>
+        <td style="font-size:11px">${q.query}</td>
         <td class="r">${fmtN(q.clicks)}</td>
         <td class="r">${fmtN(q.impressions)}</td>
-        <td class="r">${(q.position||0).toFixed(1)}</td>
-      </tr>`).join(''));
+        <td class="r">${(q.position||0).toFixed(1)} ${dPos}</td>
+      </tr>`;}).join(''));
   }
 
-  // ── Top páginas ──
+  // ── Top páginas GSC — com impressões e comparativos ──
   const tp=gsc.top_pages||[];
   if(tp.length){
     setEl('topPages',tp.map(p=>`
       <tr>
-        <td class="path">${p.page}</td>
+        <td class="path" style="font-size:11px">${p.page||p.path||''}</td>
         <td class="r">${fmtN(p.clicks)}</td>
         <td class="r">${fmtN(p.impressions||0)}</td>
         <td class="r">${(p.position||0).toFixed(1)}</td>
