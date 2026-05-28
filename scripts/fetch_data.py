@@ -137,7 +137,8 @@ def fetch_ga4_api():
     """
     ga4_creds = get_ga4_oauth_creds()
     if not ga4_creds:
-        raise Exception("GA4 OAuth credentials não configuradas")
+        raise Exception("GA4 OAuth credentials não configuradas — verifique os 3 secrets GA4_OAUTH_*")
+    print(f"    → GA4 OAuth: credenciais obtidas, acessando property {GA4_PROPERTY_ID}...")
     client = BetaAnalyticsDataClient(credentials=ga4_creds)
 
     def rpt(metrics, dims=None, date_ranges=None, limit=100, dim_filter=None):
@@ -512,19 +513,9 @@ def fetch_semrush():
         # Testar key antes com chamada simples
         test = sem({"type":"domain_rank","domain":SEMRUSH_DOMAIN,"database":"br","export_columns":"Or,Ot,Et"})
         print(f"    Semrush test: {test[:80]}")
-        # Paginação: 3 chamadas de 1000 para evitar timeout
-        all_lines = []
-        for offset in [0, 1000, 2000]:
-            chunk = sem({"type":"domain_organic","domain":SEMRUSH_DOMAIN,"database":"br",
-                         "display_limit":1000,"display_offset":offset,
-                         "export_columns":"Ph,Po,Nq,Fk"})
-            chunk_lines = [l.split(";") for l in chunk.strip().split("\n")[1:] if l and ";" in l]
-            if not chunk_lines: break
-            all_lines.extend(chunk_lines)
-            if len(chunk_lines) < 1000: break
-        kw_raw = "\n".join(";".join(l) for l in all_lines)
-        lines = [l if isinstance(l,list) else l.split(";") for l in 
-                 (all_lines if all_lines else [l.split(";") for l in kw_raw.strip().split("\n") if l and ";" in l])]
+        kw_raw = sem({"type":"domain_organic","domain":SEMRUSH_DOMAIN,"database":"br",
+                       "display_limit":5000,"export_columns":"Ph,Po,Fk"})
+        lines = [l.split(";") for l in kw_raw.strip().split("\n")[1:] if l and ";" in l]
         top1=top3=top10=top20=serp_ai=serp_fs=serp_paa=serp_sl=0
         for p in lines:
             if len(p)<2: continue
@@ -621,7 +612,16 @@ def fetch_ga4():
         log_ok("GA4 (API)")
         return
     except Exception as e:
-        log_err("GA4 API", traceback.format_exc())
+        # Identificar tipo exato do erro gRPC
+        err_type = type(e).__name__
+        err_msg  = str(e)[:300]
+        print(f"    → GA4 erro: [{err_type}] {err_msg}")
+        # Tentar extrair código gRPC se disponível
+        if hasattr(e, 'grpc_status_code'):
+            print(f"    → gRPC status: {e.grpc_status_code}")
+        if hasattr(e, 'errors'):
+            print(f"    → details: {e.errors}")
+        log_err("GA4 API", f"{err_type}: {err_msg}")
     # Fallback: CSVs segmentados
     if os.path.exists("ga4/seo_traffic.csv"):
         try:
