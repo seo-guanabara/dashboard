@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-28T15:13:05.915295Z",
+    "generated_at": "2026-05-28T16:26:12.086342Z",
     "period_current": {
       "start": "2026-04-25",
       "end": "2026-05-24"
@@ -15572,6 +15572,73 @@
       "cwv_daily_bad": [],
       "cwv_daily_ok": [],
       "backlinks_total": 0
+    }
+  },
+  "viva_blog": {
+    "ga4": {
+      "source": "api",
+      "period_start": "2026-04-25",
+      "period_end": "2026-05-24",
+      "sessions": 3395,
+      "sessions_delta": 367.6,
+      "new_users": 3006,
+      "transactions": 0,
+      "revenue": 0.0,
+      "revenue_delta": 0.0,
+      "revenue_ytd": 0.0,
+      "conv_rate": 0.0,
+      "top_pages": [
+        {
+          "path": "/aniversario-viva/",
+          "sessions": 2843,
+          "revenue": 0.0
+        },
+        {
+          "path": "/",
+          "sessions": 859,
+          "revenue": 0.0
+        },
+        {
+          "path": "/category/viagens/",
+          "sessions": 315,
+          "revenue": 0.0
+        },
+        {
+          "path": "/tudo-que-voce-precisa-saber-antes-de-viajar-de-onibus/",
+          "sessions": 76,
+          "revenue": 0.0
+        },
+        {
+          "path": "/5-comidas-tipicas-do-norte-do-brasil/",
+          "sessions": 54,
+          "revenue": 0.0
+        },
+        {
+          "path": "/category/economia/",
+          "sessions": 54,
+          "revenue": 0.0
+        },
+        {
+          "path": "/comida-mineira-que-voce-precisa-experimentar/",
+          "sessions": 37,
+          "revenue": 0.0
+        },
+        {
+          "path": "/ecoturismo-cuide-do-planeta-enquanto-se-diverte-2/",
+          "sessions": 26,
+          "revenue": 0.0
+        },
+        {
+          "path": "/quando-como-e-onde-um-roteiro-completo-para-visitar-natal-rn/",
+          "sessions": 23,
+          "revenue": 0.0
+        },
+        {
+          "path": "/voce-conhece-a-maior-viagem-de-onibus-do-mundo/",
+          "sessions": 23,
+          "revenue": 0.0
+        }
+      ]
     }
   },
   "viva": {
