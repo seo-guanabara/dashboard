@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-28T14:30:30.865917Z",
+    "generated_at": "2026-05-28T14:48:46.446038Z",
     "period_current": {
       "start": "2026-04-28",
       "end": "2026-05-27"
@@ -11331,13 +11331,14 @@
   "play": {
     "status": "pending_permission"
   },
-  "semrush": {},
+  "semrush": {
+    "_note": "domain_organic atualizado em 2026-05-01"
+  },
   "gtmetrix": {
     "pages": []
   },
   "errors": [
-    "GA4 API: PermissionDenied: 403 User does not have sufficient permissions for this property. To learn more about Property ID, see https://developers.google.com/analytics/devguides/reporting/data/v1/property-id.",
-    "Semrush: Traceback (most recent call last):\n  File \"/home/runner/work/dashboard/dashboard/scripts/fetch_data.py\", line 516, in fetch_semrush\n    kw_raw = sem({\"type\":\"domain_organic\",\"domain\":SEMRUSH_DOMAIN,\"d"
+    "GA4 API: InvalidArgument: 400 Field dateRange is not a dimension. This field can be used in a Pivot or OrderBy like a dimension, but does not need to be listed in the Dimensions."
   ],
   "blog": {
     "ga4": {
