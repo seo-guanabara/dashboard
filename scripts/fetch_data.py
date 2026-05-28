@@ -45,12 +45,39 @@ ytd_start = date(today.year, 1, 1).isoformat()
 
 print(f"  Referência: hoje {today} → último domingo {last_sunday}")
 
-LLM_SOURCES = {
-    "chatgpt.com / referral","chatgpt.com / (not set)","chatgpt.com / (none)",
-    "gemini.google.com / referral",
-    "copilot.microsoft.com / referral","copilot.com / referral","copilot.com / (not set)",
-    "perplexity / (not set)","claude.ai / referral","l.meta.ai / referral",
+# Fontes de tráfego orgânico (buscadores)
+ORGANIC_SOURCES = {
+    "google / organic", "bing / organic", "duckduckgo / organic",
+    "yahoo / organic", "ecosia.org / organic", "yandex / organic",
+    "qwant.com / organic", "baidu / organic",
 }
+
+# Fontes de LLMs / IA generativa
+LLM_SOURCES = {
+    # ChatGPT / OpenAI
+    "chatgpt.com / referral", "chatgpt.com / (not set)", "chatgpt.com / (none)",
+    "chat.openai.com / referral",
+    # Google
+    "gemini.google.com / referral", "aistudio.google.com / referral",
+    # Microsoft Copilot
+    "copilot.microsoft.com / referral", "copilot.com / referral",
+    "copilot.com / (not set)", "copilot.ai / referral",
+    # Perplexity
+    "perplexity.ai / referral", "perplexity / (not set)", "perplexity.ai / (not set)",
+    # Anthropic
+    "claude.ai / referral", "claude.com / referral",
+    # Meta
+    "l.meta.ai / referral", "l.meta.ai / (not set)",
+    # Outros LLMs
+    "poe.com / referral", "you.com / referral", "phind.com / referral",
+    "grok.com / referral", "grok.x.ai / referral",
+    "chat.mistral.ai / referral", "mistral.ai / referral",
+    "character.ai / referral", "heypi.com / referral",
+    "manus.im / referral",
+}
+
+# SEO = orgânico + LLMs (usado como filtro nos big numbers)
+SEO_SOURCES = ORGANIC_SOURCES | LLM_SOURCES
 
 # ─── CREDENTIALS ──────────────────────────────────────────────────────────────
 SEMRUSH_KEY  = os.environ.get("SEMRUSH_API_KEY", "")
@@ -161,7 +188,8 @@ def _n(v):
 def fetch_ga4_api():
     """
     Busca GA4 com credenciais OAuth do usuário.
-    Retorna dados diários dos últimos 90 dias para todos os 3 property IDs.
+    Aplica filtro SEO (orgânico + LLMs) nos big numbers.
+    Retorna dados diários dos últimos 90 dias.
     """
     ga4_creds = get_ga4_oauth_creds()
     if not ga4_creds:
@@ -187,8 +215,16 @@ def fetch_ga4_api():
         try: return float(row.metric_values[i].value)
         except: return 0.0
 
-    # ── KPIs totais ──
-    r = rpt(["sessions","newUsers","transactions","purchaseRevenue"])
+    # Filtro SEO — aplicado em todas as métricas de big numbers
+    seo_filter = FilterExpression(
+        filter=Filter(
+            field_name="sessionSourceMedium",
+            in_list_filter=Filter.InListFilter(values=sorted(SEO_SOURCES))
+        )
+    )
+
+    # ── KPIs totais — COM filtro SEO ──
+    r = rpt(["sessions","newUsers","transactions","purchaseRevenue"], dim_filter=seo_filter)
     cur = {row.dimension_values[0].value: row for row in r.rows if row.dimension_values[0].value == "date_range_0"}
     prv = {row.dimension_values[0].value: row for row in r.rows if row.dimension_values[0].value == "date_range_1"}
 
@@ -224,11 +260,12 @@ def fetch_ga4_api():
     r2 = client.run_report(RunReportRequest(
         property=f"properties/{GA4_PROPERTY_ID}",
         metrics=[Metric(name="sessions")],
-        dimensions=[Dimension(name="newVsReturning")],  # dateRange é implícito — não declarar
+        dimensions=[Dimension(name="newVsReturning")],
         date_ranges=[
             DateRange(start_date=p_start, end_date=p_end),
             DateRange(start_date=c_start, end_date=c_end),
         ],
+        dimension_filter=seo_filter,  # filtro SEO
         limit=10,
     ))
     returning_cur = returning_prv = 0
@@ -248,6 +285,7 @@ def fetch_ga4_api():
         metrics=[Metric(name=m) for m in ["sessions","newUsers","transactions","purchaseRevenue"]],
         dimensions=[Dimension(name="date")],
         date_ranges=[DateRange(start_date=daily_start, end_date=p_end)],
+        dimension_filter=seo_filter,  # filtro SEO — big numbers só SEO
         limit=90,
     ))
     daily_rows = sorted(r3.rows, key=lambda x: x.dimension_values[0].value)
@@ -277,6 +315,29 @@ def fetch_ga4_api():
         "transactions": sum(c["transactions"] for c in channels),
         "revenue":      sum(c["revenue"]      for c in channels),
     }
+
+    # ── Breakdown por origem SEO (para card Orgânico vs LLMs) ──
+    r_src = client.run_report(RunReportRequest(
+        property=f"properties/{GA4_PROPERTY_ID}",
+        metrics=[Metric(name=m) for m in ["sessions","transactions","purchaseRevenue"]],
+        dimensions=[Dimension(name="sessionSourceMedium")],
+        date_ranges=[DateRange(start_date=p_start, end_date=p_end)],
+        dimension_filter=seo_filter,
+        limit=50,
+    ))
+    seo_by_source = []
+    seo_llm_total = {"sessions":0,"transactions":0,"revenue":0.0}
+    seo_total_all = {"sessions":0,"transactions":0,"revenue":0.0}
+    for row in r_src.rows:
+        src = row.dimension_values[0].value
+        s   = int(mv(row,0)); tx = int(mv(row,1)); rev = round(mv(row,2),2)
+        is_llm = src in LLM_SOURCES
+        seo_by_source.append({"source":src,"sessions":s,"transactions":tx,"revenue":rev,"is_llm":is_llm})
+        seo_total_all["sessions"] += s; seo_total_all["transactions"] += tx; seo_total_all["revenue"] += rev
+        if is_llm:
+            seo_llm_total["sessions"] += s; seo_llm_total["transactions"] += tx; seo_llm_total["revenue"] += rev
+    seo_by_source.sort(key=lambda x: x["revenue"], reverse=True)
+    seo_organic_total = {k: seo_total_all[k]-seo_llm_total[k] for k in seo_total_all}
 
     # ── Top páginas de rotas ──
     r5 = client.run_report(RunReportRequest(
@@ -326,6 +387,14 @@ def fetch_ga4_api():
         "daily_start":       daily_start,
         "channels":          channels,
         "total_all":         total_all,
+        "seo_total":         seo_total_all,
+        "seo_organic":       seo_organic_total,
+        "seo_llm":           seo_llm_total,
+        "seo_by_source":     seo_by_source,
+        "seo_share":         {
+            "sessions_pct": round(seo_total_all["sessions"]/max(total_all["sessions"],1)*100,1),
+            "revenue_pct":  round(seo_total_all["revenue"]/max(total_all["revenue"],1)*100,1),
+        },
         "top_routes":        top_routes,
         "conv_rate":         round(trans/sessions*100, 2) if sessions else 0,
     }
