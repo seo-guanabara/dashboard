@@ -67,6 +67,27 @@ from googleapiclient.discovery import build
 creds, _ = google.auth.default(scopes=SCOPES)
 creds.refresh(Request())
 
+# OAuth credentials para GA4 (conta jorge.santos@ com acesso às propriedades)
+GA4_OAUTH_CLIENT_ID     = os.environ.get("GA4_OAUTH_CLIENT_ID", "")
+GA4_OAUTH_CLIENT_SECRET = os.environ.get("GA4_OAUTH_CLIENT_SECRET", "")
+GA4_OAUTH_REFRESH_TOKEN = os.environ.get("GA4_OAUTH_REFRESH_TOKEN", "")
+
+def get_ga4_oauth_creds():
+    """Cria credenciais OAuth do usuário para acesso ao GA4."""
+    if not all([GA4_OAUTH_CLIENT_ID, GA4_OAUTH_CLIENT_SECRET, GA4_OAUTH_REFRESH_TOKEN]):
+        return None
+    from google.oauth2.credentials import Credentials
+    c = Credentials(
+        token=None,
+        refresh_token=GA4_OAUTH_REFRESH_TOKEN,
+        token_uri="https://oauth2.googleapis.com/token",
+        client_id=GA4_OAUTH_CLIENT_ID,
+        client_secret=GA4_OAUTH_CLIENT_SECRET,
+        scopes=["https://www.googleapis.com/auth/analytics.readonly"],
+    )
+    c.refresh(Request())
+    return c
+
 output = {
     "meta": {
         "generated_at": datetime.utcnow().isoformat() + "Z",
@@ -108,9 +129,16 @@ def _n(v):
     try: return float(str(v).replace(",",".").strip())
     except: return 0.0
 
-# ─── GA4 API ──────────────────────────────────────────────────────────────────
+# ─── GA4 API (OAuth) ──────────────────────────────────────────────────────────
 def fetch_ga4_api():
-    client = BetaAnalyticsDataClient(credentials=creds)
+    """
+    Busca GA4 com credenciais OAuth do usuário.
+    Retorna dados diários dos últimos 90 dias para todos os 3 property IDs.
+    """
+    ga4_creds = get_ga4_oauth_creds()
+    if not ga4_creds:
+        raise Exception("GA4 OAuth credentials não configuradas")
+    client = BetaAnalyticsDataClient(credentials=ga4_creds)
 
     def rpt(metrics, dims=None, date_ranges=None, limit=100, dim_filter=None):
         kwargs = dict(
@@ -173,15 +201,22 @@ def fetch_ga4_api():
         if nv == "returning" and dr == "date_range_1": returning_prv = val
 
     # ── Daily sessions ──
+    # Dados diários dos últimos 90 dias — permite filtro dinâmico no frontend
+    daily_start = (today - timedelta(days=89)).isoformat()
     r3 = client.run_report(RunReportRequest(
         property=f"properties/{GA4_PROPERTY_ID}",
-        metrics=[Metric(name="sessions")],
+        metrics=[Metric(name=m) for m in ["sessions","newUsers","transactions","purchaseRevenue"]],
         dimensions=[Dimension(name="date")],
-        date_ranges=[DateRange(start_date=p_start, end_date=p_end)],
-        limit=31,
+        date_ranges=[DateRange(start_date=daily_start, end_date=p_end)],
+        limit=90,
     ))
-    daily = [int(row.metric_values[0].value)
-             for row in sorted(r3.rows, key=lambda x: x.dimension_values[0].value)]
+    daily_rows = sorted(r3.rows, key=lambda x: x.dimension_values[0].value)
+    daily_dates    = [r.dimension_values[0].value for r in daily_rows]
+    daily_sessions = [int(r.metric_values[0].value) for r in daily_rows]
+    daily_new      = [int(r.metric_values[1].value) for r in daily_rows]
+    daily_trans    = [int(r.metric_values[2].value) for r in daily_rows]
+    daily_revenue  = [round(float(r.metric_values[3].value),2) for r in daily_rows]
+    daily = daily_sessions  # compatibilidade
 
     # ── Channels para share ──
     r4 = rpt(["sessions","transactions","purchaseRevenue"],
@@ -243,6 +278,11 @@ def fetch_ga4_api():
         "revenue_delta":     pct(revenue, p_revenue),
         "revenue_ytd":       revenue_ytd,
         "daily_sessions":    daily,
+        "daily_dates":       daily_dates,
+        "daily_new":         daily_new,
+        "daily_trans":       daily_trans,
+        "daily_revenue":     daily_revenue,
+        "daily_start":       daily_start,
         "channels":          channels,
         "total_all":         total_all,
         "top_routes":        top_routes,
