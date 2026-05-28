@@ -502,7 +502,13 @@ def fetch_semrush():
         base="https://api.semrush.com/"
         def sem(p):
             p["key"]=SEMRUSH_KEY
-            r=requests.get(base,params=p,timeout=45); r.raise_for_status(); return r.text
+            r=requests.get(base,params=p,timeout=45)
+            if r.status_code != 200:
+                print(f"    → Semrush HTTP {r.status_code}: {r.text[:200]}")
+            r.raise_for_status()
+            if r.text.startswith("ERROR"):
+                raise Exception(f"Semrush API error: {r.text[:200]}")
+            return r.text
         # Testar key antes com chamada simples
         test = sem({"type":"domain_rank","domain":SEMRUSH_DOMAIN,"database":"br","export_columns":"Or,Ot,Et"})
         print(f"    Semrush test: {test[:80]}")
@@ -563,14 +569,10 @@ def fetch_semrush():
             "competitors":comp_data,
         }
         log_ok("Semrush")
-    except requests.exceptions.HTTPError as e:
-        body = e.response.text[:500] if hasattr(e,'response') and e.response else ''
-        status = e.response.status_code if hasattr(e,'response') and e.response else '?'
-        log_err("Semrush", f"HTTP {status} | {body}")
-        if status == 403:
-            print("    → Semrush 403: verifique a chave API e o plano (domain_organic requer plano Guru+)")
     except Exception as e:
-        log_err("Semrush", traceback.format_exc())
+        err_detail = traceback.format_exc()
+        log_err("Semrush", err_detail[:400])
+        print(f"    → Semrush erro tipo: {type(e).__name__}")
 
 # ─── GTMETRIX ─────────────────────────────────────────────────────────────────
 def fetch_gtmetrix():
