@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-28T18:29:06.477065Z",
+    "generated_at": "2026-05-28T18:49:48.149265Z",
     "period_current": {
       "start": "2026-04-25",
       "end": "2026-05-24"
@@ -482,9 +482,9 @@
     "channels": [
       {
         "channel": "Paid Search",
-        "sessions": 810601,
-        "transactions": 79064,
-        "revenue": 12197697.66
+        "sessions": 527495,
+        "transactions": 52197,
+        "revenue": 8041202.89
       },
       {
         "channel": "Direct",
@@ -493,82 +493,112 @@
         "revenue": 5730705.39
       },
       {
-        "channel": "Organic Search",
-        "sessions": 279171,
-        "transactions": 19900,
-        "revenue": 3086008.23
+        "channel": "Paid",
+        "sessions": 346772,
+        "transactions": 29166,
+        "revenue": 4565886.58
       },
       {
-        "channel": "Cross-network",
-        "sessions": 183490,
-        "transactions": 7957,
-        "revenue": 1466128.4
+        "channel": "Organic Search",
+        "sessions": 183323,
+        "transactions": 13733,
+        "revenue": 2109596.8
       },
       {
         "channel": "Unassigned",
-        "sessions": 23943,
-        "transactions": 5199,
-        "revenue": 1116636.95
+        "sessions": 25800,
+        "transactions": 5984,
+        "revenue": 1116805.11
+      },
+      {
+        "channel": "Cross-network",
+        "sessions": 112262,
+        "transactions": 5358,
+        "revenue": 999414.77
+      },
+      {
+        "channel": "Orgânico",
+        "sessions": 91015,
+        "transactions": 6020,
+        "revenue": 942068.5
       },
       {
         "channel": "Organic Social",
-        "sessions": 24725,
-        "transactions": 6769,
-        "revenue": 967177.29
+        "sessions": 16165,
+        "transactions": 4462,
+        "revenue": 631813.11
       },
       {
-        "channel": "Mobile Push Notifications",
-        "sessions": 79235,
-        "transactions": 1379,
-        "revenue": 206314.14
+        "channel": "CRM",
+        "sessions": 33025,
+        "transactions": 2106,
+        "revenue": 439639.18
       },
       {
         "channel": "Referral",
-        "sessions": 6567,
-        "transactions": 474,
-        "revenue": 110884.0
+        "sessions": 7727,
+        "transactions": 621,
+        "revenue": 142678.81
+      },
+      {
+        "channel": "Mobile Push Notifications",
+        "sessions": 52166,
+        "transactions": 807,
+        "revenue": 109245.66
+      },
+      {
+        "channel": "Social Orgânico",
+        "sessions": 3769,
+        "transactions": 215,
+        "revenue": 39321.74
+      },
+      {
+        "channel": "Not set",
+        "sessions": 1326,
+        "transactions": 117,
+        "revenue": 20564.23
       },
       {
         "channel": "Email",
-        "sessions": 1723,
-        "transactions": 80,
-        "revenue": 13207.95
+        "sessions": 1489,
+        "transactions": 59,
+        "revenue": 8405.8
       },
       {
         "channel": "Paid Social",
-        "sessions": 2569,
-        "transactions": 38,
-        "revenue": 4915.31
+        "sessions": 560,
+        "transactions": 20,
+        "revenue": 2822.91
       },
       {
         "channel": "Organic Video",
-        "sessions": 275,
-        "transactions": 17,
-        "revenue": 2214.64
-      },
-      {
-        "channel": "Display",
-        "sessions": 11,
-        "transactions": 6,
-        "revenue": 879.8
+        "sessions": 209,
+        "transactions": 15,
+        "revenue": 1939.65
       },
       {
         "channel": "Paid Video",
-        "sessions": 63,
+        "sessions": 9,
         "transactions": 5,
         "revenue": 811.56
       },
       {
+        "channel": "Display",
+        "sessions": 5,
+        "transactions": 3,
+        "revenue": 658.63
+      },
+      {
         "channel": "Organic Shopping",
-        "sessions": 16,
+        "sessions": 9,
         "transactions": 0,
         "revenue": 0.0
       }
     ],
     "total_all": {
-      "sessions": 1614936,
+      "sessions": 1605673,
       "transactions": 159272,
-      "revenue": 24903581.319999997
+      "revenue": 24903581.319999993
     },
     "seo_total": {
       "sessions": 275423,
@@ -700,7 +730,7 @@
       }
     ],
     "seo_share": {
-      "sessions_pct": 17.1,
+      "sessions_pct": 17.2,
       "revenue_pct": 12.0
     },
     "top_routes": [
