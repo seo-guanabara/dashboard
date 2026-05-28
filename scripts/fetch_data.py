@@ -10,8 +10,9 @@ import requests
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
 GA4_PROPERTY_ID       = "326912205"  # Guanabara – GA4 (propriedade correta; 152511726 era a conta)
-GA4_BLOG_PROPERTY_ID  = "359547158"
-GA4_VIVA_PROPERTY_ID  = "202055102"
+GA4_BLOG_PROPERTY_ID       = "359547158"   # blog.viajeguanabara.com.br
+GA4_VIVA_SITE_PROPERTY_ID  = "408616783"   # vivafidelidade.com.br
+GA4_VIVA_BLOG_PROPERTY_ID  = "394575329"   # blog.vivafidelidade.com.br
 GSC_SITE_URL          = "https://viajeguanabara.com.br/"
 GSC_BLOG_URL          = "https://blog.viajeguanabara.com.br/"
 GSC_VIVA_URL          = "https://www.vivafidelidade.com.br/"
@@ -756,9 +757,12 @@ def fetch_ga4_csv_generic(folder, label, prefix=""):
 
 # ─── GA4 BLOG ─────────────────────────────────────────────────────────────────
 def fetch_ga4_property(property_id, label):
-    """Busca KPIs básicos de uma propriedade GA4."""
+    """Busca KPIs básicos de uma propriedade GA4 via OAuth."""
     try:
-        client = BetaAnalyticsDataClient(credentials=creds)
+        ga4_creds = get_ga4_oauth_creds()
+        if not ga4_creds:
+            raise Exception("OAuth não configurado")
+        client = BetaAnalyticsDataClient(credentials=ga4_creds)
         r = client.run_report(RunReportRequest(
             property=f"properties/{property_id}",
             metrics=[Metric(name=m) for m in ["sessions","newUsers","purchaseRevenue","transactions"]],
@@ -1009,7 +1013,7 @@ output["blog"] = {
            "Blog"),
 }
 
-# ── Viva — GA4: viva/ga4_*.csv | GSC: viva/gsc/site + viva/gsc/blog ──
+# ── Viva — GA4 site + blog ──
 viva_ga4 = {}
 if os.path.exists("viva/ga4_seo_traffic.csv"):
     try:
@@ -1017,7 +1021,12 @@ if os.path.exists("viva/ga4_seo_traffic.csv"):
     except Exception as e:
         log_err("GA4 Viva CSV", str(e))
 if not viva_ga4:
-    viva_ga4 = fetch_ga4_property(GA4_VIVA_PROPERTY_ID, "Viva")
+    viva_ga4 = fetch_ga4_property(GA4_VIVA_SITE_PROPERTY_ID, "Viva site")
+
+# Viva blog — propriedade separada
+viva_blog_ga4 = fetch_ga4_property(GA4_VIVA_BLOG_PROPERTY_ID, "Viva blog")
+if viva_blog_ga4:
+    output["viva_blog"] = {"ga4": viva_blog_ga4}
 
 # GSC Viva — site + blog agregados
 viva_gsc_site = fetch_gsc_property(GSC_VIVA_URL, "viva/gsc/site", "Viva site")
