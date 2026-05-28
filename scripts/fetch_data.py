@@ -9,7 +9,7 @@ from datetime import datetime, timedelta, date
 import requests
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────────
-GA4_PROPERTY_ID       = "152511726"
+GA4_PROPERTY_ID       = "326912205"  # Guanabara – GA4 (propriedade correta; 152511726 era a conta)
 GA4_BLOG_PROPERTY_ID  = "359547158"
 GA4_VIVA_PROPERTY_ID  = "202055102"
 GSC_SITE_URL          = "https://viajeguanabara.com.br/"
@@ -73,7 +73,26 @@ GA4_OAUTH_CLIENT_SECRET = os.environ.get("GA4_OAUTH_CLIENT_SECRET", "")
 GA4_OAUTH_REFRESH_TOKEN = os.environ.get("GA4_OAUTH_REFRESH_TOKEN", "")
 
 def get_ga4_oauth_creds():
-    """Cria credenciais OAuth do usuário para acesso ao GA4."""
+    """
+    Tenta credenciais na seguinte ordem:
+    1. JSON do service account agente-ga4 (se GA4_SA_JSON estiver configurado)
+    2. OAuth do usuário (GA4_OAUTH_* secrets)
+    """
+    # Opção 1: service account JSON (mais estável)
+    sa_json = os.environ.get("GA4_SA_JSON", "")
+    if sa_json:
+        try:
+            import json as _json
+            from google.oauth2.service_account import Credentials as SACredentials
+            sa_info = _json.loads(sa_json)
+            return SACredentials.from_service_account_info(
+                sa_info,
+                scopes=["https://www.googleapis.com/auth/analytics.readonly"]
+            )
+        except Exception as e:
+            print(f"    → GA4 SA JSON falhou: {e}")
+
+    # Opção 2: OAuth do usuário
     if not all([GA4_OAUTH_CLIENT_ID, GA4_OAUTH_CLIENT_SECRET, GA4_OAUTH_REFRESH_TOKEN]):
         return None
     from google.oauth2.credentials import Credentials
@@ -510,7 +529,18 @@ def fetch_semrush():
             if r.text.startswith("ERROR"):
                 raise Exception(f"Semrush API error: {r.text[:200]}")
             return r.text
-        # Testar key antes com chamada simples
+
+        # domain_organic consome 10k créditos — só roda no dia 1 de cada mês
+        is_first_of_month = (today.day == 1)
+
+        if not is_first_of_month:
+            # Manter dados do último relatório mensal se existirem no output
+            print(f"    Semrush: dia {today.day} — domain_organic reservado para dia 1 do mês")
+            log_ok("Semrush (sem atualização hoje — preservando créditos)")
+            output["semrush"]["_note"] = f"domain_organic atualizado em {today.replace(day=1).isoformat()}"
+            return
+
+        # Dia 1: rodar relatório completo
         test = sem({"type":"domain_rank","domain":SEMRUSH_DOMAIN,"database":"br","export_columns":"Or,Ot,Et"})
         print(f"    Semrush test: {test[:80]}")
         kw_raw = sem({"type":"domain_organic","domain":SEMRUSH_DOMAIN,"database":"br",
