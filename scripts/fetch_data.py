@@ -513,6 +513,48 @@ def fetch_gsc():
     except Exception as e:
         log_err("GSC", traceback.format_exc())
 
+# ─── WORDPRESS BLOG ───────────────────────────────────────────────────────────
+def fetch_wp_blog():
+    """Conta artigos publicados no blog via WordPress REST API (pública, sem auth)."""
+    try:
+        wp_base = "https://blog.viajeguanabara.com.br/wp-json/wp/v2/posts"
+        last_sunday_iso = last_sunday.isoformat()
+        first_month = date(today.year, today.month, 1).isoformat()
+
+        # Total de artigos publicados
+        r = requests.get(wp_base, params={"per_page": 1, "status": "publish"}, timeout=10)
+        total_posts = int(r.headers.get("X-WP-Total", 0))
+
+        # Novos artigos no mês corrente (até último domingo)
+        r2 = requests.get(wp_base, params={
+            "after":    f"{first_month}T00:00:00",
+            "before":   f"{last_sunday_iso}T23:59:59",
+            "status":   "publish",
+            "per_page": 100,
+        }, timeout=10)
+        new_this_month = int(r2.headers.get("X-WP-Total", 0))
+
+        # Novos artigos no mês anterior (para comparação)
+        prev_month_end   = date(today.year, today.month, 1) - timedelta(days=1)
+        prev_month_start = date(prev_month_end.year, prev_month_end.month, 1)
+        r3 = requests.get(wp_base, params={
+            "after":    f"{prev_month_start.isoformat()}T00:00:00",
+            "before":   f"{prev_month_end.isoformat()}T23:59:59",
+            "status":   "publish",
+            "per_page": 100,
+        }, timeout=10)
+        new_prev_month = int(r3.headers.get("X-WP-Total", 0))
+
+        output["blog"]["wp"] = {
+            "total_posts":     total_posts,
+            "new_this_month":  new_this_month,
+            "new_prev_month":  new_prev_month,
+            "new_delta":       pct(new_this_month, new_prev_month) if new_prev_month else 0,
+        }
+        log_ok(f"WordPress Blog — {total_posts} artigos, {new_this_month} novos no mês")
+    except Exception as e:
+        log_err("WordPress Blog", str(e))
+
 # ─── YOUTUBE ──────────────────────────────────────────────────────────────────
 def fetch_youtube():
     output["youtube"]={"views":0,"views_delta":0,"watch_time":0,
@@ -765,6 +807,21 @@ def fetch_ga4_property(property_id, label):
         client = BetaAnalyticsDataClient(credentials=ga4_creds)
         r = client.run_report(RunReportRequest(
             property=f"properties/{property_id}",
+            metrics=[Metric(name=m) for m in ["sessions","newUsers","purchaseRevenue","transactions","eventCount"]],
+            dimensions=[Dimension(name="eventName")],
+            date_ranges=[
+                DateRange(start_date=p_start, end_date=p_end),
+                DateRange(start_date=c_start, end_date=c_end),
+            ],
+            limit=50,
+            dimension_filter=FilterExpression(
+                filter=Filter(
+                    field_name="eventName",
+                    in_list_filter=Filter.InListFilter(values=["sign_up", "(not set)"])
+                )
+            ) if label in ("Viva site", "Viva") else None,
+        ) if label in ("Viva site", "Viva") else RunReportRequest(
+            property=f"properties/{property_id}",
             metrics=[Metric(name=m) for m in ["sessions","newUsers","purchaseRevenue","transactions"]],
             date_ranges=[
                 DateRange(start_date=p_start, end_date=p_end),
@@ -772,16 +829,42 @@ def fetch_ga4_property(property_id, label):
             ],
             limit=10,
         ))
-        def gv(rows, dr, mi):
-            row = next((r for r in rows if r.dimension_values[0].value == dr), None)
-            return float(row.metric_values[mi].value) if row else 0.0
+        # Com dimensão eventName (Viva): agregar todas as linhas por dateRange
+        # Sem dimensão (outros): row única por dateRange
+        is_viva = label in ("Viva site", "Viva")
 
-        sessions  = int(gv(r.rows, "date_range_0", 0))
-        new_users = int(gv(r.rows, "date_range_0", 1))
-        revenue   = round(gv(r.rows, "date_range_0", 2), 2)
-        trans     = int(gv(r.rows, "date_range_0", 3))
-        p_sess    = int(gv(r.rows, "date_range_1", 0))
-        p_rev     = round(gv(r.rows, "date_range_1", 2), 2)
+        def sum_metric(rows, dr, mi):
+            return sum(float(row.metric_values[mi].value)
+                       for row in rows
+                       if (row.dimension_values[-1].value if row.dimension_values else "date_range_0") == dr)
+
+        if is_viva:
+            sessions  = int(sum_metric(r.rows, "date_range_0", 0))
+            new_users = int(sum_metric(r.rows, "date_range_0", 1))
+            revenue   = round(sum_metric(r.rows, "date_range_0", 2), 2)
+            trans     = int(sum_metric(r.rows, "date_range_0", 3))
+            p_sess    = int(sum_metric(r.rows, "date_range_1", 0))
+            p_rev     = round(sum_metric(r.rows, "date_range_1", 2), 2)
+            # sign_up events
+            signup_cur  = int(sum(float(row.metric_values[4].value)
+                                  for row in r.rows
+                                  if row.dimension_values[0].value == "sign_up"
+                                  and row.dimension_values[-1].value == "date_range_0"))
+            signup_prev = int(sum(float(row.metric_values[4].value)
+                                  for row in r.rows
+                                  if row.dimension_values[0].value == "sign_up"
+                                  and row.dimension_values[-1].value == "date_range_1"))
+        else:
+            def gv(rows, dr, mi):
+                row = next((r for r in rows if r.dimension_values[0].value == dr), None)
+                return float(row.metric_values[mi].value) if row else 0.0
+            sessions  = int(gv(r.rows, "date_range_0", 0))
+            new_users = int(gv(r.rows, "date_range_0", 1))
+            revenue   = round(gv(r.rows, "date_range_0", 2), 2)
+            trans     = int(gv(r.rows, "date_range_0", 3))
+            p_sess    = int(gv(r.rows, "date_range_1", 0))
+            p_rev     = round(gv(r.rows, "date_range_1", 2), 2)
+            signup_cur = signup_prev = 0
 
         # YTD
         r_ytd = client.run_report(RunReportRequest(
@@ -814,6 +897,8 @@ def fetch_ga4_property(property_id, label):
             "revenue_ytd": revenue_ytd,
             "conv_rate": round(trans/sessions*100, 2) if sessions else 0,
             "top_pages": top_pages,
+            "sign_up": signup_cur,
+            "sign_up_delta": pct(signup_cur, signup_prev),
         }
         log_ok(f"GA4 {label} (API)")
         return result
@@ -997,6 +1082,7 @@ if os.path.exists("ga4/carriers.csv"):
         log_err("GA4 carriers", str(e))
 
 # ── Blog ──
+fetch_wp_blog()
 blog_ga4 = {}
 if os.path.exists("ga4_blog/seo_traffic.csv"):
     try:
