@@ -46,6 +46,8 @@ html,body{font-family:var(--ff);font-size:14px;color:var(--g8);background:#0F152
 .preset-btn{height:28px;padding:0 10px;border:1px solid var(--g4);border-radius:var(--r-pill);font-family:var(--ff);font-size:11px;font-weight:700;color:var(--g7);background:#1A2235;cursor:pointer;transition:all .15s;white-space:nowrap}
 .preset-btn:hover{border-color:var(--bp);color:var(--bp)}
 .preset-btn.active{background:var(--bp);color:#fff;border-color:var(--bp)}
+.preset-btn.cmp-btn{border-color:rgba(195,148,15,.5);color:var(--bb)}
+.preset-btn.cmp-btn:hover{background:var(--bb);color:#fff;border-color:var(--bb)}
 .period-bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .period-group{display:flex;align-items:center;gap:8px}
 .period-label{font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
@@ -233,18 +235,17 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
     </div>
   </div>
   <div>
-    <!-- Presets rápidos -->
-    <div class="period-bar" style="justify-content:flex-end;margin-bottom:8px;gap:5px">
-      <span class="period-label">Rápido:</span>
-      <button class="preset-btn" id="preset-7d"        onclick="applyPreset('7d')">7 dias</button>
-      <button class="preset-btn active" id="preset-mtd" onclick="applyPreset('mtd')">MTD</button>
-      <button class="preset-btn" id="preset-30d"       onclick="applyPreset('30d')">30 dias</button>
-      <button class="preset-btn" id="preset-last-month" onclick="applyPreset('last-month')">Mês passado</button>
-      <button class="preset-btn" id="preset-ytd"       onclick="applyPreset('ytd')">YTD</button>
-      <button class="preset-btn" id="preset-last-year" onclick="applyPreset('last-year')">Ano passado</button>
-    </div>
     <!-- Período atual -->
-    <div class="period-bar" style="justify-content:flex-end;margin-bottom:8px">
+    <div class="period-bar" style="justify-content:flex-end;margin-bottom:6px;gap:5px">
+      <span class="period-label">Rápido:</span>
+      <button class="preset-btn" id="preset-7d"         onclick="applyPreset('7d')">7 dias</button>
+      <button class="preset-btn active" id="preset-mtd"  onclick="applyPreset('mtd')">MTD</button>
+      <button class="preset-btn" id="preset-30d"        onclick="applyPreset('30d')">30 dias</button>
+      <button class="preset-btn" id="preset-last-month" onclick="applyPreset('last-month')">Mês passado</button>
+      <button class="preset-btn" id="preset-ytd"        onclick="applyPreset('ytd')">YTD</button>
+      <button class="preset-btn" id="preset-last-year"  onclick="applyPreset('last-year')">Ano passado</button>
+    </div>
+    <div class="period-bar" style="justify-content:flex-end;margin-bottom:10px">
       <div class="period-group">
         <span class="period-label">Período</span>
         <input type="date" id="curStart" class="date-inp" onchange="onPeriod()">
@@ -252,21 +253,22 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
         <input type="date" id="curEnd" class="date-inp" onchange="onPeriod()">
       </div>
     </div>
-    <div class="period-bar" style="justify-content:flex-end;margin-bottom:8px">
+    <!-- Toggle + comparação (mesma estrutura que período atual) -->
+    <div style="display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-bottom:6px">
       <label class="toggle-wrap">
         <input type="checkbox" id="cmpToggle" onchange="onCmpToggle()">
         <span class="ttrack"><span class="tthumb"></span></span>
-        <span class="lbl">Comparar com período</span>
+        <span class="lbl" style="color:var(--bb)">Comparar com período</span>
       </label>
     </div>
     <div id="cmpRow" style="display:none">
       <div class="period-bar" style="justify-content:flex-end;margin-bottom:6px;gap:5px">
         <span class="period-label" style="color:var(--bb)">Rápido:</span>
-        <button class="preset-btn" style="border-color:rgba(195,148,15,.4);color:var(--bb)" onclick="applyPresetCmp('7d')">7 dias</button>
-        <button class="preset-btn" style="border-color:rgba(195,148,15,.4);color:var(--bb)" onclick="applyPresetCmp('mtd')">MTD ant.</button>
-        <button class="preset-btn" style="border-color:rgba(195,148,15,.4);color:var(--bb)" onclick="applyPresetCmp('30d')">30 dias ant.</button>
-        <button class="preset-btn" style="border-color:rgba(195,148,15,.4);color:var(--bb)" onclick="applyPresetCmp('last-month')">Mês passado</button>
-        <button class="preset-btn" style="border-color:rgba(195,148,15,.4);color:var(--bb)" onclick="applyPresetCmp('ytd-prev')">YTD 2025</button>
+        <button class="preset-btn cmp-btn" onclick="applyPresetCmp('7d')">7 dias</button>
+        <button class="preset-btn cmp-btn" onclick="applyPresetCmp('mtd')">MTD ant.</button>
+        <button class="preset-btn cmp-btn" onclick="applyPresetCmp('30d')">30 dias ant.</button>
+        <button class="preset-btn cmp-btn" onclick="applyPresetCmp('last-month')">Mês passado</button>
+        <button class="preset-btn cmp-btn" onclick="applyPresetCmp('ytd-prev')">YTD 2025</button>
       </div>
       <div class="period-bar" style="justify-content:flex-end">
         <div class="period-group">
@@ -972,6 +974,33 @@ function calcGscTotal(gscData, cs, ce) {
     propCount:   1 + Object.keys(extra).length,
   };
 }
+function applyPresetCmp(preset){
+  const cs=document.getElementById('curStart').value;
+  const ce=document.getElementById('curEnd').value;
+  if(!cs||!ce)return;
+  const days=diffDays(cs,ce);
+  let ps,pe;
+  if(preset==='7d'){
+    pe=dateAdd(cs,-1); ps=dateAdd(pe,-6);
+  } else if(preset==='30d'){
+    pe=dateAdd(cs,-1); ps=dateAdd(pe,-29);
+  } else if(preset==='mtd'){
+    pe=dateAdd(cs,-1); ps=dateAdd(pe,-days);
+  } else if(preset==='last-month'){
+    const d=new Date(cs+'T12:00:00');
+    pe=new Date(d.getFullYear(),d.getMonth(),0).toISOString().slice(0,10);
+    ps=new Date(d.getFullYear(),d.getMonth()-1,1).toISOString().slice(0,10);
+  } else if(preset==='ytd-prev'){
+    const y=new Date(ce).getFullYear()-1;
+    ps=`${y}-01-01`;
+    pe=`${y}-${ce.slice(5)}`;
+  }
+  if(ps&&pe){
+    document.getElementById('prevStart').value=ps;
+    document.getElementById('prevEnd').value=pe;
+    onPeriod();
+  }
+}
 function onCmpToggle(){
   const on=document.getElementById('cmpToggle').checked;
   document.getElementById('cmpRow').style.display=on?'flex':'none';
@@ -1089,18 +1118,19 @@ function render(data,cs,ce,ps,pe){
     const newU    = ga4.daily_new     || [];
     const trans   = ga4.daily_trans   || [];
     const revenue = ga4.daily_revenue || [];
-    if (!dates.length) return null; // sem dados diários → usa agregado
+    const signups = ga4.daily_signups || [];
+    if (!dates.length) return null;
 
-    let s=0,n=0,t=0,r=0;
+    let s=0,n=0,t=0,r=0,su=0;
     dates.forEach((d,i) => {
-      // GA4 usa formato YYYYMMDD
       const ds = d.length===8 ? `${d.slice(0,4)}-${d.slice(4,6)}-${d.slice(6,8)}` : d;
       if(ds >= startDate && ds <= endDate){
-        s += sessions[i]||0; n += newU[i]||0;
-        t += trans[i]||0;    r += revenue[i]||0;
+        s  += sessions[i]||0; n  += newU[i]||0;
+        t  += trans[i]||0;    r  += revenue[i]||0;
+        su += signups[i]||0;
       }
     });
-    return {sessions:s, new_users:n, transactions:t, revenue:round2(r)};
+    return {sessions:s, new_users:n, transactions:t, revenue:round2(r), signups:su};
   }
 
   function round2(n){ return Math.round(n*100)/100; }
@@ -1197,12 +1227,14 @@ function render(data,cs,ce,ps,pe){
 
   setEl('vivaBnSessions', fmtN(vSess));
   setEl('vivaBnUsers',    fmtN(vNew));
-  setEl('vivaBnSignup',   fmtN(bViva.sign_up || 0));
+  const vSignups = vivaPeriod ? vivaPeriod.signups : (bViva.sign_up || 0);
+  setEl('vivaBnSignup', fmtN(vSignups));
   setEl('vivaBnSessionsDelta', vivaPrev ? fmtD(calcDelta(vSess, vivaPrev.sessions))  : '<span class="delta na">sem comparação</span>');
   setEl('vivaBnUsersDelta',    vivaPrev ? fmtD(calcDelta(vNew,  vivaPrev.new_users)) : '<span class="delta na">sem comparação</span>');
-  setEl('vivaBnSignupDelta',   bViva.sign_up_delta != null && comparing
-    ? fmtD(bViva.sign_up_delta)
-    : '<span class="delta na">evento sign_up</span>');
+  const vSignupsPrev = vivaPrev ? vivaPrev.signups : null;
+  setEl('vivaBnSignupDelta', vSignupsPrev != null
+    ? fmtD(calcDelta(vSignups, vSignupsPrev))
+    : '<span class="delta na">evento sign_up · SEO</span>');
   setEl('hlClicks', fmtN(gscTotal.totalClicks));
   setEl('hlClicksDesc', comparing && gscTotal.clicksDelta!=null
     ? fmtD(gscTotal.clicksDelta)+' vs anterior'
