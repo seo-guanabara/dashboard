@@ -29,12 +29,20 @@ SEMRUSH_DOMAIN  = "viajeguanabara.com.br"
 COMPETITORS     = ["clickbus.com.br", "queropassagem.com.br"]
 PERIOD_DAYS     = 30
 
-today   = date.today()
-p_end   = (today - timedelta(days=1)).isoformat()
-p_start = (today - timedelta(days=PERIOD_DAYS)).isoformat()
-c_end   = (today - timedelta(days=PERIOD_DAYS + 1)).isoformat()
-c_start = (today - timedelta(days=PERIOD_DAYS * 2)).isoformat()
+today = date.today()
+
+# Último domingo — referência de corte para todos os períodos
+# weekday(): 0=Seg ... 6=Dom | getDay() JS: 0=Dom ... 6=Sáb
+_wd = (today.weekday() + 1) % 7   # Dom=0, Seg=1, ..., Sáb=6
+last_sunday = today - timedelta(days=_wd)
+
+p_end   = last_sunday.isoformat()
+p_start = (last_sunday - timedelta(days=PERIOD_DAYS - 1)).isoformat()
+c_end   = (last_sunday - timedelta(days=PERIOD_DAYS)).isoformat()
+c_start = (last_sunday - timedelta(days=PERIOD_DAYS * 2 - 1)).isoformat()
 ytd_start = date(today.year, 1, 1).isoformat()
+
+print(f"  Referência: hoje {today} → último domingo {last_sunday}")
 
 LLM_SOURCES = {
     "chatgpt.com / referral","chatgpt.com / (not set)","chatgpt.com / (none)",
