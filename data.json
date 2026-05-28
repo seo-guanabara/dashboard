@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-28T18:10:52.685599Z",
+    "generated_at": "2026-05-28T18:29:06.477065Z",
     "period_current": {
       "start": "2026-04-25",
       "end": "2026-05-24"
@@ -30,6 +30,14 @@
     "revenue_delta": -46.7,
     "revenue_ytd": 17627121.72,
     "revenue_ytd_prev": 19715620.08,
+    "sessions_ytd": 1421154,
+    "sessions_ytd_prev": 1542829,
+    "users_ytd": 328370,
+    "users_ytd_prev": 337927,
+    "transactions_ytd": 99647,
+    "transactions_ytd_prev": 107304,
+    "ytd_start": "2026-01-01",
+    "ytd_end_prev": "2025-05-24",
     "daily_sessions": [
       6893,
       7459,
