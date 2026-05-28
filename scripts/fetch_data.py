@@ -237,7 +237,7 @@ def fetch_ga4_api():
     trans      = int(gv(cur,2));  p_trans      = int(gv(prv,2))
     revenue    = round(gv(cur,3),2); p_revenue = round(gv(prv,3),2)
 
-    # ── YTD receita — automático YoY (mesmo período ano anterior) ──
+    # ── YTD receita SEO — filtrado por origens SEO, YoY automático ──
     ytd_end_prev = date(last_sunday.year - 1, last_sunday.month, last_sunday.day).isoformat()
     ytd_start_prev = date(today.year - 1, 1, 1).isoformat()
     r_ytd = client.run_report(RunReportRequest(
@@ -247,6 +247,7 @@ def fetch_ga4_api():
             DateRange(start_date=ytd_start,      end_date=p_end),
             DateRange(start_date=ytd_start_prev, end_date=ytd_end_prev),
         ],
+        dimension_filter=seo_filter,  # só receita de tráfego SEO
         limit=2,
     ))
     revenue_ytd = revenue_ytd_prev = 0.0
@@ -887,7 +888,15 @@ def fetch_ga4_property(property_id, label):
         if not ga4_creds:
             raise Exception("OAuth não configurado")
         client = BetaAnalyticsDataClient(credentials=ga4_creds)
-        # Query principal — sem dimensão de evento (para não distorcer sessões/receita)
+        # Filtro SEO — aplicado em sessões, usuários, receita, transações
+        prop_seo_filter = FilterExpression(
+            filter=Filter(
+                field_name="sessionSourceMedium",
+                in_list_filter=Filter.InListFilter(values=sorted(SEO_SOURCES))
+            )
+        )
+
+        # Query principal — COM filtro SEO
         r = client.run_report(RunReportRequest(
             property=f"properties/{property_id}",
             metrics=[Metric(name=m) for m in ["sessions","newUsers","purchaseRevenue","transactions"]],
@@ -895,6 +904,7 @@ def fetch_ga4_property(property_id, label):
                 DateRange(start_date=p_start, end_date=p_end),
                 DateRange(start_date=c_start, end_date=c_end),
             ],
+            dimension_filter=prop_seo_filter,
             limit=10,
         ))
         def gv(rows, dr, mi):
@@ -912,6 +922,7 @@ def fetch_ga4_property(property_id, label):
         signup_cur = signup_prev = 0
         if label in ("Viva site", "Viva"):
             try:
+                # sign_up orgânicos — combina filtro de evento + filtro de origem SEO
                 r_su = client.run_report(RunReportRequest(
                     property=f"properties/{property_id}",
                     metrics=[Metric(name="eventCount")],
@@ -920,13 +931,18 @@ def fetch_ga4_property(property_id, label):
                         DateRange(start_date=c_start, end_date=c_end),
                     ],
                     dimension_filter=FilterExpression(
-                        filter=Filter(
-                            field_name="eventName",
-                            string_filter=Filter.StringFilter(
-                                match_type=Filter.StringFilter.MatchType.EXACT,
-                                value="sign_up"
-                            )
-                        )
+                        and_group=FilterExpressionList(expressions=[
+                            FilterExpression(
+                                filter=Filter(
+                                    field_name="eventName",
+                                    string_filter=Filter.StringFilter(
+                                        match_type=Filter.StringFilter.MatchType.EXACT,
+                                        value="sign_up"
+                                    )
+                                )
+                            ),
+                            prop_seo_filter,  # só cadastros vindos de tráfego SEO
+                        ])
                     ),
                     limit=2,
                 ))
@@ -943,6 +959,7 @@ def fetch_ga4_property(property_id, label):
             property=f"properties/{property_id}",
             metrics=[Metric(name="purchaseRevenue")],
             date_ranges=[DateRange(start_date=ytd_start, end_date=p_end)],
+            dimension_filter=prop_seo_filter,  # YTD só SEO
             limit=1,
         ))
         revenue_ytd = round(float(r_ytd.rows[0].metric_values[0].value), 2) if r_ytd.rows else 0.0
@@ -961,13 +978,14 @@ def fetch_ga4_property(property_id, label):
             "revenue": round(float(row.metric_values[1].value), 2),
         } for row in r2.rows], key=lambda x: x["sessions"], reverse=True)
 
-        # Dados diários — mesmos 90 dias do principal para filtro dinâmico no frontend
+        # Dados diários COM filtro SEO — 90 dias para filtro dinâmico no frontend
         daily_start = (last_sunday - timedelta(days=89)).isoformat()
         r3 = client.run_report(RunReportRequest(
             property=f"properties/{property_id}",
             metrics=[Metric(name=m) for m in ["sessions","newUsers","transactions","purchaseRevenue"]],
             dimensions=[Dimension(name="date")],
             date_ranges=[DateRange(start_date=daily_start, end_date=p_end)],
+            dimension_filter=prop_seo_filter,  # só tráfego SEO
             limit=90,
         ))
         d_rows = sorted(r3.rows, key=lambda x: x.dimension_values[0].value)
