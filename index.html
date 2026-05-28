@@ -978,23 +978,32 @@ function applyPresetCmp(preset){
   const cs=document.getElementById('curStart').value;
   const ce=document.getElementById('curEnd').value;
   if(!cs||!ce)return;
-  const days=diffDays(cs,ce);
   let ps,pe;
-  if(preset==='7d'){
+
+  if(preset==='mtd'){
+    // Mesmo MTD do mês anterior: 01/05→24/05 vira 01/04→24/04
+    const csD=new Date(cs+'T12:00:00'); csD.setMonth(csD.getMonth()-1);
+    const ceD=new Date(ce+'T12:00:00'); ceD.setMonth(ceD.getMonth()-1);
+    ps=csD.toISOString().slice(0,10);
+    pe=ceD.toISOString().slice(0,10);
+  } else if(preset==='7d'){
+    // 7 dias imediatamente antes do início do período atual
     pe=dateAdd(cs,-1); ps=dateAdd(pe,-6);
   } else if(preset==='30d'){
+    // 30 dias imediatamente antes do início do período atual
     pe=dateAdd(cs,-1); ps=dateAdd(pe,-29);
-  } else if(preset==='mtd'){
-    pe=dateAdd(cs,-1); ps=dateAdd(pe,-days);
   } else if(preset==='last-month'){
+    // Mês completo anterior
     const d=new Date(cs+'T12:00:00');
     pe=new Date(d.getFullYear(),d.getMonth(),0).toISOString().slice(0,10);
     ps=new Date(d.getFullYear(),d.getMonth()-1,1).toISOString().slice(0,10);
   } else if(preset==='ytd-prev'){
+    // Jan 1 do ano anterior → mesma data do ano anterior
     const y=new Date(ce).getFullYear()-1;
     ps=`${y}-01-01`;
     pe=`${y}-${ce.slice(5)}`;
   }
+
   if(ps&&pe){
     document.getElementById('prevStart').value=ps;
     document.getElementById('prevEnd').value=pe;
