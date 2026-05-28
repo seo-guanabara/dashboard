@@ -1066,13 +1066,13 @@ function buildHighlights(ga4,gsc,comparing){
       : 'das sessões totais são orgânicas'
   });
 
-  const html=items.map(i=>`
+  const hlHtml=items.map(i=>`
     <div class="hl" style="--c:${i.c}">
       <div class="htitle">${i.title}</div>
       <div class="hval">${i.val}</div>
       <div class="hdesc">${i.desc}</div>
     </div>`).join('');
-  setEl('highlightsArea',html);
+  setEl('highlightsArea',hlHtml);
 }
 
 // ── MAIN RENDER ─────────────────────────────────────────────────────────────
@@ -1242,7 +1242,7 @@ function render(data,cs,ce,ps,pe){
   const totRev=ga4.total_all?.revenue||1;
   if(chs.length){
     const isOrg=c=>c.channel==='Organic Search';
-    const html=chs.slice(0,7).map(c=>{
+    const chHtml=chs.slice(0,7).map(c=>{
       const pct=Math.round(c.revenue/totRev*100);
       return`<div style="margin-bottom:10px">
         <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px">
@@ -1252,7 +1252,7 @@ function render(data,cs,ce,ps,pe){
         <div class="bar-wrap"><div class="bar ${isOrg(c)?'':'grey'}" style="width:${pct}%"></div></div>
         <div style="font-size:10px;color:var(--g5);margin-top:2px">${fmtN(c.sessions)} sess · ${fmtN(c.transactions)} trans · ${fmtR(c.revenue)}</div>
       </div>`}).join('');
-    setEl('channelBars',html);
+    setEl('channelBars',chHtml);
   }
 
   // ── SEO vs LLMs ──
@@ -1397,7 +1397,7 @@ function render(data,cs,ce,ps,pe){
 
   // ── Coverage ──
   if(covUrls.length){
-    const html=`
+    const covHtml=`
       <div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--g3)">
         <div style="font-size:36px;font-weight:900;color:var(--pos7);letter-spacing:-.02em">${fmtN(gsc.indexed_pages)}</div>
         <div style="font-size:12px;color:var(--g6);margin-top:4px">páginas indexadas válidas</div>
@@ -1405,20 +1405,20 @@ function render(data,cs,ce,ps,pe){
       <table><thead><tr><th>Última URL rastreada</th><th class="r">Data</th></tr></thead><tbody>
         ${covUrls.slice(0,6).map(u=>`<tr><td class="path" style="font-size:11px">${u.url.replace('https://viajeguanabara.com.br','').replace('https://www.viajeguanabara.com.br','')||'/'}</td><td class="r" style="font-size:11px;white-space:nowrap">${u.last_crawl}</td></tr>`).join('')}
       </tbody></table>`;
-    setEl('coverageBody',html);
+    setEl('coverageBody',covHtml);
   }
 
   // ── CWV ──
   const cwv=gsc.cwv_issues||[];
   if(cwv.length){
     const total=cwv.reduce((s,i)=>s+(i.urls||0),0);
-    const html=cwv.filter(i=>i.urls>0).map(i=>`
+    const cwvHtml=cwv.filter(i=>i.urls>0).map(i=>`
       <div class="ci">
         <div class="ico ${i.severity==='Ruins'?'e':'w'}">${i.severity==='Ruins'?'RUIM':'ATEN'}</div>
         <div class="clbl">${i.issue}<small>mobile · ${i.urls.toLocaleString('pt-BR')} URLs afetadas</small></div>
         <div class="cnum" style="color:${i.severity==='Ruins'?C.neg:C.wrn}">${fmtN(i.urls)}</div>
       </div>`).join('');
-    setEl('cwvBody',html+(total?`<div class="wnote"><strong>${total.toLocaleString('pt-BR')} URLs</strong> com problemas de CWV no mobile.</div>`:''));
+    setEl('cwvBody',cwvHtml+(total?`<div class="wnote"><strong>${total.toLocaleString('pt-BR')} URLs</strong> com problemas de CWV no mobile.</div>`:''));
   }
 
   // ── GTmetrix ──
