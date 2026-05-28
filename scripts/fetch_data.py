@@ -579,12 +579,19 @@ def fetch_gtmetrix():
     if not GTMETRIX_KEY:
         output["gtmetrix"]={"error":"no key"}; return
     try:
-        pages=[{"url":f"{GSC_SITE_URL}","layout":"home"},
-               {"url":f"{GSC_SITE_URL}passagem-onibus","layout":"listagem"}]
+        pages=[
+            {"url":"https://viajeguanabara.com.br/",                                          "layout":"home"},
+            {"url":"https://viajeguanabara.com.br/onibus/juiz_de_fora-mg/rio_de_janeiro-rj/", "layout":"rota"},
+            {"url":"https://viajeguanabara.com.br/onibus/rio_de_janeiro-rj/",                 "layout":"destino"},
+            {"url":"https://viajeguanabara.com.br/page/sobre-nos/",                           "layout":"institucional"},
+        ]
         results=[]
         for p in pages:
+            attrs={"url":p["url"],"adblock":False,
+                   "browser":{"name":"Chrome","resolution":"375x812","userAgent":"mobile"},
+                   "throttle":"mobileSlow4G","location":"saopaulo"}
             r=requests.post("https://gtmetrix.com/api/2.0/tests",auth=(GTMETRIX_KEY,""),
-                            json={"data":{"type":"test","attributes":{"url":p["url"]}}},timeout=15)
+                            json={"data":{"type":"test","attributes":attrs}},timeout=20)
             if r.status_code==202:
                 tid=r.json()["data"]["id"]
                 for _ in range(12):
@@ -879,17 +886,27 @@ for graf, name in GSC_EXTRA_FILES.items():
             log_err(f"GSC extra {graf}", str(e))
 output["gsc"]["extra_properties"] = gsc_extra
 
-# ── YTD YoY — ytd_previous.csv = mesmo período do ano anterior (ex: 01/01/2025 → 24/05/2025) ──
-for ytd_file, ytd_key in [("ga4/ytd_previous.csv","revenue_ytd_prev"),
-                           ("ga4/ytd_current.csv","revenue_ytd")]:
-    if os.path.exists(ytd_file):
-        try:
-            rows, p_s, p_e = read_ga4_csv(ytd_file)
-            rev = sum(_n(r.get("Receita total",0)) for r in rows)
-            output["ga4"][ytd_key] = round(rev, 2)
-            log_ok(f"GA4 {ytd_key} (CSV) — {p_s} → {p_e} — R$ {rev:,.0f}")
-        except Exception as e:
-            log_err(f"GA4 {ytd_file}", str(e))
+# ── YTD YoY ──
+if os.path.exists("ga4/ytd_yoy.csv"):
+    try:
+        ytd_cur, ytd_prv, _, _ = parse_ytd_yoy("ga4/ytd_yoy.csv")
+        output["ga4"]["revenue_ytd"]      = ytd_cur
+        output["ga4"]["revenue_ytd_prev"] = ytd_prv
+        log_ok(f"GA4 YTD YoY — 2026: R${ytd_cur:,.0f} | 2025: R${ytd_prv:,.0f}")
+    except Exception as e:
+        log_err("GA4 YTD YoY", str(e))
+# Fallback: ytd_previous.csv e ytd_current.csv separados
+elif os.path.exists("ga4/ytd_previous.csv") or os.path.exists("ga4/ytd_current.csv"):
+    for ytd_file, ytd_key in [("ga4/ytd_previous.csv","revenue_ytd_prev"),
+                               ("ga4/ytd_current.csv","revenue_ytd")]:
+        if os.path.exists(ytd_file):
+            try:
+                rows, p_s, p_e = read_ga4_csv(ytd_file)
+                rev = sum(_n(r.get("Receita total",0)) for r in rows)
+                output["ga4"][ytd_key] = round(rev, 2)
+                log_ok(f"GA4 {ytd_key} (CSV) — R$ {rev:,.0f}")
+            except Exception as e:
+                log_err(f"GA4 {ytd_file}", str(e))
 
 fetch_youtube()
 fetch_play()
