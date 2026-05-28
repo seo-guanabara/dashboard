@@ -502,13 +502,23 @@ def fetch_semrush():
         base="https://api.semrush.com/"
         def sem(p):
             p["key"]=SEMRUSH_KEY
-            r=requests.get(base,params=p,timeout=20); r.raise_for_status(); return r.text
+            r=requests.get(base,params=p,timeout=45); r.raise_for_status(); return r.text
         # Testar key antes com chamada simples
         test = sem({"type":"domain_rank","domain":SEMRUSH_DOMAIN,"database":"br","export_columns":"Or,Ot,Et"})
         print(f"    Semrush test: {test[:80]}")
-        kw_raw=sem({"type":"domain_organic","domain":SEMRUSH_DOMAIN,"database":"br",
-                    "display_limit":5000,"export_columns":"Ph,Po,Nq,Tr,Fk"})
-        lines=[l.split(";") for l in kw_raw.strip().split("\n")[1:] if l]
+        # Paginação: 3 chamadas de 1000 para evitar timeout
+        all_lines = []
+        for offset in [0, 1000, 2000]:
+            chunk = sem({"type":"domain_organic","domain":SEMRUSH_DOMAIN,"database":"br",
+                         "display_limit":1000,"display_offset":offset,
+                         "export_columns":"Ph,Po,Nq,Fk"})
+            chunk_lines = [l.split(";") for l in chunk.strip().split("\n")[1:] if l and ";" in l]
+            if not chunk_lines: break
+            all_lines.extend(chunk_lines)
+            if len(chunk_lines) < 1000: break
+        kw_raw = "\n".join(";".join(l) for l in all_lines)
+        lines = [l if isinstance(l,list) else l.split(";") for l in 
+                 (all_lines if all_lines else [l.split(";") for l in kw_raw.strip().split("\n") if l and ";" in l])]
         top1=top3=top10=top20=serp_ai=serp_fs=serp_paa=serp_sl=0
         for p in lines:
             if len(p)<2: continue
