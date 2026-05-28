@@ -338,16 +338,26 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
         <span>Blog VG <span class="chip">GA4</span></span>
         <span style="color:var(--g5);font-weight:400">blog.viajeguanabara.com.br</span>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px">
         <div>
-          <div style="font-size:22px;font-weight:900;color:var(--bp);letter-spacing:-.01em" id="blogBnSessions">—</div>
-          <div style="font-size:11px;color:var(--g6);margin-top:2px">Sessões orgânicas</div>
-          <div id="blogBnSessionsDelta" class="delta na" style="font-size:11px">sem comparação</div>
+          <div style="font-size:20px;font-weight:900;color:var(--bp);letter-spacing:-.01em" id="blogBnSessions">—</div>
+          <div style="font-size:11px;color:var(--g6);margin-top:2px">Sessões</div>
+          <div id="blogBnSessionsDelta" class="delta na" style="font-size:10px">sem comparação</div>
         </div>
         <div>
-          <div style="font-size:22px;font-weight:900;color:var(--bp);letter-spacing:-.01em" id="blogBnUsers">—</div>
-          <div style="font-size:11px;color:var(--g6);margin-top:2px">Usuários orgânicos</div>
-          <div id="blogBnUsersDelta" class="delta na" style="font-size:11px">sem comparação</div>
+          <div style="font-size:20px;font-weight:900;color:var(--bp);letter-spacing:-.01em" id="blogBnUsers">—</div>
+          <div style="font-size:11px;color:var(--g6);margin-top:2px">Usuários</div>
+          <div id="blogBnUsersDelta" class="delta na" style="font-size:10px">sem comparação</div>
+        </div>
+        <div>
+          <div style="font-size:20px;font-weight:900;color:var(--pos7);letter-spacing:-.01em" id="blogBnTotal">—</div>
+          <div style="font-size:11px;color:var(--g6);margin-top:2px">Total artigos</div>
+          <div style="font-size:10px;color:var(--g5);margin-top:2px">publicados</div>
+        </div>
+        <div>
+          <div style="font-size:20px;font-weight:900;color:var(--bb);letter-spacing:-.01em" id="blogBnNewPosts">—</div>
+          <div style="font-size:11px;color:var(--g6);margin-top:2px">Novos no mês</div>
+          <div id="blogBnNewPostsDelta" class="delta na" style="font-size:10px">vs mês anterior</div>
         </div>
       </div>
     </div>
@@ -357,16 +367,21 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
         <span>Viva Fidelidade <span class="chip red">GA4</span></span>
         <span style="color:var(--g5);font-weight:400">vivafidelidade.com.br</span>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
         <div>
-          <div style="font-size:22px;font-weight:900;color:var(--ba);letter-spacing:-.01em" id="vivaBnSessions">—</div>
-          <div style="font-size:11px;color:var(--g6);margin-top:2px">Sessões orgânicas</div>
-          <div id="vivaBnSessionsDelta" class="delta na" style="font-size:11px">sem comparação</div>
+          <div style="font-size:20px;font-weight:900;color:var(--ba);letter-spacing:-.01em" id="vivaBnSessions">—</div>
+          <div style="font-size:11px;color:var(--g6);margin-top:2px">Sessões</div>
+          <div id="vivaBnSessionsDelta" class="delta na" style="font-size:10px">sem comparação</div>
         </div>
         <div>
-          <div style="font-size:22px;font-weight:900;color:var(--ba);letter-spacing:-.01em" id="vivaBnUsers">—</div>
-          <div style="font-size:11px;color:var(--g6);margin-top:2px">Usuários orgânicos</div>
-          <div id="vivaBnUsersDelta" class="delta na" style="font-size:11px">sem comparação</div>
+          <div style="font-size:20px;font-weight:900;color:var(--ba);letter-spacing:-.01em" id="vivaBnUsers">—</div>
+          <div style="font-size:11px;color:var(--g6);margin-top:2px">Usuários</div>
+          <div id="vivaBnUsersDelta" class="delta na" style="font-size:10px">sem comparação</div>
+        </div>
+        <div>
+          <div style="font-size:20px;font-weight:900;color:var(--inf7);letter-spacing:-.01em" id="vivaBnSignup">—</div>
+          <div style="font-size:11px;color:var(--g6);margin-top:2px">Cadastros</div>
+          <div id="vivaBnSignupDelta" class="delta na" style="font-size:10px">evento sign_up</div>
         </div>
       </div>
     </div>
@@ -1158,26 +1173,36 @@ function render(data,cs,ce,ps,pe){
   // ── Linha 3: Blog VG + Viva ──
   const bBlog = data.blog?.ga4 || {};
   const bViva = data.viva?.ga4  || {};
+  const bWp   = data.blog?.wp   || {};
 
   const blogPeriod = sumGa4Period(bBlog, cs, ce);
   const vivaPeriod = sumGa4Period(bViva, cs, ce);
   const blogPrev   = (comparing && ps && pe) ? sumGa4Period(bBlog, ps, pe) : null;
   const vivaPrev   = (comparing && ps && pe) ? sumGa4Period(bViva, ps, pe) : null;
 
-  const bSess  = blogPeriod ? blogPeriod.sessions  : (bBlog.sessions  || 0);
-  const bNew   = blogPeriod ? blogPeriod.new_users  : (bBlog.new_users  || 0);
-  const vSess  = vivaPeriod ? vivaPeriod.sessions  : (bViva.sessions  || 0);
-  const vNew   = vivaPeriod ? vivaPeriod.new_users  : (bViva.new_users  || 0);
+  const bSess = blogPeriod ? blogPeriod.sessions  : (bBlog.sessions  || 0);
+  const bNew  = blogPeriod ? blogPeriod.new_users  : (bBlog.new_users  || 0);
+  const vSess = vivaPeriod ? vivaPeriod.sessions  : (bViva.sessions  || 0);
+  const vNew  = vivaPeriod ? vivaPeriod.new_users  : (bViva.new_users  || 0);
 
   setEl('blogBnSessions', fmtN(bSess));
   setEl('blogBnUsers',    fmtN(bNew));
+  setEl('blogBnTotal',    fmtN(bWp.total_posts));
+  setEl('blogBnNewPosts', bWp.new_this_month != null ? String(bWp.new_this_month) : '—');
+  setEl('blogBnNewPostsDelta', bWp.new_this_month != null && bWp.new_prev_month != null
+    ? fmtD(bWp.new_delta)
+    : '<span class="delta na">vs mês anterior</span>');
   setEl('blogBnSessionsDelta', blogPrev ? fmtD(calcDelta(bSess, blogPrev.sessions))  : '<span class="delta na">sem comparação</span>');
   setEl('blogBnUsersDelta',    blogPrev ? fmtD(calcDelta(bNew,  blogPrev.new_users)) : '<span class="delta na">sem comparação</span>');
 
   setEl('vivaBnSessions', fmtN(vSess));
   setEl('vivaBnUsers',    fmtN(vNew));
+  setEl('vivaBnSignup',   fmtN(bViva.sign_up || 0));
   setEl('vivaBnSessionsDelta', vivaPrev ? fmtD(calcDelta(vSess, vivaPrev.sessions))  : '<span class="delta na">sem comparação</span>');
   setEl('vivaBnUsersDelta',    vivaPrev ? fmtD(calcDelta(vNew,  vivaPrev.new_users)) : '<span class="delta na">sem comparação</span>');
+  setEl('vivaBnSignupDelta',   bViva.sign_up_delta != null && comparing
+    ? fmtD(bViva.sign_up_delta)
+    : '<span class="delta na">evento sign_up</span>');
   setEl('hlClicks', fmtN(gscTotal.totalClicks));
   setEl('hlClicksDesc', comparing && gscTotal.clicksDelta!=null
     ? fmtD(gscTotal.clicksDelta)+' vs anterior'
