@@ -481,9 +481,10 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
           <th onclick="sortTbl('tblRoutes',0)" class="sortable">Rota</th>
           <th onclick="sortTbl('tblRoutes',1)" class="sortable r">Bilhetes</th>
           <th onclick="sortTbl('tblRoutes',2)" class="sortable r">Receita</th>
-          <th onclick="sortTbl('tblRoutes',3)" class="sortable r">Δ Bilhetes</th>
+          <th onclick="sortTbl('tblRoutes',3)" class="sortable r">Δ Bil.</th>
+          <th onclick="sortTbl('tblRoutes',4)" class="sortable r">Δ Rev.</th>
         </tr></thead>
-        <tbody id="topRoutes"><tr><td colspan="4" class="loading">Carregando...</td></tr></tbody></table>
+        <tbody id="topRoutes"><tr><td colspan="5" class="loading">Carregando...</td></tr></tbody></table>
       </div>
     </div>
   </section>
@@ -1435,7 +1436,14 @@ function render(data,cs,ce,ps,pe){
     transactions: chs.reduce((s,c)=>s+c.transactions,0),
     revenue:      totRev,
   };
-  // Mapeamento de cor por grupo customizado
+
+  // Período anterior para canais
+  const chsPrvRaw = (comparing && ps && pe && ga4.channels_daily?.length)
+    ? aggByPeriod(ga4.channels_daily, 'channel', ps, pe, ['sessions','transactions','revenue'])
+    : [];
+  const chsPrvMap = Object.fromEntries(chsPrvRaw.map(c=>[c.channel,c]));
+  const totRevPrv = chsPrvRaw.reduce((s,c)=>s+c.revenue,0) || 1;
+
   const chColor=c=>{
     const n=(c.channel||'').toLowerCase();
     if(n.includes('orgân')||n.includes('organic')) return C.bp;
@@ -1448,13 +1456,24 @@ function render(data,cs,ce,ps,pe){
     const chHtml=chs.slice(0,7).map(c=>{
       const pct=totRev?Math.round(c.revenue/totRev*100):0;
       const col=chColor(c);
+      const prv=chsPrvMap[c.channel];
+      const dRev = prv ? calcDelta(c.revenue, prv.revenue) : null;
+      const dSess= prv ? calcDelta(c.sessions,prv.sessions): null;
+      const dEl  = (d,lbl)=>d!==null
+        ?`<span class="delta ${d>=0?'up':'dn'}" style="font-size:9px">${d>=0?'▲':'▼'}${Math.abs(d).toFixed(1).replace('.',',')}% ${lbl}</span>`:'';
       return`<div style="margin-bottom:10px">
-        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:3px">
           <span style="font-weight:600;color:${col}">${c.channel}</span>
-          <span style="font-weight:700;color:var(--g8)">${pct}%</span>
+          <div style="display:flex;align-items:center;gap:6px">
+            ${dRev?dEl(dRev,'receita'):''}
+            <span style="font-weight:700;color:var(--g8)">${pct}%</span>
+          </div>
         </div>
         <div class="bar-wrap"><div class="bar" style="width:${pct}%;background:${col}"></div></div>
-        <div style="font-size:10px;color:var(--g5);margin-top:2px">${fmtN(c.sessions)} sess · ${fmtN(c.transactions)} trans · ${fmtR(c.revenue)}</div>
+        <div style="font-size:10px;color:var(--g5);margin-top:2px">
+          ${fmtN(c.sessions)} sess ${dSess?dEl(dSess,''):''}
+          · ${fmtN(c.transactions)} trans · ${fmtR(c.revenue)}
+        </div>
       </div>`}).join('');
     setEl('channelBars',chHtml);
   }
@@ -1573,14 +1592,19 @@ function render(data,cs,ce,ps,pe){
     setEl('topRoutes', routes.map(r=>{
       const prv=routesPrvMap[r.path];
       const dQty=prv?calcDelta(r.sessions,prv.sessions):null;
+      const dRev=prv?calcDelta(r.revenue,prv.revenue):null;
+      const dEl=d=>d!==null
+        ?`<span class="delta ${d>=0?'up':'dn'}" style="font-size:10px">${d>=0?'▲':'▼'}${Math.abs(d).toFixed(1).replace('.',',')}%</span>`
+        :'<span class="delta na" style="font-size:10px">—</span>';
       return `<tr>
-        <td style="font-size:12px;font-weight:600">${r.path}</td>
-        <td class="r">${fmtN(r.sessions)}</td>
-        <td class="r">${fmtR(r.revenue)}</td>
-        <td class="r">${dQty!==null?`<span class="delta ${dQty>=0?'up':'dn'}" style="font-size:10px">${dQty>=0?'▲':'▼'}${Math.abs(dQty).toFixed(1).replace('.',',')}%</span>`:'<span class="delta na" style="font-size:10px">—</span>'}</td>
+        <td style="font-size:11px;font-weight:600;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.path}">${r.path}</td>
+        <td class="r" style="font-size:12px">${fmtN(r.sessions)}</td>
+        <td class="r" style="font-size:12px">${fmtR(r.revenue)}</td>
+        <td class="r">${dEl(dQty)}</td>
+        <td class="r">${dEl(dRev)}</td>
       </tr>`;}).join(''));
   } else {
-    setEl('topRoutes','<tr><td colspan="4" style="color:var(--g5);font-size:12px">Aguardando dados de ecommerce</td></tr>');
+    setEl('topRoutes','<tr><td colspan="5" style="color:var(--g5);font-size:12px">Aguardando dados de ecommerce</td></tr>');
   }
 
 
