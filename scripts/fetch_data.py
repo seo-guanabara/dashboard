@@ -205,7 +205,7 @@ def fetch_ga4_api():
     r2 = client.run_report(RunReportRequest(
         property=f"properties/{GA4_PROPERTY_ID}",
         metrics=[Metric(name="sessions")],
-        dimensions=[Dimension(name="newVsReturning"), Dimension(name="dateRange")],
+        dimensions=[Dimension(name="newVsReturning")],  # dateRange é implícito — não declarar
         date_ranges=[
             DateRange(start_date=p_start, end_date=p_end),
             DateRange(start_date=c_start, end_date=c_end),
@@ -215,7 +215,8 @@ def fetch_ga4_api():
     returning_cur = returning_prv = 0
     for row in r2.rows:
         nv = row.dimension_values[0].value
-        dr = row.dimension_values[1].value
+        # Com múltiplos date_ranges, GA4 appenda dateRange como último dimension_value
+        dr = row.dimension_values[1].value if len(row.dimension_values) > 1 else "date_range_0"
         val = int(row.metric_values[0].value)
         if nv == "returning" and dr == "date_range_0": returning_cur = val
         if nv == "returning" and dr == "date_range_1": returning_prv = val
