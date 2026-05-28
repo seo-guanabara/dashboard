@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-28T13:59:52.862783Z",
+    "generated_at": "2026-05-28T14:03:27.444581Z",
     "period_current": {
       "start": "2026-04-28",
       "end": "2026-05-27"
@@ -11335,7 +11335,7 @@
     "pages": []
   },
   "errors": [
-    "GA4 API: Traceback (most recent call last):\n  File \"/home/runner/work/dashboard/dashboard/scripts/fetch_data.py\", line 601, in fetch_ga4\n    fetch_ga4_api()\n  File \"/home/runner/work/dashboard/dashboard/script",
+    "GA4 API: Traceback (most recent call last):\n  File \"/home/runner/work/dashboard/dashboard/scripts/fetch_data.py\", line 611, in fetch_ga4\n    fetch_ga4_api()\n  File \"/home/runner/work/dashboard/dashboard/script",
     "Semrush: HTTP ? | "
   ],
   "blog": {
