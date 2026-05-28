@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-28T16:26:12.086342Z",
+    "generated_at": "2026-05-28T16:41:58.954249Z",
     "period_current": {
       "start": "2026-04-25",
       "end": "2026-05-24"
@@ -11526,7 +11526,9 @@
   "gtmetrix": {
     "pages": []
   },
-  "errors": [],
+  "errors": [
+    "WordPress Blog: 'blog'"
+  ],
   "blog": {
     "ga4": {
       "source": "csv",
@@ -15638,7 +15640,9 @@
           "sessions": 23,
           "revenue": 0.0
         }
-      ]
+      ],
+      "sign_up": 0,
+      "sign_up_delta": 0.0
     }
   },
   "viva": {
