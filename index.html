@@ -445,7 +445,7 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
       </div>
     </div>
 
-    <div class="g2l gap">
+    <div class="g2 gap">
       <!-- KPIs GA4 detalhados com gráficos grandes -->
       <div class="card">
         <div class="card-head"><div class="card-title">Sessões · usuários · transações<span class="chip">GA4</span></div><div id="ga4ChartPeriod" class="card-more">—</div></div>
@@ -481,10 +481,8 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
           <th onclick="sortTbl('tblRoutes',0)" class="sortable">Rota</th>
           <th onclick="sortTbl('tblRoutes',1)" class="sortable r">Bilhetes</th>
           <th onclick="sortTbl('tblRoutes',2)" class="sortable r">Receita</th>
-          <th onclick="sortTbl('tblRoutes',3)" class="sortable r">Δ Bil.</th>
-          <th onclick="sortTbl('tblRoutes',4)" class="sortable r">Δ Rev.</th>
         </tr></thead>
-        <tbody id="topRoutes"><tr><td colspan="5" class="loading">Carregando...</td></tr></tbody></table>
+        <tbody id="topRoutes"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
       </div>
     </div>
   </section>
@@ -1594,17 +1592,21 @@ function render(data,cs,ce,ps,pe){
       const dQty=prv?calcDelta(r.sessions,prv.sessions):null;
       const dRev=prv?calcDelta(r.revenue,prv.revenue):null;
       const dEl=d=>d!==null
-        ?`<span class="delta ${d>=0?'up':'dn'}" style="font-size:10px">${d>=0?'▲':'▼'}${Math.abs(d).toFixed(1).replace('.',',')}%</span>`
-        :'<span class="delta na" style="font-size:10px">—</span>';
+        ?`<div class="delta ${d>=0?'up':'dn'}" style="font-size:9px;margin-top:1px">${d>=0?'▲':'▼'}${Math.abs(d).toFixed(1).replace('.',',')}%</div>`
+        :'';
       return `<tr>
-        <td style="font-size:11px;font-weight:600;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.path}">${r.path}</td>
-        <td class="r" style="font-size:12px">${fmtN(r.sessions)}</td>
-        <td class="r" style="font-size:12px">${fmtR(r.revenue)}</td>
-        <td class="r">${dEl(dQty)}</td>
-        <td class="r">${dEl(dRev)}</td>
+        <td style="font-size:11px;font-weight:600;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.path}">${r.path}</td>
+        <td class="r" style="vertical-align:top">
+          <div style="font-size:12px">${fmtN(r.sessions)}</div>
+          ${dEl(dQty)}
+        </td>
+        <td class="r" style="vertical-align:top">
+          <div style="font-size:12px">${fmtR(r.revenue)}</div>
+          ${dEl(dRev)}
+        </td>
       </tr>`;}).join(''));
   } else {
-    setEl('topRoutes','<tr><td colspan="5" style="color:var(--g5);font-size:12px">Aguardando dados de ecommerce</td></tr>');
+    setEl('topRoutes','<tr><td colspan="3" style="color:var(--g5);font-size:12px">Aguardando dados de ecommerce</td></tr>');
   }
 
 
