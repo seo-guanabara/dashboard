@@ -192,7 +192,7 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
 .api-row:last-child{border-right:none}
 .api-name{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--g5)}
 .api-st{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700}
-.api-st.live{color:var(--pos7)}.api-st.mock{color:var(--wrn7)}.api-st.off{color:var(--g5)}
+.api-st.st-live{color:var(--pos7)}.api-st.st-mock{color:var(--wrn7)}.api-st.st-off{color:var(--g5)}
 .api-st .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
 .api-ver{font-size:10px;color:var(--g5)}
 
@@ -481,10 +481,10 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
       </div>
       <!-- Top rotas ecommerce -->
       <div class="card">
-        <div class="card-head"><div class="card-title">Top rotas<span class="chip">GA4</span></div><div class="card-more">transações · receita · ecommerce</div></div>
+        <div class="card-head"><div class="card-title">Top rotas<span class="chip">GA4</span></div><div class="card-more">itens comprados · receita · ecommerce</div></div>
         <table id="tblRoutes"><thead><tr>
           <th onclick="sortTbl('tblRoutes',0)" class="sortable">Rota</th>
-          <th onclick="sortTbl('tblRoutes',1)" class="sortable r">Transações</th>
+          <th onclick="sortTbl('tblRoutes',1)" class="sortable r">Itens comprados</th>
           <th onclick="sortTbl('tblRoutes',2)" class="sortable r">Receita</th>
         </tr></thead>
         <tbody id="topRoutes"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
@@ -539,7 +539,7 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
   <!-- ── GSC COVERAGE & BACKLINKS ── -->
   <section class="section">
     <div class="sec-head"><div class="sec-title">Search Console · Indexação &amp; Backlinks</div><div class="sec-meta">GSC · coverage</div></div>
-    <div class="g3">
+    <div class="g2">
       <div class="card">
         <div class="card-head"><div class="card-title">URLs indexadas<span class="chip">GSC</span></div><div class="card-more">últimas rastreadas</div></div>
         <div id="coverageBody"><div class="loading">Carregando...</div></div>
@@ -555,11 +555,7 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
           <tbody id="latestLinksBody"><tr><td colspan="2" class="loading">Carregando...</td></tr></tbody></table>
         </div>
       </div>
-      <div class="card">
-        <div class="card-head"><div class="card-title">Viações top páginas<span class="chip">GSC</span></div><div class="card-more">por marca na URL</div></div>
-        <table><thead><tr><th>Página</th><th class="r">Cliques</th><th class="r">Pos.</th></tr></thead>
-        <tbody id="topCarrierPages"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
-      </div>
+
     </div>
   </section>
 
@@ -572,10 +568,12 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
         <div id="cwvBody"><div class="loading">Carregando...</div></div>
       </div>
       <div class="card">
-        <div class="card-head"><div class="card-title">Performance por layout<span class="chip">GTmetrix</span></div></div>
-        <table><thead><tr><th>Página</th><th>Layout</th><th class="r">Score</th><th class="r">LCP</th><th class="r">INP</th></tr></thead>
+        <div class="card-head"><div class="card-title">Performance por layout<span class="chip">GTmetrix</span></div><div class="card-more">mobile · 4G · São Paulo</div></div>
+        <table><thead><tr>
+          <th>Página</th><th class="r">Score</th><th class="r">LCP</th><th class="r">CLS</th><th class="r">INP</th>
+        </tr></thead>
         <tbody id="gtmetrixBody">
-          <tr><td class="path">/</td><td>home</td><td class="r">—</td><td class="r">—</td><td class="r">—</td></tr>
+          <tr><td colspan="5" class="loading">Aguardando GTmetrix...</td></tr>
         </tbody></table>
       </div>
     </div>
@@ -657,13 +655,13 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
   <section class="section">
     <div class="sec-head"><div class="sec-title">Integrações</div><div class="sec-meta">status das conexões</div></div>
     <div class="card" style="display:grid;grid-template-columns:repeat(7,1fr);gap:0;padding:14px">
-      <div class="api-row"><div class="api-name">GA4</div><div class="api-st mock" id="stGA4"><span class="dot"></span>Mock</div><div class="api-ver">data api v1</div></div>
-      <div class="api-row"><div class="api-name">GSC</div><div class="api-st mock" id="stGSC"><span class="dot"></span>Mock</div><div class="api-ver">webmasters v3</div></div>
-      <div class="api-row"><div class="api-name">Semrush</div><div class="api-st mock" id="stSemrush"><span class="dot"></span>Mock</div><div class="api-ver">api v3</div></div>
-      <div class="api-row"><div class="api-name">GTmetrix</div><div class="api-st mock" id="stGTmetrix"><span class="dot"></span>Mock</div><div class="api-ver">rest v2</div></div>
-      <div class="api-row"><div class="api-name">YouTube</div><div class="api-st off" id="stYT"><span class="dot"></span>Pendente</div><div class="api-ver">analytics v2</div></div>
-      <div class="api-row"><div class="api-name">Play</div><div class="api-st off" id="stPlay"><span class="dot"></span>Pendente</div><div class="api-ver">publisher v3</div></div>
-      <div class="api-row"><div class="api-name">S.Frog</div><div class="api-st off" id="stSFrog"><span class="dot"></span>Offline</div><div class="api-ver">cli agendado</div></div>
+      <div class="api-row"><div class="api-name">GA4</div><div class="api-st st-mock" id="stGA4"><span class="dot"></span>Mock</div><div class="api-ver">data api v1</div></div>
+      <div class="api-row"><div class="api-name">GSC</div><div class="api-st st-mock" id="stGSC"><span class="dot"></span>Mock</div><div class="api-ver">webmasters v3</div></div>
+      <div class="api-row"><div class="api-name">Semrush</div><div class="api-st st-mock" id="stSemrush"><span class="dot"></span>Mock</div><div class="api-ver">api v3</div></div>
+      <div class="api-row"><div class="api-name">GTmetrix</div><div class="api-st st-mock" id="stGTmetrix"><span class="dot"></span>Mock</div><div class="api-ver">rest v2</div></div>
+      <div class="api-row"><div class="api-name">YouTube</div><div class="api-st st-off" id="stYT"><span class="dot"></span>Pendente</div><div class="api-ver">analytics v2</div></div>
+      <div class="api-row"><div class="api-name">Play</div><div class="api-st st-off" id="stPlay"><span class="dot"></span>Pendente</div><div class="api-ver">publisher v3</div></div>
+      <div class="api-row"><div class="api-name">S.Frog</div><div class="api-st st-off" id="stSFrog"><span class="dot"></span>Offline</div><div class="api-ver">cli agendado</div></div>
     </div>
   </section>
 
@@ -827,7 +825,7 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
 
 <script>
 // ── DESIGN TOKENS ──────────────────────────────────────────────────────────
-const C={bp:'#19398A',ba:'#A43C3E',bb:'#C3940F',bc:'#6589D4',pos:'#3EAB36',neg:'#ED544F',wrn:'#F4B922',inf:'#6A37C3',g4:'#ACACAC',g2:'#E3E3E3'};
+const C={bp:'#6FA3F0',ba:'#D45A5C',bb:'#E0AA20',bc:'#7090E0',pos:'#4AE06A',neg:'#FF6B6B',wrn:'#F0B030',inf:'#9070F0',g4:'#4A5268',g2:'#252D40',g5:'#4A5268',g7:'#9AA4B8',bp7:'#8FBDF8',pos7:'#3AC05A'};
 Chart.defaults.color='#6B7590';Chart.defaults.borderColor='#252D40';Chart.defaults.font.family="'Nunito Sans',sans-serif";Chart.defaults.font.weight=500;
 
 // ── STATE ──────────────────────────────────────────────────────────────────
@@ -1616,7 +1614,7 @@ function render(data,cs,ce,ps,pe){
       return `<tr>
         <td style="font-size:11px;font-weight:600;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.path}">${r.path}</td>
         <td class="r" style="vertical-align:top">
-          <div style="font-size:12px">${fmtN(r.sessions)}</div>
+          <div style="font-size:12px;font-weight:700">${fmtN(r.sessions)}</div>
           ${dEl(dQty)}
         </td>
         <td class="r" style="vertical-align:top">
@@ -1732,15 +1730,25 @@ function render(data,cs,ce,ps,pe){
   // ── GTmetrix ──
   const gtm=(data.gtmetrix||{}).pages||[];
   if(gtm.length){
-    const sc=s=>s>=85?'g':s>=60?'w':'b';
-    setEl('gtmetrixBody',gtm.map(p=>`
-      <tr>
-        <td class="path">${(p.url||'').replace('https://viajeguanabara.com.br','')}</td>
-        <td>${p.layout}</td>
-        <td class="r"><span class="sc ${sc(p.performance||0)}">${p.performance||'—'}</span></td>
-        <td class="r">${p.lcp?Math.round(p.lcp/1000*10)/10+'s':'—'}</td>
-        <td class="r">${p.inp?p.inp+'ms':'—'}</td>
-      </tr>`).join(''));
+    const sc=s=>s>=85?'g':s>=60?'w':'e';
+    const gradeColor=g=>g?({'A':'#3EAB36','B':'#8FD14F','C':'#F4B922','D':'#E67A1B','E':'#E1393E','F':'#CB0309'}[g[0]]||C.g4):C.g4;
+    setEl('gtmetrixBody',gtm.map(p=>{
+      const scoreColor=gradeColor(p.score);
+      const lcpMs=p.lcp?Math.round(p.lcp/1000*10)/10+'s':'—';
+      const clsVal=p.cls!=null?parseFloat(p.cls).toFixed(3):'—';
+      const inpMs=p.inp?p.inp+'ms':'—';
+      return`<tr>
+        <td style="font-size:11px;font-weight:600">${(p.layout||'').toUpperCase()}</td>
+        <td class="r">
+          ${p.score?`<span style="font-weight:900;color:${scoreColor};font-size:14px">${p.score}</span>`:'—'}
+          <div style="font-size:10px;color:var(--g6)">${p.performance?p.performance+'%':''}</div>
+        </td>
+        <td class="r" style="font-size:11px">${lcpMs}<div style="font-size:9px;color:var(--g6)">LCP</div></td>
+        <td class="r" style="font-size:11px">${clsVal}<div style="font-size:9px;color:var(--g6)">CLS</div></td>
+        <td class="r" style="font-size:11px">${inpMs}<div style="font-size:9px;color:var(--g6)">INP</div></td>
+      </tr>`}).join(''));
+  } else {
+    setEl('gtmetrixBody','<tr><td colspan="5" style="color:var(--g5);font-size:12px">Roda diariamente — aguardando próxima execução</td></tr>');
   }
 
   // ── Semrush ──
@@ -1979,9 +1987,9 @@ const chartOpts = (tickCb) => ({
   responsive:true, maintainAspectRatio:false,
   interaction:{mode:'index',intersect:false},
   elements:{point:{radius:0,hoverRadius:4}},
-  plugins:{legend:{position:'top',align:'end',labels:{boxWidth:7,boxHeight:7,usePointStyle:true,pointStyle:'circle',font:{size:11,weight:700},padding:10,color:'#515151'}}},
-  scales:{x:{grid:{color:'#EEEEEE'},ticks:{font:{size:10}}},
-          y:{grid:{color:'#EEEEEE'},ticks:{font:{size:10},callback:tickCb}}}
+  plugins:{legend:{position:'top',align:'end',labels:{boxWidth:7,boxHeight:7,usePointStyle:true,pointStyle:'circle',font:{size:11,weight:700},padding:10,color:'#9AA4B8'}}},
+  scales:{x:{grid:{color:'rgba(255,255,255,0.06)'},border:{display:false},ticks:{font:{size:10},color:'#6B7590'}},
+          y:{grid:{color:'rgba(255,255,255,0.06)'},border:{display:false},ticks:{font:{size:10},color:'#6B7590',callback:tickCb}}}
 });
 
 if(document.getElementById('projSessionsChart')){
