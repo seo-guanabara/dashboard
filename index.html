@@ -1151,8 +1151,33 @@ function render(data,cs,ce,ps,pe){
   }
 
   // Tentar calcular pelo período — cai no agregado se não tiver diário
-  const ga4Period     = sumGa4Period(ga4, cs, ce);
-  const ga4PeriodPrev = (comparing && ps && pe) ? sumGa4Period(ga4, ps, pe) : null;
+  // ── Calcular KPIs GA4 ──
+  // Se o período selecionado começa antes dos dados diários (ex: YTD),
+  // usa os valores pré-computados pela API em vez de somar o diário incompleto
+  const dailyStart  = ga4.daily_start || '';
+  const isYtdPeriod = cs <= (ga4.ytd_start || '9999') && cs.slice(5) === '01-01';
+  const periodTooOld = cs < dailyStart;
+
+  let ga4Period, ga4PeriodPrev;
+
+  if (isYtdPeriod || periodTooOld) {
+    // Período YTD ou fora dos 90 dias — usa agregados pré-computados
+    ga4Period = {
+      sessions:     ga4.sessions_ytd      || ga4.sessions     || 0,
+      new_users:    ga4.users_ytd         || ga4.new_users    || 0,
+      transactions: ga4.transactions_ytd  || ga4.transactions  || 0,
+      revenue:      ga4.revenue_ytd       || ga4.revenue       || 0,
+    };
+    ga4PeriodPrev = (comparing && ga4.sessions_ytd_prev != null) ? {
+      sessions:     ga4.sessions_ytd_prev,
+      new_users:    ga4.users_ytd_prev,
+      transactions: ga4.transactions_ytd_prev,
+      revenue:      ga4.revenue_ytd_prev,
+    } : null;
+  } else {
+    ga4Period     = sumGa4Period(ga4, cs, ce);
+    ga4PeriodPrev = (comparing && ps && pe) ? sumGa4Period(ga4, ps, pe) : null;
+  }
 
   const kSess = ga4Period ? ga4Period.sessions    : (ga4.sessions    || 0);
   const kNew  = ga4Period ? ga4Period.new_users   : (ga4.new_users   || 0);
