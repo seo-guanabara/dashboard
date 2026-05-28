@@ -1010,38 +1010,92 @@ function render(data,cs,ce,ps,pe){
   const ga4=data.ga4||{};
   const sem=data.semrush||{};
 
-  // ── Agregação multi-propriedade GSC ──
+  // ── Calcular KPIs GA4 pelo período selecionado (dados diários) ──
+  function sumGa4Period(ga4, startDate, endDate) {
+    const dates   = ga4.daily_dates   || [];
+    const sessions= ga4.daily_sessions|| [];
+    const newU    = ga4.daily_new     || [];
+    const trans   = ga4.daily_trans   || [];
+    const revenue = ga4.daily_revenue || [];
+    if (!dates.length) return null; // sem dados diários → usa agregado
+
+    let s=0,n=0,t=0,r=0;
+    dates.forEach((d,i) => {
+      // GA4 usa formato YYYYMMDD
+      const ds = d.length===8 ? `${d.slice(0,4)}-${d.slice(4,6)}-${d.slice(6,8)}` : d;
+      if(ds >= startDate && ds <= endDate){
+        s += sessions[i]||0; n += newU[i]||0;
+        t += trans[i]||0;    r += revenue[i]||0;
+      }
+    });
+    return {sessions:s, new_users:n, transactions:t, revenue:round2(r)};
+  }
+
+  function round2(n){ return Math.round(n*100)/100; }
+
+  // Período anterior para delta
+  function calcDelta(cur, prv) {
+    if (!prv || prv === 0) return null;
+    return Math.round((cur - prv) / prv * 1000) / 10;
+  }
+
+  // Tentar calcular pelo período — cai no agregado se não tiver diário
+  const ga4Period     = sumGa4Period(ga4, cs, ce);
+  const ga4PeriodPrev = (comparing && ps && pe) ? sumGa4Period(ga4, ps, pe) : null;
+
+  const kSess = ga4Period ? ga4Period.sessions    : (ga4.sessions    || 0);
+  const kNew  = ga4Period ? ga4Period.new_users   : (ga4.new_users   || 0);
+  const kTrans= ga4Period ? ga4Period.transactions: (ga4.transactions|| 0);
+  const kRev  = ga4Period ? ga4Period.revenue     : (ga4.revenue     || 0);
+
+  const dSess  = ga4PeriodPrev ? calcDelta(kSess,  ga4PeriodPrev.sessions)     : null;
+  const dTrans = ga4PeriodPrev ? calcDelta(kTrans, ga4PeriodPrev.transactions) : null;
+  const dRev   = ga4PeriodPrev ? calcDelta(kRev,   ga4PeriodPrev.revenue)      : null;
+  const kConv  = kSess ? round2(kTrans/kSess*100) : 0;
+
+  const hasDynamic = !!ga4Period;
   const gscTotal = calcGscTotal(data.gsc||{}, cs, ce);
 
-  // ── Big Numbers ──
-  setEl('bnSessions', fmtN(ga4.sessions));
-  setEl('bnSessionsDelta', comparing && ga4.sessions_delta !== 0 ? fmtD(ga4.sessions_delta) : comparing ? '<span class="delta na">dados do período completo</span>' : '<span class="delta na">sem comparação</span>');
-  setEl('bnRevenue', fmtRBig(ga4.revenue));
-  setEl('bnRevenueDelta', comparing && ga4.revenue_delta !== 0 ? fmtD(ga4.revenue_delta) : comparing ? '<span class="delta na">dados do período completo</span>' : '<span class="delta na">sem comparação</span>');
+  // ── Big Numbers (dinâmicos quando há dados diários, estáticos caso contrário) ──
+  setEl('bnSessions', fmtN(kSess));
+  setEl('bnSessionsDelta', dSess !== null
+    ? fmtD(dSess)
+    : `<span class="delta na">${comparing ? (hasDynamic?'sem dados diários':'sem dados diários') : 'sem comparação'}</span>`);
 
-  // YTD — sempre YoY
+  setEl('bnRevenue', fmtRBig(kRev));
+  setEl('bnRevenueDelta', dRev !== null
+    ? fmtD(dRev)
+    : `<span class="delta na">${comparing ? 'sem dados diários' : 'sem comparação'}</span>`);
+
+  // YTD — sempre YoY fixo
   setEl('bnRevenueYtd', fmtRBig(ga4.revenue_ytd));
   if (ga4.revenue_ytd != null && ga4.revenue_ytd_prev != null && ga4.revenue_ytd_prev !== 0) {
     const yoyDelta = Math.round((ga4.revenue_ytd - ga4.revenue_ytd_prev) / ga4.revenue_ytd_prev * 1000) / 10;
     setEl('bnYtdDelta', fmtD(yoyDelta));
-    setEl('bnYtdPeriod', `jan → hoje · YoY vs 2025`);
+    setEl('bnYtdPeriod', 'jan → hoje · YoY vs 2025');
   } else if (ga4.revenue_ytd) {
-    setEl('bnYtdPeriod', `jan → hoje`);
+    setEl('bnYtdPeriod', 'jan → hoje');
     setEl('bnYtdDelta', '<span class="delta na">suba ga4/ytd_yoy.csv para YoY</span>');
   }
 
-  setEl('bnConv', fmtP(ga4.conv_rate));
-  setEl('bnConvDelta', fmtD(null));
+  // Tx Conversão — dinâmica
+  setEl('bnConv', kConv ? kConv.toFixed(2).replace('.',',')+' %' : '—');
+  const dConv = (ga4PeriodPrev && ga4PeriodPrev.sessions)
+    ? calcDelta(kConv, round2(ga4PeriodPrev.transactions/ga4PeriodPrev.sessions*100))
+    : null;
+  setEl('bnConvDelta', dConv !== null ? fmtD(dConv) : `<span class="delta na">${comparing?'sem dados diários':'sem comparação'}</span>`);
+
+  // Share orgânico — dinâmico quando possível
   const totalSess = ga4.total_all?.sessions || 0;
-  const seoSess   = ga4.sessions || 0;
+  const seoSess   = kSess || 0;
   const sharePct  = (totalSess > seoSess && totalSess > 0)
     ? Math.round(seoSess/totalSess*1000)/10
     : (ga4.seo_share?.sessions_pct || 0);
   setEl('bnShare', (sharePct > 0 && sharePct <= 100) ? sharePct.toFixed(1).replace('.',',')+' %' : '—');
 
-  // Impressões = total multi-propriedade
+  // Impressões = total multi-propriedade (GSC diário — já dinâmico)
   setEl('bnImpr', fmtN(gscTotal.totalImpr));
-  setEl('bnImprDelta', fmtD(comparing?gscTotal.imprDelta:null));
+  setEl('bnImprDelta', fmtD(comparing ? gscTotal.imprDelta : null));
   setEl('bnImprSub', `${gscTotal.propCount} propriedade${gscTotal.propCount>1?'s':''}`);
 
   // ── Highlights — 5 KPIs fixos ──
