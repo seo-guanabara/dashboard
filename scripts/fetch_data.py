@@ -1082,7 +1082,6 @@ if os.path.exists("ga4/carriers.csv"):
         log_err("GA4 carriers", str(e))
 
 # ── Blog ──
-fetch_wp_blog()
 blog_ga4 = {}
 if os.path.exists("ga4_blog/seo_traffic.csv"):
     try:
@@ -1098,6 +1097,8 @@ output["blog"] = {
            "gsc_blog" if os.path.exists("gsc_blog/Gráfico.csv") else "blog/gsc",
            "Blog"),
 }
+# WordPress — chamado APÓS output["blog"] estar inicializado
+fetch_wp_blog()
 
 # ── Viva — GA4 site + blog ──
 viva_ga4 = {}
