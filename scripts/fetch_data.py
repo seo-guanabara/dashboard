@@ -995,6 +995,34 @@ def fetch_ga4_property(property_id, label):
         daily_trans    = [int(r.metric_values[2].value) for r in d_rows]
         daily_revenue  = [round(float(r.metric_values[3].value),2) for r in d_rows]
 
+        # Daily sign_up para Viva (filtro SEO + evento sign_up)
+        daily_signups = []
+        if label in ("Viva site", "Viva"):
+            try:
+                r_sud = client.run_report(RunReportRequest(
+                    property=f"properties/{property_id}",
+                    metrics=[Metric(name="eventCount")],
+                    dimensions=[Dimension(name="date")],
+                    date_ranges=[DateRange(start_date=daily_start, end_date=p_end)],
+                    dimension_filter=FilterExpression(
+                        and_group=FilterExpressionList(expressions=[
+                            FilterExpression(filter=Filter(
+                                field_name="eventName",
+                                string_filter=Filter.StringFilter(
+                                    match_type=Filter.StringFilter.MatchType.EXACT,
+                                    value="sign_up"
+                                )
+                            )),
+                            prop_seo_filter,
+                        ])
+                    ),
+                    limit=90,
+                ))
+                su_map = {r.dimension_values[0].value: int(r.metric_values[0].value) for r in r_sud.rows}
+                daily_signups = [su_map.get(d, 0) for d in daily_dates]
+            except Exception as e:
+                print(f"    → daily sign_up falhou: {e}")
+
         result = {
             "source": "api", "period_start": p_start, "period_end": p_end,
             "sessions": sessions, "sessions_delta": pct(sessions, p_sess),
@@ -1008,6 +1036,7 @@ def fetch_ga4_property(property_id, label):
             "daily_new":      daily_new,
             "daily_trans":    daily_trans,
             "daily_revenue":  daily_revenue,
+            "daily_signups":  daily_signups,
             "sign_up": signup_cur,
             "sign_up_delta": pct(signup_cur, signup_prev),
         }
