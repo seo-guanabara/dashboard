@@ -474,15 +474,16 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
         <!-- Gráfico de séries temporais — 4 linhas empilhadas -->
         <div style="position:relative;height:220px"><canvas id="ga4TimeChart"></canvas></div>
       </div>
-      <!-- Top rotas -->
+      <!-- Top rotas ecommerce -->
       <div class="card">
-        <div class="card-head"><div class="card-title">Top rotas<span class="chip">GA4</span></div><div class="card-more">páginas /onibus/</div></div>
+        <div class="card-head"><div class="card-title">Top rotas<span class="chip">GA4</span></div><div class="card-more">bilhetes · receita · ecommerce</div></div>
         <table id="tblRoutes"><thead><tr>
           <th onclick="sortTbl('tblRoutes',0)" class="sortable">Rota</th>
-          <th onclick="sortTbl('tblRoutes',1)" class="sortable r">Sessões</th>
+          <th onclick="sortTbl('tblRoutes',1)" class="sortable r">Bilhetes</th>
           <th onclick="sortTbl('tblRoutes',2)" class="sortable r">Receita</th>
+          <th onclick="sortTbl('tblRoutes',3)" class="sortable r">Δ Bilhetes</th>
         </tr></thead>
-        <tbody id="topRoutes"><tr><td colspan="3" class="loading">Carregando...</td></tr></tbody></table>
+        <tbody id="topRoutes"><tr><td colspan="4" class="loading">Carregando...</td></tr></tbody></table>
       </div>
     </div>
   </section>
@@ -1483,6 +1484,19 @@ function render(data,cs,ce,ps,pe){
     });
     const soP = {sessions:stP.sessions-slP.sessions,transactions:stP.transactions-slP.transactions,revenue:round2(stP.revenue-slP.revenue)};
 
+    // Período anterior — agrega sources_daily para ps→pe
+    const srcsPrev = (comparing && ps && pe && ga4.sources_daily?.length)
+      ? aggByPeriod(ga4.sources_daily, 'source', ps, pe, ['sessions','transactions','revenue'])
+      : [];
+    srcsPrev.forEach(s=>{ s.is_llm = LLM_SET.has(s.source); });
+    const stPrev={sessions:0,transactions:0,revenue:0}, slPrev={sessions:0,transactions:0,revenue:0};
+    srcsPrev.forEach(s=>{
+      stPrev.sessions+=s.sessions; stPrev.transactions+=s.transactions; stPrev.revenue+=s.revenue;
+      if(s.is_llm){slPrev.sessions+=s.sessions; slPrev.transactions+=s.transactions; slPrev.revenue+=s.revenue;}
+    });
+    const soPrev={sessions:stPrev.sessions-slPrev.sessions,transactions:stPrev.transactions-slPrev.transactions,revenue:round2(stPrev.revenue-slPrev.revenue)};
+    const hasPrev = srcsPrev.length > 0;
+
     const orgRatio = stP.sessions ? soP.sessions/stP.sessions : 0;
     const llmRatio = stP.sessions ? slP.sessions/stP.sessions : 0;
 
@@ -1512,12 +1526,16 @@ function render(data,cs,ce,ps,pe){
           delta(curSess,prevSess), delta(curTrans,prevTrans), delta(curRev,prevRev),
           `${seoSharePct}% das sessões totais`)+
       row('Orgânico tradicional',C.pos,
-          Math.round(curSess*orgRatio), Math.round(curTrans*orgRatio), round2(curRev*orgRatio),
-          delta(Math.round(curSess*orgRatio), prevSess?Math.round(prevSess*orgRatio):null), null, null,
+          soP.sessions, soP.transactions, soP.revenue,
+          hasPrev?delta(soP.sessions,soPrev.sessions):null,
+          hasPrev?delta(soP.transactions,soPrev.transactions):null,
+          hasPrev?delta(soP.revenue,soPrev.revenue):null,
           'Google, Bing, DDG...')+
       row('LLMs',C.inf,
-          Math.round(curSess*llmRatio), Math.round(curTrans*llmRatio), round2(curRev*llmRatio),
-          delta(Math.round(curSess*llmRatio), prevSess?Math.round(prevSess*llmRatio):null), null, null,
+          slP.sessions, slP.transactions, slP.revenue,
+          hasPrev?delta(slP.sessions,slPrev.sessions):null,
+          hasPrev?delta(slP.transactions,slPrev.transactions):null,
+          hasPrev?delta(slP.revenue,slPrev.revenue):null,
           'ChatGPT, Gemini, Perplexity...')
     );
   }
@@ -1541,41 +1559,30 @@ function render(data,cs,ce,ps,pe){
       </tr>`).join(''));
   }
 
-  // ── Top rotas — filtradas pelo período ──
-  const routesFiltered = ga4.routes_daily?.length
+  // ── Top rotas ecommerce — bilhetes + receita por item ──
+  const routesCur = ga4.routes_daily?.length
     ? aggByPeriod(ga4.routes_daily, 'path', cs, ce, ['sessions','revenue'])
     : (ga4.top_routes||[]);
-  const routes = routesFiltered.sort((a,b)=>b.sessions-a.sessions).slice(0,10);
+  const routesPrv = (comparing && ps && pe && ga4.routes_daily?.length)
+    ? aggByPeriod(ga4.routes_daily, 'path', ps, pe, ['sessions','revenue'])
+    : [];
+  const routesPrvMap = Object.fromEntries(routesPrv.map(r=>[r.path,r]));
+  const routes = routesCur.sort((a,b)=>b.revenue-a.revenue).slice(0,12);
 
-  // ── Top rotas ──
-  // Parsear URL /onibus/origem-uf/destino-uf → ORIGEM - UF <> DESTINO - UF
-  function parseRoute(path){
-    const m=path.match(/\/onibus\/([^\/\?]+)\/([^\/\?]+)/);
-    if(!m) return path;
-    const fmt=s=>{
-      const parts=s.replace(/_/g,' ').split('-');
-      const uf=parts[parts.length-1];
-      if(uf&&uf.length===2&&uf===uf.toLowerCase()){
-        const city=parts.slice(0,-1).join(' ').replace(/\w/g,l=>l.toUpperCase());
-        return city+' - '+uf.toUpperCase();
-      }
-      return s.replace(/_/g,' ').replace(/\w/g,l=>l.toUpperCase());
-    };
-    return fmt(m[1])+' <> '+fmt(m[2]);
-  }
   if(routes.length){
-    // Deduplica por rota parseada
-    const seen=new Set();
-    const unique=routes.filter(r=>{const k=parseRoute(r.path);if(seen.has(k))return false;seen.add(k);return true;});
-    setEl('topRoutes',unique.slice(0,12).map(r=>`
-      <tr>
-        <td style="font-size:12px;font-weight:600">${parseRoute(r.path)}</td>
+    setEl('topRoutes', routes.map(r=>{
+      const prv=routesPrvMap[r.path];
+      const dQty=prv?calcDelta(r.sessions,prv.sessions):null;
+      return `<tr>
+        <td style="font-size:12px;font-weight:600">${r.path}</td>
         <td class="r">${fmtN(r.sessions)}</td>
         <td class="r">${fmtR(r.revenue)}</td>
-      </tr>`).join(''));
+        <td class="r">${dQty!==null?`<span class="delta ${dQty>=0?'up':'dn'}" style="font-size:10px">${dQty>=0?'▲':'▼'}${Math.abs(dQty).toFixed(1).replace('.',',')}%</span>`:'<span class="delta na" style="font-size:10px">—</span>'}</td>
+      </tr>`;}).join(''));
   } else {
-    setEl('topRoutes','<tr><td colspan="3" style="color:var(--g5);font-size:12px">Disponível via GA4 API</td></tr>');
+    setEl('topRoutes','<tr><td colspan="4" style="color:var(--g5);font-size:12px">Aguardando dados de ecommerce</td></tr>');
   }
+
 
   // ── GSC Chart ──
   const dc=gsc.daily_clicks||[];
