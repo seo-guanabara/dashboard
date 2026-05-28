@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-28T14:12:45.809651Z",
+    "generated_at": "2026-05-28T14:17:13.409819Z",
     "period_current": {
       "start": "2026-04-28",
       "end": "2026-05-27"
@@ -28,7 +28,7 @@
     "transactions_delta": 0.0,
     "revenue": 67286372.84,
     "revenue_delta": 0.0,
-    "revenue_ytd": 67286372.84,
+    "revenue_ytd": 17627121.72,
     "daily_sessions": [],
     "channels": [
       {
@@ -475,6 +475,7 @@
       }
     ],
     "conv_rate": 6.75,
+    "revenue_ytd_prev": 19715353.05,
     "top_carriers": [
       {
         "path": "Compre sua Passagem de ônibus online – Expresso Guanabara",
