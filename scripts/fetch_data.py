@@ -311,7 +311,7 @@ def fetch_ga4_api():
 
     # ── Channels para share ──
     r4 = rpt(["sessions","transactions","purchaseRevenue"],
-             dims=["sessionDefaultChannelGroup"], limit=20)
+             dims=["sessionPrimaryChannelGroup"], limit=20)
     channels = []
     for row in r4.rows:
         dr = row.dimension_values[1].value if len(row.dimension_values) > 1 else "date_range_0"
