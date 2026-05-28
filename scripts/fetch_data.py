@@ -201,14 +201,24 @@ def fetch_ga4_api():
     trans      = int(gv(cur,2));  p_trans      = int(gv(prv,2))
     revenue    = round(gv(cur,3),2); p_revenue = round(gv(prv,3),2)
 
-    # ── YTD receita ──
+    # ── YTD receita — automático YoY (mesmo período ano anterior) ──
+    ytd_end_prev = date(last_sunday.year - 1, last_sunday.month, last_sunday.day).isoformat()
+    ytd_start_prev = date(today.year - 1, 1, 1).isoformat()
     r_ytd = client.run_report(RunReportRequest(
         property=f"properties/{GA4_PROPERTY_ID}",
         metrics=[Metric(name="purchaseRevenue")],
-        date_ranges=[DateRange(start_date=ytd_start, end_date=p_end)],
-        limit=1,
+        date_ranges=[
+            DateRange(start_date=ytd_start,      end_date=p_end),
+            DateRange(start_date=ytd_start_prev, end_date=ytd_end_prev),
+        ],
+        limit=2,
     ))
-    revenue_ytd = round(float(r_ytd.rows[0].metric_values[0].value),2) if r_ytd.rows else 0.0
+    revenue_ytd = revenue_ytd_prev = 0.0
+    for row in r_ytd.rows:
+        dr  = row.dimension_values[0].value if row.dimension_values else "date_range_0"
+        val = round(float(row.metric_values[0].value), 2)
+        if dr == "date_range_0":   revenue_ytd      = val
+        elif dr == "date_range_1": revenue_ytd_prev = val
 
     # ── Returning users ──
     r2 = client.run_report(RunReportRequest(
@@ -307,6 +317,7 @@ def fetch_ga4_api():
         "revenue":           revenue,
         "revenue_delta":     pct(revenue, p_revenue),
         "revenue_ytd":       revenue_ytd,
+        "revenue_ytd_prev":  revenue_ytd_prev,
         "daily_sessions":    daily,
         "daily_dates":       daily_dates,
         "daily_new":         daily_new,
@@ -484,7 +495,9 @@ def fetch_gsc():
         except Exception as e:
             log_err("GSC CSV", traceback.format_exc())
     try:
-        svc = build("searchconsole","v1",credentials=creds)
+        oauth = get_ga4_oauth_creds()
+        gsc_creds = oauth if oauth else creds
+        svc = build("searchconsole","v1",credentials=gsc_creds)
         sc  = svc.searchanalytics()
         def query(s,e,dims=None,limit=25):
             return sc.query(siteUrl=GSC_SITE_URL,body={"startDate":s,"endDate":e,"dimensions":dims or [],"rowLimit":limit}).execute()
@@ -927,9 +940,10 @@ def fetch_gsc_property(site_url, csv_folder, label):
             return result
         except Exception as e:
             log_err(f"GSC {label} CSV", str(e))
-    # Tenta API
+    # Tenta API com OAuth
     try:
-        svc = build("searchconsole", "v1", credentials=creds)
+        oauth = get_ga4_oauth_creds()
+        svc = build("searchconsole", "v1", credentials=oauth if oauth else creds)
         sc  = svc.searchanalytics()
         def query(s, e, dims=None, limit=20):
             return sc.query(siteUrl=site_url,
@@ -1025,27 +1039,16 @@ for graf, name in GSC_EXTRA_FILES.items():
             log_err(f"GSC extra {graf}", str(e))
 output["gsc"]["extra_properties"] = gsc_extra
 
-# ── YTD YoY ──
-if os.path.exists("ga4/ytd_yoy.csv"):
+# ── YTD YoY — calculado automaticamente pela API (ytd_yoy.csv não é mais necessário) ──
+# Fallback CSV apenas se API falhou (revenue_ytd ainda zerado)
+if not output["ga4"].get("revenue_ytd") and os.path.exists("ga4/ytd_yoy.csv"):
     try:
         ytd_cur, ytd_prv, _, _ = parse_ytd_yoy("ga4/ytd_yoy.csv")
         output["ga4"]["revenue_ytd"]      = ytd_cur
         output["ga4"]["revenue_ytd_prev"] = ytd_prv
-        log_ok(f"GA4 YTD YoY — 2026: R${ytd_cur:,.0f} | 2025: R${ytd_prv:,.0f}")
+        log_ok(f"GA4 YTD YoY (CSV fallback) — 2026: R${ytd_cur:,.0f} | 2025: R${ytd_prv:,.0f}")
     except Exception as e:
-        log_err("GA4 YTD YoY", str(e))
-# Fallback: ytd_previous.csv e ytd_current.csv separados
-elif os.path.exists("ga4/ytd_previous.csv") or os.path.exists("ga4/ytd_current.csv"):
-    for ytd_file, ytd_key in [("ga4/ytd_previous.csv","revenue_ytd_prev"),
-                               ("ga4/ytd_current.csv","revenue_ytd")]:
-        if os.path.exists(ytd_file):
-            try:
-                rows, p_s, p_e = read_ga4_csv(ytd_file)
-                rev = sum(_n(r.get("Receita total",0)) for r in rows)
-                output["ga4"][ytd_key] = round(rev, 2)
-                log_ok(f"GA4 {ytd_key} (CSV) — R$ {rev:,.0f}")
-            except Exception as e:
-                log_err(f"GA4 {ytd_file}", str(e))
+        log_err("GA4 YTD YoY CSV", str(e))
 
 fetch_youtube()
 fetch_play()
