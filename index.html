@@ -1194,6 +1194,18 @@ function render(data,cs,ce,ps,pe){
   const ga4=data.ga4||{};
   const sem=data.semrush||{};
 
+  // LLM_SET — declarado aqui, usado em múltiplos pontos do render
+  const LLM_SET=new Set([
+    'chatgpt.com / referral','chatgpt.com / (not set)','chatgpt.com / (none)',
+    'chat.openai.com / referral','gemini.google.com / referral','aistudio.google.com / referral',
+    'copilot.microsoft.com / referral','copilot.com / referral','copilot.com / (not set)','copilot.ai / referral',
+    'perplexity.ai / referral','perplexity / (not set)','perplexity.ai / (not set)',
+    'claude.ai / referral','claude.com / referral','l.meta.ai / referral','l.meta.ai / (not set)',
+    'poe.com / referral','you.com / referral','phind.com / referral','grok.com / referral',
+    'grok.x.ai / referral','chat.mistral.ai / referral','mistral.ai / referral',
+    'character.ai / referral','heypi.com / referral','manus.im / referral',
+  ]);
+
   // ── Calcular KPIs GA4 pelo período selecionado (dados diários) ──
   function sumGa4Period(ga4, startDate, endDate) {
     const dates   = ga4.daily_dates   || [];
@@ -1511,16 +1523,6 @@ function render(data,cs,ce,ps,pe){
   }
 
   // ── Top origens SEO — filtradas pelo período ──
-  const LLM_SET = new Set([
-    'chatgpt.com / referral','chatgpt.com / (not set)','chatgpt.com / (none)',
-    'chat.openai.com / referral','gemini.google.com / referral','aistudio.google.com / referral',
-    'copilot.microsoft.com / referral','copilot.com / referral','copilot.com / (not set)','copilot.ai / referral',
-    'perplexity.ai / referral','perplexity / (not set)','perplexity.ai / (not set)',
-    'claude.ai / referral','claude.com / referral','l.meta.ai / referral','l.meta.ai / (not set)',
-    'poe.com / referral','you.com / referral','phind.com / referral','grok.com / referral',
-    'grok.x.ai / referral','chat.mistral.ai / referral','mistral.ai / referral',
-    'character.ai / referral','heypi.com / referral','manus.im / referral',
-  ]);
   const srcsFiltered = ga4.sources_daily?.length
     ? aggByPeriod(ga4.sources_daily, 'source', cs, ce, ['sessions','transactions','revenue'])
     : (ga4.seo_by_source||[]);
