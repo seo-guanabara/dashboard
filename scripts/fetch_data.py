@@ -707,10 +707,26 @@ def fetch_semrush():
         is_first_of_month = (today.day == 1)
 
         if not is_first_of_month:
-            # Manter dados do último relatório mensal se existirem no output
+            # Carregar dados Semrush do data.json anterior para preservar o relatório mensal
+            try:
+                if os.path.exists("data.json"):
+                    with open("data.json", "r", encoding="utf-8") as _f:
+                        prev = json.load(_f)
+                    prev_sem = prev.get("semrush", {})
+                    if prev_sem and prev_sem.get("total_keywords"):
+                        output["semrush"] = prev_sem
+                        next_run = today.replace(day=1)
+                        if today.month == 12:
+                            next_run = today.replace(year=today.year+1, month=1, day=1)
+                        else:
+                            next_run = today.replace(month=today.month+1, day=1)
+                        output["semrush"]["_note"] = f"dados de {today.replace(day=1).isoformat()} · próxima atualização: {next_run.isoformat()}"
+                        log_ok(f"Semrush (dados mantidos do dia 1 — {prev_sem.get('total_keywords',0)} kw)")
+                        return
+            except Exception as e:
+                print(f"    → Semrush: falha ao carregar data.json anterior: {e}")
             print(f"    Semrush: dia {today.day} — domain_organic reservado para dia 1 do mês")
-            log_ok("Semrush (sem atualização hoje — preservando créditos)")
-            output["semrush"]["_note"] = f"domain_organic atualizado em {today.replace(day=1).isoformat()}"
+            log_ok("Semrush (sem dados anteriores disponíveis)")
             return
 
         # Dia 1: rodar relatório completo
