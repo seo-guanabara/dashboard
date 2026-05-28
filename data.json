@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-28T16:41:58.954249Z",
+    "generated_at": "2026-05-28T16:59:23.130423Z",
     "period_current": {
       "start": "2026-04-25",
       "end": "2026-05-24"
@@ -11526,9 +11526,7 @@
   "gtmetrix": {
     "pages": []
   },
-  "errors": [
-    "WordPress Blog: 'blog'"
-  ],
+  "errors": [],
   "blog": {
     "ga4": {
       "source": "csv",
@@ -15574,6 +15572,12 @@
       "cwv_daily_bad": [],
       "cwv_daily_ok": [],
       "backlinks_total": 0
+    },
+    "wp": {
+      "total_posts": 127,
+      "new_this_month": 3,
+      "new_prev_month": 2,
+      "new_delta": 50.0
     }
   },
   "viva_blog": {
