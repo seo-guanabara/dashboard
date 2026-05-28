@@ -805,22 +805,8 @@ def fetch_ga4_property(property_id, label):
         if not ga4_creds:
             raise Exception("OAuth não configurado")
         client = BetaAnalyticsDataClient(credentials=ga4_creds)
+        # Query principal — sem dimensão de evento (para não distorcer sessões/receita)
         r = client.run_report(RunReportRequest(
-            property=f"properties/{property_id}",
-            metrics=[Metric(name=m) for m in ["sessions","newUsers","purchaseRevenue","transactions","eventCount"]],
-            dimensions=[Dimension(name="eventName")],
-            date_ranges=[
-                DateRange(start_date=p_start, end_date=p_end),
-                DateRange(start_date=c_start, end_date=c_end),
-            ],
-            limit=50,
-            dimension_filter=FilterExpression(
-                filter=Filter(
-                    field_name="eventName",
-                    in_list_filter=Filter.InListFilter(values=["sign_up", "(not set)"])
-                )
-            ) if label in ("Viva site", "Viva") else None,
-        ) if label in ("Viva site", "Viva") else RunReportRequest(
             property=f"properties/{property_id}",
             metrics=[Metric(name=m) for m in ["sessions","newUsers","purchaseRevenue","transactions"]],
             date_ranges=[
@@ -829,42 +815,46 @@ def fetch_ga4_property(property_id, label):
             ],
             limit=10,
         ))
-        # Com dimensão eventName (Viva): agregar todas as linhas por dateRange
-        # Sem dimensão (outros): row única por dateRange
-        is_viva = label in ("Viva site", "Viva")
+        def gv(rows, dr, mi):
+            row = next((r for r in rows if r.dimension_values[0].value == dr), None)
+            return float(row.metric_values[mi].value) if row else 0.0
 
-        def sum_metric(rows, dr, mi):
-            return sum(float(row.metric_values[mi].value)
-                       for row in rows
-                       if (row.dimension_values[-1].value if row.dimension_values else "date_range_0") == dr)
+        sessions  = int(gv(r.rows, "date_range_0", 0))
+        new_users = int(gv(r.rows, "date_range_0", 1))
+        revenue   = round(gv(r.rows, "date_range_0", 2), 2)
+        trans     = int(gv(r.rows, "date_range_0", 3))
+        p_sess    = int(gv(r.rows, "date_range_1", 0))
+        p_rev     = round(gv(r.rows, "date_range_1", 2), 2)
 
-        if is_viva:
-            sessions  = int(sum_metric(r.rows, "date_range_0", 0))
-            new_users = int(sum_metric(r.rows, "date_range_0", 1))
-            revenue   = round(sum_metric(r.rows, "date_range_0", 2), 2)
-            trans     = int(sum_metric(r.rows, "date_range_0", 3))
-            p_sess    = int(sum_metric(r.rows, "date_range_1", 0))
-            p_rev     = round(sum_metric(r.rows, "date_range_1", 2), 2)
-            # sign_up events
-            signup_cur  = int(sum(float(row.metric_values[4].value)
-                                  for row in r.rows
-                                  if row.dimension_values[0].value == "sign_up"
-                                  and row.dimension_values[-1].value == "date_range_0"))
-            signup_prev = int(sum(float(row.metric_values[4].value)
-                                  for row in r.rows
-                                  if row.dimension_values[0].value == "sign_up"
-                                  and row.dimension_values[-1].value == "date_range_1"))
-        else:
-            def gv(rows, dr, mi):
-                row = next((r for r in rows if r.dimension_values[0].value == dr), None)
-                return float(row.metric_values[mi].value) if row else 0.0
-            sessions  = int(gv(r.rows, "date_range_0", 0))
-            new_users = int(gv(r.rows, "date_range_0", 1))
-            revenue   = round(gv(r.rows, "date_range_0", 2), 2)
-            trans     = int(gv(r.rows, "date_range_0", 3))
-            p_sess    = int(gv(r.rows, "date_range_1", 0))
-            p_rev     = round(gv(r.rows, "date_range_1", 2), 2)
-            signup_cur = signup_prev = 0
+        # sign_up — query separada para não distorcer sessões/receita
+        signup_cur = signup_prev = 0
+        if label in ("Viva site", "Viva"):
+            try:
+                r_su = client.run_report(RunReportRequest(
+                    property=f"properties/{property_id}",
+                    metrics=[Metric(name="eventCount")],
+                    date_ranges=[
+                        DateRange(start_date=p_start, end_date=p_end),
+                        DateRange(start_date=c_start, end_date=c_end),
+                    ],
+                    dimension_filter=FilterExpression(
+                        filter=Filter(
+                            field_name="eventName",
+                            string_filter=Filter.StringFilter(
+                                match_type=Filter.StringFilter.MatchType.EXACT,
+                                value="sign_up"
+                            )
+                        )
+                    ),
+                    limit=2,
+                ))
+                for row in r_su.rows:
+                    dr = row.dimension_values[0].value if row.dimension_values else "date_range_0"
+                    val = int(row.metric_values[0].value)
+                    if dr == "date_range_0": signup_cur = val
+                    elif dr == "date_range_1": signup_prev = val
+            except Exception as e:
+                print(f"    → sign_up query falhou: {e}")
 
         # YTD
         r_ytd = client.run_report(RunReportRequest(
@@ -889,6 +879,22 @@ def fetch_ga4_property(property_id, label):
             "revenue": round(float(row.metric_values[1].value), 2),
         } for row in r2.rows], key=lambda x: x["sessions"], reverse=True)
 
+        # Dados diários — mesmos 90 dias do principal para filtro dinâmico no frontend
+        daily_start = (last_sunday - timedelta(days=89)).isoformat()
+        r3 = client.run_report(RunReportRequest(
+            property=f"properties/{property_id}",
+            metrics=[Metric(name=m) for m in ["sessions","newUsers","transactions","purchaseRevenue"]],
+            dimensions=[Dimension(name="date")],
+            date_ranges=[DateRange(start_date=daily_start, end_date=p_end)],
+            limit=90,
+        ))
+        d_rows = sorted(r3.rows, key=lambda x: x.dimension_values[0].value)
+        daily_dates    = [r.dimension_values[0].value for r in d_rows]
+        daily_sessions = [int(r.metric_values[0].value) for r in d_rows]
+        daily_new      = [int(r.metric_values[1].value) for r in d_rows]
+        daily_trans    = [int(r.metric_values[2].value) for r in d_rows]
+        daily_revenue  = [round(float(r.metric_values[3].value),2) for r in d_rows]
+
         result = {
             "source": "api", "period_start": p_start, "period_end": p_end,
             "sessions": sessions, "sessions_delta": pct(sessions, p_sess),
@@ -897,6 +903,11 @@ def fetch_ga4_property(property_id, label):
             "revenue_ytd": revenue_ytd,
             "conv_rate": round(trans/sessions*100, 2) if sessions else 0,
             "top_pages": top_pages,
+            "daily_dates":    daily_dates,
+            "daily_sessions": daily_sessions,
+            "daily_new":      daily_new,
+            "daily_trans":    daily_trans,
+            "daily_revenue":  daily_revenue,
             "sign_up": signup_cur,
             "sign_up_delta": pct(signup_cur, signup_prev),
         }
@@ -1081,15 +1092,13 @@ if os.path.exists("ga4/carriers.csv"):
     except Exception as e:
         log_err("GA4 carriers", str(e))
 
-# ── Blog ──
-blog_ga4 = {}
-if os.path.exists("ga4_blog/seo_traffic.csv"):
+# ── Blog — API primeiro (dados diários), CSV como fallback ──
+blog_ga4 = fetch_ga4_property(GA4_BLOG_PROPERTY_ID, "Blog")
+if not blog_ga4 and os.path.exists("ga4_blog/seo_traffic.csv"):
     try:
         blog_ga4 = fetch_ga4_csv_generic("ga4_blog", "Blog")
     except Exception as e:
         log_err("GA4 Blog CSV", str(e))
-if not blog_ga4:
-    blog_ga4 = fetch_ga4_property(GA4_BLOG_PROPERTY_ID, "Blog")
 
 output["blog"] = {
     "ga4": blog_ga4,
@@ -1100,15 +1109,13 @@ output["blog"] = {
 # WordPress — chamado APÓS output["blog"] estar inicializado
 fetch_wp_blog()
 
-# ── Viva — GA4 site + blog ──
-viva_ga4 = {}
-if os.path.exists("viva/ga4_seo_traffic.csv"):
+# ── Viva — API primeiro (dados diários), CSV como fallback ──
+viva_ga4 = fetch_ga4_property(GA4_VIVA_SITE_PROPERTY_ID, "Viva site")
+if not viva_ga4 and os.path.exists("viva/ga4_seo_traffic.csv"):
     try:
         viva_ga4 = fetch_ga4_csv_generic("viva", "Viva", prefix="ga4_")
     except Exception as e:
         log_err("GA4 Viva CSV", str(e))
-if not viva_ga4:
-    viva_ga4 = fetch_ga4_property(GA4_VIVA_SITE_PROPERTY_ID, "Viva site")
 
 # Viva blog — propriedade separada
 viva_blog_ga4 = fetch_ga4_property(GA4_VIVA_BLOG_PROPERTY_ID, "Viva blog")
