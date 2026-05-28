@@ -855,13 +855,38 @@ function spark(id,data,color,w=120,h=32){
 function lineChart(id,datasets,opts={}){
   const el=document.getElementById(id);if(!el)return;
   if(_charts[id])_charts[id].destroy();
-  _charts[id]=new Chart(el,{type:'line',data:{labels:opts.labels||datasets[0].data.map((_,i)=>i+1),datasets},
-    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+  const gridColor='rgba(255,255,255,0.06)';  // grid bem discreto
+  _charts[id]=new Chart(el,{type:'line',
+    data:{labels:opts.labels||datasets[0].data.map((_,i)=>i+1),datasets},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
       elements:{point:{radius:0,hoverRadius:4}},
-      plugins:{legend:{display:true,position:'top',align:'end',labels:{boxWidth:7,boxHeight:7,usePointStyle:true,pointStyle:'circle',font:{size:11,weight:700},padding:10,color:'#515151'}}},
-      scales:{x:{grid:{color:'#EEEEEE'},ticks:{font:{size:10}}},
-              y:{position:'left',grid:{color:'#EEEEEE'},ticks:{font:{size:10},callback:v=>v>=1000?(v/1000)+'k':v}},
-              ...(opts.y1?{y1:{position:'right',grid:{display:false},ticks:{font:{size:10},callback:v=>v>=1000?(v/1000)+'k':v}}}:{})}
+      plugins:{
+        legend:{
+          display:!!opts.legend,position:'top',align:'end',
+          labels:{boxWidth:8,boxHeight:8,usePointStyle:true,pointStyle:'circle',
+                  font:{size:11,weight:700},padding:12,color:'var(--g7)'},
+          onClick:(e,item,legend)=>{
+            // Toggle visibilidade da série ao clicar na legenda
+            const ci=legend.chart;
+            const meta=ci.getDatasetMeta(item.datasetIndex);
+            meta.hidden=!meta.hidden;
+            // Opacidade visual no label
+            const lbl=legend.legendItems[item.datasetIndex];
+            if(meta.hidden){lbl.fontColor='var(--g4)'}else{lbl.fontColor='var(--g7)'}
+            ci.update();
+          }
+        },
+        tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y>=1000?(ctx.parsed.y/1000).toFixed(1)+'k':ctx.parsed.y}`}}
+      },
+      scales:{
+        x:{grid:{color:gridColor},border:{display:false},ticks:{font:{size:10},color:'var(--g6)',maxTicksLimit:10}},
+        y:{position:'left',grid:{color:gridColor},border:{display:false},
+           ticks:{font:{size:10},color:'var(--g6)',callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v}},
+        ...(opts.y1?{y1:{position:'right',grid:{display:false},border:{display:false},
+           ticks:{font:{size:10},color:'var(--g6)',callback:v=>v>=1000?(v/1000).toFixed(0)+'k':v}}}:{})
+      }
     }});
 }
 function doughnut(id,labels,data,colors){
@@ -1316,14 +1341,18 @@ function render(data,cs,ce,ps,pe){
   setEl('gscChartPeriod',`${fmtBR(cs)} → ${fmtBR(ce)}`);
 
   // ── GA4 KPIs ──
-  setEl('kpiSess',fmtN(ga4.sessions));
-  setEl('kpiSessDelta',fmtD(comparing?ga4.sessions_delta:null));
-  setEl('kpiNew',fmtN(ga4.new_users));
-  setEl('kpiNewDelta',fmtD(comparing?ga4.new_users_delta:null));
-  setEl('kpiRet',fmtN(ga4.returning_users));
-  setEl('kpiRetDelta',fmtD(comparing?ga4.returning_delta:null));
-  setEl('kpiTrans',fmtN(ga4.transactions));
-  setEl('kpiTransDelta',fmtD(comparing?ga4.transactions_delta:null));
+  // ── KPI detail card — usa valores do período selecionado (mesmos dos big numbers) ──
+  const kRet = Math.max(0, kSess - kNew);  // aproximação: sessões - novos ≈ recorrentes
+  const kRetPrev = ga4PeriodPrev ? Math.max(0, ga4PeriodPrev.sessions - ga4PeriodPrev.new_users) : null;
+
+  setEl('kpiSess',  fmtN(kSess));
+  setEl('kpiSessDelta',  dSess  !== null ? fmtD(dSess)  : `<span class="delta na">${comparing?'sem dados':'sem comparação'}</span>`);
+  setEl('kpiNew',   fmtN(kNew));
+  setEl('kpiNewDelta',   calcDelta(kNew, ga4PeriodPrev?.new_users) !== null && comparing ? fmtD(calcDelta(kNew, ga4PeriodPrev.new_users)) : `<span class="delta na">${comparing?'sem dados':'sem comparação'}</span>`);
+  setEl('kpiRet',   fmtN(kRet));
+  setEl('kpiRetDelta',   kRetPrev !== null && comparing ? fmtD(calcDelta(kRet, kRetPrev)) : `<span class="delta na">${comparing?'sem dados':'sem comparação'}</span>`);
+  setEl('kpiTrans', fmtN(kTrans));
+  setEl('kpiTransDelta', dTrans !== null ? fmtD(dTrans) : `<span class="delta na">${comparing?'sem dados':'sem comparação'}</span>`);
 
   // Sparks
   const daily = ga4.daily_dates?.length
@@ -1356,12 +1385,16 @@ function render(data,cs,ce,ps,pe){
   const pDates=filtLabels(), pSess=filtDaily(ga4.daily_sessions||daily);
   const pNew=filtDaily(ga4.daily_new||dailyNew), pTrans=filtDaily(ga4.daily_trans||dailyTrans);
 
+  // Recorrentes diário = sessões - novos (aproximação)
+  const pRet = pSess.map((s,i) => Math.max(0, s - (pNew[i]||0)));
+
   setEl('ga4ChartPeriod',`${fmtBR(cs)} → ${fmtBR(ce)}`);
   lineChart('ga4TimeChart',[
-    {label:'Sessões',   data:pSess,  borderColor:C.bp,  backgroundColor:C.bp+'22',  fill:false, tension:.3, pointRadius:0, borderWidth:2},
-    {label:'Novos',     data:pNew,   borderColor:C.bp7, backgroundColor:C.bp7+'22', fill:false, tension:.3, pointRadius:0, borderWidth:2},
-    {label:'Transações',data:pTrans, borderColor:C.ba,  backgroundColor:C.ba+'22',  fill:false, tension:.3, pointRadius:0, borderWidth:1.5},
-  ],{labels:pDates, y1:false, legend:true});
+    {label:'Sessões',     data:pSess, borderColor:C.bp,  backgroundColor:C.bp+'18',  fill:false, tension:.3, pointRadius:0, borderWidth:2},
+    {label:'Novos',       data:pNew,  borderColor:C.bp7, backgroundColor:C.bp7+'18', fill:false, tension:.3, pointRadius:0, borderWidth:2},
+    {label:'Recorrentes', data:pRet,  borderColor:C.pos, backgroundColor:C.pos+'18', fill:false, tension:.3, pointRadius:0, borderWidth:2},
+    {label:'Transações',  data:pTrans,borderColor:C.ba,  backgroundColor:C.ba+'18',  fill:false, tension:.3, pointRadius:0, borderWidth:1.5},
+  ],{labels:pDates, y1:false, legend:true, toggleable:true});
 
   // ── Channels — grupos customizados do GA4 ──
   const chs=ga4.channels||[];
