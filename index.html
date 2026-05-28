@@ -1000,6 +1000,21 @@ function sortTbl(tblId,col){
   rows.forEach(r=>tbody.appendChild(r));
 }
 
+// ── AGREGAÇÃO DIÁRIA POR PERÍODO ────────────────────────────────────────────
+function toYMD(d){ return d.length===8?`${d.slice(0,4)}-${d.slice(4,6)}-${d.slice(6,8)}`:d; }
+
+function aggByPeriod(rows, keyField, cs, ce, metrics){
+  const agg={};
+  for(const r of rows){
+    const dt=toYMD(r.date||'');
+    if(dt<cs||dt>ce) continue;
+    const k=r[keyField];
+    if(!agg[k]){agg[k]={[keyField]:k};metrics.forEach(m=>{agg[k][m]=0;}); if(r.is_llm!==undefined) agg[k].is_llm=r.is_llm;}
+    metrics.forEach(m=>{agg[k][m]+=(r[m]||0);});
+  }
+  return Object.values(agg);
+}
+
 function calcGscTotal(gscData, cs, ce) {
   const extra = gscData.extra_properties || {};
   let totalClicks = 0, totalImpr = 0;
@@ -1396,9 +1411,17 @@ function render(data,cs,ce,ps,pe){
     {label:'Transações',  data:pTrans,borderColor:C.ba,  backgroundColor:C.ba+'18',  fill:false, tension:.3, pointRadius:0, borderWidth:1.5},
   ],{labels:pDates, y1:false, legend:true, toggleable:true});
 
-  // ── Channels — grupos customizados do GA4 ──
-  const chs=ga4.channels||[];
-  const totRev=ga4.total_all?.revenue||1;
+  // ── Channels — filtrado pelo período selecionado ──
+  const chsRaw = ga4.channels_daily?.length
+    ? aggByPeriod(ga4.channels_daily, 'channel', cs, ce, ['sessions','transactions','revenue'])
+    : (ga4.channels||[]);
+  const chs = chsRaw.sort((a,b)=>b.revenue-a.revenue);
+  const totRev = chs.reduce((s,c)=>s+c.revenue,0) || 1;
+  const totAll = {
+    sessions:     chs.reduce((s,c)=>s+c.sessions,0),
+    transactions: chs.reduce((s,c)=>s+c.transactions,0),
+    revenue:      totRev,
+  };
   // Mapeamento de cor por grupo customizado
   const chColor=c=>{
     const n=(c.channel||'').toLowerCase();
@@ -1434,10 +1457,22 @@ function render(data,cs,ce,ps,pe){
     const prevRev = ga4PeriodPrev?.revenue;
     const prevTrans=ga4PeriodPrev?.transactions;
 
-    // Proporções organic/llm do período fixo (melhor estimativa disponível)
-    const totSt = st.sessions||1;
-    const orgRatio = (so?.sessions||0)/totSt;
-    const llmRatio = (sl?.sessions||0)/totSt;
+    // Proporções organic/llm do período filtrado
+    const srcsPeriod = ga4.sources_daily?.length
+      ? aggByPeriod(ga4.sources_daily, 'source', cs, ce, ['sessions','transactions','revenue'])
+      : (ga4.seo_by_source||[]);
+    srcsPeriod.forEach(s=>{ s.is_llm = LLM_SET.has(s.source); });
+
+    const stP  = {sessions:0,transactions:0,revenue:0};
+    const slP  = {sessions:0,transactions:0,revenue:0};
+    srcsPeriod.forEach(s=>{
+      stP.sessions+=s.sessions; stP.transactions+=s.transactions; stP.revenue+=s.revenue;
+      if(s.is_llm){slP.sessions+=s.sessions; slP.transactions+=s.transactions; slP.revenue+=s.revenue;}
+    });
+    const soP = {sessions:stP.sessions-slP.sessions,transactions:stP.transactions-slP.transactions,revenue:round2(stP.revenue-slP.revenue)};
+
+    const orgRatio = stP.sessions ? soP.sessions/stP.sessions : 0;
+    const llmRatio = stP.sessions ? slP.sessions/stP.sessions : 0;
 
     const delta=(cur,prv)=>prv&&prv>0?Math.round((cur-prv)/prv*1000)/10:null;
     const dEl=(d,sfx='')=>d!=null?`<span class="delta ${d>=0?'up':'dn'}" style="font-size:10px">${d>=0?'▲':'▼'}${Math.abs(d).toFixed(1).replace('.',',')}%${sfx}</span>`:'';
@@ -1459,25 +1494,41 @@ function render(data,cs,ce,ps,pe){
       </div>`;
 
     const sh=ga4.seo_share||{};
+    const seoSharePct = totAll.sessions ? Math.round(stP.sessions/totAll.sessions*1000)/10 : (sh.revenue_pct||0);
     setEl('seoVsLlm',
-      row('SEO Total',C.bp,curSess,curTrans,curRev,
-          delta(curSess,prevSess),delta(curTrans,prevTrans),delta(curRev,prevRev),
-          `${sh.revenue_pct||0}% da receita total`)+
+      row('SEO Total',C.bp, curSess, curTrans, curRev,
+          delta(curSess,prevSess), delta(curTrans,prevTrans), delta(curRev,prevRev),
+          `${seoSharePct}% das sessões totais`)+
       row('Orgânico tradicional',C.pos,
-          Math.round(curSess*orgRatio),Math.round(curTrans*orgRatio),round2(curRev*orgRatio),
-          delta(Math.round(curSess*orgRatio),prevSess?Math.round(prevSess*orgRatio):null),null,null,
+          Math.round(curSess*orgRatio), Math.round(curTrans*orgRatio), round2(curRev*orgRatio),
+          delta(Math.round(curSess*orgRatio), prevSess?Math.round(prevSess*orgRatio):null), null, null,
           'Google, Bing, DDG...')+
       row('LLMs',C.inf,
-          Math.round(curSess*llmRatio),Math.round(curTrans*llmRatio),round2(curRev*llmRatio),
-          delta(Math.round(curSess*llmRatio),prevSess?Math.round(prevSess*llmRatio):null),null,null,
+          Math.round(curSess*llmRatio), Math.round(curTrans*llmRatio), round2(curRev*llmRatio),
+          delta(Math.round(curSess*llmRatio), prevSess?Math.round(prevSess*llmRatio):null), null, null,
           'ChatGPT, Gemini, Perplexity...')
     );
   }
 
-  // ── Top origens SEO ──
-  const srcs=ga4.seo_by_source||[];
+  // ── Top origens SEO — filtradas pelo período ──
+  const LLM_SET = new Set([
+    'chatgpt.com / referral','chatgpt.com / (not set)','chatgpt.com / (none)',
+    'chat.openai.com / referral','gemini.google.com / referral','aistudio.google.com / referral',
+    'copilot.microsoft.com / referral','copilot.com / referral','copilot.com / (not set)','copilot.ai / referral',
+    'perplexity.ai / referral','perplexity / (not set)','perplexity.ai / (not set)',
+    'claude.ai / referral','claude.com / referral','l.meta.ai / referral','l.meta.ai / (not set)',
+    'poe.com / referral','you.com / referral','phind.com / referral','grok.com / referral',
+    'grok.x.ai / referral','chat.mistral.ai / referral','mistral.ai / referral',
+    'character.ai / referral','heypi.com / referral','manus.im / referral',
+  ]);
+  const srcsFiltered = ga4.sources_daily?.length
+    ? aggByPeriod(ga4.sources_daily, 'source', cs, ce, ['sessions','transactions','revenue'])
+    : (ga4.seo_by_source||[]);
+  srcsFiltered.forEach(s=>{ s.is_llm = LLM_SET.has(s.source); });
+  const srcs = srcsFiltered.sort((a,b)=>b.revenue-a.revenue);
+
   if(srcs.length){
-    setEl('seoSources',srcs.slice(0,10).map(s=>`
+    setEl('seoSources', srcs.slice(0,10).map(s=>`
       <tr>
         <td style="font-size:11px;font-weight:500">
           ${s.is_llm?'<span class="badge inf" style="margin-right:4px">LLM</span>':''}${s.source}
@@ -1487,6 +1538,12 @@ function render(data,cs,ce,ps,pe){
         <td class="r">${fmtR(s.revenue)}</td>
       </tr>`).join(''));
   }
+
+  // ── Top rotas — filtradas pelo período ──
+  const routesFiltered = ga4.routes_daily?.length
+    ? aggByPeriod(ga4.routes_daily, 'path', cs, ce, ['sessions','revenue'])
+    : (ga4.top_routes||[]);
+  const routes = routesFiltered.sort((a,b)=>b.sessions-a.sessions).slice(0,10);
 
   // ── Top rotas ──
   // Parsear URL /onibus/origem-uf/destino-uf → ORIGEM - UF <> DESTINO - UF
@@ -1504,7 +1561,6 @@ function render(data,cs,ce,ps,pe){
     };
     return fmt(m[1])+' <> '+fmt(m[2]);
   }
-  const routes=ga4.top_routes||[];
   if(routes.length){
     // Deduplica por rota parseada
     const seen=new Set();
