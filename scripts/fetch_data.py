@@ -367,28 +367,21 @@ def fetch_ga4_api():
     seo_by_source = sorted(src_agg.values(), key=lambda x: x["revenue"], reverse=True)
     seo_organic_total = {k: seo_total_all[k]-seo_llm_total[k] for k in seo_total_all}
 
-    # ── Rotas /onibus/ — dados diários para filtro dinâmico ──
-    r5_daily = client.run_report(RunReportRequest(
+    # ── Ecommerce por item (rotas) — dados diários ──
+    r_items = client.run_report(RunReportRequest(
         property=f"properties/{GA4_PROPERTY_ID}",
-        metrics=[Metric(name="sessions"), Metric(name="purchaseRevenue")],
-        dimensions=[Dimension(name="pagePath"), Dimension(name="date")],
+        metrics=[Metric(name="itemsPurchased"), Metric(name="itemRevenue")],
+        dimensions=[Dimension(name="itemName"), Dimension(name="date")],
         date_ranges=[DateRange(start_date=daily_start, end_date=p_end)],
-        dimension_filter=FilterExpression(
-            filter=Filter(
-                field_name="pagePath",
-                string_filter=Filter.StringFilter(
-                    match_type=Filter.StringFilter.MatchType.BEGINS_WITH,
-                    value="/onibus/"
-                )
-            )
-        ),
-        limit=5000,  # top ~56 rotas × 90 dias
+        limit=5000,
     ))
     routes_daily = [
         {"date": row.dimension_values[1].value,
          "path": row.dimension_values[0].value,
-         "sessions": int(mv(row,0)), "revenue": round(mv(row,1),2)}
-        for row in r5_daily.rows
+         "sessions": int(mv(row,0)),   # sessions = qty (bilhetes)
+         "revenue": round(mv(row,1),2)}
+        for row in r_items.rows
+        if row.dimension_values[0].value  # ignora item sem nome
     ]
     # Agregado fixo para compatibilidade
     routes_agg = {}
@@ -396,7 +389,7 @@ def fetch_ga4_api():
         k = r["path"]
         if k not in routes_agg: routes_agg[k] = {"path":k,"sessions":0,"revenue":0.0}
         routes_agg[k]["sessions"]+=r["sessions"]; routes_agg[k]["revenue"]+=r["revenue"]
-    top_routes = sorted(routes_agg.values(), key=lambda x: x["sessions"], reverse=True)[:10]
+    top_routes = sorted(routes_agg.values(), key=lambda x: x["revenue"], reverse=True)[:10]
 
     output["ga4"] = {
         "source":            "api",
