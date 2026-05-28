@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-28T19:32:11.096474Z",
+    "generated_at": "2026-05-28T20:53:46.937874Z",
     "period_current": {
       "start": "2026-04-25",
       "end": "2026-05-24"
@@ -54325,9 +54325,7 @@
   "play": {
     "status": "pending_permission"
   },
-  "semrush": {
-    "_note": "domain_organic atualizado em 2026-05-01"
-  },
+  "semrush": {},
   "gtmetrix": {
     "pages": []
   },
