@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
 <title>SEO Command Center · Grupo Guanabara</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
@@ -213,10 +213,97 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
 .placeholder h3{font-size:22px;font-weight:700;color:var(--g7);margin-bottom:8px}
 .placeholder p{color:var(--g5);font-size:14px}
 
+/* ── TABLET (≤1100px) ── */
 @media(max-width:1100px){
   .bignumbers{grid-template-columns:repeat(3,1fr)}
-  .highlights{grid-template-columns:repeat(2,1fr)}
+  .highlights{grid-template-columns:repeat(3,1fr)}
+  .g3{grid-template-columns:1fr 1fr}
+  .g4{grid-template-columns:1fr 1fr}
+}
+
+/* ── MOBILE (≤768px) ── */
+@media(max-width:768px){
+  .wrap{padding:12px}
+
+  /* Topbar — stack brand + controles */
+  .topbar{flex-direction:column;align-items:flex-start;gap:12px;padding-bottom:14px}
+  .brand h1{font-size:22px}
+  .brand .sub{font-size:11px;display:none}
+  .brand .meta{font-size:10px;gap:4px}
+
+  /* Controles de período — stack e compactar */
+  .period-bar{flex-wrap:wrap;justify-content:flex-start !important;gap:4px}
+  .preset-btn{height:26px;padding:0 8px;font-size:10px}
+  .date-inp{height:30px;font-size:11px;padding:0 8px}
+  .dsep{font-size:11px}
+  .period-label{font-size:10px}
+  .lbl{font-size:11px}
+
+  /* Abas — scroll horizontal */
+  .tabs{overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;padding-bottom:0;
+        scrollbar-width:none;-ms-overflow-style:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex-shrink:0}
+
+  /* Grids — colapsar tudo para 1 coluna */
+  .bignumbers{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+  .highlights{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
   .g2,.g2l,.g2r,.g3,.g4{grid-template-columns:1fr}
+
+  /* Terceira linha Blog/Viva */
+  div[style*="grid-template-columns:1fr 1fr"][style*="gap:12px"]{
+    grid-template-columns:1fr !important
+  }
+
+  /* Seção heads */
+  .sec-head{flex-direction:column;align-items:flex-start;gap:2px}
+  .sec-title{font-size:13px}
+  .sec-meta{font-size:10px}
+
+  /* Cards */
+  .card{padding:14px 12px}
+  .card-head{flex-wrap:wrap;gap:4px;margin-bottom:10px}
+  .card-title{font-size:12px}
+  .card-more{font-size:10px}
+
+  /* Big number cards */
+  .bn{padding:12px 10px}
+  .num{font-size:22px !important}
+
+  /* Highlights */
+  .hl{padding:10px}
+  .hval{font-size:20px}
+
+  /* Tabelas — scroll horizontal */
+  table{width:100%;min-width:0}
+  .card>table,.card table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  th,td{padding:7px 8px 7px 0;font-size:10px;white-space:nowrap}
+  th:first-child,td:first-child{white-space:normal;max-width:140px}
+
+  /* Gráficos */
+  canvas{max-width:100% !important}
+
+  /* CWV grid */
+  .serp-grid{grid-template-columns:1fr 1fr}
+
+  /* Iniciativas */
+  .comprow{grid-template-columns:1fr;gap:4px}
+
+  /* Integrações */
+  .api-row{padding:6px 10px}
+  .api-name{font-size:11px}
+
+  /* Seção de projeções */
+  .sec-head + .g2{grid-template-columns:1fr}
+}
+
+/* ── SMALL MOBILE (≤480px) ── */
+@media(max-width:480px){
+  .bignumbers{grid-template-columns:1fr 1fr}
+  .highlights{grid-template-columns:1fr 1fr}
+  .brand h1{font-size:18px}
+  .num{font-size:18px !important}
+  .hval{font-size:16px}
 }
 </style>
 </head>
@@ -440,7 +527,7 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
       <!-- Top origens -->
       <div class="card">
         <div class="card-head"><div class="card-title">Top origens SEO<span class="chip">GA4</span></div><div class="card-more">por receita</div></div>
-        <table id="tblSeoSources"><thead><tr>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table id="tblSeoSources" style="min-width:400px"><thead><tr>
           <th onclick="sortTbl('tblSeoSources',0)" class="sortable">Origem</th>
           <th onclick="sortTbl('tblSeoSources',1)" class="sortable r">Sessões</th>
           <th onclick="sortTbl('tblSeoSources',2)" class="sortable r">Trans.</th>
@@ -482,7 +569,7 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
       <!-- Top rotas ecommerce -->
       <div class="card">
         <div class="card-head"><div class="card-title">Top rotas<span class="chip">GA4</span></div><div class="card-more">itens comprados · receita · ecommerce</div></div>
-        <table id="tblRoutes"><thead><tr>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table id="tblRoutes" style="min-width:400px"><thead><tr>
           <th onclick="sortTbl('tblRoutes',0)" class="sortable">Rota</th>
           <th onclick="sortTbl('tblRoutes',1)" class="sortable r">Itens comprados</th>
           <th onclick="sortTbl('tblRoutes',2)" class="sortable r">Receita</th>
@@ -515,7 +602,7 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
     <div class="g2 gap">
       <div class="card">
         <div class="card-head"><div class="card-title">Top Termos<span class="chip">GSC</span></div><div class="card-more">por cliques</div></div>
-        <table id="tblQueries"><thead><tr>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table id="tblQueries" style="min-width:400px"><thead><tr>
           <th onclick="sortTbl('tblQueries',0)" class="sortable">Termo</th>
           <th onclick="sortTbl('tblQueries',1)" class="sortable r">Cliques</th>
           <th onclick="sortTbl('tblQueries',2)" class="sortable r">Impr.</th>
@@ -525,7 +612,7 @@ td.path{font-size:12px;color:var(--g7);font-weight:500}
       </div>
       <div class="card">
         <div class="card-head"><div class="card-title">Top páginas<span class="chip">GSC</span></div><div class="card-more">por cliques</div></div>
-        <table id="tblPages"><thead><tr>
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table id="tblPages" style="min-width:400px"><thead><tr>
           <th onclick="sortTbl('tblPages',0)" class="sortable">Página</th>
           <th onclick="sortTbl('tblPages',1)" class="sortable r">Cliques</th>
           <th onclick="sortTbl('tblPages',2)" class="sortable r">Impressões</th>
