@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-29T18:20:30.830795Z",
+    "generated_at": "2026-05-30T11:59:24.476664Z",
     "period_current": {
       "start": "2026-04-25",
       "end": "2026-05-24"
@@ -39,7 +39,6 @@
     "ytd_start": "2026-01-01",
     "ytd_end_prev": "2025-05-24",
     "daily_sessions": [
-      7459,
       8603,
       8071,
       8257,
@@ -126,7 +125,6 @@
       7816
     ],
     "daily_dates": [
-      "20260301",
       "20260302",
       "20260303",
       "20260304",
@@ -213,7 +211,6 @@
       "20260524"
     ],
     "daily_new": [
-      1697,
       2128,
       2010,
       1958,
@@ -300,7 +297,6 @@
       1457
     ],
     "daily_trans": [
-      472,
       512,
       505,
       584,
@@ -387,7 +383,6 @@
       531
     ],
     "daily_revenue": [
-      68768.84,
       89147.06,
       91539.38,
       105652.67,
@@ -473,25 +468,25 @@
       62488.16,
       79052.59
     ],
-    "daily_start": "2026-03-01",
+    "daily_start": "2026-03-02",
     "channels": [
       {
         "channel": "Paid Search",
-        "sessions": 1981563,
-        "transactions": 177982,
-        "revenue": 29892689.119999994
+        "sessions": 1957819,
+        "transactions": 175779,
+        "revenue": 29548124.579999994
       },
       {
         "channel": "Direct",
-        "sessions": 534372,
-        "transactions": 103611,
-        "revenue": 16432921.310000008
+        "sessions": 529895,
+        "transactions": 102745,
+        "revenue": 16311426.480000008
       },
       {
         "channel": "Organic Search",
-        "sessions": 799212,
-        "transactions": 61690,
-        "revenue": 10438524.58
+        "sessions": 791727,
+        "transactions": 61215,
+        "revenue": 10369444.78
       },
       {
         "channel": "Paid",
@@ -501,21 +496,21 @@
       },
       {
         "channel": "Unassigned",
-        "sessions": 89138,
-        "transactions": 14200,
-        "revenue": 2818255.9999999995
+        "sessions": 88946,
+        "transactions": 14185,
+        "revenue": 2815335.3599999994
       },
       {
         "channel": "Organic Social",
-        "sessions": 60136,
-        "transactions": 15246,
-        "revenue": 2294879.5799999996
+        "sessions": 59445,
+        "transactions": 15057,
+        "revenue": 2270699.26
       },
       {
         "channel": "Cross-network",
-        "sessions": 235171,
-        "transactions": 12509,
-        "revenue": 2258150.2499999995
+        "sessions": 231411,
+        "transactions": 12359,
+        "revenue": 2230638.5099999993
       },
       {
         "channel": "Orgânico",
@@ -525,9 +520,9 @@
       },
       {
         "channel": "Mobile Push Notifications",
-        "sessions": 174315,
-        "transactions": 3317,
-        "revenue": 551802.2699999999
+        "sessions": 173600,
+        "transactions": 3293,
+        "revenue": 547741.6299999999
       },
       {
         "channel": "CRM",
@@ -537,9 +532,9 @@
       },
       {
         "channel": "Referral",
-        "sessions": 18696,
-        "transactions": 1361,
-        "revenue": 302853.51000000007
+        "sessions": 18578,
+        "transactions": 1351,
+        "revenue": 300695.7200000001
       },
       {
         "channel": "Social Orgânico",
@@ -549,9 +544,9 @@
       },
       {
         "channel": "Email",
-        "sessions": 4797,
-        "transactions": 201,
-        "revenue": 34204.49
+        "sessions": 4775,
+        "transactions": 197,
+        "revenue": 33889.53999999999
       },
       {
         "channel": "Not set",
@@ -561,25 +556,25 @@
       },
       {
         "channel": "Paid Social",
-        "sessions": 3202,
-        "transactions": 85,
-        "revenue": 13837.559999999998
+        "sessions": 2956,
+        "transactions": 84,
+        "revenue": 13779.059999999998
       },
       {
         "channel": "Organic Video",
-        "sessions": 1692,
+        "sessions": 1669,
         "transactions": 84,
         "revenue": 8965.359999999999
       },
       {
         "channel": "Display",
-        "sessions": 706,
-        "transactions": 28,
+        "sessions": 704,
+        "transactions": 27,
         "revenue": 4865.66
       },
       {
         "channel": "Paid Video",
-        "sessions": 414,
+        "sessions": 382,
         "transactions": 31,
         "revenue": 4726.139999999999
       },
@@ -1045,13 +1040,6 @@
         "sessions": 23854,
         "transactions": 2322,
         "revenue": 331094.23
-      },
-      {
-        "date": "20260301",
-        "channel": "Paid Search",
-        "sessions": 23744,
-        "transactions": 2203,
-        "revenue": 344564.54
       },
       {
         "date": "20260328",
@@ -1873,13 +1861,6 @@
         "revenue": 260319.9
       },
       {
-        "date": "20260301",
-        "channel": "Organic Search",
-        "sessions": 7485,
-        "transactions": 475,
-        "revenue": 69079.8
-      },
-      {
         "date": "20260413",
         "channel": "Direct",
         "sessions": 7484,
@@ -2552,13 +2533,6 @@
         "revenue": 34067.03
       },
       {
-        "date": "20260301",
-        "channel": "Direct",
-        "sessions": 4477,
-        "transactions": 866,
-        "revenue": 121494.83
-      },
-      {
         "date": "20260304",
         "channel": "Cross-network",
         "sessions": 4335,
@@ -2627,13 +2601,6 @@
         "sessions": 3826,
         "transactions": 192,
         "revenue": 44222.98
-      },
-      {
-        "date": "20260301",
-        "channel": "Cross-network",
-        "sessions": 3760,
-        "transactions": 150,
-        "revenue": 27511.74
       },
       {
         "date": "20260423",
@@ -4309,13 +4276,6 @@
         "revenue": 23559.84
       },
       {
-        "date": "20260301",
-        "channel": "Mobile Push Notifications",
-        "sessions": 715,
-        "transactions": 24,
-        "revenue": 4060.64
-      },
-      {
         "date": "20260412",
         "channel": "Unassigned",
         "sessions": 711,
@@ -4328,13 +4288,6 @@
         "sessions": 709,
         "transactions": 65,
         "revenue": 12417.12
-      },
-      {
-        "date": "20260301",
-        "channel": "Organic Social",
-        "sessions": 691,
-        "transactions": 189,
-        "revenue": 24180.32
       },
       {
         "date": "20260403",
@@ -4862,13 +4815,6 @@
         "revenue": 4095.81
       },
       {
-        "date": "20260301",
-        "channel": "Paid Social",
-        "sessions": 246,
-        "transactions": 1,
-        "revenue": 58.5
-      },
-      {
         "date": "20260417",
         "channel": "Organic Video",
         "sessions": 243,
@@ -5091,13 +5037,6 @@
         "sessions": 192,
         "transactions": 15,
         "revenue": 2311.16
-      },
-      {
-        "date": "20260301",
-        "channel": "Unassigned",
-        "sessions": 192,
-        "transactions": 15,
-        "revenue": 2920.64
       },
       {
         "date": "20260320",
@@ -5476,13 +5415,6 @@
         "sessions": 120,
         "transactions": 8,
         "revenue": 787.97
-      },
-      {
-        "date": "20260301",
-        "channel": "Referral",
-        "sessions": 118,
-        "transactions": 10,
-        "revenue": 2157.79
       },
       {
         "date": "20260325",
@@ -5912,13 +5844,6 @@
         "revenue": 956.61
       },
       {
-        "date": "20260301",
-        "channel": "Paid Video",
-        "sessions": 32,
-        "transactions": 0,
-        "revenue": 0.0
-      },
-      {
         "date": "20260302",
         "channel": "Paid Video",
         "sessions": 32,
@@ -6066,25 +5991,11 @@
         "revenue": 198.66
       },
       {
-        "date": "20260301",
-        "channel": "Organic Video",
-        "sessions": 23,
-        "transactions": 0,
-        "revenue": 0.0
-      },
-      {
         "date": "20260308",
         "channel": "Paid Video",
         "sessions": 23,
         "transactions": 1,
         "revenue": 50.98
-      },
-      {
-        "date": "20260301",
-        "channel": "Email",
-        "sessions": 22,
-        "transactions": 4,
-        "revenue": 314.95
       },
       {
         "date": "20260313",
@@ -7095,13 +7006,6 @@
         "revenue": 0.0
       },
       {
-        "date": "20260301",
-        "channel": "Display",
-        "sessions": 2,
-        "transactions": 1,
-        "revenue": 0.0
-      },
-      {
         "date": "20260302",
         "channel": "Display",
         "sessions": 2,
@@ -7635,80 +7539,80 @@
       }
     ],
     "total_all": {
-      "sessions": 4383188,
-      "transactions": 427969,
-      "revenue": 71064156.05999999
+      "sessions": 4341681,
+      "transactions": 424031,
+      "revenue": 70467812.31
     },
     "seo_total": {
-      "sessions": 882048,
-      "transactions": 66883,
-      "revenue": 11227471.569999998
+      "sessions": 874611,
+      "transactions": 66411,
+      "revenue": 11158702.729999999
     },
     "seo_organic": {
-      "sessions": 880341,
-      "transactions": 66751,
-      "revenue": 11189561.29
+      "sessions": 872910,
+      "transactions": 66279,
+      "revenue": 11120792.45
     },
     "seo_llm": {
-      "sessions": 1707,
+      "sessions": 1701,
       "transactions": 132,
       "revenue": 37910.27999999999
     },
     "seo_by_source": [
       {
         "source": "google / organic",
-        "sessions": 851527,
-        "transactions": 62627,
-        "revenue": 10368796.240000002,
+        "sessions": 844172,
+        "transactions": 62164,
+        "revenue": 10303877.180000002,
         "is_llm": false
       },
       {
         "source": "bing / organic",
-        "sessions": 27598,
-        "transactions": 3973,
-        "revenue": 786041.1900000005,
+        "sessions": 27530,
+        "transactions": 3966,
+        "revenue": 783053.2600000005,
         "is_llm": false
       },
       {
         "source": "duckduckgo / organic",
-        "sessions": 677,
-        "transactions": 84,
-        "revenue": 17846.459999999995,
+        "sessions": 672,
+        "transactions": 83,
+        "revenue": 17682.769999999997,
         "is_llm": false
       },
       {
         "source": "chatgpt.com / referral",
-        "sessions": 749,
+        "sessions": 748,
         "transactions": 65,
         "revenue": 17290.930000000004,
         "is_llm": true
       },
       {
         "source": "chatgpt.com / (not set)",
-        "sessions": 670,
+        "sessions": 666,
         "transactions": 40,
         "revenue": 10765.519999999999,
         "is_llm": true
       },
       {
         "source": "ecosia.org / organic",
-        "sessions": 364,
+        "sessions": 362,
         "transactions": 42,
         "revenue": 10339.760000000002,
         "is_llm": false
       },
       {
         "source": "gemini.google.com / referral",
-        "sessions": 255,
+        "sessions": 254,
         "transactions": 27,
         "revenue": 9853.830000000002,
         "is_llm": true
       },
       {
         "source": "yahoo / organic",
-        "sessions": 151,
-        "transactions": 24,
-        "revenue": 5918.749999999999,
+        "sessions": 150,
+        "transactions": 23,
+        "revenue": 5220.589999999999,
         "is_llm": false
       },
       {
@@ -8397,14 +8301,6 @@
         "sessions": 7477,
         "transactions": 535,
         "revenue": 90432.78,
-        "is_llm": false
-      },
-      {
-        "date": "20260301",
-        "source": "google / organic",
-        "sessions": 7355,
-        "transactions": 463,
-        "revenue": 64919.06,
         "is_llm": false
       },
       {
@@ -9117,14 +9013,6 @@
         "sessions": 69,
         "transactions": 19,
         "revenue": 4428.56,
-        "is_llm": false
-      },
-      {
-        "date": "20260301",
-        "source": "bing / organic",
-        "sessions": 68,
-        "transactions": 7,
-        "revenue": 2987.93,
         "is_llm": false
       },
       {
@@ -10552,14 +10440,6 @@
         "is_llm": true
       },
       {
-        "date": "20260301",
-        "source": "duckduckgo / organic",
-        "sessions": 5,
-        "transactions": 1,
-        "revenue": 163.69,
-        "is_llm": false
-      },
-      {
         "date": "20260316",
         "source": "duckduckgo / organic",
         "sessions": 5,
@@ -10814,14 +10694,6 @@
         "transactions": 0,
         "revenue": 0.0,
         "is_llm": false
-      },
-      {
-        "date": "20260301",
-        "source": "chatgpt.com / (not set)",
-        "sessions": 4,
-        "transactions": 0,
-        "revenue": 0.0,
-        "is_llm": true
       },
       {
         "date": "20260307",
@@ -11960,14 +11832,6 @@
         "is_llm": false
       },
       {
-        "date": "20260301",
-        "source": "ecosia.org / organic",
-        "sessions": 2,
-        "transactions": 0,
-        "revenue": 0.0,
-        "is_llm": false
-      },
-      {
         "date": "20260315",
         "source": "ecosia.org / organic",
         "sessions": 2,
@@ -12392,14 +12256,6 @@
         "is_llm": true
       },
       {
-        "date": "20260301",
-        "source": "chatgpt.com / referral",
-        "sessions": 1,
-        "transactions": 0,
-        "revenue": 0.0,
-        "is_llm": true
-      },
-      {
         "date": "20260310",
         "source": "chatgpt.com / referral",
         "sessions": 1,
@@ -12704,14 +12560,6 @@
         "is_llm": false
       },
       {
-        "date": "20260301",
-        "source": "gemini.google.com / referral",
-        "sessions": 1,
-        "transactions": 0,
-        "revenue": 0.0,
-        "is_llm": true
-      },
-      {
         "date": "20260305",
         "source": "gemini.google.com / referral",
         "sessions": 1,
@@ -12909,14 +12757,6 @@
         "sessions": 1,
         "transactions": 0,
         "revenue": 0.0,
-        "is_llm": false
-      },
-      {
-        "date": "20260301",
-        "source": "yahoo / organic",
-        "sessions": 1,
-        "transactions": 1,
-        "revenue": 698.16,
         "is_llm": false
       },
       {
@@ -14872,12 +14712,6 @@
         "path": "TERESINA - PI <> FORTALEZA - CE",
         "sessions": 75,
         "revenue": 12646.16
-      },
-      {
-        "date": "20260301",
-        "path": "FORTALEZA - CE<>SOBRAL - CE",
-        "sessions": 74,
-        "revenue": 0.0
       },
       {
         "date": "20260310",
@@ -17988,12 +17822,6 @@
         "revenue": 5533.06
       },
       {
-        "date": "20260301",
-        "path": "SHOPPING INDEPENDENCIA - MG (term adicional de JUIZ DE FORA)<>RIO DE JANEIRO - RJ",
-        "sessions": 50,
-        "revenue": 0.0
-      },
-      {
         "date": "20260402",
         "path": "SOBRAL - CE<>FORTALEZA - CE",
         "sessions": 50,
@@ -18530,12 +18358,6 @@
       {
         "date": "20260406",
         "path": "RIO DE JANEIRO - RJ<>JUIZ DE FORA - MG",
-        "sessions": 48,
-        "revenue": 0.0
-      },
-      {
-        "date": "20260301",
-        "path": "RIO DE JANEIRO - RJ<>SHOPPING INDEPENDENCIA - MG (term adicional de JUIZ DE FORA)",
         "sessions": 48,
         "revenue": 0.0
       },
@@ -19330,12 +19152,6 @@
         "path": "SOBRAL - CE <> FORTALEZA (TA ANTONIO BEZERRA) - CE",
         "sessions": 45,
         "revenue": 3153.06
-      },
-      {
-        "date": "20260301",
-        "path": "SOBRAL - CE<>FORTALEZA - CE",
-        "sessions": 45,
-        "revenue": 0.0
       },
       {
         "date": "20260507",
@@ -21390,12 +21206,6 @@
         "revenue": 3384.73
       },
       {
-        "date": "20260301",
-        "path": "RIO DE JANEIRO - RJ<>JUIZ DE FORA - MG",
-        "sessions": 39,
-        "revenue": 0.0
-      },
-      {
         "date": "20260428",
         "path": "SALVADOR - BA <> RECIFE - PE",
         "sessions": 39,
@@ -22512,12 +22322,6 @@
         "revenue": 5413.09
       },
       {
-        "date": "20260301",
-        "path": "NATAL - RN<>FORTALEZA - CE",
-        "sessions": 36,
-        "revenue": 0.0
-      },
-      {
         "date": "20260314",
         "path": "NATAL - RN<>FORTALEZA - CE",
         "sessions": 36,
@@ -22826,12 +22630,6 @@
       {
         "date": "20260308",
         "path": "FORTALEZA - CE<>NATAL - RN",
-        "sessions": 35,
-        "revenue": 0.0
-      },
-      {
-        "date": "20260301",
-        "path": "FORTALEZA - CE<>QUIXADA - CE",
         "sessions": 35,
         "revenue": 0.0
       },
@@ -23626,12 +23424,6 @@
         "path": "TERESINA - PI <> SAO LUIS - MA",
         "sessions": 34,
         "revenue": 3978.48
-      },
-      {
-        "date": "20260301",
-        "path": "TERESINA - PI<>PARNAIBA - PI",
-        "sessions": 34,
-        "revenue": 0.0
       },
       {
         "date": "20260307",
@@ -24616,12 +24408,6 @@
         "path": "RIO DE JANEIRO - RJ <> VALENCA - RJ",
         "sessions": 32,
         "revenue": 2089.06
-      },
-      {
-        "date": "20260301",
-        "path": "RIO DE JANEIRO - RJ<>BELO HORIZONTE - MG",
-        "sessions": 32,
-        "revenue": 0.0
       },
       {
         "date": "20260327",
@@ -25924,12 +25710,6 @@
         "path": "JUIZ DE FORA - MG <> RIO DE JANEIRO - RJ",
         "sessions": 30,
         "revenue": 1724.25
-      },
-      {
-        "date": "20260301",
-        "path": "JUIZ DE FORA - MG<>RIO DE JANEIRO - RJ",
-        "sessions": 30,
-        "revenue": 0.0
       },
       {
         "date": "20260410",
@@ -28326,12 +28106,6 @@
         "revenue": 0.0
       },
       {
-        "date": "20260301",
-        "path": "FORTALEZA - CE<>QUIXERAMOBIM - CE",
-        "sessions": 27,
-        "revenue": 0.0
-      },
-      {
         "date": "20260405",
         "path": "FORTALEZA - CE<>QUIXERAMOBIM - CE",
         "sessions": 27,
@@ -29204,12 +28978,6 @@
       {
         "date": "20260408",
         "path": "FORTALEZA - CE<>JUAZEIRO DO NORTE - CE",
-        "sessions": 26,
-        "revenue": 0.0
-      },
-      {
-        "date": "20260301",
-        "path": "FORTALEZA - CE<>NATAL - RN",
         "sessions": 26,
         "revenue": 0.0
       },
@@ -32166,12 +31934,6 @@
         "revenue": 2646.66
       },
       {
-        "date": "20260301",
-        "path": "SAO JOSE DOS CAMPOS - SP<>RIO DE JANEIRO - RJ",
-        "sessions": 24,
-        "revenue": 0.0
-      },
-      {
         "date": "20260323",
         "path": "SAO JOSE DOS CAMPOS - SP<>RIO DE JANEIRO - RJ",
         "sessions": 24,
@@ -32910,12 +32672,6 @@
         "revenue": 4965.95
       },
       {
-        "date": "20260301",
-        "path": "JUAZEIRO DO NORTE - CE<>FORTALEZA - CE",
-        "sessions": 23,
-        "revenue": 0.0
-      },
-      {
         "date": "20260408",
         "path": "JUAZEIRO DO NORTE - CE<>FORTALEZA - CE",
         "sessions": 23,
@@ -33004,12 +32760,6 @@
         "path": "PARNAIBA - PI <> TERESINA - PI",
         "sessions": 23,
         "revenue": 2369.5
-      },
-      {
-        "date": "20260301",
-        "path": "PARNAIBA - PI<>TERESINA - PI",
-        "sessions": 23,
-        "revenue": 0.0
       },
       {
         "date": "20260501",
@@ -35772,12 +35522,6 @@
         "revenue": 0.0
       },
       {
-        "date": "20260301",
-        "path": "RECIFE - PE<>SALVADOR - BA",
-        "sessions": 21,
-        "revenue": 0.0
-      },
-      {
         "date": "20260305",
         "path": "RECIFE - PE<>SALVADOR - BA",
         "sessions": 21,
@@ -36258,12 +36002,6 @@
         "revenue": 0.0
       },
       {
-        "date": "20260301",
-        "path": "TERESINA - PI<>SAO LUIS - MA",
-        "sessions": 21,
-        "revenue": 0.0
-      },
-      {
         "date": "20260305",
         "path": "TERESINA - PI<>SAO LUIS - MA",
         "sessions": 21,
@@ -36484,12 +36222,6 @@
         "path": "BELO HORIZONTE - MG <> Rio de Janeiro (Barra da Tijuca - Via Parque)",
         "sessions": 20,
         "revenue": 1249.95
-      },
-      {
-        "date": "20260301",
-        "path": "BELO HORIZONTE - MG<>RIO DE JANEIRO - RJ",
-        "sessions": 20,
-        "revenue": 0.0
       },
       {
         "date": "20260330",
@@ -36828,12 +36560,6 @@
         "revenue": 1680.72
       },
       {
-        "date": "20260301",
-        "path": "FORTALEZA - CE<>IGUATU - CE",
-        "sessions": 20,
-        "revenue": 0.0
-      },
-      {
         "date": "20260303",
         "path": "FORTALEZA - CE<>IGUATU - CE",
         "sessions": 20,
@@ -36978,12 +36704,6 @@
         "revenue": 0.0
       },
       {
-        "date": "20260301",
-        "path": "IGUATU - CE<>JUAZEIRO DO NORTE - CE",
-        "sessions": 20,
-        "revenue": 0.0
-      },
-      {
         "date": "20260329",
         "path": "IGUATU - CE<>JUAZEIRO DO NORTE - CE",
         "sessions": 20,
@@ -37066,12 +36786,6 @@
         "path": "JOAO PESSOA - PB <> SOUSA - PB",
         "sessions": 20,
         "revenue": 2048.93
-      },
-      {
-        "date": "20260301",
-        "path": "JOAO PESSOA - PB<>FORTALEZA - CE",
-        "sessions": 20,
-        "revenue": 0.0
       },
       {
         "date": "20260303",
@@ -37554,12 +37268,6 @@
         "revenue": 0.0
       },
       {
-        "date": "20260301",
-        "path": "RIO DE JANEIRO - RJ<>VALENCA - RJ",
-        "sessions": 20,
-        "revenue": 0.0
-      },
-      {
         "date": "20260305",
         "path": "RIO DE JANEIRO - RJ<>VALENCA - RJ",
         "sessions": 20,
@@ -37722,12 +37430,6 @@
         "revenue": 5060.86
       },
       {
-        "date": "20260301",
-        "path": "SAO LUIS - MA<>TERESINA - PI",
-        "sessions": 20,
-        "revenue": 0.0
-      },
-      {
         "date": "20260505",
         "path": "SAO PAULO - SP <> CALDAS NOVAS - GO",
         "sessions": 20,
@@ -37790,12 +37492,6 @@
       {
         "date": "20260404",
         "path": "SOBRAL - CE<>FORTALEZA (TA ANTONIO BEZERRA) - CE",
-        "sessions": 20,
-        "revenue": 0.0
-      },
-      {
-        "date": "20260301",
-        "path": "SOBRAL - CE<>TIANGUA - CE",
         "sessions": 20,
         "revenue": 0.0
       },
@@ -38550,12 +38246,6 @@
         "revenue": 0.0
       },
       {
-        "date": "20260301",
-        "path": "FORTALEZA - CE<>ITAPIPOCA - CE",
-        "sessions": 19,
-        "revenue": 0.0
-      },
-      {
         "date": "20260410",
         "path": "FORTALEZA - CE<>ITAPIPOCA - CE",
         "sessions": 19,
@@ -38952,12 +38642,6 @@
         "revenue": 0.0
       },
       {
-        "date": "20260301",
-        "path": "JUAZEIRO DO NORTE - CE<>IGUATU - CE",
-        "sessions": 19,
-        "revenue": 0.0
-      },
-      {
         "date": "20260304",
         "path": "JUAZEIRO DO NORTE - CE<>IGUATU - CE",
         "sessions": 19,
@@ -39102,12 +38786,6 @@
         "revenue": 212.65
       },
       {
-        "date": "20260301",
-        "path": "QUIXADA - CE<>FORTALEZA - CE",
-        "sessions": 19,
-        "revenue": 0.0
-      },
-      {
         "date": "20260315",
         "path": "QUIXADA - CE<>FORTALEZA - CE",
         "sessions": 19,
@@ -39130,12 +38808,6 @@
         "path": "QUIXERAMOBIM - CE <> QUIXADA - CE",
         "sessions": 19,
         "revenue": 200.2
-      },
-      {
-        "date": "20260301",
-        "path": "QUIXERAMOBIM - CE<>FORTALEZA - CE",
-        "sessions": 19,
-        "revenue": 0.0
       },
       {
         "date": "20260411",
@@ -40044,12 +39716,6 @@
         "revenue": 637.45
       },
       {
-        "date": "20260301",
-        "path": "VOLTA REDONDA - RJ<>VALENCA - RJ",
-        "sessions": 19,
-        "revenue": 0.0
-      },
-      {
         "date": "20260308",
         "path": "VOLTA REDONDA - RJ<>VALENCA - RJ",
         "sessions": 19,
@@ -40212,12 +39878,6 @@
         "revenue": 3901.04
       },
       {
-        "date": "20260301",
-        "path": "BRASILIA - DF<>GOIANIA - GO",
-        "sessions": 18,
-        "revenue": 0.0
-      },
-      {
         "date": "20260308",
         "path": "BRASILIA - DF<>GOIANIA - GO",
         "sessions": 18,
@@ -40276,12 +39936,6 @@
         "path": "CAJAZEIRAS - PB <> JOAO PESSOA - PB",
         "sessions": 18,
         "revenue": 2179.93
-      },
-      {
-        "date": "20260301",
-        "path": "CAJAZEIRAS - PB<>JOAO PESSOA - PB",
-        "sessions": 18,
-        "revenue": 0.0
       },
       {
         "date": "20260303",
@@ -40818,12 +40472,6 @@
         "revenue": 0.0
       },
       {
-        "date": "20260301",
-        "path": "ITAPIPOCA - CE<>FORTALEZA - CE",
-        "sessions": 18,
-        "revenue": 0.0
-      },
-      {
         "date": "20260307",
         "path": "ITAPIPOCA - CE<>FORTALEZA - CE",
         "sessions": 18,
@@ -41304,12 +40952,6 @@
         "revenue": 3083.68
       },
       {
-        "date": "20260301",
-        "path": "RECIFE - PE<>FORTALEZA - CE",
-        "sessions": 18,
-        "revenue": 0.0
-      },
-      {
         "date": "20260308",
         "path": "RECIFE - PE<>FORTALEZA - CE",
         "sessions": 18,
@@ -41558,12 +41200,6 @@
       {
         "date": "20260415",
         "path": "RIO DE JANEIRO - RJ<>SAO JOSE DOS CAMPOS - SP",
-        "sessions": 18,
-        "revenue": 0.0
-      },
-      {
-        "date": "20260301",
-        "path": "RIO DE JANEIRO - RJ<>TAUBATE - SP",
         "sessions": 18,
         "revenue": 0.0
       },
@@ -42062,12 +41698,6 @@
       {
         "date": "20260312",
         "path": "VALENCA - RJ<>RIO DE JANEIRO - RJ",
-        "sessions": 18,
-        "revenue": 0.0
-      },
-      {
-        "date": "20260301",
-        "path": "VALENCA - RJ<>VOLTA REDONDA - RJ",
         "sessions": 18,
         "revenue": 0.0
       },
@@ -42882,12 +42512,6 @@
         "revenue": 0.0
       },
       {
-        "date": "20260301",
-        "path": "FORTALEZA - CE<>RECIFE - PE",
-        "sessions": 17,
-        "revenue": 0.0
-      },
-      {
         "date": "20260328",
         "path": "FORTALEZA - CE<>RECIFE - PE",
         "sessions": 17,
@@ -43214,6 +42838,222 @@
       {
         "date": "20260321",
         "path": "JOAO PESSOA - PB<>FORTALEZA - CE",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260324",
+        "path": "JOAO PESSOA - PB<>FORTALEZA - CE",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260309",
+        "path": "JOAO PESSOA - PB<>POMBAL - PB",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260330",
+        "path": "JOAO PESSOA - PB<>POMBAL - PB",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260504",
+        "path": "JUAZEIRO DO NORTE - CE <> FORTALEZA (TA MESSEJANA) - CE",
+        "sessions": 17,
+        "revenue": 3201.55
+      },
+      {
+        "date": "20260414",
+        "path": "JUAZEIRO DO NORTE - CE <> FORTALEZA - CE",
+        "sessions": 17,
+        "revenue": 2720.9
+      },
+      {
+        "date": "20260415",
+        "path": "JUAZEIRO DO NORTE - CE <> IGUATU - CE",
+        "sessions": 17,
+        "revenue": 654.7
+      },
+      {
+        "date": "20260510",
+        "path": "JUAZEIRO DO NORTE - CE <> IGUATU - CE",
+        "sessions": 17,
+        "revenue": 658.8
+      },
+      {
+        "date": "20260501",
+        "path": "JUAZEIRO DO NORTE - CE <> VARZEA ALEGRE - CE",
+        "sessions": 17,
+        "revenue": 406.75
+      },
+      {
+        "date": "20260402",
+        "path": "JUAZEIRO DO NORTE - CE<>FARIAS BRITO - CE",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260312",
+        "path": "JUAZEIRO DO NORTE - CE<>FORTALEZA - CE",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260404",
+        "path": "JUAZEIRO DO NORTE - CE<>FORTALEZA - CE",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260307",
+        "path": "JUAZEIRO DO NORTE - CE<>IGUATU - CE",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260315",
+        "path": "JUAZEIRO DO NORTE - CE<>IGUATU - CE",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260320",
+        "path": "JUAZEIRO DO NORTE - CE<>IGUATU - CE",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260412",
+        "path": "JUAZEIRO DO NORTE - CE<>IGUATU - CE",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260406",
+        "path": "JUIZ DE FORA - MG <> RIO DE JANEIRO - RJ",
+        "sessions": 17,
+        "revenue": 929.5
+      },
+      {
+        "date": "20260407",
+        "path": "JUIZ DE FORA - MG <> RIO DE JANEIRO - RJ",
+        "sessions": 17,
+        "revenue": 952.29
+      },
+      {
+        "date": "20260410",
+        "path": "JUIZ DE FORA - MG <> RIO DE JANEIRO - RJ",
+        "sessions": 17,
+        "revenue": 987.91
+      },
+      {
+        "date": "20260316",
+        "path": "LAVRAS - MG<>SAO PAULO - SP",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260426",
+        "path": "LENCOIS - BA <> SALVADOR - BA",
+        "sessions": 17,
+        "revenue": 3083.84
+      },
+      {
+        "date": "20260524",
+        "path": "LUIS CORREIA - PI <> TERESINA - PI",
+        "sessions": 17,
+        "revenue": 1350.0
+      },
+      {
+        "date": "20260429",
+        "path": "MIGUEL PEREIRA - RJ <> RIO DE JANEIRO - RJ",
+        "sessions": 17,
+        "revenue": 805.51
+      },
+      {
+        "date": "20260503",
+        "path": "MIGUEL PEREIRA - RJ <> RIO DE JANEIRO - RJ",
+        "sessions": 17,
+        "revenue": 951.85
+      },
+      {
+        "date": "20260515",
+        "path": "MIGUEL PEREIRA - RJ <> RIO DE JANEIRO - RJ",
+        "sessions": 17,
+        "revenue": 961.19
+      },
+      {
+        "date": "20260305",
+        "path": "MIGUEL PEREIRA - RJ<>RIO DE JANEIRO - RJ",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260417",
+        "path": "MOSSORO - RN <> FORTALEZA - CE",
+        "sessions": 17,
+        "revenue": 1419.9
+      },
+      {
+        "date": "20260425",
+        "path": "MOSSORO - RN <> FORTALEZA - CE",
+        "sessions": 17,
+        "revenue": 1602.87
+      },
+      {
+        "date": "20260504",
+        "path": "MOSSORO - RN <> FORTALEZA - CE",
+        "sessions": 17,
+        "revenue": 1334.88
+      },
+      {
+        "date": "20260513",
+        "path": "MOSSORO - RN <> FORTALEZA - CE",
+        "sessions": 17,
+        "revenue": 1508.37
+      },
+      {
+        "date": "20260310",
+        "path": "MOSSORO - RN<>FORTALEZA - CE",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260324",
+        "path": "MOSSORO - RN<>FORTALEZA - CE",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260407",
+        "path": "MOSSORO - RN<>FORTALEZA - CE",
+        "sessions": 17,
+        "revenue": 0.0
+      },
+      {
+        "date": "20260415",
+        "path": "NATAL - RN <> FORTALEZA (TA MESSEJANA) - CE",
+        "sessions": 17,
+        "revenue": 2821.45
+      },
+      {
+        "date": "20260501",
+        "path": "NATAL - RN <> FORTALEZA (TA MESSEJANA) - CE",
+        "sessions": 17,
+        "revenue": 2224.97
+      },
+      {
+        "date": "20260521",
+        "path": "NATAL - RN <> FORTALEZA (TA MESSEJANA) - CE",
+        "sessions": 17,
+        "revenue": 1863.94
+      },
+      {
+        "date": "20260310",
+        "path": "NATAL - RN<>FORTALEZA (TA MESSEJANA) - CE",
         "sessions": 17,
         "revenue": 0.0
       }
